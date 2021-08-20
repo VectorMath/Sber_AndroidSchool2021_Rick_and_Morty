@@ -5,6 +5,15 @@ import androidx.annotation.Nullable;
 
 import com.google.gson.annotations.SerializedName;
 
+/**
+ * Подкласс, который является полем для класса-сущности {@link Character}.
+ * <p>
+ * Хранит в себе информацию о месте рождения персонажа.
+ * <p>
+ * [mName] - название локации.
+ * <p>
+ * [mUrl] - ссылка на локацию, информацию о которой хранит класс-сущность {@link Location}.
+ */
 public class Origin {
 
     @SerializedName("name")

@@ -7,6 +7,19 @@ import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
 
+/**
+ * Класс-сущность, который хранит информацию о локации в мульт-сериале "Рик и Морти".
+ * <p>
+ * [mId] - id локации.
+ * <p>
+ * [mName] - название локации.
+ * <p>
+ * [mType] - тип локации.
+ * <p>
+ * [mDimension] - измерение локации.
+ * <p>
+ * [mResidents] - список персонажей, которые находятся в локации.
+ */
 public class Location {
 
     @SerializedName("id")

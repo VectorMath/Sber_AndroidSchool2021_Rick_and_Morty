@@ -7,6 +7,30 @@ import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
 
+/**
+ * Класс-сущность, который хранит информацию о персонаже мульт-сериала "Рик и Морти".
+ * <p>
+ * [mId] - id персонажа.
+ * <p>
+ * [mName] - имя персонажа.
+ * <p>
+ * [mStatus] - статус персонажа(Жив, Мёртв, Неизвестно).
+ * <p>
+ * [mSpecies] - раса персонажа.
+ * <p>
+ * [mType] - отличительная черта персонажа.
+ * <p>
+ * [mGender] - гендер персонажа.
+ * <p>
+ * [mImage] - изображение персонажа.
+ * <p>
+ * [mOrigin] - место рождения персонажа. Реализовано через класс {@link Origin}
+ * <p>
+ * [mCurrentLocation] - текущее местоположение персонажа.
+ * Реализовано через класс {@link CurrentLocation}
+ * <p>
+ * [mEpisodes] - ссылка на эпизоды в которых персонаж появился.
+ */
 public class Character {
 
     @SerializedName("id")
