@@ -5,6 +5,8 @@ import androidx.annotation.Nullable;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.util.Objects;
+
 /**
  * Подкласс, который является полем у класса-сущности {@link Character}.
  * <p>
@@ -23,41 +25,26 @@ public class CurrentLocation {
     private String mUrl;
 
     @Override
-    public int hashCode() {
-        int result = getName() != null ? getName().hashCode() : 0;
-        result = 31 * result + (getUrl() != null ? getUrl().hashCode() : 0);
-        return result;
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        CurrentLocation that = (CurrentLocation) o;
+        return Objects.equals(mName, that.mName) &&
+                Objects.equals(mUrl, that.mUrl);
     }
 
     @Override
-    public boolean equals(@Nullable Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (!(obj instanceof CurrentLocation)) {
-            return false;
-        }
-
-        CurrentLocation that = (CurrentLocation) obj;
-
-        if (getName() != null
-                ? getName().equals(that.getName())
-                : that.getName() == null)
-            return false;
-
-        return getUrl() != null
-                ? getUrl().equals(that.getUrl())
-                : that.getUrl() == null;
+    public int hashCode() {
+        return Objects.hash(mName, mUrl);
     }
 
     @NonNull
     @Override
     public String toString() {
-        final StringBuilder sb = new StringBuilder("Current Location{");
-        sb.append("mName: ").append(mName).append('\'');
-        sb.append("mUrl: ").append(mUrl).append('\'');
-        sb.append('}');
-        return sb.toString();
+        return "CurrentLocation{" +
+                "mName='" + mName + '\'' +
+                ", mUrl='" + mUrl + '\'' +
+                '}';
     }
 
     public String getName() {

@@ -6,6 +6,7 @@ import androidx.annotation.Nullable;
 import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
+import java.util.Objects;
 
 /**
  * Класс-сущность, который хранит информацию о персонаже мульт-сериала "Рик и Морти".
@@ -63,89 +64,55 @@ public class Character {
     @SerializedName("episode")
     private List<String> mEpisodes;
 
+
     @Override
-    public int hashCode() {
-        int result = getName() != null ? getName().hashCode() : 0;
-        result = 31 * result + (getStatus() != null ? getStatus().hashCode() : 0);
-        result = 31 * result + (getGender() != null ? getGender().hashCode() : 0);
-        return result;
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Character character = (Character) o;
+        return mId == character.mId &&
+                Objects.equals(mName, character.mName) &&
+                Objects.equals(mStatus, character.mStatus) &&
+                Objects.equals(mSpecies, character.mSpecies) &&
+                Objects.equals(mType, character.mType) &&
+                Objects.equals(mGender, character.mGender) &&
+                Objects.equals(mImage, character.mImage) &&
+                Objects.equals(mOrigin, character.mOrigin) &&
+                Objects.equals(mCurrentLocation, character.mCurrentLocation) &&
+                Objects.equals(mEpisodes, character.mEpisodes);
     }
 
     @Override
-    public boolean equals(@Nullable Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (!(obj instanceof Character)) {
-            return false;
-        }
-
-        Character that = (Character) obj;
-
-        if (getName() != null
-                ? !getName().equals(that.getName())
-                : that.getName() != null)
-            return false;
-
-        if (getStatus() != null
-                ? !getStatus().equals(that.getStatus())
-                : that.getStatus() != null)
-            return false;
-
-        if (getSpecies() != null
-                ? !getSpecies().equals(that.getSpecies())
-                : that.getSpecies() != null)
-            return false;
-
-        if (getType() != null
-                ? !getType().equals(that.getType())
-                : that.getType() != null)
-            return false;
-
-        if (getGender() != null
-                ? !getGender().equals(that.getGender())
-                : that.getGender() != null)
-            return false;
-
-        if (getImage() != null
-                ? !getImage().equals(that.getImage())
-                : that.getImage() != null)
-            return false;
-
-        if (getOrigin() != null
-                ? !getOrigin().equals(that.getOrigin())
-                : that.getOrigin() != null)
-            return false;
-
-        if (getCurrentLocation() != null
-                ? !getCurrentLocation().equals(that.getCurrentLocation())
-                : that.getCurrentLocation() != null)
-            return false;
-
-        if (getEpisodes() != null
-                ? getEpisodes().equals(that.getEpisodes())
-                : that.getEpisodes() == null)
-            return false;
-
-        return getId() == that.getId();
+    public int hashCode() {
+        return Objects.hash(
+                mId,
+                mName,
+                mStatus,
+                mSpecies,
+                mType,
+                mGender,
+                mImage,
+                mOrigin,
+                mCurrentLocation,
+                mEpisodes
+        );
     }
 
     @NonNull
     @Override
     public String toString() {
-        final StringBuilder sb = new StringBuilder("Character{");
-        sb.append("mId: ").append(mId).append('\'');
-        sb.append("mName: ").append(mName).append('\'');
-        sb.append("mStatus: ").append(mStatus).append('\'');
-        sb.append("mSpecies: ").append(mSpecies).append('\'');
-        sb.append("mType: ").append(mType).append('\'');
-        sb.append("mGender: ").append(mGender).append('\'');
-        sb.append("mImage: ").append(mImage).append('\'');
-        sb.append("mOrigin: ").append(getOrigin().toString()).append('\'');
-        sb.append("mCurrentLocation: ").append(getCurrentLocation().toString()).append('\'');
-        sb.append("mEpisodes: ").append(getEpisodes().toString()).append('\'');
-        sb.append('}');
-        return sb.toString();
+        return "Character{" +
+                "mId=" + mId +
+                ", mName='" + mName + '\'' +
+                ", mStatus='" + mStatus + '\'' +
+                ", mSpecies='" + mSpecies + '\'' +
+                ", mType='" + mType + '\'' +
+                ", mGender='" + mGender + '\'' +
+                ", mImage='" + mImage + '\'' +
+                ", mOrigin=" + mOrigin +
+                ", mCurrentLocation=" + mCurrentLocation +
+                ", mEpisodes=" + mEpisodes +
+                '}';
     }
 
     public int getId() {

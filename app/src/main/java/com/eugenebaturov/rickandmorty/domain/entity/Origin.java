@@ -5,6 +5,8 @@ import androidx.annotation.Nullable;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.util.Objects;
+
 /**
  * Подкласс, который является полем для класса-сущности {@link Character}.
  * <p>
@@ -23,41 +25,25 @@ public class Origin {
     private String mUrl;
 
     @Override
-    public int hashCode() {
-        int result = getName() != null ? getName().hashCode() : 0;
-        result = 31 * result + (getUrl() != null ? getUrl().hashCode() : 0);
-        return result;
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Origin origin = (Origin) o;
+        return Objects.equals(mName, origin.mName) &&
+                Objects.equals(mUrl, origin.mUrl);
     }
 
     @Override
-    public boolean equals(@Nullable Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (!(obj instanceof Origin)) {
-            return false;
-        }
-
-        Origin that = (Origin) obj;
-
-        if (getName() != null
-                ? getName().equals(that.getName())
-                : that.getName() == null)
-            return false;
-
-        return getUrl() != null
-                ? getUrl().equals(that.getUrl())
-                : that.getUrl() == null;
+    public int hashCode() {
+        return Objects.hash(mName, mUrl);
     }
 
-    @NonNull
     @Override
     public String toString() {
-        final StringBuilder sb = new StringBuilder("Origin{");
-        sb.append("mName: ").append(mName).append('\'');
-        sb.append("mUrl: ").append(mUrl).append('\'');
-        sb.append('}');
-        return sb.toString();
+        return "Origin{" +
+                "mName='" + mName + '\'' +
+                ", mUrl='" + mUrl + '\'' +
+                '}';
     }
 
     public String getName() {

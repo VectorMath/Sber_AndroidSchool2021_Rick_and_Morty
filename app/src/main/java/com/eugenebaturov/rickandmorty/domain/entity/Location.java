@@ -6,6 +6,7 @@ import androidx.annotation.Nullable;
 import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
+import java.util.Objects;
 
 /**
  * Класс-сущность, который хранит информацию о локации в мульт-сериале "Рик и Морти".
@@ -38,59 +39,37 @@ public class Location {
     private List<String> mResidents;
 
     @Override
-    public int hashCode() {
-        int result = getName() != null ? getName().hashCode() : 0;
-        result = 31 * result + (getType() != null ? getType().hashCode() : 0);
-        result = 31 * result + (getDimension() != null ? getDimension().hashCode() : 0);
-        result = 31 * result + (getResidents() != null ? getResidents().hashCode() : 0);
-        return result;
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Location location = (Location) o;
+        return mId == location.mId &&
+                Objects.equals(mName, location.mName) &&
+                Objects.equals(mType, location.mType) &&
+                Objects.equals(mDimension, location.mDimension) &&
+                Objects.equals(mResidents, location.mResidents);
     }
 
     @Override
-    public boolean equals(@Nullable Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (!(obj instanceof Location)) {
-            return false;
-        }
-
-        Location that = (Location) obj;
-
-        if (getName() != null
-                ? getName().equals(that.getName())
-                : that.getName() == null)
-            return false;
-
-        if (getType() != null
-                ? getType().equals(that.getType())
-                : that.getType() == null)
-            return false;
-
-        if (getDimension() != null
-                ? getDimension().equals(that.getDimension())
-                : that.getDimension() == null)
-            return false;
-
-        if (getResidents() != null
-                ? getResidents().equals(that.getResidents())
-                : that.getResidents() == null)
-            return false;
-
-        return getId() == that.getId();
+    public int hashCode() {
+        return Objects.hash(
+                mId,
+                mName,
+                mType,
+                mDimension,
+                mResidents
+        );
     }
 
-    @NonNull
     @Override
     public String toString() {
-        final StringBuilder sb = new StringBuilder("Location{");
-        sb.append("mId: ").append(mId).append('\'');
-        sb.append("mName: ").append(mName).append('\'');
-        sb.append("mType: ").append(mType).append('\'');
-        sb.append("mDimension: ").append(mDimension).append('\'');
-        sb.append("mResidents: ").append(mResidents.toString()).append('\'');
-        sb.append('}');
-        return sb.toString();
+        return "Location{" +
+                "mId=" + mId +
+                ", mName='" + mName + '\'' +
+                ", mType='" + mType + '\'' +
+                ", mDimension='" + mDimension + '\'' +
+                ", mResidents=" + mResidents +
+                '}';
     }
 
     public int getId() {

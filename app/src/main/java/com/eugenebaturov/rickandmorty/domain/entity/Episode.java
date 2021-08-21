@@ -6,6 +6,7 @@ import androidx.annotation.Nullable;
 import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
+import java.util.Objects;
 
 /**
  * Класс-сущность, который хранит информацию об эпизоде мульт-сериала "Рик и Морти".
@@ -38,59 +39,38 @@ public class Episode {
     private List<String> mCharacters;
 
     @Override
-    public int hashCode() {
-        int result = getTitle() != null ? getTitle().hashCode() : 0;
-        result = 31 * result + (getAirDate() != null ? getAirDate().hashCode() : 0);
-        result = 31 * result + (getEpisodeNumber() != null ? getEpisodeNumber().hashCode() : 0);
-        result = 31 * result + (getCharacters() != null ? getCharacters().hashCode() : 0);
-        return result;
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Episode episode = (Episode) o;
+        return mId == episode.mId &&
+                Objects.equals(mTitle, episode.mTitle) &&
+                Objects.equals(mAirDate, episode.mAirDate) &&
+                Objects.equals(mEpisodeNumber, episode.mEpisodeNumber) &&
+                Objects.equals(mCharacters, episode.mCharacters);
     }
 
     @Override
-    public boolean equals(@Nullable Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (!(obj instanceof Episode)) {
-            return false;
-        }
-
-        Episode that = (Episode) obj;
-
-        if (getTitle() != null
-                ? getTitle().equals(that.getTitle())
-                : that.getTitle() == null)
-            return false;
-
-        if (getAirDate() != null
-                ? getAirDate().equals(that.getAirDate())
-                : that.getAirDate() == null)
-            return false;
-
-        if (getEpisodeNumber() != null
-                ? getEpisodeNumber().equals(that.getEpisodeNumber())
-                : that.getEpisodeNumber() == null)
-            return false;
-
-        if (getCharacters() != null
-                ? getCharacters().equals(that.getCharacters())
-                : that.getCharacters() == null)
-            return false;
-
-        return getId() == that.getId();
+    public int hashCode() {
+        return Objects.hash(
+                mId,
+                mTitle,
+                mAirDate,
+                mEpisodeNumber,
+                mCharacters
+        );
     }
 
     @NonNull
     @Override
     public String toString() {
-        final StringBuilder sb = new StringBuilder("Episode{");
-        sb.append("mId: ").append(mId).append('\'');
-        sb.append("mTitle: ").append(mTitle).append('\'');
-        sb.append("mAirDate: ").append(mAirDate).append('\'');
-        sb.append("mEpisodeNumber: ").append(mEpisodeNumber).append('\'');
-        sb.append("mCharacters: ").append(mCharacters.toString()).append('\'');
-        sb.append('}');
-        return sb.toString();
+        return "Episode{" +
+                "mId=" + mId +
+                ", mTitle='" + mTitle + '\'' +
+                ", mAirDate='" + mAirDate + '\'' +
+                ", mEpisodeNumber='" + mEpisodeNumber + '\'' +
+                ", mCharacters=" + mCharacters +
+                '}';
     }
 
     public int getId() {
