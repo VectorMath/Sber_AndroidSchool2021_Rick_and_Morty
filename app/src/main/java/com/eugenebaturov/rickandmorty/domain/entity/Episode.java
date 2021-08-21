@@ -39,18 +39,58 @@ public class Episode {
 
     @Override
     public int hashCode() {
-        return super.hashCode();
+        int result = getTitle() != null ? getTitle().hashCode() : 0;
+        result = 31 * result + (getAirDate() != null ? getAirDate().hashCode() : 0);
+        result = 31 * result + (getEpisodeNumber() != null ? getEpisodeNumber().hashCode() : 0);
+        result = 31 * result + (getCharacters() != null ? getCharacters().hashCode() : 0);
+        return result;
     }
 
     @Override
     public boolean equals(@Nullable Object obj) {
-        return super.equals(obj);
+        if (this == obj) {
+            return true;
+        }
+        if (!(obj instanceof Episode)) {
+            return false;
+        }
+
+        Episode that = (Episode) obj;
+
+        if (getTitle() != null
+                ? getTitle().equals(that.getTitle())
+                : that.getTitle() == null)
+            return false;
+
+        if (getAirDate() != null
+                ? getAirDate().equals(that.getAirDate())
+                : that.getAirDate() == null)
+            return false;
+
+        if (getEpisodeNumber() != null
+                ? getEpisodeNumber().equals(that.getEpisodeNumber())
+                : that.getEpisodeNumber() == null)
+            return false;
+
+        if (getCharacters() != null
+                ? getCharacters().equals(that.getCharacters())
+                : that.getCharacters() == null)
+            return false;
+
+        return getId() == that.getId();
     }
 
     @NonNull
     @Override
     public String toString() {
-        return super.toString();
+        final StringBuilder sb = new StringBuilder("Episode{");
+        sb.append("mId: ").append(mId).append('\'');
+        sb.append("mTitle: ").append(mTitle).append('\'');
+        sb.append("mAirDate: ").append(mAirDate).append('\'');
+        sb.append("mEpisodeNumber: ").append(mEpisodeNumber).append('\'');
+        sb.append("mCharacters: ").append(mCharacters.toString()).append('\'');
+        sb.append('}');
+        return sb.toString();
     }
 
     public int getId() {

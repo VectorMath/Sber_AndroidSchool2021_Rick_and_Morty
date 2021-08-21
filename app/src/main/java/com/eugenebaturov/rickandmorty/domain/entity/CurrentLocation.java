@@ -24,18 +24,40 @@ public class CurrentLocation {
 
     @Override
     public int hashCode() {
-        return super.hashCode();
+        int result = getName() != null ? getName().hashCode() : 0;
+        result = 31 * result + (getUrl() != null ? getUrl().hashCode() : 0);
+        return result;
     }
 
     @Override
     public boolean equals(@Nullable Object obj) {
-        return super.equals(obj);
+        if (this == obj) {
+            return true;
+        }
+        if (!(obj instanceof CurrentLocation)) {
+            return false;
+        }
+
+        CurrentLocation that = (CurrentLocation) obj;
+
+        if (getName() != null
+                ? getName().equals(that.getName())
+                : that.getName() == null)
+            return false;
+
+        return getUrl() != null
+                ? getUrl().equals(that.getUrl())
+                : that.getUrl() == null;
     }
 
     @NonNull
     @Override
     public String toString() {
-        return super.toString();
+        final StringBuilder sb = new StringBuilder("Current Location{");
+        sb.append("mName: ").append(mName).append('\'');
+        sb.append("mUrl: ").append(mUrl).append('\'');
+        sb.append('}');
+        return sb.toString();
     }
 
     public String getName() {

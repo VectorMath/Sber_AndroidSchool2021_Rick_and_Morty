@@ -65,18 +65,87 @@ public class Character {
 
     @Override
     public int hashCode() {
-        return super.hashCode();
+        int result = getName() != null ? getName().hashCode() : 0;
+        result = 31 * result + (getStatus() != null ? getStatus().hashCode() : 0);
+        result = 31 * result + (getGender() != null ? getGender().hashCode() : 0);
+        return result;
     }
 
     @Override
     public boolean equals(@Nullable Object obj) {
-        return super.equals(obj);
+        if (this == obj) {
+            return true;
+        }
+        if (!(obj instanceof Character)) {
+            return false;
+        }
+
+        Character that = (Character) obj;
+
+        if (getName() != null
+                ? !getName().equals(that.getName())
+                : that.getName() != null)
+            return false;
+
+        if (getStatus() != null
+                ? !getStatus().equals(that.getStatus())
+                : that.getStatus() != null)
+            return false;
+
+        if (getSpecies() != null
+                ? !getSpecies().equals(that.getSpecies())
+                : that.getSpecies() != null)
+            return false;
+
+        if (getType() != null
+                ? !getType().equals(that.getType())
+                : that.getType() != null)
+            return false;
+
+        if (getGender() != null
+                ? !getGender().equals(that.getGender())
+                : that.getGender() != null)
+            return false;
+
+        if (getImage() != null
+                ? !getImage().equals(that.getImage())
+                : that.getImage() != null)
+            return false;
+
+        if (getOrigin() != null
+                ? !getOrigin().equals(that.getOrigin())
+                : that.getOrigin() != null)
+            return false;
+
+        if (getCurrentLocation() != null
+                ? !getCurrentLocation().equals(that.getCurrentLocation())
+                : that.getCurrentLocation() != null)
+            return false;
+
+        if (getEpisodes() != null
+                ? getEpisodes().equals(that.getEpisodes())
+                : that.getEpisodes() == null)
+            return false;
+
+        return getId() == that.getId();
     }
 
     @NonNull
     @Override
     public String toString() {
-        return super.toString();
+        final StringBuilder sb = new StringBuilder("Character{");
+        sb.append("mId: ").append(mId).append('\'');
+        sb.append("mName: ").append(mName).append('\'');
+        sb.append("mStatus: ").append(mStatus).append('\'');
+        sb.append("mSpecies: ").append(mSpecies).append('\'');
+        sb.append("mType: ").append(mType).append('\'');
+        sb.append("mGender: ").append(mGender).append('\'');
+        sb.append("mImage: ").append(mImage).append('\'');
+        sb.append("mOrigin: ").append(getOrigin().toString()).append('\'');
+        sb.append("mCurrentLocation: ").append(getCurrentLocation().toString()).append('\'');
+        sb.append("mEpisodes: ").append(getEpisodes().toString()).append('\'');
+        sb.append('}');
+        return sb.toString();
     }
 
     public int getId() {

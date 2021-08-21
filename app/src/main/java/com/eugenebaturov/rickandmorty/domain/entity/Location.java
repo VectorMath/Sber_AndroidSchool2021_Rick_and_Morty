@@ -39,18 +39,58 @@ public class Location {
 
     @Override
     public int hashCode() {
-        return super.hashCode();
+        int result = getName() != null ? getName().hashCode() : 0;
+        result = 31 * result + (getType() != null ? getType().hashCode() : 0);
+        result = 31 * result + (getDimension() != null ? getDimension().hashCode() : 0);
+        result = 31 * result + (getResidents() != null ? getResidents().hashCode() : 0);
+        return result;
     }
 
     @Override
     public boolean equals(@Nullable Object obj) {
-        return super.equals(obj);
+        if (this == obj) {
+            return true;
+        }
+        if (!(obj instanceof Location)) {
+            return false;
+        }
+
+        Location that = (Location) obj;
+
+        if (getName() != null
+                ? getName().equals(that.getName())
+                : that.getName() == null)
+            return false;
+
+        if (getType() != null
+                ? getType().equals(that.getType())
+                : that.getType() == null)
+            return false;
+
+        if (getDimension() != null
+                ? getDimension().equals(that.getDimension())
+                : that.getDimension() == null)
+            return false;
+
+        if (getResidents() != null
+                ? getResidents().equals(that.getResidents())
+                : that.getResidents() == null)
+            return false;
+
+        return getId() == that.getId();
     }
 
     @NonNull
     @Override
     public String toString() {
-        return super.toString();
+        final StringBuilder sb = new StringBuilder("Location{");
+        sb.append("mId: ").append(mId).append('\'');
+        sb.append("mName: ").append(mName).append('\'');
+        sb.append("mType: ").append(mType).append('\'');
+        sb.append("mDimension: ").append(mDimension).append('\'');
+        sb.append("mResidents: ").append(mResidents.toString()).append('\'');
+        sb.append('}');
+        return sb.toString();
     }
 
     public int getId() {
