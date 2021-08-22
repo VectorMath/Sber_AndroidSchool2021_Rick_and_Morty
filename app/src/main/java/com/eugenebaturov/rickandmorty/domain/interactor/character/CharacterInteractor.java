@@ -27,5 +27,5 @@ public interface CharacterInteractor {
      * @return - персонаж с конкретным id.
      * @throws IOException экзепшен ввода-вывода.
      */
-    CharacterRequest getCharacterByIdFromRepository(int characterId) throws IOException;
+    CharacterRequest getCharacterByIdFromRepository(int characterId);
 }

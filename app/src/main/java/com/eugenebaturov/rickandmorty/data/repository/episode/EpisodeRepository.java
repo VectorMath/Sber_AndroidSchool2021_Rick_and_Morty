@@ -4,8 +4,7 @@ import com.eugenebaturov.rickandmorty.data.api.EpisodeApi;
 import com.eugenebaturov.rickandmorty.data.entity.EpisodeRequest;
 import com.eugenebaturov.rickandmorty.data.entity.list.ListEpisodeRequest;
 
-import java.util.List;
-
+import io.reactivex.rxjava3.core.Single;
 import retrofit2.Call;
 
 /**
@@ -18,7 +17,7 @@ public interface EpisodeRepository {
      *
      * @return список эпизодов в Call {@link Call} обёртке.
      */
-    Call<ListEpisodeRequest> getAllEpisodes();
+    Single<ListEpisodeRequest> getAllEpisodes();
 
     /**
      * Метод, который дергает ручку getEpisodeById.
@@ -26,5 +25,5 @@ public interface EpisodeRepository {
      * @param episodeId - id эпизода.
      * @return эпизод в Call {@link Call} обёртке.
      */
-    Call<EpisodeRequest> getEpisodeById(int episodeId);
+    Single<EpisodeRequest> getEpisodeById(int episodeId);
 }

@@ -4,7 +4,7 @@ import com.eugenebaturov.rickandmorty.data.api.LocationApi;
 import com.eugenebaturov.rickandmorty.data.entity.LocationRequest;
 import com.eugenebaturov.rickandmorty.data.entity.list.ListLocationRequest;
 
-import retrofit2.Call;
+import io.reactivex.rxjava3.core.Single;
 import retrofit2.Retrofit;
 
 /**
@@ -25,12 +25,12 @@ public class LocationRepositoryImpl implements LocationRepository {
     }
 
     @Override
-    public Call<ListLocationRequest> getAllLocation() {
+    public Single<ListLocationRequest> getAllLocation() {
         return mLocationApi.getAllLocations();
     }
 
     @Override
-    public Call<LocationRequest> getLocationById(int locationId) {
+    public Single<LocationRequest> getLocationById(int locationId) {
         return mLocationApi.getLocationById(locationId);
     }
 }

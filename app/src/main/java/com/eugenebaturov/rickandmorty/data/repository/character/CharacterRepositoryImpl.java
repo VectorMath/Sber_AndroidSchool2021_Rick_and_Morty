@@ -4,7 +4,7 @@ import com.eugenebaturov.rickandmorty.data.api.CharacterApi;
 import com.eugenebaturov.rickandmorty.data.entity.CharacterRequest;
 import com.eugenebaturov.rickandmorty.data.entity.list.ListCharacterRequest;
 
-import retrofit2.Call;
+import io.reactivex.rxjava3.core.Single;
 import retrofit2.Retrofit;
 
 /**
@@ -25,12 +25,12 @@ public class CharacterRepositoryImpl implements CharacterRepository {
     }
 
     @Override
-    public Call<ListCharacterRequest> getAllCharacters() {
+    public Single<ListCharacterRequest> getAllCharacters() {
         return mCharacterApi.getAllCharacters();
     }
 
     @Override
-    public Call<CharacterRequest> getCharacterById(int characterId) {
+    public Single<CharacterRequest> getCharacterById(int characterId) {
         return mCharacterApi.getCharacterById(characterId);
     }
 }

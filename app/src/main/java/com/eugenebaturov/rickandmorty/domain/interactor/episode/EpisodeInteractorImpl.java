@@ -24,11 +24,11 @@ public class EpisodeInteractorImpl implements EpisodeInteractor {
 
     @Override
     public List<EpisodeRequest> getAllEpisodesFromRepository() throws IOException {
-        return mRepository.getAllEpisodes().execute().body().getEpisodes();
+        return mRepository.getAllEpisodes().blockingGet().getEpisodes();
     }
 
     @Override
     public EpisodeRequest getEpisodeByIdFromRepository(int episodeId) throws IOException {
-        return mRepository.getEpisodeById(episodeId).execute().body();
+        return mRepository.getEpisodeById(episodeId).blockingGet();
     }
 }

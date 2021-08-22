@@ -5,6 +5,7 @@ import com.eugenebaturov.rickandmorty.data.entity.list.ListLocationRequest;
 
 import java.util.List;
 
+import io.reactivex.rxjava3.core.Single;
 import retrofit2.Call;
 import retrofit2.http.GET;
 import retrofit2.http.Path;
@@ -22,7 +23,7 @@ public interface LocationApi {
      * @return Список локаций в Call {@link Call} обёртке.
      */
     @GET(LOCATIONS_URL)
-    Call<ListLocationRequest> getAllLocations();
+    Single<ListLocationRequest> getAllLocations();
 
     /**
      * Ручка, которая получает информацию о локации по id с сервера.
@@ -31,5 +32,5 @@ public interface LocationApi {
      * @return локация в Call {@link Call} обёртке.
      */
     @GET(LOCATIONS_URL + "{id}")
-    Call<LocationRequest> getLocationById(@Path("id") int locationId);
+    Single<LocationRequest> getLocationById(@Path("id") int locationId);
 }

@@ -4,8 +4,7 @@ import com.eugenebaturov.rickandmorty.data.api.LocationApi;
 import com.eugenebaturov.rickandmorty.data.entity.LocationRequest;
 import com.eugenebaturov.rickandmorty.data.entity.list.ListLocationRequest;
 
-import java.util.List;
-
+import io.reactivex.rxjava3.core.Single;
 import retrofit2.Call;
 
 /**
@@ -18,7 +17,7 @@ public interface LocationRepository {
      *
      * @return локация в Call {@link Call} обёртке.
      */
-    Call<ListLocationRequest> getAllLocation();
+    Single<ListLocationRequest> getAllLocation();
 
     /**
      * Метод, который дергает ручку getLocationById.
@@ -26,5 +25,5 @@ public interface LocationRepository {
      * @param locationId - id локации.
      * @return локация в Call {@link Call} обёртке.
      */
-    Call<LocationRequest> getLocationById(int locationId);
+    Single<LocationRequest> getLocationById(int locationId);
 }

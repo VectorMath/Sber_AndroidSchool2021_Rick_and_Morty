@@ -24,11 +24,11 @@ public class CharacterInteractorImpl implements CharacterInteractor {
 
     @Override
     public List<CharacterRequest> getCharactersFromRepository() throws IOException {
-        return mRepository.getAllCharacters().execute().body().getCharacters();
+        return mRepository.getAllCharacters().blockingGet().getCharacters();
     }
 
     @Override
-    public CharacterRequest getCharacterByIdFromRepository(int characterId) throws IOException {
-        return mRepository.getCharacterById(characterId).execute().body();
+    public CharacterRequest getCharacterByIdFromRepository(int characterId) {
+        return mRepository.getCharacterById(characterId).blockingGet();
     }
 }

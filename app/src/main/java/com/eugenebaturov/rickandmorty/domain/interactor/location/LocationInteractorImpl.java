@@ -24,11 +24,11 @@ public class LocationInteractorImpl implements LocationInteractor {
 
     @Override
     public List<LocationRequest> getAllLocationFromRepository() throws IOException {
-        return mRepository.getAllLocation().execute().body().getLocations();
+        return mRepository.getAllLocation().blockingGet().getLocations();
     }
 
     @Override
     public LocationRequest getLocationByIdFromRepository(int locationId) throws IOException {
-        return mRepository.getLocationById(locationId).execute().body();
+        return mRepository.getLocationById(locationId).blockingGet();
     }
 }

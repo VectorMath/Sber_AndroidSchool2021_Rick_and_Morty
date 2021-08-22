@@ -4,7 +4,7 @@ import com.eugenebaturov.rickandmorty.data.api.EpisodeApi;
 import com.eugenebaturov.rickandmorty.data.entity.EpisodeRequest;
 import com.eugenebaturov.rickandmorty.data.entity.list.ListEpisodeRequest;
 
-import retrofit2.Call;
+import io.reactivex.rxjava3.core.Single;
 import retrofit2.Retrofit;
 
 /**
@@ -25,12 +25,12 @@ public class EpisodeRepositoryImpl implements EpisodeRepository {
     }
 
     @Override
-    public Call<ListEpisodeRequest> getAllEpisodes() {
+    public Single<ListEpisodeRequest> getAllEpisodes() {
         return mEpisodeApi.getAllEpisodes();
     }
 
     @Override
-    public Call<EpisodeRequest> getEpisodeById(int episodeId) {
+    public Single<EpisodeRequest> getEpisodeById(int episodeId) {
         return mEpisodeApi.getEpisodeById(episodeId);
     }
 }

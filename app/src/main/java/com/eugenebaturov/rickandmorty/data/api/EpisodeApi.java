@@ -5,6 +5,7 @@ import com.eugenebaturov.rickandmorty.data.entity.list.ListEpisodeRequest;
 
 import java.util.List;
 
+import io.reactivex.rxjava3.core.Single;
 import retrofit2.Call;
 import retrofit2.http.GET;
 import retrofit2.http.Path;
@@ -22,7 +23,7 @@ public interface EpisodeApi {
      * @return Список эпизодов в Call {@link Call} обёртке.
      */
     @GET(EPISODES_URL)
-    Call<ListEpisodeRequest> getAllEpisodes();
+    Single<ListEpisodeRequest> getAllEpisodes();
 
     /**
      * Ручка, которая получает информацию о эпизоде по id с сервера.
@@ -31,5 +32,5 @@ public interface EpisodeApi {
      * @return эпизод в Call {@link Call} обёртке.
      */
     @GET(EPISODES_URL + "{id}")
-    Call<EpisodeRequest> getEpisodeById(@Path("id") int episodeId);
+    Single<EpisodeRequest> getEpisodeById(@Path("id") int episodeId);
 }
