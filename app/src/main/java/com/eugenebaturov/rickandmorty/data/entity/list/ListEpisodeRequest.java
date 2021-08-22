@@ -6,6 +6,11 @@ import com.google.gson.annotations.SerializedName;
 import java.util.List;
 import java.util.Objects;
 
+/**
+ * Класс-сущность, который хранит информацию о эпизодах мульт-сериала "Рик и Морти".
+ * <p>
+ * [mEpisodes] - список эпизодов {@link EpisodeRequest}
+ */
 public class ListEpisodeRequest {
 
     @SerializedName("results")

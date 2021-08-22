@@ -6,6 +6,11 @@ import com.google.gson.annotations.SerializedName;
 import java.util.List;
 import java.util.Objects;
 
+/**
+ * Класс-сущность, который хранит информацию о персонажах мульт-сериала "Рик и Морти".
+ * <p>
+ * [mCharacters] - список персонажей {@link CharacterRequest}
+ */
 public class ListCharacterRequest {
 
     @SerializedName("results")

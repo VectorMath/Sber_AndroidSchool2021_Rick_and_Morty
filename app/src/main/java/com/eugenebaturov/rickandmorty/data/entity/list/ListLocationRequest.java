@@ -6,6 +6,11 @@ import com.google.gson.annotations.SerializedName;
 import java.util.List;
 import java.util.Objects;
 
+/**
+ * Класс-сущность, который хранит информацию о локациях мульт-сериала "Рик и Морти".
+ * <p>
+ * [mLocations] - список локаций {@link LocationRequest}
+ */
 public class ListLocationRequest {
 
     @SerializedName("results")
