@@ -2,6 +2,7 @@ package com.eugenebaturov.rickandmorty.domain.interactor.episode;
 
 import com.eugenebaturov.rickandmorty.data.entity.EpisodeRequest;
 import com.eugenebaturov.rickandmorty.data.repository.episode.EpisodeRepository;
+import com.eugenebaturov.rickandmorty.domain.entity.Episode;
 
 import java.io.IOException;
 import java.util.List;
@@ -13,19 +14,17 @@ import java.util.List;
 public interface EpisodeInteractor {
 
     /**
-     * Получает список эпизодов из репозитория без Single обёртки.
+     * Получает обработанный список эпизодов из репозитория
      *
      * @return - список эпизодов.
-     * @throws IOException экзепшен ввода-вывода.
      */
-    List<EpisodeRequest> getAllEpisodesFromRepository() throws IOException;
+    List<Episode> parseEpisodesFromRepository();
 
     /**
-     * Получает эпизод по id из репозитория без Single обёртки.
+     * Получает обработанный эпизод по id из репозитория
      *
      * @param episodeId - id эпизода.
      * @return эпизод с конкретным id.
-     * @throws IOException экзепшен ввода-вывода.
      */
-    EpisodeRequest getEpisodeByIdFromRepository(int episodeId) throws IOException;
+    Episode parseEpisodeByIdFromRepository(int episodeId);
 }

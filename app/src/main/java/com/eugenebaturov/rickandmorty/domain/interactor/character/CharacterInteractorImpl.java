@@ -1,9 +1,11 @@
 package com.eugenebaturov.rickandmorty.domain.interactor.character;
 
-import com.eugenebaturov.rickandmorty.data.repository.character.CharacterRepository;
 import com.eugenebaturov.rickandmorty.data.entity.CharacterRequest;
+import com.eugenebaturov.rickandmorty.data.entity.list.ListCharacterRequest;
+import com.eugenebaturov.rickandmorty.data.repository.character.CharacterRepository;
+import com.eugenebaturov.rickandmorty.domain.entity.Character;
 
-import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -23,12 +25,23 @@ public class CharacterInteractorImpl implements CharacterInteractor {
     }
 
     @Override
-    public List<CharacterRequest> getCharactersFromRepository() throws IOException {
-        return mRepository.getAllCharacters().blockingGet().getCharacters();
+    public List<Character> parseCharactersFromRepository() {
+        List<CharacterRequest> request = mRepository
+                .getAllCharacters()
+                .blockingGet()
+                .getCharacters();
+        List<Character> characters = new ArrayList<>();
+
+        for (CharacterRequest character : request) {
+            characters.add(new Character(character));
+        }
+
+        return characters;
     }
 
     @Override
-    public CharacterRequest getCharacterByIdFromRepository(int characterId) {
-        return mRepository.getCharacterById(characterId).blockingGet();
+    public Character parseCharacterByIdFromRepository(int characterId) {
+        CharacterRequest request = mRepository.getCharacterById(characterId).blockingGet();
+        return new Character(request);
     }
 }

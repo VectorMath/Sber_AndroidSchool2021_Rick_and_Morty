@@ -2,8 +2,8 @@ package com.eugenebaturov.rickandmorty.domain.interactor.character;
 
 import com.eugenebaturov.rickandmorty.data.entity.CharacterRequest;
 import com.eugenebaturov.rickandmorty.data.repository.character.CharacterRepository;
+import com.eugenebaturov.rickandmorty.domain.entity.Character;
 
-import java.io.IOException;
 import java.util.List;
 
 /**
@@ -13,19 +13,17 @@ import java.util.List;
 public interface CharacterInteractor {
 
     /**
-     * Получает список персонажей из репозитория без Single обёртки
+     * Получает обработанный список персонажей из репозитория
      *
      * @return - список персонажей.
-     * @throws IOException экзепшен ввода-вывода.
      */
-    List<CharacterRequest> getCharactersFromRepository() throws IOException;
+    List<Character> parseCharactersFromRepository();
 
     /**
-     * Получает персонажа из репозитория без Single обёртки
+     * Получает обработанного персонажа из репозитория
      *
      * @param characterId - id персонажа.
      * @return - персонаж с конкретным id.
-     * @throws IOException экзепшен ввода-вывода.
      */
-    CharacterRequest getCharacterByIdFromRepository(int characterId);
+    Character parseCharacterByIdFromRepository(int characterId);
 }

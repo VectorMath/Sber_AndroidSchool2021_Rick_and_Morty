@@ -1,9 +1,15 @@
 package com.eugenebaturov.rickandmorty.domain.interactor.location;
 
+import com.eugenebaturov.rickandmorty.data.entity.CharacterRequest;
 import com.eugenebaturov.rickandmorty.data.entity.LocationRequest;
+import com.eugenebaturov.rickandmorty.data.entity.list.ListCharacterRequest;
+import com.eugenebaturov.rickandmorty.data.entity.list.ListLocationRequest;
 import com.eugenebaturov.rickandmorty.data.repository.location.LocationRepository;
+import com.eugenebaturov.rickandmorty.domain.entity.Character;
+import com.eugenebaturov.rickandmorty.domain.entity.Location;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -23,12 +29,23 @@ public class LocationInteractorImpl implements LocationInteractor {
     }
 
     @Override
-    public List<LocationRequest> getAllLocationFromRepository() throws IOException {
-        return mRepository.getAllLocation().blockingGet().getLocations();
+    public List<Location> parseLocationsFromRepository() {
+        List<LocationRequest> request = mRepository
+                .getAllLocation()
+                .blockingGet()
+                .getLocations();
+        List<Location> locations = new ArrayList<>();
+
+        for (LocationRequest location : request) {
+            locations.add(new Location(location));
+        }
+
+        return locations;
     }
 
     @Override
-    public LocationRequest getLocationByIdFromRepository(int locationId) throws IOException {
-        return mRepository.getLocationById(locationId).blockingGet();
+    public Location parseLocationByIdFromRepository(int locationId) {
+        LocationRequest request = mRepository.getLocationById(locationId).blockingGet();
+        return new Location(request);
     }
 }

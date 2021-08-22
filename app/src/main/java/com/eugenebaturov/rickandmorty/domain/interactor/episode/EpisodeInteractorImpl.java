@@ -2,8 +2,10 @@ package com.eugenebaturov.rickandmorty.domain.interactor.episode;
 
 import com.eugenebaturov.rickandmorty.data.entity.EpisodeRequest;
 import com.eugenebaturov.rickandmorty.data.repository.episode.EpisodeRepository;
+import com.eugenebaturov.rickandmorty.domain.entity.Episode;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -23,12 +25,20 @@ public class EpisodeInteractorImpl implements EpisodeInteractor {
     }
 
     @Override
-    public List<EpisodeRequest> getAllEpisodesFromRepository() throws IOException {
-        return mRepository.getAllEpisodes().blockingGet().getEpisodes();
+    public List<Episode> parseEpisodesFromRepository() {
+        List<EpisodeRequest> request = mRepository
+                .getAllEpisodes().blockingGet().getEpisodes();
+        List<Episode> episodes = new ArrayList<>();
+
+        for (EpisodeRequest episode : request) {
+            episodes.add(new Episode(episode));
+        }
+        return episodes;
     }
 
     @Override
-    public EpisodeRequest getEpisodeByIdFromRepository(int episodeId) throws IOException {
-        return mRepository.getEpisodeById(episodeId).blockingGet();
+    public Episode parseEpisodeByIdFromRepository(int episodeId) {
+        EpisodeRequest request = mRepository.getEpisodeById(episodeId).blockingGet();
+        return new Episode(request);
     }
 }
