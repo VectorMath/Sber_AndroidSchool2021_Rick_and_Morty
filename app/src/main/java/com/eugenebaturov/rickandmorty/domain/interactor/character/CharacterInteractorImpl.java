@@ -1,25 +1,25 @@
 package com.eugenebaturov.rickandmorty.domain.interactor.character;
 
-import com.eugenebaturov.rickandmorty.data.repository.character.ICharacterRepository;
-import com.eugenebaturov.rickandmorty.domain.entity.Character;
+import com.eugenebaturov.rickandmorty.data.repository.character.CharacterRepository;
+import com.eugenebaturov.rickandmorty.data.entity.CharacterRequest;
 
 import java.io.IOException;
 import java.util.List;
 
 public class CharacterInteractorImpl implements CharacterInteractor {
 
-    private final ICharacterRepository mRepository;
+    private final CharacterRepository mRepository;
 
-    public CharacterInteractorImpl(ICharacterRepository repository) {
+    public CharacterInteractorImpl(CharacterRepository repository) {
         mRepository = repository;
     }
     @Override
-    public List<Character> getCharactersFromRepository() throws IOException {
-        return mRepository.getAllCharacters().execute().body();
+    public List<CharacterRequest> getCharactersFromRepository() throws IOException {
+        return mRepository.getAllCharacters().execute().body().getCharacters();
     }
 
     @Override
-    public Character getCharacterByIdFromRepository(int characterId) throws IOException {
+    public CharacterRequest getCharacterByIdFromRepository(int characterId) throws IOException {
         return mRepository.getCharacterById(characterId).execute().body();
     }
 }

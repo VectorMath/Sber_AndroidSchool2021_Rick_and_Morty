@@ -1,38 +1,30 @@
 package com.eugenebaturov.rickandmorty.data.repository.location;
 
 import com.eugenebaturov.rickandmorty.data.api.LocationApi;
-import com.eugenebaturov.rickandmorty.data.repository.location.ILocationRepository;
-import com.eugenebaturov.rickandmorty.domain.entity.Location;
+import com.eugenebaturov.rickandmorty.data.entity.LocationRequest;
+import com.eugenebaturov.rickandmorty.data.entity.list.ListLocationRequest;
 
 import java.util.List;
 
 import retrofit2.Call;
-import retrofit2.Retrofit;
 
 /**
- * Класс-репозиторий, который является реализацией интерфейса {@link ILocationRepository}.
+ * Интерфейс, методы которого "дёргают" ручки в {@link LocationApi}.
  */
-public class LocationRepository implements ILocationRepository {
-
-    private final LocationApi mLocationApi;
+public interface LocationRepository {
 
     /**
-     * Конструктор класса, в который мы передаёт экземпляр Retrofit, чтобы была
-     * возможность использовать публичные методы данного класса.
+     * Метод, который дергает ручку getAllLocation.
      *
-     * @param retrofit - экземпляр Ретрофита, нужен, чтобы проинициализировать mLocationApi.
+     * @return локация в Call {@link Call} обёртке.
      */
-    public LocationRepository(Retrofit retrofit) {
-        mLocationApi = retrofit.create(LocationApi.class);
-    }
+    Call<ListLocationRequest> getAllLocation();
 
-    @Override
-    public Call<List<Location>> getAllLocation() {
-        return mLocationApi.getAllLocations();
-    }
-
-    @Override
-    public Call<Location> getLocationById(int locationId) {
-        return mLocationApi.getLocationById(locationId);
-    }
+    /**
+     * Метод, который дергает ручку getLocationById.
+     *
+     * @param locationId - id локации.
+     * @return локация в Call {@link Call} обёртке.
+     */
+    Call<LocationRequest> getLocationById(int locationId);
 }

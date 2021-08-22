@@ -1,7 +1,6 @@
-package com.eugenebaturov.rickandmorty.domain.entity;
+package com.eugenebaturov.rickandmorty.data.entity;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 
 import com.google.gson.annotations.SerializedName;
 
@@ -32,7 +31,7 @@ import java.util.Objects;
  * <p>
  * [mEpisodes] - ссылка на эпизоды в которых персонаж появился.
  */
-public class Character {
+public class CharacterRequest {
 
     @SerializedName("id")
     private int mId;
@@ -69,17 +68,17 @@ public class Character {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        Character character = (Character) o;
-        return mId == character.mId &&
-                Objects.equals(mName, character.mName) &&
-                Objects.equals(mStatus, character.mStatus) &&
-                Objects.equals(mSpecies, character.mSpecies) &&
-                Objects.equals(mType, character.mType) &&
-                Objects.equals(mGender, character.mGender) &&
-                Objects.equals(mImage, character.mImage) &&
-                Objects.equals(mOrigin, character.mOrigin) &&
-                Objects.equals(mCurrentLocation, character.mCurrentLocation) &&
-                Objects.equals(mEpisodes, character.mEpisodes);
+        CharacterRequest characterRequest = (CharacterRequest) o;
+        return mId == characterRequest.mId &&
+                Objects.equals(mName, characterRequest.mName) &&
+                Objects.equals(mStatus, characterRequest.mStatus) &&
+                Objects.equals(mSpecies, characterRequest.mSpecies) &&
+                Objects.equals(mType, characterRequest.mType) &&
+                Objects.equals(mGender, characterRequest.mGender) &&
+                Objects.equals(mImage, characterRequest.mImage) &&
+                Objects.equals(mOrigin, characterRequest.mOrigin) &&
+                Objects.equals(mCurrentLocation, characterRequest.mCurrentLocation) &&
+                Objects.equals(mEpisodes, characterRequest.mEpisodes);
     }
 
     @Override

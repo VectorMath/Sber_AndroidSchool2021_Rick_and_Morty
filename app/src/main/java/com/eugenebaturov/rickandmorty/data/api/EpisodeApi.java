@@ -1,6 +1,7 @@
 package com.eugenebaturov.rickandmorty.data.api;
 
-import com.eugenebaturov.rickandmorty.domain.entity.Episode;
+import com.eugenebaturov.rickandmorty.data.entity.EpisodeRequest;
+import com.eugenebaturov.rickandmorty.data.entity.list.ListEpisodeRequest;
 
 import java.util.List;
 
@@ -11,7 +12,7 @@ import retrofit2.http.Path;
 import static com.eugenebaturov.rickandmorty.data.api.RickAndMortyURL.EPISODES_URL;
 
 /**
- * API которое позволяет получить информацию о эпизодах {@link Episode} с сервера.
+ * API которое позволяет получить информацию о эпизодах {@link EpisodeRequest} с сервера.
  */
 public interface EpisodeApi {
 
@@ -21,7 +22,7 @@ public interface EpisodeApi {
      * @return Список эпизодов в Call {@link Call} обёртке.
      */
     @GET(EPISODES_URL)
-    Call<List<Episode>> getAllEpisodes();
+    Call<ListEpisodeRequest> getAllEpisodes();
 
     /**
      * Ручка, которая получает информацию о эпизоде по id с сервера.
@@ -30,5 +31,5 @@ public interface EpisodeApi {
      * @return эпизод в Call {@link Call} обёртке.
      */
     @GET(EPISODES_URL + "{id}")
-    Call<Episode> getEpisodeById(@Path("id") int episodeId);
+    Call<EpisodeRequest> getEpisodeById(@Path("id") int episodeId);
 }

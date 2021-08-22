@@ -1,7 +1,6 @@
-package com.eugenebaturov.rickandmorty.domain.entity;
+package com.eugenebaturov.rickandmorty.data.entity;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 
 import com.google.gson.annotations.SerializedName;
 
@@ -21,7 +20,7 @@ import java.util.Objects;
  * <p>
  * [mCharacters] - ссылка на персонажей, которые появились в эпизоде.
  */
-public class Episode {
+public class EpisodeRequest {
 
     @SerializedName("id")
     private int mId;
@@ -42,12 +41,12 @@ public class Episode {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        Episode episode = (Episode) o;
-        return mId == episode.mId &&
-                Objects.equals(mTitle, episode.mTitle) &&
-                Objects.equals(mAirDate, episode.mAirDate) &&
-                Objects.equals(mEpisodeNumber, episode.mEpisodeNumber) &&
-                Objects.equals(mCharacters, episode.mCharacters);
+        EpisodeRequest episodeRequest = (EpisodeRequest) o;
+        return mId == episodeRequest.mId &&
+                Objects.equals(mTitle, episodeRequest.mTitle) &&
+                Objects.equals(mAirDate, episodeRequest.mAirDate) &&
+                Objects.equals(mEpisodeNumber, episodeRequest.mEpisodeNumber) &&
+                Objects.equals(mCharacters, episodeRequest.mCharacters);
     }
 
     @Override

@@ -16,8 +16,8 @@ public class RickAndMortyURL {
     public static final String CHARACTERS_URL = "character/";
 
     // Episode URL.
-    public static final String EPISODES_URL = "location/";
+    public static final String EPISODES_URL = "episode/";
 
     // Location URL.
-    public static final String LOCATIONS_URL = "episode/";
+    public static final String LOCATIONS_URL = "location/";
 }

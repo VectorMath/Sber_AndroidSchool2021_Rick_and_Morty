@@ -1,37 +1,30 @@
 package com.eugenebaturov.rickandmorty.data.repository.episode;
 
 import com.eugenebaturov.rickandmorty.data.api.EpisodeApi;
-import com.eugenebaturov.rickandmorty.domain.entity.Episode;
+import com.eugenebaturov.rickandmorty.data.entity.EpisodeRequest;
+import com.eugenebaturov.rickandmorty.data.entity.list.ListEpisodeRequest;
 
 import java.util.List;
 
 import retrofit2.Call;
-import retrofit2.Retrofit;
 
 /**
- * Класс-репозиторий, который является реализацией интерфейса {@link IEpisodeRepository}.
+ * Интерфейс, методы которого "дёргают" ручки в {@link EpisodeApi}.
  */
-public class EpisodeRepository implements IEpisodeRepository {
-
-    private final EpisodeApi mEpisodeApi;
+public interface EpisodeRepository {
 
     /**
-     * Конструктор класса, в который мы передаёт экземпляр Retrofit, чтобы была
-     * возможность использовать публичные методы данного класса.
+     * Метод, который дергает ручку getAllEpisodes.
      *
-     * @param retrofit - экземпляр Ретрофита, нужен, чтобы проинициализировать mEpisodeApi.
+     * @return список эпизодов в Call {@link Call} обёртке.
      */
-    public EpisodeRepository(Retrofit retrofit) {
-        mEpisodeApi = retrofit.create(EpisodeApi.class);
-    }
+    Call<ListEpisodeRequest> getAllEpisodes();
 
-    @Override
-    public Call<List<Episode>> getAllEpisodes() {
-        return mEpisodeApi.getAllEpisodes();
-    }
-
-    @Override
-    public Call<Episode> getEpisodeById(int episodeId) {
-        return mEpisodeApi.getEpisodeById(episodeId);
-    }
+    /**
+     * Метод, который дергает ручку getEpisodeById.
+     *
+     * @param episodeId - id эпизода.
+     * @return эпизод в Call {@link Call} обёртке.
+     */
+    Call<EpisodeRequest> getEpisodeById(int episodeId);
 }

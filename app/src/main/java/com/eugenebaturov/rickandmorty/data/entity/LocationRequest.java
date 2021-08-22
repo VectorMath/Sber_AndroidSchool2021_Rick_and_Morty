@@ -1,7 +1,4 @@
-package com.eugenebaturov.rickandmorty.domain.entity;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
+package com.eugenebaturov.rickandmorty.data.entity;
 
 import com.google.gson.annotations.SerializedName;
 
@@ -21,7 +18,7 @@ import java.util.Objects;
  * <p>
  * [mResidents] - список персонажей, которые находятся в локации.
  */
-public class Location {
+public class LocationRequest {
 
     @SerializedName("id")
     private int mId;
@@ -42,12 +39,12 @@ public class Location {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        Location location = (Location) o;
-        return mId == location.mId &&
-                Objects.equals(mName, location.mName) &&
-                Objects.equals(mType, location.mType) &&
-                Objects.equals(mDimension, location.mDimension) &&
-                Objects.equals(mResidents, location.mResidents);
+        LocationRequest locationRequest = (LocationRequest) o;
+        return mId == locationRequest.mId &&
+                Objects.equals(mName, locationRequest.mName) &&
+                Objects.equals(mType, locationRequest.mType) &&
+                Objects.equals(mDimension, locationRequest.mDimension) &&
+                Objects.equals(mResidents, locationRequest.mResidents);
     }
 
     @Override

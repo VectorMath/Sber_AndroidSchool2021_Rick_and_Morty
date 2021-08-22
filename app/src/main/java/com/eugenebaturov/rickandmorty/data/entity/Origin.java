@@ -1,20 +1,17 @@
-package com.eugenebaturov.rickandmorty.domain.entity;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
+package com.eugenebaturov.rickandmorty.data.entity;
 
 import com.google.gson.annotations.SerializedName;
 
 import java.util.Objects;
 
 /**
- * Подкласс, который является полем для класса-сущности {@link Character}.
+ * Подкласс, который является полем для класса-сущности {@link CharacterRequest}.
  * <p>
  * Хранит в себе информацию о месте рождения персонажа.
  * <p>
  * [mName] - название локации.
  * <p>
- * [mUrl] - ссылка на локацию, информацию о которой хранит класс-сущность {@link Location}.
+ * [mUrl] - ссылка на локацию, информацию о которой хранит класс-сущность {@link LocationRequest}.
  */
 public class Origin {
 

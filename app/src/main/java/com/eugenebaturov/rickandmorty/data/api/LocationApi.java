@@ -1,6 +1,7 @@
 package com.eugenebaturov.rickandmorty.data.api;
 
-import com.eugenebaturov.rickandmorty.domain.entity.Location;
+import com.eugenebaturov.rickandmorty.data.entity.LocationRequest;
+import com.eugenebaturov.rickandmorty.data.entity.list.ListLocationRequest;
 
 import java.util.List;
 
@@ -11,7 +12,7 @@ import retrofit2.http.Path;
 import static com.eugenebaturov.rickandmorty.data.api.RickAndMortyURL.LOCATIONS_URL;
 
 /**
- * API которое позволяет получить информацию о локациях {@link Location} с сервера.
+ * API которое позволяет получить информацию о локациях {@link LocationRequest} с сервера.
  */
 public interface LocationApi {
 
@@ -21,7 +22,7 @@ public interface LocationApi {
      * @return Список локаций в Call {@link Call} обёртке.
      */
     @GET(LOCATIONS_URL)
-    Call<List<Location>> getAllLocations();
+    Call<ListLocationRequest> getAllLocations();
 
     /**
      * Ручка, которая получает информацию о локации по id с сервера.
@@ -30,5 +31,5 @@ public interface LocationApi {
      * @return локация в Call {@link Call} обёртке.
      */
     @GET(LOCATIONS_URL + "{id}")
-    Call<Location> getLocationById(@Path("id") int locationId);
+    Call<LocationRequest> getLocationById(@Path("id") int locationId);
 }

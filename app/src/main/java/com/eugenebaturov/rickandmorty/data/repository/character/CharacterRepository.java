@@ -1,37 +1,28 @@
 package com.eugenebaturov.rickandmorty.data.repository.character;
 
 import com.eugenebaturov.rickandmorty.data.api.CharacterApi;
-import com.eugenebaturov.rickandmorty.domain.entity.Character;
-
-import java.util.List;
+import com.eugenebaturov.rickandmorty.data.entity.CharacterRequest;
+import com.eugenebaturov.rickandmorty.data.entity.list.ListCharacterRequest;
 
 import retrofit2.Call;
-import retrofit2.Retrofit;
 
 /**
- * Класс-репозиторий, который является реализацией интерфейса {@link ICharacterRepository}.
+ * Интерфейс, методы которого "дёргают" ручки в {@link CharacterApi}.
  */
-public class CharacterRepository implements ICharacterRepository {
-
-    private final CharacterApi mCharacterApi;
+public interface CharacterRepository {
 
     /**
-     * Конструктор класса, в который мы передаёт экземпляр Retrofit, чтобы была
-     * возможность использовать публичные методы данного класса.
+     * Метод, который дергает ручку getAllCharacters.
      *
-     * @param retrofit - экземпляр Ретрофита, нужен, чтобы проинициализировать mCharacterApi.
+     * @return список персонажей.
      */
-    public CharacterRepository(Retrofit retrofit) {
-        mCharacterApi = retrofit.create(CharacterApi.class);
-    }
+    Call<ListCharacterRequest> getAllCharacters();
 
-    @Override
-    public Call<List<Character>> getAllCharacters() {
-        return mCharacterApi.getAllCharacters();
-    }
-
-    @Override
-    public Call<Character> getCharacterById(int characterId) {
-        return mCharacterApi.getCharacterById(characterId);
-    }
+    /**
+     * Метод, который дергает ручку getCharacterById.
+     *
+     * @param characterId - id персонажа.
+     * @return персонаж с данным id.
+     */
+    Call<CharacterRequest> getCharacterById(int characterId);
 }
