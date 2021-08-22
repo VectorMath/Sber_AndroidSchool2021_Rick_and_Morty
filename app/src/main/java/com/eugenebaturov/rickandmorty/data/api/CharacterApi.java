@@ -18,7 +18,7 @@ public interface CharacterApi {
     /**
      * Ручка, которая получает информацию о всех персонажах с сервера.
      *
-     * @return Список персонажей в Call {@link Call} обёртке.
+     * @return Список персонажей в Single {@link Single} обёртке.
      */
     @GET(CHARACTERS_URL)
     Single<ListCharacterRequest> getAllCharacters();
@@ -27,7 +27,7 @@ public interface CharacterApi {
      * Ручка, которая получает информацию о персонаже по id с сервера.
      *
      * @param characterId - id персонажа.
-     * @return персонаж в Call {@link Call} обёртке.
+     * @return персонаж в Single {@link Single} обёртке.
      */
     @GET(CHARACTERS_URL + "{id}")
     Single<CharacterRequest> getCharacterById(@Path("id") int characterId);

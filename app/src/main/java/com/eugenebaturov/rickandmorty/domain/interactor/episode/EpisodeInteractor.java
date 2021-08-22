@@ -13,7 +13,7 @@ import java.util.List;
 public interface EpisodeInteractor {
 
     /**
-     * Получает список эпизодов из репозитория без Call обёртки.
+     * Получает список эпизодов из репозитория без Single обёртки.
      *
      * @return - список эпизодов.
      * @throws IOException экзепшен ввода-вывода.
@@ -21,7 +21,7 @@ public interface EpisodeInteractor {
     List<EpisodeRequest> getAllEpisodesFromRepository() throws IOException;
 
     /**
-     * Получает эпизод по id из репозитория без Call обёртки.
+     * Получает эпизод по id из репозитория без Single обёртки.
      *
      * @param episodeId - id эпизода.
      * @return эпизод с конкретным id.

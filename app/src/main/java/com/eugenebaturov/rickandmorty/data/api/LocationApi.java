@@ -20,7 +20,7 @@ public interface LocationApi {
     /**
      * Ручка, которая получает информацию о всех локациях с сервера.
      *
-     * @return Список локаций в Call {@link Call} обёртке.
+     * @return Список локаций в Single {@link Single} обёртке.
      */
     @GET(LOCATIONS_URL)
     Single<ListLocationRequest> getAllLocations();
@@ -29,7 +29,7 @@ public interface LocationApi {
      * Ручка, которая получает информацию о локации по id с сервера.
      *
      * @param locationId - id локации.
-     * @return локация в Call {@link Call} обёртке.
+     * @return локация в Single {@link Single} обёртке.
      */
     @GET(LOCATIONS_URL + "{id}")
     Single<LocationRequest> getLocationById(@Path("id") int locationId);

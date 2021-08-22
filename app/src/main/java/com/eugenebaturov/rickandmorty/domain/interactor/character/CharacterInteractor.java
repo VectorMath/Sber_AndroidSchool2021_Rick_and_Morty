@@ -13,7 +13,7 @@ import java.util.List;
 public interface CharacterInteractor {
 
     /**
-     * Получает список персонажей из репозитория без Call обёртки
+     * Получает список персонажей из репозитория без Single обёртки
      *
      * @return - список персонажей.
      * @throws IOException экзепшен ввода-вывода.
@@ -21,7 +21,7 @@ public interface CharacterInteractor {
     List<CharacterRequest> getCharactersFromRepository() throws IOException;
 
     /**
-     * Получает персонажа из репозитория без Call обёртки
+     * Получает персонажа из репозитория без Single обёртки
      *
      * @param characterId - id персонажа.
      * @return - персонаж с конкретным id.

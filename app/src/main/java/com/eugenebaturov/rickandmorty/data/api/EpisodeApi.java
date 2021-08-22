@@ -20,7 +20,7 @@ public interface EpisodeApi {
     /**
      * Ручка, которая получает информацию о всех эпизодах с сервера.
      *
-     * @return Список эпизодов в Call {@link Call} обёртке.
+     * @return Список эпизодов в Single {@link Single} обёртке.
      */
     @GET(EPISODES_URL)
     Single<ListEpisodeRequest> getAllEpisodes();
@@ -29,7 +29,7 @@ public interface EpisodeApi {
      * Ручка, которая получает информацию о эпизоде по id с сервера.
      *
      * @param episodeId - id эпизода.
-     * @return эпизод в Call {@link Call} обёртке.
+     * @return эпизод в Single {@link Single} обёртке.
      */
     @GET(EPISODES_URL + "{id}")
     Single<EpisodeRequest> getEpisodeById(@Path("id") int episodeId);

@@ -13,7 +13,7 @@ import java.util.List;
 public interface LocationInteractor {
 
     /**
-     * Получает список локаций из репозитория без Call обёртки.
+     * Получает список локаций из репозитория без Single обёртки.
      *
      * @return - список локаций.
      * @throws IOException экзепшен ввода-вывода.
@@ -21,7 +21,7 @@ public interface LocationInteractor {
     List<LocationRequest> getAllLocationFromRepository() throws IOException;
 
     /**
-     * Получает локацию по id из репозитория без Call обёртки.
+     * Получает локацию по id из репозитория без Single обёртки.
      *
      * @param locationId - id локации.
      * @return локация с конкретным id.
