@@ -1,6 +1,6 @@
-package com.eugenebaturov.rickandmorty.domain.entity;
+package com.eugenebaturov.rickandmorty.models.domain;
 
-import com.eugenebaturov.rickandmorty.data.entity.EpisodeRequest;
+import com.eugenebaturov.rickandmorty.models.data.EpisodeRequest;
 
 import java.util.List;
 import java.util.Objects;

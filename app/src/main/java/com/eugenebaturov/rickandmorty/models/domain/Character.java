@@ -1,8 +1,8 @@
-package com.eugenebaturov.rickandmorty.domain.entity;
+package com.eugenebaturov.rickandmorty.models.domain;
 
-import com.eugenebaturov.rickandmorty.data.entity.CharacterRequest;
-import com.eugenebaturov.rickandmorty.data.entity.CurrentLocation;
-import com.eugenebaturov.rickandmorty.data.entity.Origin;
+import com.eugenebaturov.rickandmorty.models.data.CharacterRequest;
+import com.eugenebaturov.rickandmorty.models.data.CurrentLocation;
+import com.eugenebaturov.rickandmorty.models.data.Origin;
 
 import java.util.List;
 import java.util.Objects;

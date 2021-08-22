@@ -1,6 +1,6 @@
-package com.eugenebaturov.rickandmorty.data.entity.list;
+package com.eugenebaturov.rickandmorty.models.data.list;
 
-import com.eugenebaturov.rickandmorty.data.entity.LocationRequest;
+import com.eugenebaturov.rickandmorty.models.data.LocationRequest;
 import com.google.gson.annotations.SerializedName;
 
 import java.util.List;

@@ -1,14 +1,9 @@
 package com.eugenebaturov.rickandmorty.domain.interactor.location;
 
-import com.eugenebaturov.rickandmorty.data.entity.CharacterRequest;
-import com.eugenebaturov.rickandmorty.data.entity.LocationRequest;
-import com.eugenebaturov.rickandmorty.data.entity.list.ListCharacterRequest;
-import com.eugenebaturov.rickandmorty.data.entity.list.ListLocationRequest;
+import com.eugenebaturov.rickandmorty.models.data.LocationRequest;
 import com.eugenebaturov.rickandmorty.data.repository.location.LocationRepository;
-import com.eugenebaturov.rickandmorty.domain.entity.Character;
-import com.eugenebaturov.rickandmorty.domain.entity.Location;
+import com.eugenebaturov.rickandmorty.models.domain.Location;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 

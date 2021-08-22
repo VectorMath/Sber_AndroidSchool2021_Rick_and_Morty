@@ -1,19 +1,21 @@
-package com.eugenebaturov.rickandmorty.data.entity;
+package com.eugenebaturov.rickandmorty.models.data;
+
+import androidx.annotation.NonNull;
 
 import com.google.gson.annotations.SerializedName;
 
 import java.util.Objects;
 
 /**
- * Подкласс, который является полем для класса-сущности {@link CharacterRequest}.
+ * Подкласс, который является полем у класса-сущности {@link CharacterRequest}.
  * <p>
- * Хранит в себе информацию о месте рождения персонажа.
+ * Хранит в себе информацию о текущем местоположение персонажа.
  * <p>
  * [mName] - название локации.
  * <p>
  * [mUrl] - ссылка на локацию, информацию о которой хранит класс-сущность {@link LocationRequest}.
  */
-public class Origin {
+public class CurrentLocation {
 
     @SerializedName("name")
     private String mName;
@@ -25,9 +27,9 @@ public class Origin {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        Origin origin = (Origin) o;
-        return Objects.equals(mName, origin.mName) &&
-                Objects.equals(mUrl, origin.mUrl);
+        CurrentLocation that = (CurrentLocation) o;
+        return Objects.equals(mName, that.mName) &&
+                Objects.equals(mUrl, that.mUrl);
     }
 
     @Override
@@ -35,9 +37,10 @@ public class Origin {
         return Objects.hash(mName, mUrl);
     }
 
+    @NonNull
     @Override
     public String toString() {
-        return "Origin{" +
+        return "CurrentLocation{" +
                 "mName='" + mName + '\'' +
                 ", mUrl='" + mUrl + '\'' +
                 '}';

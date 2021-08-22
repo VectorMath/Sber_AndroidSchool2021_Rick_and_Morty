@@ -1,11 +1,10 @@
 package com.eugenebaturov.rickandmorty.data.repository.location;
 
 import com.eugenebaturov.rickandmorty.data.api.LocationApi;
-import com.eugenebaturov.rickandmorty.data.entity.LocationRequest;
-import com.eugenebaturov.rickandmorty.data.entity.list.ListLocationRequest;
+import com.eugenebaturov.rickandmorty.models.data.LocationRequest;
+import com.eugenebaturov.rickandmorty.models.data.list.ListLocationRequest;
 
 import io.reactivex.rxjava3.core.Single;
-import retrofit2.Call;
 
 /**
  * Интерфейс, методы которого "дёргают" ручки в {@link LocationApi}.

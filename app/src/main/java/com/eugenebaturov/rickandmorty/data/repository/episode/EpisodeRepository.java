@@ -1,11 +1,10 @@
 package com.eugenebaturov.rickandmorty.data.repository.episode;
 
 import com.eugenebaturov.rickandmorty.data.api.EpisodeApi;
-import com.eugenebaturov.rickandmorty.data.entity.EpisodeRequest;
-import com.eugenebaturov.rickandmorty.data.entity.list.ListEpisodeRequest;
+import com.eugenebaturov.rickandmorty.models.data.EpisodeRequest;
+import com.eugenebaturov.rickandmorty.models.data.list.ListEpisodeRequest;
 
 import io.reactivex.rxjava3.core.Single;
-import retrofit2.Call;
 
 /**
  * Интерфейс, методы которого "дёргают" ручки в {@link EpisodeApi}.

@@ -1,4 +1,4 @@
-package com.eugenebaturov.rickandmorty.data.entity;
+package com.eugenebaturov.rickandmorty.models.data;
 
 import com.google.gson.annotations.SerializedName;
 

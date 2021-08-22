@@ -1,8 +1,8 @@
 package com.eugenebaturov.rickandmorty.domain.interactor.character;
 
-import com.eugenebaturov.rickandmorty.data.entity.CharacterRequest;
+import com.eugenebaturov.rickandmorty.models.data.CharacterRequest;
 import com.eugenebaturov.rickandmorty.data.repository.character.CharacterRepository;
-import com.eugenebaturov.rickandmorty.domain.entity.Character;
+import com.eugenebaturov.rickandmorty.models.domain.Character;
 
 import java.util.List;
 

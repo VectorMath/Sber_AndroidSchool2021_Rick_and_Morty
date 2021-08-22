@@ -1,10 +1,9 @@
 package com.eugenebaturov.rickandmorty.data.api;
 
-import com.eugenebaturov.rickandmorty.data.entity.CharacterRequest;
-import com.eugenebaturov.rickandmorty.data.entity.list.ListCharacterRequest;
+import com.eugenebaturov.rickandmorty.models.data.CharacterRequest;
+import com.eugenebaturov.rickandmorty.models.data.list.ListCharacterRequest;
 
 import io.reactivex.rxjava3.core.Single;
-import retrofit2.Call;
 import retrofit2.http.GET;
 import retrofit2.http.Path;
 
