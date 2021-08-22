@@ -14,7 +14,7 @@ public interface CharacterRepository {
     /**
      * Метод, который дергает ручку getAllCharacters.
      *
-     * @return список персонажей.
+     * @return список персонажей в Single {@link Single} обёртке.
      */
     Single<ListCharacterRequest> getAllCharacters();
 
@@ -22,7 +22,7 @@ public interface CharacterRepository {
      * Метод, который дергает ручку getCharacterById.
      *
      * @param characterId - id персонажа.
-     * @return персонаж с данным id.
+     * @return персонаж с данным id в Single {@link Single} обёртке.
      */
     Single<CharacterRequest> getCharacterById(int characterId);
 }

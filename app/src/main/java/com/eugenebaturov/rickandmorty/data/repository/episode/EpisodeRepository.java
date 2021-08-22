@@ -15,7 +15,7 @@ public interface EpisodeRepository {
     /**
      * Метод, который дергает ручку getAllEpisodes.
      *
-     * @return список эпизодов в Call {@link Call} обёртке.
+     * @return список эпизодов в Single {@link Single} обёртке.
      */
     Single<ListEpisodeRequest> getAllEpisodes();
 
@@ -23,7 +23,7 @@ public interface EpisodeRepository {
      * Метод, который дергает ручку getEpisodeById.
      *
      * @param episodeId - id эпизода.
-     * @return эпизод в Call {@link Call} обёртке.
+     * @return эпизод в Single {@link Single} обёртке.
      */
     Single<EpisodeRequest> getEpisodeById(int episodeId);
 }

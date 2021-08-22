@@ -15,7 +15,7 @@ public interface LocationRepository {
     /**
      * Метод, который дергает ручку getAllLocation.
      *
-     * @return локация в Call {@link Call} обёртке.
+     * @return локация в Single {@link Single} обёртке.
      */
     Single<ListLocationRequest> getAllLocation();
 
@@ -23,7 +23,7 @@ public interface LocationRepository {
      * Метод, который дергает ручку getLocationById.
      *
      * @param locationId - id локации.
-     * @return локация в Call {@link Call} обёртке.
+     * @return локация в Single {@link Single} обёртке.
      */
     Single<LocationRequest> getLocationById(int locationId);
 }
