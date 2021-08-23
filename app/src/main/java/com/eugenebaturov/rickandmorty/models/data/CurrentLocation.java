@@ -23,6 +23,15 @@ public class CurrentLocation {
     @SerializedName("url")
     private String mUrl;
 
+    public CurrentLocation() {
+
+    }
+
+    public CurrentLocation(String mName, String mUrl) {
+        this.mName = mName;
+        this.mUrl = mUrl;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

@@ -63,6 +63,48 @@ public class CharacterResponse {
     @SerializedName("episode")
     private List<String> mEpisodes;
 
+    public CharacterResponse() {
+
+    }
+
+    /**
+     * Конструктор класса в который передается вся информация о персонаже, пришедшая из сервера.
+     *
+     * @param mId              id персонажа.
+     * @param mName            имя персонажа.
+     * @param mStatus          статус персонажа(Жив, Мёртв, Неизвестно).
+     * @param mSpecies         раса персонажа.
+     * @param mType            отличительная черта персонажа.
+     * @param mGender          гендер персонажа.
+     * @param mImage           изображение персонажа.
+     * @param mOrigin          место рождения персонажа. Реализовано через класс {@link Origin}
+     * @param mCurrentLocation текущее местоположение персонажа.
+     *                         Реализовано через класс {@link CurrentLocation}
+     * @param mEpisodes        ссылка на эпизоды в которых персонаж появился.
+     */
+    public CharacterResponse(
+            int mId,
+            String mName,
+            String mStatus,
+            String mSpecies,
+            String mType,
+            String mGender,
+            String mImage,
+            Origin mOrigin,
+            CurrentLocation mCurrentLocation,
+            List<String> mEpisodes
+    ) {
+        this.mId = mId;
+        this.mName = mName;
+        this.mStatus = mStatus;
+        this.mSpecies = mSpecies;
+        this.mType = mType;
+        this.mGender = mGender;
+        this.mImage = mImage;
+        this.mOrigin = mOrigin;
+        this.mCurrentLocation = mCurrentLocation;
+        this.mEpisodes = mEpisodes;
+    }
 
     @Override
     public boolean equals(Object o) {

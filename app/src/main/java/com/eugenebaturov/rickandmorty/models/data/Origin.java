@@ -21,6 +21,15 @@ public class Origin {
     @SerializedName("url")
     private String mUrl;
 
+    public Origin() {
+
+    }
+
+    public Origin(String mName, String mUrl) {
+        this.mName = mName;
+        this.mUrl = mUrl;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
