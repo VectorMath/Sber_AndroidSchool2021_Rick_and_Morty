@@ -1,10 +1,8 @@
 package com.eugenebaturov.rickandmorty.domain.interactor.location;
 
-import com.eugenebaturov.rickandmorty.models.data.LocationResponse;
 import com.eugenebaturov.rickandmorty.data.repository.location.LocationRepository;
 import com.eugenebaturov.rickandmorty.models.domain.Location;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import io.reactivex.rxjava3.core.Single;
@@ -27,11 +25,11 @@ public class LocationInteractorImpl implements LocationInteractor {
 
     @Override
     public Single<List<Location>> parseLocationsFromRepository() {
-        return mRepository.getAllLocation();
+        return mRepository.getLocationsFromServer();
     }
 
     @Override
     public Single<Location> parseLocationByIdFromRepository(int locationId) {
-        return mRepository.getLocationById(locationId);
+        return mRepository.getLocationFromServer(locationId);
     }
 }

@@ -10,14 +10,14 @@ import retrofit2.http.Path;
 import static com.eugenebaturov.rickandmorty.data.api.RickAndMortyURL.LOCATIONS_URL;
 
 /**
- * API которое позволяет получить информацию о локациях {@link LocationResponse} с сервера.
+ * API которое позволяет получить информацию о {@link LocationResponse} с сервера.
  */
 public interface LocationApi {
 
     /**
      * Ручка, которая получает информацию о всех локациях с сервера.
      *
-     * @return Список локаций в Single {@link Single} обёртке.
+     * @return Список локаций в {@link Single} обёртке.
      */
     @GET(LOCATIONS_URL)
     Single<ListLocationResponse> getAllLocations();
@@ -25,8 +25,8 @@ public interface LocationApi {
     /**
      * Ручка, которая получает информацию о локации по id с сервера.
      *
-     * @param locationId - id локации.
-     * @return локация в Single {@link Single} обёртке.
+     * @param locationId id локации.
+     * @return Данные о локации в {@link Single} обёртке.
      */
     @GET(LOCATIONS_URL + "{id}")
     Single<LocationResponse> getLocationById(@Path("id") int locationId);

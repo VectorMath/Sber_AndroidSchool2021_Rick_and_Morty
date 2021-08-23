@@ -1,5 +1,6 @@
 package com.eugenebaturov.rickandmorty.data.repository.episode;
 
+import com.eugenebaturov.rickandmorty.data.api.CharacterApi;
 import com.eugenebaturov.rickandmorty.data.api.EpisodeApi;
 import com.eugenebaturov.rickandmorty.models.data.EpisodeResponse;
 import com.eugenebaturov.rickandmorty.models.domain.Episode;
@@ -8,6 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import io.reactivex.rxjava3.core.Single;
+import retrofit2.Retrofit;
 
 /**
  * Класс-репозиторий, который является реализацией интерфейса {@link EpisodeRepository}.
@@ -17,17 +19,18 @@ public class EpisodeRepositoryImpl implements EpisodeRepository {
     private final EpisodeApi mEpisodeApi;
 
     /**
-     * Конструктор класса, в который мы передаёт экземпляр Retrofit, чтобы была
-     * возможность использовать публичные методы данного класса.
+     * Конструктор класса, в который мы передаём {@link EpisodeApi}, чтобы была
+     * возможность получить данные с сервера.
      *
-     * @param episodeApi - экземпляр Ретрофита, нужен, чтобы проинициализировать mEpisodeApi.
+     * @param episodeApi экземпляр {@link EpisodeApi},
+     *                     для его создания требуется {@link Retrofit}.
      */
     public EpisodeRepositoryImpl(EpisodeApi episodeApi) {
         mEpisodeApi = episodeApi;
     }
 
     @Override
-    public Single<List<Episode>> getAllEpisodes() {
+    public Single<List<Episode>> getEpisodesFromServer() {
 
         return mEpisodeApi.getAllEpisodes().map(response -> {
             List<Episode> episodes = new ArrayList<>();
@@ -41,7 +44,7 @@ public class EpisodeRepositoryImpl implements EpisodeRepository {
     }
 
     @Override
-    public Single<Episode> getEpisodeById(int episodeId) {
+    public Single<Episode> getEpisodeFromServer(int episodeId) {
         return mEpisodeApi.getEpisodeById(episodeId).map(Episode::new);
     }
 }

@@ -43,7 +43,7 @@ public class CharacterRepositoryTest {
         Mockito.when(mApi.getAllCharacters()).thenReturn(serverResponse);
 
         // Act
-        Single<List<Character>> actual = mRepository.getAllCharacters();
+        Single<List<Character>> actual = mRepository.getCharactersFromServer();
         List<Character> expected = createExpectedData();
 
         // Assert

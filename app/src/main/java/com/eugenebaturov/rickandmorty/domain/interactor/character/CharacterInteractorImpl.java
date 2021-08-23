@@ -25,11 +25,11 @@ public class CharacterInteractorImpl implements CharacterInteractor {
 
     @Override
     public Single<List<Character>> parseCharactersFromRepository() {
-        return mRepository.getAllCharacters();
+        return mRepository.getCharactersFromServer();
     }
 
     @Override
     public Single<Character> parseCharacterByIdFromRepository(int characterId) {
-        return mRepository.getCharacterById(characterId);
+        return mRepository.getCharacterFromServer(characterId);
     }
 }

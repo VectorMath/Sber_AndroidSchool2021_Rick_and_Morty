@@ -1,6 +1,9 @@
 package com.eugenebaturov.rickandmorty.data.repository.episode;
 
+import com.eugenebaturov.rickandmorty.data.api.CharacterApi;
 import com.eugenebaturov.rickandmorty.data.api.EpisodeApi;
+import com.eugenebaturov.rickandmorty.models.data.EpisodeResponse;
+import com.eugenebaturov.rickandmorty.models.data.list.ListEpisodeResponse;
 import com.eugenebaturov.rickandmorty.models.domain.Episode;
 
 import java.util.List;
@@ -8,22 +11,25 @@ import java.util.List;
 import io.reactivex.rxjava3.core.Single;
 
 /**
- * Интерфейс, методы которого "дёргают" ручки в {@link EpisodeApi}.
+ * Интерфейс, методы которого получают данные с сервера с помощью {@link EpisodeApi}
+ * в виде {@link EpisodeResponse}, а после форматируют это в {@link Episode}
  */
 public interface EpisodeRepository {
 
     /**
-     * Метод, который дергает ручку getAllEpisodes.
+     * Получает данные о всех эпизодах с сервера в виде {@link ListEpisodeResponse}, а после
+     * форматирует их в {@link List}<{@link Episode}>.
      *
-     * @return список эпизодов в Single {@link Single} обёртке.
+     * @return Список эпизодов в {@link Single} обёртке.
      */
-    Single<List<Episode>> getAllEpisodes();
+    Single<List<Episode>> getEpisodesFromServer();
 
     /**
-     * Метод, который дергает ручку getEpisodeById.
+     * Получает данные об эпизоде с сервера в виде {@link EpisodeResponse}, а после
+     * форматирует их в {@link Episode}.
      *
-     * @param episodeId - id эпизода.
-     * @return эпизод в Single {@link Single} обёртке.
+     * @param episodeId id эпизода.
+     * @return Эпизод в {@link Single} обёртке.
      */
-    Single<Episode> getEpisodeById(int episodeId);
+    Single<Episode> getEpisodeFromServer(int episodeId);
 }

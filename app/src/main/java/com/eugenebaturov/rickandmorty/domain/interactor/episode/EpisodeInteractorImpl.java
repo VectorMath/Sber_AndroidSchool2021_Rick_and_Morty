@@ -1,6 +1,5 @@
 package com.eugenebaturov.rickandmorty.domain.interactor.episode;
 
-import com.eugenebaturov.rickandmorty.models.data.EpisodeResponse;
 import com.eugenebaturov.rickandmorty.data.repository.episode.EpisodeRepository;
 import com.eugenebaturov.rickandmorty.models.domain.Episode;
 
@@ -26,11 +25,11 @@ public class EpisodeInteractorImpl implements EpisodeInteractor {
 
     @Override
     public Single<List<Episode>> parseEpisodesFromRepository() {
-        return mRepository.getAllEpisodes();
+        return mRepository.getEpisodesFromServer();
     }
 
     @Override
     public Single<Episode> parseEpisodeByIdFromRepository(int episodeId) {
-        return mRepository.getEpisodeById(episodeId);
+        return mRepository.getEpisodeFromServer(episodeId);
     }
 }

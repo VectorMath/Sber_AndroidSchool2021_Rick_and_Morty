@@ -8,26 +8,28 @@ import java.util.ArrayList;
 import java.util.List;
 
 import io.reactivex.rxjava3.core.Single;
+import retrofit2.Retrofit;
 
 /**
- * Класс-репозиторий, который является реализацией интерфейса {@link CharacterRepository}.
+ * Класс-репозиторий, который является реализацией {@link CharacterRepository}.
  */
 public class CharacterRepositoryImpl implements CharacterRepository {
 
     private final CharacterApi mCharacterApi;
 
     /**
-     * Конструктор класса, в который мы передаёт экземпляр Retrofit, чтобы была
-     * возможность использовать публичные методы данного класса.
+     * Конструктор класса, в который мы передаём {@link CharacterApi}, чтобы была
+     * возможность получить данные с сервера.
      *
-     * @param characterApi - экземпляр Ретрофита, нужен, чтобы проинициализировать mCharacterApi.
+     * @param characterApi экземпляр {@link CharacterApi},
+     *                     для его создания требуется {@link Retrofit}.
      */
     public CharacterRepositoryImpl(CharacterApi characterApi) {
         mCharacterApi = characterApi;
     }
 
     @Override
-    public Single<List<Character>> getAllCharacters() {
+    public Single<List<Character>> getCharactersFromServer() {
         return mCharacterApi.getAllCharacters().map(response -> {
             List<Character> characters = new ArrayList<>();
 
@@ -40,7 +42,7 @@ public class CharacterRepositoryImpl implements CharacterRepository {
     }
 
     @Override
-    public Single<Character> getCharacterById(int characterId) {
+    public Single<Character> getCharacterFromServer(int characterId) {
         return mCharacterApi.getCharacterById(characterId).map(Character::new);
     }
 }
