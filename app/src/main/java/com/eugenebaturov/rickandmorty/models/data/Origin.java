@@ -5,13 +5,13 @@ import com.google.gson.annotations.SerializedName;
 import java.util.Objects;
 
 /**
- * Подкласс, который является полем для класса-сущности {@link CharacterRequest}.
+ * Подкласс, который является полем для класса-сущности {@link CharacterResponse}.
  * <p>
  * Хранит в себе информацию о месте рождения персонажа.
  * <p>
  * [mName] - название локации.
  * <p>
- * [mUrl] - ссылка на локацию, информацию о которой хранит класс-сущность {@link LocationRequest}.
+ * [mUrl] - ссылка на локацию, информацию о которой хранит класс-сущность {@link LocationResponse}.
  */
 public class Origin {
 

@@ -1,8 +1,11 @@
 package com.eugenebaturov.rickandmorty.data.repository.location;
 
 import com.eugenebaturov.rickandmorty.data.api.LocationApi;
-import com.eugenebaturov.rickandmorty.models.data.LocationRequest;
-import com.eugenebaturov.rickandmorty.models.data.list.ListLocationRequest;
+import com.eugenebaturov.rickandmorty.models.data.LocationResponse;
+import com.eugenebaturov.rickandmorty.models.data.list.ListLocationResponse;
+import com.eugenebaturov.rickandmorty.models.domain.Location;
+
+import java.util.List;
 
 import io.reactivex.rxjava3.core.Single;
 
@@ -16,7 +19,7 @@ public interface LocationRepository {
      *
      * @return локация в Single {@link Single} обёртке.
      */
-    Single<ListLocationRequest> getAllLocation();
+    Single<List<Location>> getAllLocation();
 
     /**
      * Метод, который дергает ручку getLocationById.
@@ -24,5 +27,5 @@ public interface LocationRepository {
      * @param locationId - id локации.
      * @return локация в Single {@link Single} обёртке.
      */
-    Single<LocationRequest> getLocationById(int locationId);
+    Single<Location> getLocationById(int locationId);
 }

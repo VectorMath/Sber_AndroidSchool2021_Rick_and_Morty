@@ -20,7 +20,7 @@ import java.util.Objects;
  * <p>
  * [mCharacters] - ссылка на персонажей, которые появились в эпизоде.
  */
-public class EpisodeRequest {
+public class EpisodeResponse {
 
     @SerializedName("id")
     private int mId;
@@ -41,12 +41,12 @@ public class EpisodeRequest {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        EpisodeRequest episodeRequest = (EpisodeRequest) o;
-        return mId == episodeRequest.mId &&
-                Objects.equals(mTitle, episodeRequest.mTitle) &&
-                Objects.equals(mAirDate, episodeRequest.mAirDate) &&
-                Objects.equals(mEpisodeNumber, episodeRequest.mEpisodeNumber) &&
-                Objects.equals(mCharacters, episodeRequest.mCharacters);
+        EpisodeResponse episodeResponse = (EpisodeResponse) o;
+        return mId == episodeResponse.mId &&
+                Objects.equals(mTitle, episodeResponse.mTitle) &&
+                Objects.equals(mAirDate, episodeResponse.mAirDate) &&
+                Objects.equals(mEpisodeNumber, episodeResponse.mEpisodeNumber) &&
+                Objects.equals(mCharacters, episodeResponse.mCharacters);
     }
 
     @Override

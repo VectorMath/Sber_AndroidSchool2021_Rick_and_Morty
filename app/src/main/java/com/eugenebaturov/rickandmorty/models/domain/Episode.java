@@ -1,13 +1,13 @@
 package com.eugenebaturov.rickandmorty.models.domain;
 
-import com.eugenebaturov.rickandmorty.models.data.EpisodeRequest;
+import com.eugenebaturov.rickandmorty.models.data.EpisodeResponse;
 
 import java.util.List;
 import java.util.Objects;
 
 /**
  * Класс-сущность, которая обрабатывает данные из класса-сущности
- * {@link EpisodeRequest} в data-слое
+ * {@link EpisodeResponse} в data-слое
  */
 public class Episode {
     private final int mId;
@@ -19,14 +19,14 @@ public class Episode {
     /**
      * Конструктор класса
      *
-     * @param episodeRequest - моделька, которая получила данные с api.
+     * @param episodeResponse - моделька, которая получила данные с api.
      */
-    public Episode(EpisodeRequest episodeRequest) {
-        mId = episodeRequest.getId();
-        mTitle = episodeRequest.getTitle();
-        mAirDate = episodeRequest.getAirDate();
-        mEpisodeNumber = episodeRequest.getEpisodeNumber();
-        mCharacters = episodeRequest.getCharacters();
+    public Episode(EpisodeResponse episodeResponse) {
+        mId = episodeResponse.getId();
+        mTitle = episodeResponse.getTitle();
+        mAirDate = episodeResponse.getAirDate();
+        mEpisodeNumber = episodeResponse.getEpisodeNumber();
+        mCharacters = episodeResponse.getCharacters();
     }
 
     @Override

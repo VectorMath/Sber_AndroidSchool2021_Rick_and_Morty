@@ -1,13 +1,15 @@
 package com.eugenebaturov.rickandmorty.domain.interactor.episode;
 
-import com.eugenebaturov.rickandmorty.models.data.EpisodeRequest;
+import com.eugenebaturov.rickandmorty.models.data.EpisodeResponse;
 import com.eugenebaturov.rickandmorty.data.repository.episode.EpisodeRepository;
 import com.eugenebaturov.rickandmorty.models.domain.Episode;
 
 import java.util.List;
 
+import io.reactivex.rxjava3.core.Single;
+
 /**
- * Обрабатывает информацию об эпизодах из класса {@link EpisodeRequest},
+ * Обрабатывает информацию об эпизодах из класса {@link EpisodeResponse},
  * которые приходят из репозитория {@link EpisodeRepository}.
  */
 public interface EpisodeInteractor {
@@ -17,7 +19,7 @@ public interface EpisodeInteractor {
      *
      * @return - список эпизодов.
      */
-    List<Episode> parseEpisodesFromRepository();
+    Single<List<Episode>> parseEpisodesFromRepository();
 
     /**
      * Получает обработанный эпизод по id из репозитория
@@ -25,5 +27,5 @@ public interface EpisodeInteractor {
      * @param episodeId - id эпизода.
      * @return эпизод с конкретным id.
      */
-    Episode parseEpisodeByIdFromRepository(int episodeId);
+    Single<Episode> parseEpisodeByIdFromRepository(int episodeId);
 }

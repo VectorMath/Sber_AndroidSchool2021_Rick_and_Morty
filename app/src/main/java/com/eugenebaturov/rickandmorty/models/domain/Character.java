@@ -1,6 +1,6 @@
 package com.eugenebaturov.rickandmorty.models.domain;
 
-import com.eugenebaturov.rickandmorty.models.data.CharacterRequest;
+import com.eugenebaturov.rickandmorty.models.data.CharacterResponse;
 import com.eugenebaturov.rickandmorty.models.data.CurrentLocation;
 import com.eugenebaturov.rickandmorty.models.data.Origin;
 
@@ -9,7 +9,7 @@ import java.util.Objects;
 
 /**
  * Класс-сущность, которая обрабатывает данные из класса-сущности
- * {@link CharacterRequest} в data-слое
+ * {@link CharacterResponse} в data-слое
  */
 public class Character {
     private final int mId;
@@ -26,19 +26,19 @@ public class Character {
     /**
      * Конструктор класса
      *
-     * @param characterRequest - моделька, которая получила данные с api.
+     * @param characterResponse - моделька, которая получила данные с api.
      */
-    public Character(CharacterRequest characterRequest) {
-        mId = characterRequest.getId();
-        mName = characterRequest.getName();
-        mStatus = characterRequest.getStatus();
-        mSpecies = characterRequest.getSpecies();
-        mType = characterRequest.getType();
-        mGender = characterRequest.getGender();
-        mImage = characterRequest.getImage();
-        mOrigin = characterRequest.getOrigin();
-        mCurrentLocation = characterRequest.getCurrentLocation();
-        mEpisodes = characterRequest.getEpisodes();
+    public Character(CharacterResponse characterResponse) {
+        mId = characterResponse.getId();
+        mName = characterResponse.getName();
+        mStatus = characterResponse.getStatus();
+        mSpecies = characterResponse.getSpecies();
+        mType = characterResponse.getType();
+        mGender = characterResponse.getGender();
+        mImage = characterResponse.getImage();
+        mOrigin = characterResponse.getOrigin();
+        mCurrentLocation = characterResponse.getCurrentLocation();
+        mEpisodes = characterResponse.getEpisodes();
     }
 
     @Override

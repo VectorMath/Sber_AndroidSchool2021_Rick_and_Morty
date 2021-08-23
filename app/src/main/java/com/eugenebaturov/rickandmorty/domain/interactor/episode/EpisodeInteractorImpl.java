@@ -1,11 +1,12 @@
 package com.eugenebaturov.rickandmorty.domain.interactor.episode;
 
-import com.eugenebaturov.rickandmorty.models.data.EpisodeRequest;
+import com.eugenebaturov.rickandmorty.models.data.EpisodeResponse;
 import com.eugenebaturov.rickandmorty.data.repository.episode.EpisodeRepository;
 import com.eugenebaturov.rickandmorty.models.domain.Episode;
 
-import java.util.ArrayList;
 import java.util.List;
+
+import io.reactivex.rxjava3.core.Single;
 
 /**
  * Реализация интерфейса {@link EpisodeInteractor}
@@ -24,20 +25,12 @@ public class EpisodeInteractorImpl implements EpisodeInteractor {
     }
 
     @Override
-    public List<Episode> parseEpisodesFromRepository() {
-        List<EpisodeRequest> request = mRepository
-                .getAllEpisodes().blockingGet().getEpisodes();
-        List<Episode> episodes = new ArrayList<>();
-
-        for (EpisodeRequest episode : request) {
-            episodes.add(new Episode(episode));
-        }
-        return episodes;
+    public Single<List<Episode>> parseEpisodesFromRepository() {
+        return mRepository.getAllEpisodes();
     }
 
     @Override
-    public Episode parseEpisodeByIdFromRepository(int episodeId) {
-        EpisodeRequest request = mRepository.getEpisodeById(episodeId).blockingGet();
-        return new Episode(request);
+    public Single<Episode> parseEpisodeByIdFromRepository(int episodeId) {
+        return mRepository.getEpisodeById(episodeId);
     }
 }

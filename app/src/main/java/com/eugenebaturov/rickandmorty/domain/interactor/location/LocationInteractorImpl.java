@@ -1,11 +1,13 @@
 package com.eugenebaturov.rickandmorty.domain.interactor.location;
 
-import com.eugenebaturov.rickandmorty.models.data.LocationRequest;
+import com.eugenebaturov.rickandmorty.models.data.LocationResponse;
 import com.eugenebaturov.rickandmorty.data.repository.location.LocationRepository;
 import com.eugenebaturov.rickandmorty.models.domain.Location;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import io.reactivex.rxjava3.core.Single;
 
 /**
  * Реализация интерфейса {@link LocationInteractor}
@@ -24,23 +26,12 @@ public class LocationInteractorImpl implements LocationInteractor {
     }
 
     @Override
-    public List<Location> parseLocationsFromRepository() {
-        List<LocationRequest> request = mRepository
-                .getAllLocation()
-                .blockingGet()
-                .getLocations();
-        List<Location> locations = new ArrayList<>();
-
-        for (LocationRequest location : request) {
-            locations.add(new Location(location));
-        }
-
-        return locations;
+    public Single<List<Location>> parseLocationsFromRepository() {
+        return mRepository.getAllLocation();
     }
 
     @Override
-    public Location parseLocationByIdFromRepository(int locationId) {
-        LocationRequest request = mRepository.getLocationById(locationId).blockingGet();
-        return new Location(request);
+    public Single<Location> parseLocationByIdFromRepository(int locationId) {
+        return mRepository.getLocationById(locationId);
     }
 }

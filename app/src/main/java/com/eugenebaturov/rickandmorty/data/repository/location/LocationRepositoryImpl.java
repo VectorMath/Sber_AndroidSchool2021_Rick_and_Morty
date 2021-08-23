@@ -1,11 +1,13 @@
 package com.eugenebaturov.rickandmorty.data.repository.location;
 
 import com.eugenebaturov.rickandmorty.data.api.LocationApi;
-import com.eugenebaturov.rickandmorty.models.data.LocationRequest;
-import com.eugenebaturov.rickandmorty.models.data.list.ListLocationRequest;
+import com.eugenebaturov.rickandmorty.models.data.LocationResponse;
+import com.eugenebaturov.rickandmorty.models.domain.Location;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import io.reactivex.rxjava3.core.Single;
-import retrofit2.Retrofit;
 
 /**
  * Класс-репозиторий, который является реализацией интерфейса {@link LocationRepository}.
@@ -18,19 +20,28 @@ public class LocationRepositoryImpl implements LocationRepository {
      * Конструктор класса, в который мы передаёт экземпляр Retrofit, чтобы была
      * возможность использовать публичные методы данного класса.
      *
-     * @param retrofit - экземпляр Ретрофита, нужен, чтобы проинициализировать mLocationApi.
+     * @param locationApi - экземпляр Ретрофита, нужен, чтобы проинициализировать mLocationApi.
      */
-    public LocationRepositoryImpl(Retrofit retrofit) {
-        mLocationApi = retrofit.create(LocationApi.class);
+    public LocationRepositoryImpl(LocationApi locationApi) {
+        mLocationApi = locationApi;
     }
 
     @Override
-    public Single<ListLocationRequest> getAllLocation() {
-        return mLocationApi.getAllLocations();
+    public Single<List<Location>> getAllLocation() {
+
+        return mLocationApi.getAllLocations().map(response -> {
+           List<Location> locations = new ArrayList<>();
+
+           for (LocationResponse location : response.getLocations()) {
+               locations.add(new Location(location));
+           }
+
+           return locations;
+        });
     }
 
     @Override
-    public Single<LocationRequest> getLocationById(int locationId) {
-        return mLocationApi.getLocationById(locationId);
+    public Single<Location> getLocationById(int locationId) {
+        return mLocationApi.getLocationById(locationId).map(Location::new);
     }
 }

@@ -1,6 +1,6 @@
 package com.eugenebaturov.rickandmorty.models.data.list;
 
-import com.eugenebaturov.rickandmorty.models.data.EpisodeRequest;
+import com.eugenebaturov.rickandmorty.models.data.EpisodeResponse;
 import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
@@ -9,18 +9,18 @@ import java.util.Objects;
 /**
  * Класс-сущность, который хранит информацию о эпизодах мульт-сериала "Рик и Морти".
  * <p>
- * [mEpisodes] - список эпизодов {@link EpisodeRequest}
+ * [mEpisodes] - список эпизодов {@link EpisodeResponse}
  */
-public class ListEpisodeRequest {
+public class ListEpisodeResponse {
 
     @SerializedName("results")
-    private List<EpisodeRequest> mEpisodes;
+    private List<EpisodeResponse> mEpisodes;
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        ListEpisodeRequest that = (ListEpisodeRequest) o;
+        ListEpisodeResponse that = (ListEpisodeResponse) o;
         return Objects.equals(mEpisodes, that.mEpisodes);
     }
 
@@ -36,7 +36,7 @@ public class ListEpisodeRequest {
                 '}';
     }
 
-    public List<EpisodeRequest> getEpisodes() {
+    public List<EpisodeResponse> getEpisodes() {
         return mEpisodes;
     }
 }

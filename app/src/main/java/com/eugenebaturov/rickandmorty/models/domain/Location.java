@@ -1,13 +1,13 @@
 package com.eugenebaturov.rickandmorty.models.domain;
 
-import com.eugenebaturov.rickandmorty.models.data.LocationRequest;
+import com.eugenebaturov.rickandmorty.models.data.LocationResponse;
 
 import java.util.List;
 import java.util.Objects;
 
 /**
  * Класс-сущность, которая обрабатывает данные из класса-сущности
- * {@link LocationRequest} в data-слое
+ * {@link LocationResponse} в data-слое
  */
 public class Location {
     private final int mId;
@@ -19,14 +19,14 @@ public class Location {
     /**
      * Конструктор класса
      *
-     * @param locationRequest - моделька, которая получила данные с api.
+     * @param locationResponse - моделька, которая получила данные с api.
      */
-    public Location(LocationRequest locationRequest) {
-        mId = locationRequest.getId();
-        mName = locationRequest.getName();
-        mType = locationRequest.getType();
-        mDimension = locationRequest.getDimension();
-        mResidents = locationRequest.getResidents();
+    public Location(LocationResponse locationResponse) {
+        mId = locationResponse.getId();
+        mName = locationResponse.getName();
+        mType = locationResponse.getType();
+        mDimension = locationResponse.getDimension();
+        mResidents = locationResponse.getResidents();
     }
 
     @Override

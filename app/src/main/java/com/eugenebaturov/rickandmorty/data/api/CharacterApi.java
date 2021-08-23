@@ -1,7 +1,7 @@
 package com.eugenebaturov.rickandmorty.data.api;
 
-import com.eugenebaturov.rickandmorty.models.data.CharacterRequest;
-import com.eugenebaturov.rickandmorty.models.data.list.ListCharacterRequest;
+import com.eugenebaturov.rickandmorty.models.data.CharacterResponse;
+import com.eugenebaturov.rickandmorty.models.data.list.ListCharacterResponse;
 
 import io.reactivex.rxjava3.core.Single;
 import retrofit2.http.GET;
@@ -10,7 +10,7 @@ import retrofit2.http.Path;
 import static com.eugenebaturov.rickandmorty.data.api.RickAndMortyURL.CHARACTERS_URL;
 
 /**
- * API которое позволяет получить информацию о персонажах {@link CharacterRequest} с сервера.
+ * API которое позволяет получить информацию о персонажах {@link CharacterResponse} с сервера.
  */
 public interface CharacterApi {
 
@@ -20,7 +20,7 @@ public interface CharacterApi {
      * @return Список персонажей в Single {@link Single} обёртке.
      */
     @GET(CHARACTERS_URL)
-    Single<ListCharacterRequest> getAllCharacters();
+    Single<ListCharacterResponse> getAllCharacters();
 
     /**
      * Ручка, которая получает информацию о персонаже по id с сервера.
@@ -29,5 +29,5 @@ public interface CharacterApi {
      * @return персонаж в Single {@link Single} обёртке.
      */
     @GET(CHARACTERS_URL + "{id}")
-    Single<CharacterRequest> getCharacterById(@Path("id") int characterId);
+    Single<CharacterResponse> getCharacterById(@Path("id") int characterId);
 }

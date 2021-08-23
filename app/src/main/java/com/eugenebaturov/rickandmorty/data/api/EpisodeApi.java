@@ -1,7 +1,7 @@
 package com.eugenebaturov.rickandmorty.data.api;
 
-import com.eugenebaturov.rickandmorty.models.data.EpisodeRequest;
-import com.eugenebaturov.rickandmorty.models.data.list.ListEpisodeRequest;
+import com.eugenebaturov.rickandmorty.models.data.EpisodeResponse;
+import com.eugenebaturov.rickandmorty.models.data.list.ListEpisodeResponse;
 
 import io.reactivex.rxjava3.core.Single;
 import retrofit2.http.GET;
@@ -10,7 +10,7 @@ import retrofit2.http.Path;
 import static com.eugenebaturov.rickandmorty.data.api.RickAndMortyURL.EPISODES_URL;
 
 /**
- * API которое позволяет получить информацию о эпизодах {@link EpisodeRequest} с сервера.
+ * API которое позволяет получить информацию о эпизодах {@link EpisodeResponse} с сервера.
  */
 public interface EpisodeApi {
 
@@ -20,7 +20,7 @@ public interface EpisodeApi {
      * @return Список эпизодов в Single {@link Single} обёртке.
      */
     @GET(EPISODES_URL)
-    Single<ListEpisodeRequest> getAllEpisodes();
+    Single<ListEpisodeResponse> getAllEpisodes();
 
     /**
      * Ручка, которая получает информацию о эпизоде по id с сервера.
@@ -29,5 +29,5 @@ public interface EpisodeApi {
      * @return эпизод в Single {@link Single} обёртке.
      */
     @GET(EPISODES_URL + "{id}")
-    Single<EpisodeRequest> getEpisodeById(@Path("id") int episodeId);
+    Single<EpisodeResponse> getEpisodeById(@Path("id") int episodeId);
 }

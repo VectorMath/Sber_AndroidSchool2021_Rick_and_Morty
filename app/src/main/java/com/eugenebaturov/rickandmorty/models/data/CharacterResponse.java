@@ -31,7 +31,7 @@ import java.util.Objects;
  * <p>
  * [mEpisodes] - ссылка на эпизоды в которых персонаж появился.
  */
-public class CharacterRequest {
+public class CharacterResponse {
 
     @SerializedName("id")
     private int mId;
@@ -68,17 +68,17 @@ public class CharacterRequest {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        CharacterRequest characterRequest = (CharacterRequest) o;
-        return mId == characterRequest.mId &&
-                Objects.equals(mName, characterRequest.mName) &&
-                Objects.equals(mStatus, characterRequest.mStatus) &&
-                Objects.equals(mSpecies, characterRequest.mSpecies) &&
-                Objects.equals(mType, characterRequest.mType) &&
-                Objects.equals(mGender, characterRequest.mGender) &&
-                Objects.equals(mImage, characterRequest.mImage) &&
-                Objects.equals(mOrigin, characterRequest.mOrigin) &&
-                Objects.equals(mCurrentLocation, characterRequest.mCurrentLocation) &&
-                Objects.equals(mEpisodes, characterRequest.mEpisodes);
+        CharacterResponse characterResponse = (CharacterResponse) o;
+        return mId == characterResponse.mId &&
+                Objects.equals(mName, characterResponse.mName) &&
+                Objects.equals(mStatus, characterResponse.mStatus) &&
+                Objects.equals(mSpecies, characterResponse.mSpecies) &&
+                Objects.equals(mType, characterResponse.mType) &&
+                Objects.equals(mGender, characterResponse.mGender) &&
+                Objects.equals(mImage, characterResponse.mImage) &&
+                Objects.equals(mOrigin, characterResponse.mOrigin) &&
+                Objects.equals(mCurrentLocation, characterResponse.mCurrentLocation) &&
+                Objects.equals(mEpisodes, characterResponse.mEpisodes);
     }
 
     @Override

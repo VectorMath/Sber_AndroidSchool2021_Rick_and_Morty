@@ -1,6 +1,6 @@
 package com.eugenebaturov.rickandmorty.models.data.list;
 
-import com.eugenebaturov.rickandmorty.models.data.CharacterRequest;
+import com.eugenebaturov.rickandmorty.models.data.CharacterResponse;
 import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
@@ -9,18 +9,18 @@ import java.util.Objects;
 /**
  * Класс-сущность, который хранит информацию о персонажах мульт-сериала "Рик и Морти".
  * <p>
- * [mCharacters] - список персонажей {@link CharacterRequest}
+ * [mCharacters] - список персонажей {@link CharacterResponse}
  */
-public class ListCharacterRequest {
+public class ListCharacterResponse {
 
     @SerializedName("results")
-    private List<CharacterRequest> mCharacters;
+    private List<CharacterResponse> mCharacters;
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        ListCharacterRequest that = (ListCharacterRequest) o;
+        ListCharacterResponse that = (ListCharacterResponse) o;
         return Objects.equals(mCharacters, that.mCharacters);
     }
 
@@ -36,11 +36,11 @@ public class ListCharacterRequest {
                 '}';
     }
 
-    public List<CharacterRequest> getCharacters() {
+    public List<CharacterResponse> getCharacters() {
         return mCharacters;
     }
 
-    public void setCharacters(List<CharacterRequest> mCharacters) {
+    public void setCharacters(List<CharacterResponse> mCharacters) {
         this.mCharacters = mCharacters;
     }
 }

@@ -1,8 +1,9 @@
 package com.eugenebaturov.rickandmorty.data.repository.episode;
 
 import com.eugenebaturov.rickandmorty.data.api.EpisodeApi;
-import com.eugenebaturov.rickandmorty.models.data.EpisodeRequest;
-import com.eugenebaturov.rickandmorty.models.data.list.ListEpisodeRequest;
+import com.eugenebaturov.rickandmorty.models.domain.Episode;
+
+import java.util.List;
 
 import io.reactivex.rxjava3.core.Single;
 
@@ -16,7 +17,7 @@ public interface EpisodeRepository {
      *
      * @return список эпизодов в Single {@link Single} обёртке.
      */
-    Single<ListEpisodeRequest> getAllEpisodes();
+    Single<List<Episode>> getAllEpisodes();
 
     /**
      * Метод, который дергает ручку getEpisodeById.
@@ -24,5 +25,5 @@ public interface EpisodeRepository {
      * @param episodeId - id эпизода.
      * @return эпизод в Single {@link Single} обёртке.
      */
-    Single<EpisodeRequest> getEpisodeById(int episodeId);
+    Single<Episode> getEpisodeById(int episodeId);
 }

@@ -1,11 +1,13 @@
 package com.eugenebaturov.rickandmorty.data.repository.character;
 
 import com.eugenebaturov.rickandmorty.data.api.CharacterApi;
-import com.eugenebaturov.rickandmorty.models.data.CharacterRequest;
-import com.eugenebaturov.rickandmorty.models.data.list.ListCharacterRequest;
+import com.eugenebaturov.rickandmorty.models.data.CharacterResponse;
+import com.eugenebaturov.rickandmorty.models.domain.Character;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import io.reactivex.rxjava3.core.Single;
-import retrofit2.Retrofit;
 
 /**
  * Класс-репозиторий, который является реализацией интерфейса {@link CharacterRepository}.
@@ -18,19 +20,27 @@ public class CharacterRepositoryImpl implements CharacterRepository {
      * Конструктор класса, в который мы передаёт экземпляр Retrofit, чтобы была
      * возможность использовать публичные методы данного класса.
      *
-     * @param retrofit - экземпляр Ретрофита, нужен, чтобы проинициализировать mCharacterApi.
+     * @param characterApi - экземпляр Ретрофита, нужен, чтобы проинициализировать mCharacterApi.
      */
-    public CharacterRepositoryImpl(Retrofit retrofit) {
-        mCharacterApi = retrofit.create(CharacterApi.class);
+    public CharacterRepositoryImpl(CharacterApi characterApi) {
+        mCharacterApi = characterApi;
     }
 
     @Override
-    public Single<ListCharacterRequest> getAllCharacters() {
-        return mCharacterApi.getAllCharacters();
+    public Single<List<Character>> getAllCharacters() {
+        return mCharacterApi.getAllCharacters().map(response -> {
+            List<Character> characters = new ArrayList<>();
+
+            for (CharacterResponse character : response.getCharacters()) {
+                characters.add(new Character(character));
+            }
+
+            return characters;
+        });
     }
 
     @Override
-    public Single<CharacterRequest> getCharacterById(int characterId) {
-        return mCharacterApi.getCharacterById(characterId);
+    public Single<Character> getCharacterById(int characterId) {
+        return mCharacterApi.getCharacterById(characterId).map(Character::new);
     }
 }

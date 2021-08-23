@@ -1,8 +1,9 @@
 package com.eugenebaturov.rickandmorty.data.repository.character;
 
 import com.eugenebaturov.rickandmorty.data.api.CharacterApi;
-import com.eugenebaturov.rickandmorty.models.data.CharacterRequest;
-import com.eugenebaturov.rickandmorty.models.data.list.ListCharacterRequest;
+import com.eugenebaturov.rickandmorty.models.domain.Character;
+
+import java.util.List;
 
 import io.reactivex.rxjava3.core.Single;
 
@@ -16,7 +17,7 @@ public interface CharacterRepository {
      *
      * @return список персонажей в Single {@link Single} обёртке.
      */
-    Single<ListCharacterRequest> getAllCharacters();
+    Single<List<Character>> getAllCharacters();
 
     /**
      * Метод, который дергает ручку getCharacterById.
@@ -24,5 +25,5 @@ public interface CharacterRepository {
      * @param characterId - id персонажа.
      * @return персонаж с данным id в Single {@link Single} обёртке.
      */
-    Single<CharacterRequest> getCharacterById(int characterId);
+    Single<Character> getCharacterById(int characterId);
 }

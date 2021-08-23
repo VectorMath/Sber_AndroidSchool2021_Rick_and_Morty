@@ -1,6 +1,6 @@
 package com.eugenebaturov.rickandmorty.models.data.list;
 
-import com.eugenebaturov.rickandmorty.models.data.LocationRequest;
+import com.eugenebaturov.rickandmorty.models.data.LocationResponse;
 import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
@@ -9,18 +9,18 @@ import java.util.Objects;
 /**
  * Класс-сущность, который хранит информацию о локациях мульт-сериала "Рик и Морти".
  * <p>
- * [mLocations] - список локаций {@link LocationRequest}
+ * [mLocations] - список локаций {@link LocationResponse}
  */
-public class ListLocationRequest {
+public class ListLocationResponse {
 
     @SerializedName("results")
-    private List<LocationRequest> mLocations;
+    private List<LocationResponse> mLocations;
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        ListLocationRequest that = (ListLocationRequest) o;
+        ListLocationResponse that = (ListLocationResponse) o;
         return Objects.equals(mLocations, that.mLocations);
     }
 
@@ -36,7 +36,7 @@ public class ListLocationRequest {
                 '}';
     }
 
-    public List<LocationRequest> getLocations() {
+    public List<LocationResponse> getLocations() {
         return mLocations;
     }
 }

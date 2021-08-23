@@ -18,7 +18,7 @@ import java.util.Objects;
  * <p>
  * [mResidents] - список персонажей, которые находятся в локации.
  */
-public class LocationRequest {
+public class LocationResponse {
 
     @SerializedName("id")
     private int mId;
@@ -39,12 +39,12 @@ public class LocationRequest {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        LocationRequest locationRequest = (LocationRequest) o;
-        return mId == locationRequest.mId &&
-                Objects.equals(mName, locationRequest.mName) &&
-                Objects.equals(mType, locationRequest.mType) &&
-                Objects.equals(mDimension, locationRequest.mDimension) &&
-                Objects.equals(mResidents, locationRequest.mResidents);
+        LocationResponse locationResponse = (LocationResponse) o;
+        return mId == locationResponse.mId &&
+                Objects.equals(mName, locationResponse.mName) &&
+                Objects.equals(mType, locationResponse.mType) &&
+                Objects.equals(mDimension, locationResponse.mDimension) &&
+                Objects.equals(mResidents, locationResponse.mResidents);
     }
 
     @Override
