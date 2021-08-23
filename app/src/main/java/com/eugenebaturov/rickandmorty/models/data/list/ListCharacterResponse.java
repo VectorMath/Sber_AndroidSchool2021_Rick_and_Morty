@@ -39,4 +39,8 @@ public class ListCharacterRequest {
     public List<CharacterRequest> getCharacters() {
         return mCharacters;
     }
+
+    public void setCharacters(List<CharacterRequest> mCharacters) {
+        this.mCharacters = mCharacters;
+    }
 }
