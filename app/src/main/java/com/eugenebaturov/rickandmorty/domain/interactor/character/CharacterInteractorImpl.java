@@ -17,19 +17,19 @@ public class CharacterInteractorImpl implements CharacterInteractor {
     /**
      * Конструктор класса.
      *
-     * @param repository - экземпляр интерфейса-репозитория {@link CharacterRepository}
+     * @param repository экземпляр интерфейса-репозитория {@link CharacterRepository}
      */
     public CharacterInteractorImpl(CharacterRepository repository) {
         mRepository = repository;
     }
 
     @Override
-    public Single<List<Character>> parseCharactersFromRepository() {
+    public Single<List<Character>> getCharactersFromRepository() {
         return mRepository.getCharactersFromServer();
     }
 
     @Override
-    public Single<Character> parseCharacterByIdFromRepository(int characterId) {
+    public Single<Character> getCharacterFromRepository(int characterId) {
         return mRepository.getCharacterFromServer(characterId);
     }
 }

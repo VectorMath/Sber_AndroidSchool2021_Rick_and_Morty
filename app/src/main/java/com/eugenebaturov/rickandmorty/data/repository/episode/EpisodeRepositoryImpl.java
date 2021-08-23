@@ -1,6 +1,5 @@
 package com.eugenebaturov.rickandmorty.data.repository.episode;
 
-import com.eugenebaturov.rickandmorty.data.api.CharacterApi;
 import com.eugenebaturov.rickandmorty.data.api.EpisodeApi;
 import com.eugenebaturov.rickandmorty.models.data.EpisodeResponse;
 import com.eugenebaturov.rickandmorty.models.domain.Episode;
@@ -23,7 +22,7 @@ public class EpisodeRepositoryImpl implements EpisodeRepository {
      * возможность получить данные с сервера.
      *
      * @param episodeApi экземпляр {@link EpisodeApi},
-     *                     для его создания требуется {@link Retrofit}.
+     *                   для его создания требуется {@link Retrofit}.
      */
     public EpisodeRepositoryImpl(EpisodeApi episodeApi) {
         mEpisodeApi = episodeApi;

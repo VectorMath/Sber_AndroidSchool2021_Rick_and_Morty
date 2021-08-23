@@ -1,6 +1,5 @@
 package com.eugenebaturov.rickandmorty.data.repository.location;
 
-import com.eugenebaturov.rickandmorty.data.api.CharacterApi;
 import com.eugenebaturov.rickandmorty.data.api.LocationApi;
 import com.eugenebaturov.rickandmorty.models.data.LocationResponse;
 import com.eugenebaturov.rickandmorty.models.domain.Location;

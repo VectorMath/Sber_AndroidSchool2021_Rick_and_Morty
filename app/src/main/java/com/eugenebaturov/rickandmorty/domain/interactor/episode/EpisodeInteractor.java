@@ -1,6 +1,5 @@
 package com.eugenebaturov.rickandmorty.domain.interactor.episode;
 
-import com.eugenebaturov.rickandmorty.models.data.EpisodeResponse;
 import com.eugenebaturov.rickandmorty.data.repository.episode.EpisodeRepository;
 import com.eugenebaturov.rickandmorty.models.domain.Episode;
 
@@ -9,23 +8,22 @@ import java.util.List;
 import io.reactivex.rxjava3.core.Single;
 
 /**
- * Обрабатывает информацию об эпизодах из класса {@link EpisodeResponse},
- * которые приходят из репозитория {@link EpisodeRepository}.
+ * Получает информацию из {@link EpisodeRepository}, чтобы после передать во view-слой.
  */
 public interface EpisodeInteractor {
 
     /**
-     * Получает обработанный список эпизодов из репозитория
+     * Получает список эпизодов.
      *
-     * @return - список эпизодов.
+     * @return Список эпизодов [{@link List}<{@link Episode}>] в {@link Single} обёртке.
      */
-    Single<List<Episode>> parseEpisodesFromRepository();
+    Single<List<Episode>> getEpisodesFromRepository();
 
     /**
-     * Получает обработанный эпизод по id из репозитория
+     * Получает эпизод с конкретным id.
      *
-     * @param episodeId - id эпизода.
-     * @return эпизод с конкретным id.
+     * @param episodeId id эпизода.
+     * @return Эпизод [{@link Episode}] в {@link Single} обёртке.
      */
-    Single<Episode> parseEpisodeByIdFromRepository(int episodeId);
+    Single<Episode> getEpisodeFromRepository(int episodeId);
 }

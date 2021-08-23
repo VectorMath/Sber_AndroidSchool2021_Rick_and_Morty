@@ -1,7 +1,8 @@
 package com.eugenebaturov.rickandmorty.domain.interactor.location;
 
-import com.eugenebaturov.rickandmorty.models.data.LocationResponse;
+import com.eugenebaturov.rickandmorty.data.repository.episode.EpisodeRepository;
 import com.eugenebaturov.rickandmorty.data.repository.location.LocationRepository;
+import com.eugenebaturov.rickandmorty.models.domain.Episode;
 import com.eugenebaturov.rickandmorty.models.domain.Location;
 
 import java.util.List;
@@ -9,23 +10,22 @@ import java.util.List;
 import io.reactivex.rxjava3.core.Single;
 
 /**
- * Обрабатывает информацию о локации {@link LocationResponse},
- * которая приходит из репозитория {@link LocationRepository}
+ * Получает информацию из {@link LocationRepository}, чтобы после передать во view-слой.
  */
 public interface LocationInteractor {
 
     /**
-     * Получает обработанный список локаций из репозитория
+     * Получает список локаций.
      *
-     * @return - список локаций
+     * @return Список эпизодов [{@link List}<{@link Location}>] в {@link Single} обёртке.
      */
-    Single<List<Location>> parseLocationsFromRepository();
+    Single<List<Location>> getLocationsFromRepository();
 
     /**
-     * Получает обработанную локацию по id из репозитория
+     * Получает локацию с конкретным id.
      *
-     * @param locationId - id локации.
-     * @return локация с конкретным id.
+     * @param locationId id локации.
+     * @return Локация [{@link Location}] в {@link Single} обёртке.
      */
-    Single<Location> parseLocationByIdFromRepository(int locationId);
+    Single<Location> getLocationFromRepository(int locationId);
 }

@@ -1,6 +1,5 @@
 package com.eugenebaturov.rickandmorty.domain.interactor.character;
 
-import com.eugenebaturov.rickandmorty.models.data.CharacterResponse;
 import com.eugenebaturov.rickandmorty.data.repository.character.CharacterRepository;
 import com.eugenebaturov.rickandmorty.models.domain.Character;
 
@@ -9,23 +8,22 @@ import java.util.List;
 import io.reactivex.rxjava3.core.Single;
 
 /**
- * Обрабатывает информацию о персонаже {@link CharacterResponse},
- * который приходит из репозитория {@link CharacterRepository}.
+ * Получает информацию из {@link CharacterRepository}, чтобы после передать во view-слой.
  */
 public interface CharacterInteractor {
 
     /**
-     * Получает обработанный список персонажей из репозитория
+     * Получает список персонажей.
      *
-     * @return - список персонажей.
+     * @return Список персонажей [{@link List}<{@link Character}>] в {@link Single} обёртке.
      */
-    Single<List<Character>> parseCharactersFromRepository();
+    Single<List<Character>> getCharactersFromRepository();
 
     /**
-     * Получает обработанного персонажа из репозитория
+     * Получает персонажа с конкретным id.
      *
-     * @param characterId - id персонажа.
-     * @return - персонаж с конкретным id.
+     * @param characterId id персонажа.
+     * @return Персонаж [{@link Character}] в {@link Single} обёртке.
      */
-    Single<Character> parseCharacterByIdFromRepository(int characterId);
+    Single<Character> getCharacterFromRepository(int characterId);
 }

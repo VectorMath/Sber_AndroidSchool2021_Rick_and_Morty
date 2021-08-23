@@ -24,12 +24,12 @@ public class LocationInteractorImpl implements LocationInteractor {
     }
 
     @Override
-    public Single<List<Location>> parseLocationsFromRepository() {
+    public Single<List<Location>> getLocationsFromRepository() {
         return mRepository.getLocationsFromServer();
     }
 
     @Override
-    public Single<Location> parseLocationByIdFromRepository(int locationId) {
+    public Single<Location> getLocationFromRepository(int locationId) {
         return mRepository.getLocationFromServer(locationId);
     }
 }

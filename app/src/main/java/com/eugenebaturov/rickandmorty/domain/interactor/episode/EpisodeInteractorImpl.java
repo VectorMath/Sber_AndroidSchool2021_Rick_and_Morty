@@ -17,19 +17,19 @@ public class EpisodeInteractorImpl implements EpisodeInteractor {
     /**
      * Конструктор класса
      *
-     * @param repository - экземпляр интрефейса-репозитория {@link EpisodeRepository}
+     * @param repository экземпляр интрефейса-репозитория {@link EpisodeRepository}
      */
     public EpisodeInteractorImpl(EpisodeRepository repository) {
         mRepository = repository;
     }
 
     @Override
-    public Single<List<Episode>> parseEpisodesFromRepository() {
+    public Single<List<Episode>> getEpisodesFromRepository() {
         return mRepository.getEpisodesFromServer();
     }
 
     @Override
-    public Single<Episode> parseEpisodeByIdFromRepository(int episodeId) {
+    public Single<Episode> getEpisodeFromRepository(int episodeId) {
         return mRepository.getEpisodeFromServer(episodeId);
     }
 }
