@@ -16,6 +16,21 @@ public class ListLocationResponse {
     @SerializedName("results")
     private List<LocationResponse> mLocations;
 
+    /**
+     * Пустой конструктор класса.
+     */
+    public ListLocationResponse() {
+
+    }
+
+    /**
+     * Конструктор класса в который мы передаём информацию о локация, полученную с сервера.
+     * @param mLocations список локаций.
+     */
+    public ListLocationResponse(List<LocationResponse> mLocations) {
+        this.mLocations = mLocations;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

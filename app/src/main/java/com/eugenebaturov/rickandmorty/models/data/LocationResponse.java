@@ -35,6 +35,34 @@ public class LocationResponse {
     @SerializedName("residents")
     private List<String> mResidents;
 
+    /**
+     * Пустой конструктор класса.
+     */
+    public LocationResponse() {
+
+    }
+
+    /**
+     * Конструктор класса в который передаётся вся информация о локации.
+     * @param mId id локации.
+     * @param mName название локации.
+     * @param mType тип локации.
+     * @param mDimension измерение локации.
+     * @param mResidents список жителей в этой локации.
+     */
+    public LocationResponse(
+            int mId,
+            String mName,
+            String mType,
+            String mDimension,
+            List<String> mResidents) {
+        this.mId = mId;
+        this.mName = mName;
+        this.mType = mType;
+        this.mDimension = mDimension;
+        this.mResidents = mResidents;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
