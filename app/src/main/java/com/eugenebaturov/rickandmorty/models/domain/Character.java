@@ -41,6 +41,43 @@ public class Character {
         mEpisodes = characterResponse.getEpisodes();
     }
 
+    /**
+     * Конструктор класса в который мы вручную передаём все параметры персонажа.
+     *
+     * @param mId id персонажа.
+     * @param mName имя персонажа.
+     * @param mStatus статус персонажа.
+     * @param mSpecies раса персонажа
+     * @param mType отличительная черта персонажа.
+     * @param mGender пол персонажа.
+     * @param mImage аватарка персонажа
+     * @param mOrigin место рождения персонажа.
+     * @param mCurrentLocation текущая локация в которой находится персонаж.
+     * @param mEpisodes список URL эпизодов в которых персонаж появился.
+     */
+    public Character(
+            int mId,
+            String mName,
+            String mStatus,
+            String mSpecies,
+            String mType,
+            String mGender,
+            String mImage,
+            Origin mOrigin,
+            CurrentLocation mCurrentLocation,
+            List<String> mEpisodes) {
+        this.mId = mId;
+        this.mName = mName;
+        this.mStatus = mStatus;
+        this.mSpecies = mSpecies;
+        this.mType = mType;
+        this.mGender = mGender;
+        this.mImage = mImage;
+        this.mOrigin = mOrigin;
+        this.mCurrentLocation = mCurrentLocation;
+        this.mEpisodes = mEpisodes;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
