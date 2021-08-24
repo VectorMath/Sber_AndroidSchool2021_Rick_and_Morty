@@ -16,6 +16,20 @@ public class ListEpisodeResponse {
     @SerializedName("results")
     private List<EpisodeResponse> mEpisodes;
 
+    /**
+     * Пустой конструктор класса.
+     */
+    public ListEpisodeResponse() {
+    }
+
+    /**
+     * Конструктор класса в который передается список эпизодов с сервера.
+     * @param mEpisodes список эпизодов {@link EpisodeResponse}
+     */
+    public ListEpisodeResponse(List<EpisodeResponse> mEpisodes) {
+        this.mEpisodes = mEpisodes;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

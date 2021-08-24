@@ -18,7 +18,6 @@ import org.mockito.junit.MockitoJUnit;
 import org.mockito.junit.MockitoJUnitRunner;
 import org.mockito.junit.MockitoRule;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -69,10 +68,12 @@ public class CharacterRepositoryTest {
      */
     @Test(expected = NullPointerException.class)
     public void testGetNullCharactersFromServer() {
+        // Arrange
         Single<ListCharacterResponse> serverResponse =
                 Single.just(null);
         Mockito.when(mApi.getAllCharacters()).thenReturn(serverResponse);
 
+        // Act
         mRepository.getCharactersFromServer();
     }
 
@@ -100,6 +101,7 @@ public class CharacterRepositoryTest {
      */
     @Test(expected = NullPointerException.class)
     public void testGetNullCharacterFromServerWithIncorrectId() {
+        // Act
         mRepository.getCharacterFromServer(INCORRECT_CHARACTER_ID);
     }
 
