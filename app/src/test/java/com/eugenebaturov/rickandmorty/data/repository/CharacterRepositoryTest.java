@@ -18,11 +18,15 @@ import org.mockito.junit.MockitoJUnit;
 import org.mockito.junit.MockitoJUnitRunner;
 import org.mockito.junit.MockitoRule;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
 import io.reactivex.rxjava3.core.Single;
 
+/**
+ * Юнит-тесты для {@link CharacterRepositoryImpl}.
+ */
 @RunWith(MockitoJUnitRunner.class)
 public class CharacterRepositoryTest {
 
@@ -41,8 +45,12 @@ public class CharacterRepositoryTest {
         mRepository = new CharacterRepositoryImpl(mApi);
     }
 
+    /**
+     * Проверка на то, что с сервера приходят нужные данные в виде {@link ListCharacterResponse}
+     * и после они обрабатываются в ожидаемый {@link List}<{@link Character}>.
+     */
     @Test
-    public void testGetCharactersFromServerCorrect() {
+    public void testGetCharactersFromServer() {
         // Arrange
         Single<ListCharacterResponse> serverResponse =
                 Single.just(createTestListCharacterResponse());
@@ -56,8 +64,24 @@ public class CharacterRepositoryTest {
         actual.test().assertValue(expected);
     }
 
+    /**
+     * Проверка на то, что если с сервера придёт null, мы получим {@link NullPointerException}.
+     */
+    @Test(expected = NullPointerException.class)
+    public void testGetNullCharactersFromServer() {
+        Single<ListCharacterResponse> serverResponse =
+                Single.just(null);
+        Mockito.when(mApi.getAllCharacters()).thenReturn(serverResponse);
+
+        mRepository.getCharactersFromServer();
+    }
+
+    /**
+     * Проверка на то, что с сервера придут нужные данные о персонаже
+     * виде {@link CharacterResponse}, и после мы обрабатываем в ожидаемый {@link Character}.
+     */
     @Test
-    public void testGetCharacterFromServerByIdCorrect() {
+    public void testGetCharacterFromServerWithCorrectId() {
         // Arrange
         Single<CharacterResponse> serverResponse =
                 Single.just(createTestCharacterResponse());
@@ -71,15 +95,12 @@ public class CharacterRepositoryTest {
         actual.test().assertValue(expected);
     }
 
-    public void testGetCharacterFromServerByIdIncorrect() {
-        // Arrange
-
-
-        // Act
-
-
-        // Assert
-
+    /**
+     * Проверка на то, что с некорректным id персонажа, мы получим {@link NullPointerException}.
+     */
+    @Test(expected = NullPointerException.class)
+    public void testGetNullCharacterFromServerWithIncorrectId() {
+        mRepository.getCharacterFromServer(INCORRECT_CHARACTER_ID);
     }
 
     private ListCharacterResponse createTestListCharacterResponse() {
