@@ -119,9 +119,9 @@ public class EpisodeRepositoryTest {
         );
 
         List<String> secondEpisodeCharactersUrl = new ArrayList<>();
-        firstEpisodeCharactersUrl.add("https://rickandmortyapi.com/api/character/31");
-        firstEpisodeCharactersUrl.add("https://rickandmortyapi.com/api/character/12");
-        firstEpisodeCharactersUrl.add("https://rickandmortyapi.com/api/character/5");
+        secondEpisodeCharactersUrl.add("https://rickandmortyapi.com/api/character/31");
+        secondEpisodeCharactersUrl.add("https://rickandmortyapi.com/api/character/12");
+        secondEpisodeCharactersUrl.add("https://rickandmortyapi.com/api/character/5");
         EpisodeResponse secondEpisode = new EpisodeResponse(
                 2,
                 "Lawnmower Dog",
@@ -152,9 +152,9 @@ public class EpisodeRepositoryTest {
         );
 
         List<String> secondEpisodeCharactersUrl = new ArrayList<>();
-        firstEpisodeCharactersUrl.add("https://rickandmortyapi.com/api/character/31");
-        firstEpisodeCharactersUrl.add("https://rickandmortyapi.com/api/character/12");
-        firstEpisodeCharactersUrl.add("https://rickandmortyapi.com/api/character/5");
+        secondEpisodeCharactersUrl.add("https://rickandmortyapi.com/api/character/31");
+        secondEpisodeCharactersUrl.add("https://rickandmortyapi.com/api/character/12");
+        secondEpisodeCharactersUrl.add("https://rickandmortyapi.com/api/character/5");
         EpisodeResponse secondEpisode = new EpisodeResponse(
                 2,
                 "Lawnmower Dog",

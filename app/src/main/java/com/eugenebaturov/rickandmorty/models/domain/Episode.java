@@ -29,6 +29,28 @@ public class Episode {
         mCharacters = episodeResponse.getCharacters();
     }
 
+    /**
+     * Конструктор класса в который мы передаём всю информацию об эпизоде вручную.
+     *
+     * @param mId            id эпизода.
+     * @param mTitle         название эпизода.
+     * @param mAirDate       дата выпуска эпизода(пример: September 10, 2017).
+     * @param mEpisodeNumber номер эпизода(пример: S03E07).
+     * @param mCharacters    ссылка на персонажей, которые появились в эпизоде.
+     */
+    public Episode(
+            int mId,
+            String mTitle,
+            String mAirDate,
+            String mEpisodeNumber,
+            List<String> mCharacters) {
+        this.mId = mId;
+        this.mTitle = mTitle;
+        this.mAirDate = mAirDate;
+        this.mEpisodeNumber = mEpisodeNumber;
+        this.mCharacters = mCharacters;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
