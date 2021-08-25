@@ -50,7 +50,7 @@ public class EpisodeInteractorTest {
         Mockito.when(mEpisodeRepository.getEpisodesFromServer()).thenReturn(episodesFromRepository);
 
         // Act
-        Single<List<Episode>> actual =  mEpisodeInteractor.getEpisodesFromRepository();
+        Single<List<Episode>> actual = mEpisodeInteractor.getEpisodesFromRepository();
 
         // Assert
         Truth.assertThat(actual).isEqualTo(episodesFromRepository);

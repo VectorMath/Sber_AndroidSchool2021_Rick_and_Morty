@@ -29,6 +29,27 @@ public class Location {
         mResidents = locationResponse.getResidents();
     }
 
+    /**
+     * Конструктор класса в который мы вручную передаём информацию о локации.
+     * @param mId id локации.
+     * @param mName название локации.
+     * @param mType тип локации.
+     * @param mDimension измерение локации.
+     * @param mResidents список персонажей, которые живут в данной локации.
+     */
+    public Location(
+            int mId,
+            String mName,
+            String mType,
+            String mDimension,
+            List<String> mResidents) {
+        this.mId = mId;
+        this.mName = mName;
+        this.mType = mType;
+        this.mDimension = mDimension;
+        this.mResidents = mResidents;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
