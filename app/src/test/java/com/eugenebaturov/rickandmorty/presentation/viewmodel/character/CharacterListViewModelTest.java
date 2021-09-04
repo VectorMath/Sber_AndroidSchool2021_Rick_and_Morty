@@ -107,7 +107,8 @@ public class CharacterListViewModelTest {
     }
 
     /**
-     * Проверка на то, что если интерактор вернёт ошибку, то и наша вью-моделька получит её.
+     * Проверка на то, что если интерактор вернёт {@link IllegalAccessException},
+     * то и наша вью-моделька получит её.
      */
     @Test
     public void testLoadCharactersWithError() {

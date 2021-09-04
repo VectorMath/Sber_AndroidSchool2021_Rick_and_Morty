@@ -18,6 +18,12 @@ public final class CharacterViewModel extends AppViewModel {
     private final MutableLiveData<Character> mCharacter = new MutableLiveData<>();
 
     @NonNull
+    private final MutableLiveData<Boolean> mProgress = new MutableLiveData<>();
+
+    @NonNull
+    private final MutableLiveData<Throwable> mError = new MutableLiveData<>();
+
+    @NonNull
     private final SchedulerProvider mSchedulerProvider;
 
     @NonNull
@@ -46,6 +52,24 @@ public final class CharacterViewModel extends AppViewModel {
     }
 
     /**
+     * Getter для приватного поля mProgress.
+     *
+     * @return прогресс в {@link LiveData} обёртке.
+     */
+    public LiveData<Boolean> getProgress() {
+        return mProgress;
+    }
+
+    /**
+     * Getter для приватного поля mError.
+     *
+     * @return ошибка в {@link LiveData} обёртке.
+     */
+    public LiveData<Throwable> getError() {
+        return mError;
+    }
+
+    /**
      * Метод, в котором поле mCharacter подписывается на источник данных
      * в виде получение информации о персонаже с конкретным id с сервера.
      *
@@ -56,6 +80,8 @@ public final class CharacterViewModel extends AppViewModel {
                 .getCharacterFromRepository(characterId)
                 .subscribeOn(mSchedulerProvider.io())
                 .observeOn(mSchedulerProvider.ui())
-                .subscribe(mCharacter::setValue);
+                .doFinally(() -> mProgress.setValue(false))
+                .doOnSubscribe(d -> mProgress.setValue(true))
+                .subscribe(mCharacter::setValue, mError::setValue);
     }
 }
