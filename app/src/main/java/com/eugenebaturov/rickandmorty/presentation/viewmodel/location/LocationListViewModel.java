@@ -20,6 +20,12 @@ public final class LocationListViewModel extends AppViewModel {
     private final MutableLiveData<List<Location>> mLocations = new MutableLiveData<>();
 
     @NonNull
+    private final MutableLiveData<Boolean> mProgress = new MutableLiveData<>();
+
+    @NonNull
+    private final MutableLiveData<Throwable> mError = new MutableLiveData<>();
+
+    @NonNull
     private final SchedulerProvider mSchedulerProvider;
 
     @NonNull
@@ -48,6 +54,24 @@ public final class LocationListViewModel extends AppViewModel {
     }
 
     /**
+     * Getter для приватного поля mProgress.
+     *
+     * @return прогресс в {@link LiveData} обёртке.
+     */
+    public LiveData<Boolean> getProgress() {
+        return mProgress;
+    }
+
+    /**
+     * Getter для приватного поля mError.
+     *
+     * @return ошибку в {@link LiveData} обёртке.
+     */
+    public LiveData<Throwable> getError() {
+        return mError;
+    }
+
+    /**
      * Метод, в котором поле mLocations подписывается на источник данных
      * в виде получения информации о всех локациях с сервера.
      */
@@ -56,6 +80,8 @@ public final class LocationListViewModel extends AppViewModel {
                 .getLocationsFromRepository()
                 .subscribeOn(mSchedulerProvider.io())
                 .observeOn(mSchedulerProvider.ui())
-                .subscribe(mLocations::setValue);
+                .doFinally(() -> mProgress.setValue(false))
+                .doOnSubscribe(d -> mProgress.setValue(true))
+                .subscribe(mLocations::setValue, mError::setValue);
     }
 }

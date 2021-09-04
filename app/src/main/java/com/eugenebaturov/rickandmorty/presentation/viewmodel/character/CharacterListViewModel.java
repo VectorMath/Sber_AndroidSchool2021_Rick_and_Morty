@@ -76,7 +76,8 @@ public final class CharacterListViewModel extends AppViewModel {
      * в виде получение информации о персонажах с сервера.
      */
     public final void loadCharacters() {
-        disposable = mCharacterInteractor.getCharactersFromRepository()
+        disposable = mCharacterInteractor
+                .getCharactersFromRepository()
                 .subscribeOn(mSchedulerProvider.io())
                 .observeOn(mSchedulerProvider.ui())
                 .doFinally(() -> mProgress.setValue(false))
