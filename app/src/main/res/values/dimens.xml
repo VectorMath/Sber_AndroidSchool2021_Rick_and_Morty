@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--Item character -->
+    <dimen name="item_characterImage_width">220dp</dimen>
+    <dimen name="item_characterImage_height">220dp</dimen>
+
+    <!--Item location -->
+    <dimen name="item_locationTypeImage_width">60dp</dimen>
+    <dimen name="item_locationTypeImage_height">60dp</dimen>
+    <dimen name="item_locationPopulationImage_width">30dp</dimen>
+    <dimen name="item_locationPopulationImage_height">30dp</dimen>
+
+    <!--Item episode -->
+    <dimen name="item_episodeSeasonNumbImage_width">30dp</dimen>
+    <dimen name="item_episodeSeasonNumbImage_height">30dp</dimen>
+    <dimen name="item_episodeCharactersNumbImage_width">30dp</dimen>
+    <dimen name="item_episodeCharactersNumbImage_height">30dp</dimen>
+
+    <dimen name="large_margin">16dp</dimen>
+    <dimen name="medium_margin">8dp</dimen>
+    <dimen name="small_margin">4dp</dimen>
+
+    <dimen name="large_padding">16dp</dimen>
+    <dimen name="medium_padding">8dp</dimen>
+    <dimen name="small_padding">4dp</dimen>
+
+    <dimen name="large_textSize">24sp</dimen>
+    <dimen name="medium_textSize">18sp</dimen>
+    <dimen name="small_textSize">16sp</dimen>
+</resources>

@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="@dimen/medium_margin">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:id="@+id/locationType_imageView"
+            android:layout_width="@dimen/item_locationTypeImage_width"
+            android:layout_height="@dimen/item_locationTypeImage_height"
+            android:layout_margin="@dimen/medium_margin"
+            android:src="@drawable/ic_launcher_background"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:textStyle="bold"
+            android:id="@+id/locationType_textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/small_margin"
+            android:text="@string/type_of_location"
+            android:textColor="@color/black"
+            android:textSize="@dimen/medium_textSize"
+            app:layout_constraintBottom_toBottomOf="@id/locationType_imageView"
+            app:layout_constraintStart_toEndOf="@id/locationType_imageView"
+            app:layout_constraintTop_toTopOf="@id/locationType_imageView" />
+
+
+        <TextView
+            android:id="@+id/locationTitle_textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/small_margin"
+            android:text="@string/location_title"
+            android:textColor="@color/black"
+            android:textSize="@dimen/large_textSize"
+            app:layout_constraintStart_toStartOf="@id/locationType_imageView"
+            app:layout_constraintTop_toBottomOf="@id/locationType_imageView" />
+
+        <TextView
+            android:id="@+id/locationDimension_textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/small_margin"
+            android:layout_marginBottom="@dimen/medium_margin"
+            android:text="@string/dimension"
+            android:textColor="@color/black"
+            android:textSize="@dimen/medium_textSize"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="@id/locationTitle_textView"
+            app:layout_constraintTop_toBottomOf="@id/locationTitle_textView" />
+
+        <ImageView
+            android:id="@+id/locationPopulation_imageView"
+            android:layout_width="@dimen/item_locationPopulationImage_width"
+            android:layout_height="@dimen/item_locationPopulationImage_height"
+            android:layout_marginEnd="@dimen/small_margin"
+            android:src="@drawable/ic_population_black"
+            app:layout_constraintBottom_toBottomOf="@id/locationDimension_textView"
+            app:layout_constraintEnd_toStartOf="@id/locationPopulationCount_textView" />
+
+        <TextView
+            android:id="@+id/locationPopulationCount_textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/medium_margin"
+            android:text="@string/residents_count"
+            android:textColor="@color/black"
+            android:textSize="@dimen/small_textSize"
+            app:layout_constraintBottom_toBottomOf="@id/locationPopulation_imageView"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/locationPopulation_imageView" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.cardview.widget.CardView>
