@@ -21,6 +21,7 @@ public interface CharacterRepository {
      *
      * @return Список персонажей в {@link Single} обёртке.
      */
+
     Single<List<Character>> getCharactersFromServer();
 
     /**
@@ -30,5 +31,5 @@ public interface CharacterRepository {
      * @param characterId id персонажа.
      * @return Персонаж с данным id в {@link Single} обёртке.
      */
-    Single<Character> getCharacterFromServer(int characterId);
+    Single<Character> getCharacterFromServer(final int characterId);
 }

@@ -1,6 +1,7 @@
 package com.eugenebaturov.rickandmorty.models.data;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
 import com.google.gson.annotations.SerializedName;
 
@@ -15,19 +16,21 @@ import java.util.Objects;
  * <p>
  * [mUrl] - ссылка на локацию, информацию о которой хранит класс-сущность {@link LocationResponse}.
  */
-public class CurrentLocation {
+public final class CurrentLocation {
 
     @SerializedName("name")
+    @Nullable
     private String mName;
 
     @SerializedName("url")
+    @Nullable
     private String mUrl;
 
     public CurrentLocation() {
 
     }
 
-    public CurrentLocation(String mName, String mUrl) {
+    public CurrentLocation(@Nullable final String mName, @Nullable final String mUrl) {
         this.mName = mName;
         this.mUrl = mUrl;
     }

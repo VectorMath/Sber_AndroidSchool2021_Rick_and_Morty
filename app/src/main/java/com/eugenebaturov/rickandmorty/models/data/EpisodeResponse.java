@@ -1,6 +1,7 @@
 package com.eugenebaturov.rickandmorty.models.data;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
 import com.google.gson.annotations.SerializedName;
 
@@ -20,21 +21,25 @@ import java.util.Objects;
  * <p>
  * [mCharacters] - ссылка на персонажей, которые появились в эпизоде.
  */
-public class EpisodeResponse {
+public final class EpisodeResponse {
 
     @SerializedName("id")
     private int mId;
 
     @SerializedName("name")
+    @Nullable
     private String mTitle;
 
     @SerializedName("air_date")
+    @Nullable
     private String mAirDate;
 
     @SerializedName("episode")
+    @Nullable
     private String mEpisodeNumber;
 
     @SerializedName("characters")
+    @Nullable
     private List<String> mCharacters;
 
     /**
@@ -46,18 +51,19 @@ public class EpisodeResponse {
 
     /**
      * Конструктор класса в который передается вся информация об эпизоде, пришедшая из сервера.
-     * @param mId id эпизода.
-     * @param mTitle название эпизода.
-     * @param mAirDate дата выпуска эпизода(пример: September 10, 2017).
+     *
+     * @param mId            id эпизода.
+     * @param mTitle         название эпизода.
+     * @param mAirDate       дата выпуска эпизода(пример: September 10, 2017).
      * @param mEpisodeNumber номер эпизода(пример: S03E07).
-     * @param mCharacters ссылка на персонажей, которые появились в эпизоде.
+     * @param mCharacters    ссылка на персонажей, которые появились в эпизоде.
      */
     public EpisodeResponse(
-            int mId,
-            String mTitle,
-            String mAirDate,
-            String mEpisodeNumber,
-            List<String> mCharacters) {
+            final int mId,
+            @Nullable final String mTitle,
+            @Nullable final String mAirDate,
+            @Nullable final String mEpisodeNumber,
+            @Nullable final List<String> mCharacters) {
         this.mId = mId;
         this.mTitle = mTitle;
         this.mAirDate = mAirDate;

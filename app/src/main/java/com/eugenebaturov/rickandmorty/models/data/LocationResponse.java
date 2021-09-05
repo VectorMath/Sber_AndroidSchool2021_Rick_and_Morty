@@ -1,5 +1,8 @@
 package com.eugenebaturov.rickandmorty.models.data;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+
 import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
@@ -18,21 +21,25 @@ import java.util.Objects;
  * <p>
  * [mResidents] - список персонажей, которые находятся в локации.
  */
-public class LocationResponse {
+public final class LocationResponse {
 
     @SerializedName("id")
     private int mId;
 
     @SerializedName("name")
+    @Nullable
     private String mName;
 
     @SerializedName("type")
+    @Nullable
     private String mType;
 
     @SerializedName("dimension")
+    @Nullable
     private String mDimension;
 
     @SerializedName("residents")
+    @Nullable
     private List<String> mResidents;
 
     /**
@@ -44,18 +51,19 @@ public class LocationResponse {
 
     /**
      * Конструктор класса в который передаётся вся информация о локации.
-     * @param mId id локации.
-     * @param mName название локации.
-     * @param mType тип локации.
+     *
+     * @param mId        id локации.
+     * @param mName      название локации.
+     * @param mType      тип локации.
      * @param mDimension измерение локации.
      * @param mResidents список жителей в этой локации.
      */
     public LocationResponse(
-            int mId,
-            String mName,
-            String mType,
-            String mDimension,
-            List<String> mResidents) {
+            final int mId,
+            @Nullable final String mName,
+            @Nullable final String mType,
+            @Nullable final String mDimension,
+            @Nullable final List<String> mResidents) {
         this.mId = mId;
         this.mName = mName;
         this.mType = mType;
@@ -87,6 +95,7 @@ public class LocationResponse {
     }
 
     @Override
+    @NonNull
     public String toString() {
         return "Location{" +
                 "mId=" + mId +

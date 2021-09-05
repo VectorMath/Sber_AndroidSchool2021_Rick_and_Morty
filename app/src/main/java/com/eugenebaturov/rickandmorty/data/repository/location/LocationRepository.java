@@ -30,5 +30,5 @@ public interface LocationRepository {
      * @param locationId id локации.
      * @return Локация в Single {@link Single} обёртке.
      */
-    Single<Location> getLocationFromServer(int locationId);
+    Single<Location> getLocationFromServer(final int locationId);
 }

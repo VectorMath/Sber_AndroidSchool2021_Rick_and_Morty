@@ -1,6 +1,7 @@
 package com.eugenebaturov.rickandmorty.models.data;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
 import com.google.gson.annotations.SerializedName;
 
@@ -31,36 +32,45 @@ import java.util.Objects;
  * <p>
  * [mEpisodes] - ссылка на эпизоды в которых персонаж появился.
  */
-public class CharacterResponse {
+public final class CharacterResponse {
 
     @SerializedName("id")
     private int mId;
 
     @SerializedName("name")
+    @Nullable
     private String mName;
 
     @SerializedName("status")
+    @Nullable
     private String mStatus;
 
     @SerializedName("species")
+    @Nullable
     private String mSpecies;
 
     @SerializedName("type")
+    @Nullable
     private String mType;
 
     @SerializedName("gender")
+    @Nullable
     private String mGender;
 
     @SerializedName("image")
+    @Nullable
     private String mImage;
 
     @SerializedName("origin")
+    @Nullable
     private Origin mOrigin;
 
     @SerializedName("location")
+    @Nullable
     private CurrentLocation mCurrentLocation;
 
     @SerializedName("episode")
+    @Nullable
     private List<String> mEpisodes;
 
     public CharacterResponse() {
@@ -83,16 +93,16 @@ public class CharacterResponse {
      * @param mEpisodes        ссылка на эпизоды в которых персонаж появился.
      */
     public CharacterResponse(
-            int mId,
-            String mName,
-            String mStatus,
-            String mSpecies,
-            String mType,
-            String mGender,
-            String mImage,
-            Origin mOrigin,
-            CurrentLocation mCurrentLocation,
-            List<String> mEpisodes
+            final int mId,
+            @Nullable final String mName,
+            @Nullable final String mStatus,
+            @Nullable final String mSpecies,
+            @Nullable final String mType,
+            @Nullable final String mGender,
+            @Nullable final String mImage,
+            @Nullable final Origin mOrigin,
+            @Nullable final CurrentLocation mCurrentLocation,
+            @Nullable final List<String> mEpisodes
     ) {
         this.mId = mId;
         this.mName = mName;

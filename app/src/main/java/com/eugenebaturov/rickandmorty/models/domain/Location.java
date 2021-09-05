@@ -1,5 +1,8 @@
 package com.eugenebaturov.rickandmorty.models.domain;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+
 import com.eugenebaturov.rickandmorty.models.data.LocationResponse;
 
 import java.util.List;
@@ -9,11 +12,15 @@ import java.util.Objects;
  * Класс-сущность, которая обрабатывает данные из класса-сущности
  * {@link LocationResponse} в data-слое
  */
-public class Location {
+public final class Location {
     private final int mId;
+    @Nullable
     private final String mName;
+    @Nullable
     private final String mType;
+    @Nullable
     private final String mDimension;
+    @Nullable
     private final List<String> mResidents;
 
     /**
@@ -21,7 +28,7 @@ public class Location {
      *
      * @param locationResponse - моделька, которая получила данные с api.
      */
-    public Location(LocationResponse locationResponse) {
+    public Location(@NonNull final LocationResponse locationResponse) {
         mId = locationResponse.getId();
         mName = locationResponse.getName();
         mType = locationResponse.getType();
@@ -31,18 +38,19 @@ public class Location {
 
     /**
      * Конструктор класса в который мы вручную передаём информацию о локации.
-     * @param mId id локации.
-     * @param mName название локации.
-     * @param mType тип локации.
+     *
+     * @param mId        id локации.
+     * @param mName      название локации.
+     * @param mType      тип локации.
      * @param mDimension измерение локации.
      * @param mResidents список персонажей, которые живут в данной локации.
      */
     public Location(
-            int mId,
-            String mName,
-            String mType,
-            String mDimension,
-            List<String> mResidents) {
+            final int mId,
+            @Nullable final String mName,
+            @Nullable final String mType,
+            @Nullable final String mDimension,
+            @Nullable final List<String> mResidents) {
         this.mId = mId;
         this.mName = mName;
         this.mType = mType;
@@ -68,6 +76,7 @@ public class Location {
     }
 
     @Override
+    @NonNull
     public String toString() {
         return "Location{" +
                 "mId=" + mId +

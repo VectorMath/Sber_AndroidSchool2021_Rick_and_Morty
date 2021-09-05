@@ -29,5 +29,5 @@ public interface EpisodeApi {
      * @return Данные об эпизоде в {@link Single} обёртке.
      */
     @GET(EPISODES_URL + "{id}")
-    Single<EpisodeResponse> getEpisodeById(@Path("id") int episodeId);
+    Single<EpisodeResponse> getEpisodeById(@Path("id") final int episodeId);
 }

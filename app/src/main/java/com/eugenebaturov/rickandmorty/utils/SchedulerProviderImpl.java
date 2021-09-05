@@ -9,7 +9,7 @@ import io.reactivex.rxjava3.schedulers.Schedulers;
 /**
  * Реализация интерфейса {@link SchedulerProvider}.
  */
-public class SchedulerProviderImpl implements SchedulerProvider {
+public final class SchedulerProviderImpl implements SchedulerProvider {
     @Override
     @NonNull
     public Scheduler io() {

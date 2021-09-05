@@ -30,5 +30,5 @@ public interface EpisodeRepository {
      * @param episodeId id эпизода.
      * @return Эпизод в {@link Single} обёртке.
      */
-    Single<Episode> getEpisodeFromServer(int episodeId);
+    Single<Episode> getEpisodeFromServer(final int episodeId);
 }

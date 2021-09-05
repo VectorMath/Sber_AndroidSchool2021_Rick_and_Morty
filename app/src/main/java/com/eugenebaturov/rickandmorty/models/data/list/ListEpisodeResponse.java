@@ -1,5 +1,8 @@
 package com.eugenebaturov.rickandmorty.models.data.list;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+
 import com.eugenebaturov.rickandmorty.models.data.EpisodeResponse;
 import com.google.gson.annotations.SerializedName;
 
@@ -11,9 +14,10 @@ import java.util.Objects;
  * <p>
  * [mEpisodes] - список эпизодов {@link EpisodeResponse}
  */
-public class ListEpisodeResponse {
+public final class ListEpisodeResponse {
 
     @SerializedName("results")
+    @Nullable
     private List<EpisodeResponse> mEpisodes;
 
     /**
@@ -24,9 +28,10 @@ public class ListEpisodeResponse {
 
     /**
      * Конструктор класса в который передается список эпизодов с сервера.
+     *
      * @param mEpisodes список эпизодов {@link EpisodeResponse}
      */
-    public ListEpisodeResponse(List<EpisodeResponse> mEpisodes) {
+    public ListEpisodeResponse(@Nullable final List<EpisodeResponse> mEpisodes) {
         this.mEpisodes = mEpisodes;
     }
 
@@ -44,12 +49,14 @@ public class ListEpisodeResponse {
     }
 
     @Override
+    @NonNull
     public String toString() {
         return "ListEpisodeRequest{" +
                 "mEpisodes=" + mEpisodes +
                 '}';
     }
 
+    @Nullable
     public List<EpisodeResponse> getEpisodes() {
         return mEpisodes;
     }

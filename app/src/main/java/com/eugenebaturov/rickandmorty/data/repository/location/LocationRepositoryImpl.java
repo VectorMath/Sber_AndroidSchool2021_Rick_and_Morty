@@ -1,5 +1,7 @@
 package com.eugenebaturov.rickandmorty.data.repository.location;
 
+import androidx.annotation.NonNull;
+
 import com.eugenebaturov.rickandmorty.data.api.LocationApi;
 import com.eugenebaturov.rickandmorty.models.data.LocationResponse;
 import com.eugenebaturov.rickandmorty.models.domain.Location;
@@ -13,8 +15,9 @@ import retrofit2.Retrofit;
 /**
  * Класс-репозиторий, который является реализацией интерфейса {@link LocationRepository}.
  */
-public class LocationRepositoryImpl implements LocationRepository {
+public final class LocationRepositoryImpl implements LocationRepository {
 
+    @NonNull
     private final LocationApi mLocationApi;
 
     /**
@@ -24,7 +27,7 @@ public class LocationRepositoryImpl implements LocationRepository {
      * @param locationApi экземпляр {@link LocationApi},
      *                    для его создания требуется {@link Retrofit}.
      */
-    public LocationRepositoryImpl(LocationApi locationApi) {
+    public LocationRepositoryImpl(@NonNull final LocationApi locationApi) {
         mLocationApi = locationApi;
     }
 
@@ -43,7 +46,7 @@ public class LocationRepositoryImpl implements LocationRepository {
     }
 
     @Override
-    public Single<Location> getLocationFromServer(int locationId) {
+    public Single<Location> getLocationFromServer(final int locationId) {
         return mLocationApi.getLocationById(locationId).map(Location::new);
     }
 }

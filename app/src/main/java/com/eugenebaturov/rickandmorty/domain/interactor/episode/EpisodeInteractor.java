@@ -25,5 +25,5 @@ public interface EpisodeInteractor {
      * @param episodeId id эпизода.
      * @return Эпизод [{@link Episode}] в {@link Single} обёртке.
      */
-    Single<Episode> getEpisodeFromRepository(int episodeId);
+    Single<Episode> getEpisodeFromRepository(final int episodeId);
 }

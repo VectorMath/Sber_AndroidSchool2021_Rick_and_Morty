@@ -8,7 +8,7 @@ package com.eugenebaturov.rickandmorty.data.api;
  * - {@link EpisodeApi}
  * - {@link LocationApi}
  */
-public class RickAndMortyURL {
+public final class RickAndMortyURL {
 
     public static final String BASE_URL = "https://rickandmortyapi.com/api/";
 

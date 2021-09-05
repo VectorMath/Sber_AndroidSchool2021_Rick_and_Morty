@@ -1,5 +1,8 @@
 package com.eugenebaturov.rickandmorty.models.data.list;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+
 import com.eugenebaturov.rickandmorty.models.data.LocationResponse;
 import com.google.gson.annotations.SerializedName;
 
@@ -11,9 +14,10 @@ import java.util.Objects;
  * <p>
  * [mLocations] - список локаций {@link LocationResponse}
  */
-public class ListLocationResponse {
+public final class ListLocationResponse {
 
     @SerializedName("results")
+    @Nullable
     private List<LocationResponse> mLocations;
 
     /**
@@ -25,9 +29,10 @@ public class ListLocationResponse {
 
     /**
      * Конструктор класса в который мы передаём информацию о локация, полученную с сервера.
+     *
      * @param mLocations список локаций.
      */
-    public ListLocationResponse(List<LocationResponse> mLocations) {
+    public ListLocationResponse(@Nullable final List<LocationResponse> mLocations) {
         this.mLocations = mLocations;
     }
 
@@ -45,12 +50,14 @@ public class ListLocationResponse {
     }
 
     @Override
+    @NonNull
     public String toString() {
         return "ListLocationRequest{" +
                 "mLocations=" + mLocations +
                 '}';
     }
 
+    @Nullable
     public List<LocationResponse> getLocations() {
         return mLocations;
     }

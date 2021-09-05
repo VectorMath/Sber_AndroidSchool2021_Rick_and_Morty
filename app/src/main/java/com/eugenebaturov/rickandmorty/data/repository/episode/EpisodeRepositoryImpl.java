@@ -1,5 +1,7 @@
 package com.eugenebaturov.rickandmorty.data.repository.episode;
 
+import androidx.annotation.NonNull;
+
 import com.eugenebaturov.rickandmorty.data.api.EpisodeApi;
 import com.eugenebaturov.rickandmorty.models.data.EpisodeResponse;
 import com.eugenebaturov.rickandmorty.models.domain.Episode;
@@ -7,14 +9,16 @@ import com.eugenebaturov.rickandmorty.models.domain.Episode;
 import java.util.ArrayList;
 import java.util.List;
 
+import io.reactivex.rxjava3.annotations.Nullable;
 import io.reactivex.rxjava3.core.Single;
 import retrofit2.Retrofit;
 
 /**
  * Класс-репозиторий, который является реализацией интерфейса {@link EpisodeRepository}.
  */
-public class EpisodeRepositoryImpl implements EpisodeRepository {
+public final class EpisodeRepositoryImpl implements EpisodeRepository {
 
+    @NonNull
     private final EpisodeApi mEpisodeApi;
 
     /**
@@ -24,7 +28,7 @@ public class EpisodeRepositoryImpl implements EpisodeRepository {
      * @param episodeApi экземпляр {@link EpisodeApi},
      *                   для его создания требуется {@link Retrofit}.
      */
-    public EpisodeRepositoryImpl(EpisodeApi episodeApi) {
+    public EpisodeRepositoryImpl(@NonNull final EpisodeApi episodeApi) {
         mEpisodeApi = episodeApi;
     }
 
@@ -43,7 +47,7 @@ public class EpisodeRepositoryImpl implements EpisodeRepository {
     }
 
     @Override
-    public Single<Episode> getEpisodeFromServer(int episodeId) {
+    public Single<Episode> getEpisodeFromServer(final int episodeId) {
         return mEpisodeApi.getEpisodeById(episodeId).map(Episode::new);
     }
 }

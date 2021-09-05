@@ -25,5 +25,5 @@ public interface CharacterInteractor {
      * @param characterId id персонажа.
      * @return Персонаж [{@link Character}] в {@link Single} обёртке.
      */
-    Single<Character> getCharacterFromRepository(int characterId);
+    Single<Character> getCharacterFromRepository(final int characterId);
 }

@@ -1,5 +1,7 @@
 package com.eugenebaturov.rickandmorty.domain.interactor.character;
 
+import androidx.annotation.NonNull;
+
 import com.eugenebaturov.rickandmorty.data.repository.character.CharacterRepository;
 import com.eugenebaturov.rickandmorty.models.domain.Character;
 
@@ -10,8 +12,9 @@ import io.reactivex.rxjava3.core.Single;
 /**
  * Реализация интерфейса {@link CharacterInteractor}
  */
-public class CharacterInteractorImpl implements CharacterInteractor {
+public final class CharacterInteractorImpl implements CharacterInteractor {
 
+    @NonNull
     private final CharacterRepository mRepository;
 
     /**
@@ -19,7 +22,7 @@ public class CharacterInteractorImpl implements CharacterInteractor {
      *
      * @param repository экземпляр интерфейса-репозитория {@link CharacterRepository}
      */
-    public CharacterInteractorImpl(CharacterRepository repository) {
+    public CharacterInteractorImpl(@NonNull final CharacterRepository repository) {
         mRepository = repository;
     }
 
@@ -29,7 +32,7 @@ public class CharacterInteractorImpl implements CharacterInteractor {
     }
 
     @Override
-    public Single<Character> getCharacterFromRepository(int characterId) {
+    public Single<Character> getCharacterFromRepository(final int characterId) {
         return mRepository.getCharacterFromServer(characterId);
     }
 }

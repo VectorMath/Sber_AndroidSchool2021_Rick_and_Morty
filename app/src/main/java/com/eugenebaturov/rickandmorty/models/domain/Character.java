@@ -1,5 +1,8 @@
 package com.eugenebaturov.rickandmorty.models.domain;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+
 import com.eugenebaturov.rickandmorty.models.data.CharacterResponse;
 import com.eugenebaturov.rickandmorty.models.data.CurrentLocation;
 import com.eugenebaturov.rickandmorty.models.data.Origin;
@@ -11,16 +14,25 @@ import java.util.Objects;
  * Класс-сущность, которая обрабатывает данные из класса-сущности
  * {@link CharacterResponse} в data-слое
  */
-public class Character {
+public final class Character {
     private final int mId;
+    @Nullable
     private final String mName;
+    @Nullable
     private final String mStatus;
+    @Nullable
     private final String mSpecies;
+    @Nullable
     private final String mType;
+    @Nullable
     private final String mGender;
+    @Nullable
     private final String mImage;
+    @Nullable
     private final Origin mOrigin;
+    @Nullable
     private final CurrentLocation mCurrentLocation;
+    @Nullable
     private final List<String> mEpisodes;
 
     /**
@@ -28,7 +40,7 @@ public class Character {
      *
      * @param characterResponse - моделька, которая получила данные с api.
      */
-    public Character(CharacterResponse characterResponse) {
+    public Character(@NonNull final CharacterResponse characterResponse) {
         mId = characterResponse.getId();
         mName = characterResponse.getName();
         mStatus = characterResponse.getStatus();
@@ -44,28 +56,28 @@ public class Character {
     /**
      * Конструктор класса в который мы вручную передаём все параметры персонажа.
      *
-     * @param mId id персонажа.
-     * @param mName имя персонажа.
-     * @param mStatus статус персонажа.
-     * @param mSpecies раса персонажа
-     * @param mType отличительная черта персонажа.
-     * @param mGender пол персонажа.
-     * @param mImage аватарка персонажа
-     * @param mOrigin место рождения персонажа.
+     * @param mId              id персонажа.
+     * @param mName            имя персонажа.
+     * @param mStatus          статус персонажа.
+     * @param mSpecies         раса персонажа
+     * @param mType            отличительная черта персонажа.
+     * @param mGender          пол персонажа.
+     * @param mImage           аватарка персонажа
+     * @param mOrigin          место рождения персонажа.
      * @param mCurrentLocation текущая локация в которой находится персонаж.
-     * @param mEpisodes список URL эпизодов в которых персонаж появился.
+     * @param mEpisodes        список URL эпизодов в которых персонаж появился.
      */
     public Character(
-            int mId,
-            String mName,
-            String mStatus,
-            String mSpecies,
-            String mType,
-            String mGender,
-            String mImage,
-            Origin mOrigin,
-            CurrentLocation mCurrentLocation,
-            List<String> mEpisodes) {
+            final int mId,
+            @Nullable final String mName,
+            @Nullable final String mStatus,
+            @Nullable final String mSpecies,
+            @Nullable final String mType,
+            @Nullable final String mGender,
+            @Nullable final String mImage,
+            @Nullable final Origin mOrigin,
+            @Nullable final CurrentLocation mCurrentLocation,
+            @Nullable final List<String> mEpisodes) {
         this.mId = mId;
         this.mName = mName;
         this.mStatus = mStatus;
@@ -101,6 +113,7 @@ public class Character {
     }
 
     @Override
+    @NonNull
     public String toString() {
         return "Character{" +
                 "mId=" + mId +

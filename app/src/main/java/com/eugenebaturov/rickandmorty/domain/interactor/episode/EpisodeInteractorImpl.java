@@ -1,5 +1,7 @@
 package com.eugenebaturov.rickandmorty.domain.interactor.episode;
 
+import androidx.annotation.NonNull;
+
 import com.eugenebaturov.rickandmorty.data.repository.episode.EpisodeRepository;
 import com.eugenebaturov.rickandmorty.models.domain.Episode;
 
@@ -10,8 +12,9 @@ import io.reactivex.rxjava3.core.Single;
 /**
  * Реализация интерфейса {@link EpisodeInteractor}
  */
-public class EpisodeInteractorImpl implements EpisodeInteractor {
+public final class EpisodeInteractorImpl implements EpisodeInteractor {
 
+    @NonNull
     private final EpisodeRepository mRepository;
 
     /**
@@ -19,7 +22,7 @@ public class EpisodeInteractorImpl implements EpisodeInteractor {
      *
      * @param repository экземпляр интрефейса-репозитория {@link EpisodeRepository}
      */
-    public EpisodeInteractorImpl(EpisodeRepository repository) {
+    public EpisodeInteractorImpl(@NonNull final EpisodeRepository repository) {
         mRepository = repository;
     }
 
@@ -29,7 +32,7 @@ public class EpisodeInteractorImpl implements EpisodeInteractor {
     }
 
     @Override
-    public Single<Episode> getEpisodeFromRepository(int episodeId) {
+    public Single<Episode> getEpisodeFromRepository(final int episodeId) {
         return mRepository.getEpisodeFromServer(episodeId);
     }
 }

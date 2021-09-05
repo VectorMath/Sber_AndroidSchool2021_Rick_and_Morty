@@ -27,5 +27,5 @@ public interface LocationInteractor {
      * @param locationId id локации.
      * @return Локация [{@link Location}] в {@link Single} обёртке.
      */
-    Single<Location> getLocationFromRepository(int locationId);
+    Single<Location> getLocationFromRepository(final int locationId);
 }

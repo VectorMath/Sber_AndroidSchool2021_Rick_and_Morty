@@ -29,5 +29,5 @@ public interface LocationApi {
      * @return Данные о локации в {@link Single} обёртке.
      */
     @GET(LOCATIONS_URL + "{id}")
-    Single<LocationResponse> getLocationById(@Path("id") int locationId);
+    Single<LocationResponse> getLocationById(@Path("id") final int locationId);
 }

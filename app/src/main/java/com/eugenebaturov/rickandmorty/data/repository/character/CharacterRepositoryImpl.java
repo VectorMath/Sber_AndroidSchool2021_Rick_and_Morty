@@ -1,5 +1,8 @@
 package com.eugenebaturov.rickandmorty.data.repository.character;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+
 import com.eugenebaturov.rickandmorty.data.api.CharacterApi;
 import com.eugenebaturov.rickandmorty.models.data.CharacterResponse;
 import com.eugenebaturov.rickandmorty.models.domain.Character;
@@ -13,8 +16,9 @@ import retrofit2.Retrofit;
 /**
  * Класс-репозиторий, который является реализацией {@link CharacterRepository}.
  */
-public class CharacterRepositoryImpl implements CharacterRepository {
+public final class CharacterRepositoryImpl implements CharacterRepository {
 
+    @NonNull
     private final CharacterApi mCharacterApi;
 
     /**
@@ -24,7 +28,7 @@ public class CharacterRepositoryImpl implements CharacterRepository {
      * @param characterApi экземпляр {@link CharacterApi},
      *                     для его создания требуется {@link Retrofit}.
      */
-    public CharacterRepositoryImpl(CharacterApi characterApi) {
+    public CharacterRepositoryImpl(@NonNull final CharacterApi characterApi) {
         mCharacterApi = characterApi;
     }
 
@@ -42,7 +46,7 @@ public class CharacterRepositoryImpl implements CharacterRepository {
     }
 
     @Override
-    public Single<Character> getCharacterFromServer(int characterId) {
+    public Single<Character> getCharacterFromServer(final int characterId) {
         return mCharacterApi.getCharacterById(characterId).map(Character::new);
     }
 }

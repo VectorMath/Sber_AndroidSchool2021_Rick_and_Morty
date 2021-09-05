@@ -1,5 +1,8 @@
 package com.eugenebaturov.rickandmorty.models.domain;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+
 import com.eugenebaturov.rickandmorty.models.data.EpisodeResponse;
 
 import java.util.List;
@@ -9,11 +12,15 @@ import java.util.Objects;
  * Класс-сущность, которая обрабатывает данные из класса-сущности
  * {@link EpisodeResponse} в data-слое
  */
-public class Episode {
+public final class Episode {
     private final int mId;
+    @Nullable
     private final String mTitle;
+    @Nullable
     private final String mAirDate;
+    @Nullable
     private final String mEpisodeNumber;
+    @Nullable
     private final List<String> mCharacters;
 
     /**
@@ -21,7 +28,7 @@ public class Episode {
      *
      * @param episodeResponse - моделька, которая получила данные с api.
      */
-    public Episode(EpisodeResponse episodeResponse) {
+    public Episode(@NonNull final EpisodeResponse episodeResponse) {
         mId = episodeResponse.getId();
         mTitle = episodeResponse.getTitle();
         mAirDate = episodeResponse.getAirDate();
@@ -39,11 +46,11 @@ public class Episode {
      * @param mCharacters    ссылка на персонажей, которые появились в эпизоде.
      */
     public Episode(
-            int mId,
-            String mTitle,
-            String mAirDate,
-            String mEpisodeNumber,
-            List<String> mCharacters) {
+            final int mId,
+            @Nullable final String mTitle,
+            @Nullable final String mAirDate,
+            @Nullable final String mEpisodeNumber,
+            @Nullable final List<String> mCharacters) {
         this.mId = mId;
         this.mTitle = mTitle;
         this.mAirDate = mAirDate;
@@ -69,6 +76,7 @@ public class Episode {
     }
 
     @Override
+    @NonNull
     public String toString() {
         return "Episode{" +
                 "mId=" + mId +

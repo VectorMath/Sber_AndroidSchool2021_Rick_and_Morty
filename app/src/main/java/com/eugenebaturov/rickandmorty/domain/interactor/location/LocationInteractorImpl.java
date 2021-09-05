@@ -1,5 +1,7 @@
 package com.eugenebaturov.rickandmorty.domain.interactor.location;
 
+import androidx.annotation.NonNull;
+
 import com.eugenebaturov.rickandmorty.data.repository.location.LocationRepository;
 import com.eugenebaturov.rickandmorty.models.domain.Location;
 
@@ -10,8 +12,9 @@ import io.reactivex.rxjava3.core.Single;
 /**
  * Реализация интерфейса {@link LocationInteractor}
  */
-public class LocationInteractorImpl implements LocationInteractor {
+public final class LocationInteractorImpl implements LocationInteractor {
 
+    @NonNull
     private final LocationRepository mRepository;
 
     /**
@@ -19,7 +22,7 @@ public class LocationInteractorImpl implements LocationInteractor {
      *
      * @param repository - экземпляр интрефейса-репозитория {@link LocationRepository}
      */
-    public LocationInteractorImpl(LocationRepository repository) {
+    public LocationInteractorImpl(@NonNull final LocationRepository repository) {
         mRepository = repository;
     }
 
@@ -29,7 +32,7 @@ public class LocationInteractorImpl implements LocationInteractor {
     }
 
     @Override
-    public Single<Location> getLocationFromRepository(int locationId) {
+    public Single<Location> getLocationFromRepository(final int locationId) {
         return mRepository.getLocationFromServer(locationId);
     }
 }

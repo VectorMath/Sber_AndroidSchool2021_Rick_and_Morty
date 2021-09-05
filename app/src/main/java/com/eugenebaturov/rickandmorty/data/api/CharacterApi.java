@@ -29,5 +29,5 @@ public interface CharacterApi {
      * @return Данные о персонаже в {@link Single} обёртке
      */
     @GET(CHARACTERS_URL + "{id}")
-    Single<CharacterResponse> getCharacterById(@Path("id") int characterId);
+    Single<CharacterResponse> getCharacterById(@Path("id") final int characterId);
 }
