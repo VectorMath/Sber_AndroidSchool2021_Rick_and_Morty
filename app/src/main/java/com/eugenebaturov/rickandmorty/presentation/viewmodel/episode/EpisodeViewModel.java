@@ -18,6 +18,12 @@ public final class EpisodeViewModel extends AppViewModel {
     private final MutableLiveData<Episode> mEpisode = new MutableLiveData<>();
 
     @NonNull
+    private final MutableLiveData<Boolean> mProgress = new MutableLiveData<>();
+
+    @NonNull
+    private final MutableLiveData<Throwable> mError = new MutableLiveData<>();
+
+    @NonNull
     private final SchedulerProvider mSchedulerProvider;
 
     @NonNull
@@ -46,6 +52,24 @@ public final class EpisodeViewModel extends AppViewModel {
     }
 
     /**
+     * Getter для приватного поля mProgress.
+     *
+     * @return прогресс в {@link LiveData} обёртке.
+     */
+    public LiveData<Boolean> getProgress() {
+        return mProgress;
+    }
+
+    /**
+     * Getter для приватного поля mError.
+     *
+     * @return ошибку в {@link LiveData} обёртке.
+     */
+    public LiveData<Throwable> getError() {
+        return mError;
+    }
+
+    /**
      * Метод, в котором поле mEpisode подписывается на источник данных
      * в виде получения информация с сервера об эпизоде с конкретным id.
      *
@@ -56,6 +80,8 @@ public final class EpisodeViewModel extends AppViewModel {
                 .getEpisodeFromRepository(episodeId)
                 .subscribeOn(mSchedulerProvider.io())
                 .observeOn(mSchedulerProvider.ui())
-                .subscribe(mEpisode::setValue);
+                .doFinally(() -> mProgress.setValue(false))
+                .doOnSubscribe(d -> mProgress.setValue(true))
+                .subscribe(mEpisode::setValue, mError::setValue);
     }
 }

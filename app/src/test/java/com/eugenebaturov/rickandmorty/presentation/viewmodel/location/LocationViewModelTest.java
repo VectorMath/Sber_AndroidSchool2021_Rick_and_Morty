@@ -89,7 +89,7 @@ public class LocationViewModelTest {
      * Проверка на то, что методы вызываются в нужном порядке.
      */
     @Test
-    public void testLoadCharacterInOrder() {
+    public void testLoadLocationInOrder() {
         // Arrange
         Mockito
                 .when(mLocationInteractor.getLocationFromRepository(CORRECT_ID))
@@ -111,7 +111,7 @@ public class LocationViewModelTest {
      * {@link NullPointerException}.
      */
     @Test
-    public void testLoadCharacterByIncorrectId() {
+    public void testLoadLocationByIncorrectId() {
         Mockito
                 .when(mLocationInteractor.getLocationFromRepository(INCORRECT_ID))
                 .thenReturn(Single.error(NullPointerException::new));
