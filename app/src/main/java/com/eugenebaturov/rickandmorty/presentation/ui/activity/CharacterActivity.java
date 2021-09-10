@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.eugenebaturov.rickandmorty.R;
@@ -20,7 +19,7 @@ import com.squareup.picasso.Picasso;
 /**
  * Активити в которой отображается вся информация о конкретном персонаже.
  */
-public class CharacterActivity extends AppCompatActivity {
+public class CharacterActivity extends BaseActivity {
     private CharacterViewModel mViewModel;
     private int mId;
     private int mOriginId;
@@ -69,6 +68,8 @@ public class CharacterActivity extends AppCompatActivity {
     @SuppressLint("ResourceAsColor")
     private void observeCharacterInfo() {
         mViewModel.getCharacter().observe(this, character -> {
+            getSupportActionBar().setTitle(character.getName());
+
             String originUrl = character.getOrigin().getUrl();
             String currentUrl = character.getCurrentLocation().getUrl();
             String originName = character.getOrigin().getName();
@@ -79,11 +80,9 @@ public class CharacterActivity extends AppCompatActivity {
             mCharacterStatusTextView.setText(character.getStatus());
             mCharacterGenderTextView.setText(character.getGender());
             mCharacterRaceTextView.setText(character.getSpecies());
-            checkLocation(originUrl, originName, mCharacterOriginLinkTextView);
-            checkLocation(currentUrl, currentLocationName, mCharacterCurrentLocationLinkTextView);
+            checkLocation(originUrl, originName, mCharacterOriginLinkTextView, true);
+            checkLocation(currentUrl, currentLocationName, mCharacterCurrentLocationLinkTextView, false);
 
-            mOriginId = IdTaker.getLocationId(originUrl);
-            mCurrentLocationId = IdTaker.getLocationId(currentUrl);
         });
     }
 
@@ -94,9 +93,13 @@ public class CharacterActivity extends AppCompatActivity {
     }
 
     @SuppressLint("ResourceAsColor")
-    private void checkLocation(String url, String locationName, TextView textView) {
+    private void checkLocation(String url, String locationName, TextView textView, boolean isOrigin) {
         if (!locationName.equals("unknown")) {
             textView.setText(locationName);
+            if (isOrigin)
+                mOriginId = IdTaker.getLocationId(url);
+            else
+                mCurrentLocationId = IdTaker.getLocationId(url);
         } else {
             textView.setTextColor(R.color.black);
             textView.setText("-");

@@ -15,7 +15,7 @@ import com.eugenebaturov.rickandmorty.utils.Keys;
 /**
  * Активити в которой отображается вся информация о конкретной локации.
  */
-public class LocationActivity extends AppCompatActivity {
+public class LocationActivity extends BaseActivity {
     private LocationViewModel mViewModel;
     private TextView mLocationTitleTextView;
     private TextView mLocationTypeTextView;
@@ -49,6 +49,7 @@ public class LocationActivity extends AppCompatActivity {
 
     private void observeLocationInfo() {
         mViewModel.getLocation().observe(this, location -> {
+            getSupportActionBar().setTitle(location.getName());
             mLocationTitleTextView.setText(location.getName());
             mLocationTypeTextView.setText(location.getType());
             mLocationDimensionTextView.setText(location.getDimension());

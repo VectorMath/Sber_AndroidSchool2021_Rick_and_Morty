@@ -16,7 +16,7 @@ import com.eugenebaturov.rickandmorty.utils.Keys;
 /**
  * Активити в которой отображается вся информация об конкретном эпизоде.
  */
-public class EpisodeActivity extends AppCompatActivity {
+public class EpisodeActivity extends BaseActivity {
     private EpisodeViewModel mViewModel;
     private ImageView mEpisodeSeasonImageView;
     private TextView mEpisodeTitleTextView;
@@ -56,6 +56,8 @@ public class EpisodeActivity extends AppCompatActivity {
                 R.drawable.ic_first_season_black);
 
         mViewModel.getEpisode().observe(this, episode -> {
+            getSupportActionBar().setTitle(episode.getTitle());
+
             mEpisodeSeasonImageView.setImageResource(seasonImageResource);
             mEpisodeTitleTextView.setText(episode.getTitle());
             mEpisodeNumberTextView.setText(episode.getEpisodeNumber());
