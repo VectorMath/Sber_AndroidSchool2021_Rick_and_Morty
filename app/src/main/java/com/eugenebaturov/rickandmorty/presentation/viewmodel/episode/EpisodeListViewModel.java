@@ -11,6 +11,8 @@ import com.eugenebaturov.rickandmorty.utils.SchedulerProvider;
 
 import java.util.List;
 
+import io.reactivex.rxjava3.disposables.CompositeDisposable;
+
 /**
  * ViewModel для списка эпизодов.
  */
@@ -76,12 +78,12 @@ public final class EpisodeListViewModel extends AppViewModel {
      * в виде получение информации об эпизодах с сервера.
      */
     public void loadEpisodes() {
-        disposable = mEpisodeInteractor
+        disposable.add(mEpisodeInteractor
                 .getEpisodesFromRepository()
                 .subscribeOn(mSchedulerProvider.io())
                 .observeOn(mSchedulerProvider.ui())
                 .doFinally(() -> mProgress.setValue(false))
                 .doOnSubscribe(d -> mProgress.setValue(true))
-                .subscribe(mEpisodes::setValue, mError::setValue);
+                .subscribe(mEpisodes::setValue, mError::setValue));
     }
 }

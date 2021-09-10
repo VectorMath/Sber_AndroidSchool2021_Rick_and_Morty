@@ -11,6 +11,9 @@ import com.eugenebaturov.rickandmorty.utils.SchedulerProvider;
 
 import java.util.List;
 
+import io.reactivex.rxjava3.disposables.CompositeDisposable;
+import io.reactivex.rxjava3.disposables.Disposable;
+
 /**
  * ViewModel для списка персонажей.
  */
@@ -76,12 +79,12 @@ public final class CharacterListViewModel extends AppViewModel {
      * в виде получение информации о персонажах с сервера.
      */
     public final void loadCharacters() {
-        disposable = mCharacterInteractor
+        disposable.add(mCharacterInteractor
                 .getCharactersFromRepository()
                 .subscribeOn(mSchedulerProvider.io())
                 .observeOn(mSchedulerProvider.ui())
                 .doFinally(() -> mProgress.setValue(false))
                 .doOnSubscribe(d -> mProgress.setValue(true))
-                .subscribe(mCharacters::setValue, mError::setValue);
+                .subscribe(mCharacters::setValue, mError::setValue));
     }
 }

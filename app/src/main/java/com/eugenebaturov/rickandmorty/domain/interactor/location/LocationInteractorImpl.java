@@ -20,7 +20,7 @@ public final class LocationInteractorImpl implements LocationInteractor {
     /**
      * Конструктор класса.
      *
-     * @param repository - экземпляр интрефейса-репозитория {@link LocationRepository}
+     * @param repository - экземпляр репозитория {@link LocationRepository}
      */
     public LocationInteractorImpl(@NonNull final LocationRepository repository) {
         mRepository = repository;

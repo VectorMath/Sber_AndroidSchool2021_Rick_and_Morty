@@ -1,7 +1,6 @@
 package com.eugenebaturov.rickandmorty.models.data;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 
 import com.google.gson.annotations.SerializedName;
 
@@ -9,28 +8,23 @@ import java.util.Objects;
 
 /**
  * Подкласс, который является полем для класса-сущности {@link CharacterResponse}.
- * <p>
- * Хранит в себе информацию о месте рождения персонажа.
- * <p>
- * [mName] - название локации.
- * <p>
- * [mUrl] - ссылка на локацию, информацию о которой хранит класс-сущность {@link LocationResponse}.
  */
 public final class Origin {
 
     @SerializedName("name")
-    @Nullable
-    private String mName;
+    @NonNull
+    private final String mName;
 
     @SerializedName("url")
-    @Nullable
-    private String mUrl;
+    @NonNull
+    private final String mUrl;
 
-    public Origin() {
-
-    }
-
-    public Origin(@Nullable final String mName, @Nullable final String mUrl) {
+    /**
+     * Конструктор класса.
+     * @param mName название локации.
+     * @param mUrl Url локации.
+     */
+    public Origin(@NonNull final String mName, @NonNull final String mUrl) {
         this.mName = mName;
         this.mUrl = mUrl;
     }
@@ -58,10 +52,12 @@ public final class Origin {
                 '}';
     }
 
+    @NonNull
     public String getName() {
         return mName;
     }
 
+    @NonNull
     public String getUrl() {
         return mUrl;
     }

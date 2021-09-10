@@ -11,6 +11,9 @@ import com.eugenebaturov.rickandmorty.utils.SchedulerProvider;
 
 import java.util.List;
 
+import io.reactivex.rxjava3.disposables.CompositeDisposable;
+import io.reactivex.rxjava3.disposables.Disposable;
+
 /**
  * ViewModel для списка локаций.
  */
@@ -76,12 +79,12 @@ public final class LocationListViewModel extends AppViewModel {
      * в виде получения информации о всех локациях с сервера.
      */
     public void loadLocations() {
-        disposable = mLocationInteractor
+        disposable.add(mLocationInteractor
                 .getLocationsFromRepository()
                 .subscribeOn(mSchedulerProvider.io())
                 .observeOn(mSchedulerProvider.ui())
                 .doFinally(() -> mProgress.setValue(false))
                 .doOnSubscribe(d -> mProgress.setValue(true))
-                .subscribe(mLocations::setValue, mError::setValue);
+                .subscribe(mLocations::setValue, mError::setValue));
     }
 }

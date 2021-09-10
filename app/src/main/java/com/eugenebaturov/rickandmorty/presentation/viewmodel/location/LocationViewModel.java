@@ -9,6 +9,8 @@ import com.eugenebaturov.rickandmorty.models.domain.Location;
 import com.eugenebaturov.rickandmorty.presentation.viewmodel.AppViewModel;
 import com.eugenebaturov.rickandmorty.utils.SchedulerProvider;
 
+import io.reactivex.rxjava3.disposables.CompositeDisposable;
+
 /**
  * ViewModel для локации.
  */
@@ -76,12 +78,12 @@ public final class LocationViewModel extends AppViewModel {
      * @param locationId id локации.
      */
     public void loadLocationById(final int locationId) {
-        disposable = mLocationInteractor
+        disposable.add(mLocationInteractor
                 .getLocationFromRepository(locationId)
                 .subscribeOn(mSchedulerProvider.io())
                 .observeOn(mSchedulerProvider.ui())
                 .doFinally(() -> mProgress.setValue(false))
                 .doOnSubscribe(d -> mProgress.setValue(true))
-                .subscribe(mLocation::setValue, mError::setValue);
+                .subscribe(mLocation::setValue, mError::setValue));
     }
 }

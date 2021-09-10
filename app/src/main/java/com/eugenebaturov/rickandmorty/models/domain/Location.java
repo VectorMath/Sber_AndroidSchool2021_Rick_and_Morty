@@ -14,27 +14,14 @@ import java.util.Objects;
  */
 public final class Location {
     private final int mId;
-    @Nullable
+    @NonNull
     private final String mName;
-    @Nullable
+    @NonNull
     private final String mType;
-    @Nullable
+    @NonNull
     private final String mDimension;
-    @Nullable
+    @NonNull
     private final List<String> mResidents;
-
-    /**
-     * Конструктор класса
-     *
-     * @param locationResponse - моделька, которая получила данные с api.
-     */
-    public Location(@NonNull final LocationResponse locationResponse) {
-        mId = locationResponse.getId();
-        mName = locationResponse.getName();
-        mType = locationResponse.getType();
-        mDimension = locationResponse.getDimension();
-        mResidents = locationResponse.getResidents();
-    }
 
     /**
      * Конструктор класса в который мы вручную передаём информацию о локации.
@@ -47,10 +34,10 @@ public final class Location {
      */
     public Location(
             final int mId,
-            @Nullable final String mName,
-            @Nullable final String mType,
-            @Nullable final String mDimension,
-            @Nullable final List<String> mResidents) {
+            @NonNull final String mName,
+            @NonNull final String mType,
+            @NonNull final String mDimension,
+            @NonNull final List<String> mResidents) {
         this.mId = mId;
         this.mName = mName;
         this.mType = mType;
@@ -91,18 +78,22 @@ public final class Location {
         return mId;
     }
 
+    @NonNull
     public String getName() {
         return mName;
     }
 
+    @NonNull
     public String getType() {
         return mType;
     }
 
+    @NonNull
     public String getDimension() {
         return mDimension;
     }
 
+    @NonNull
     public List<String> getResidents() {
         return mResidents;
     }

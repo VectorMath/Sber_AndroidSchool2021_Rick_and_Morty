@@ -6,7 +6,9 @@ import com.eugenebaturov.rickandmorty.data.repository.episode.EpisodeRepositoryI
 import com.eugenebaturov.rickandmorty.models.data.EpisodeResponse;
 import com.eugenebaturov.rickandmorty.models.data.list.ListEpisodeResponse;
 import com.eugenebaturov.rickandmorty.models.domain.Episode;
+import com.eugenebaturov.rickandmorty.testdata.EpisodeTestData;
 
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
@@ -16,7 +18,6 @@ import org.mockito.junit.MockitoJUnit;
 import org.mockito.junit.MockitoJUnitRunner;
 import org.mockito.junit.MockitoRule;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import io.reactivex.rxjava3.core.Single;
@@ -50,29 +51,33 @@ public class EpisodeRepositoryTest {
     public void testGetEpisodesFromServer() {
         // Arrange
         Single<ListEpisodeResponse> serverResponse =
-                Single.just(createTestListEpisodeResponse());
+                Single.just(EpisodeTestData.createListResponse());
         Mockito.when(mEpisodeApi.getAllEpisodes()).thenReturn(serverResponse);
 
         // Act
         Single<List<Episode>> actual = mEpisodeRepository.getEpisodesFromServer();
-        List<Episode> expected = createExpectedListEpisode();
+        List<Episode> expected = EpisodeTestData.createEpisodes();
 
         // Assert
         actual.test().assertValue(expected);
     }
 
     /**
-     * Проверка на то, что если с сервера придёт null, мы получим {@link NullPointerException}.
+     * Проверка на то, что если с сервера придёт ошибка, мы получим {@link RuntimeException}.
      */
-    @Test(expected = NullPointerException.class)
-    public void testGetNullEpisodesFromServer() {
+    @Test
+    public void testGetErrorFromServer() {
         // Arrange
-        Single<ListEpisodeResponse> serverResponse =
-                Single.just(null);
-        Mockito.when(mEpisodeApi.getAllEpisodes()).thenReturn(serverResponse);
+        String EXPECTED_EXCEPTION_MESSAGE = "Server Error!";
+        Mockito
+                .when(mEpisodeApi.getAllEpisodes())
+                .thenThrow(new RuntimeException(EXPECTED_EXCEPTION_MESSAGE));
 
-        // Act
-        mEpisodeRepository.getEpisodesFromServer();
+        try {
+            mEpisodeRepository.getEpisodesFromServer();
+        } catch (RuntimeException e) {
+            Assert.assertEquals(EXPECTED_EXCEPTION_MESSAGE, e.getMessage());
+        }
     }
 
     /**
@@ -83,107 +88,29 @@ public class EpisodeRepositoryTest {
     public void testGetEpisodeWithCorrectId() {
         // Arrange
         Single<EpisodeResponse> serverResponse =
-                Single.just(createTestEpisodeResponse());
+                Single.just(EpisodeTestData.createResponse());
         Mockito.when(mEpisodeApi.getEpisodeById(CORRECT_EPISODE_ID)).thenReturn(serverResponse);
 
         // Act
         Single<Episode> actual = mEpisodeRepository.getEpisodeFromServer(CORRECT_EPISODE_ID);
-        Episode expected = createTestEpisode();
+        Episode expected = EpisodeTestData.createEpisode();
 
         // Assert
         actual.test().assertValue(expected);
     }
 
     /**
-     * Проверка на то, что с некорректным id эпизода, мы получим {@link NullPointerException}.
+     * Проверка на то, что с некорректным id эпизода, мы получим {@link RuntimeException}.
      */
-    @Test(expected = NullPointerException.class)
-    public void testGetNullEpisodeWithIncorrectId() {
-        // Act
-        mEpisodeRepository.getEpisodeFromServer(INCORRECT_EPISODE_ID);
-    }
-
-    private ListEpisodeResponse createTestListEpisodeResponse() {
-        List<EpisodeResponse> episodes = new ArrayList<>();
-
-        List<String> firstEpisodeCharactersUrl = new ArrayList<>();
-        firstEpisodeCharactersUrl.add("https://rickandmortyapi.com/api/character/1");
-        firstEpisodeCharactersUrl.add("https://rickandmortyapi.com/api/character/2");
-        firstEpisodeCharactersUrl.add("https://rickandmortyapi.com/api/character/35");
-        EpisodeResponse firstEpisode = new EpisodeResponse(
-                1,
-                "Pilot",
-                "December 2, 2013",
-                "S01E01",
-                firstEpisodeCharactersUrl
-        );
-
-        List<String> secondEpisodeCharactersUrl = new ArrayList<>();
-        secondEpisodeCharactersUrl.add("https://rickandmortyapi.com/api/character/31");
-        secondEpisodeCharactersUrl.add("https://rickandmortyapi.com/api/character/12");
-        secondEpisodeCharactersUrl.add("https://rickandmortyapi.com/api/character/5");
-        EpisodeResponse secondEpisode = new EpisodeResponse(
-                2,
-                "Lawnmower Dog",
-                "December 9, 2013",
-                "S01E02",
-                secondEpisodeCharactersUrl
-        );
-
-        episodes.add(firstEpisode);
-        episodes.add(secondEpisode);
-
-        return new ListEpisodeResponse(episodes);
-    }
-
-    private List<Episode> createExpectedListEpisode() {
-        List<Episode> episodes = new ArrayList<>();
-
-        List<String> firstEpisodeCharactersUrl = new ArrayList<>();
-        firstEpisodeCharactersUrl.add("https://rickandmortyapi.com/api/character/1");
-        firstEpisodeCharactersUrl.add("https://rickandmortyapi.com/api/character/2");
-        firstEpisodeCharactersUrl.add("https://rickandmortyapi.com/api/character/35");
-        EpisodeResponse firstEpisode = new EpisodeResponse(
-                1,
-                "Pilot",
-                "December 2, 2013",
-                "S01E01",
-                firstEpisodeCharactersUrl
-        );
-
-        List<String> secondEpisodeCharactersUrl = new ArrayList<>();
-        secondEpisodeCharactersUrl.add("https://rickandmortyapi.com/api/character/31");
-        secondEpisodeCharactersUrl.add("https://rickandmortyapi.com/api/character/12");
-        secondEpisodeCharactersUrl.add("https://rickandmortyapi.com/api/character/5");
-        EpisodeResponse secondEpisode = new EpisodeResponse(
-                2,
-                "Lawnmower Dog",
-                "December 9, 2013",
-                "S01E02",
-                secondEpisodeCharactersUrl
-        );
-
-        episodes.add(new Episode(firstEpisode));
-        episodes.add(new Episode(secondEpisode));
-
-        return episodes;
-    }
-
-    private EpisodeResponse createTestEpisodeResponse() {
-        List<String> testEpisodeCharactersUrl = new ArrayList<>();
-        testEpisodeCharactersUrl.add("https://rickandmortyapi.com/api/character/1");
-        testEpisodeCharactersUrl.add("https://rickandmortyapi.com/api/character/2");
-        testEpisodeCharactersUrl.add("https://rickandmortyapi.com/api/character/35");
-        return new EpisodeResponse(
-                1,
-                "Pilot",
-                "December 2, 2013",
-                "S01E01",
-                testEpisodeCharactersUrl
-        );
-    }
-
-    private Episode createTestEpisode() {
-        return new Episode(createTestEpisodeResponse());
+    @Test
+    public void testEpisodeIsNotExist() {
+        String EXPECTED_EXCEPTION_MESSAGE = "Server Error! Episode is not exist...";
+        Mockito.when(mEpisodeApi.getEpisodeById(INCORRECT_EPISODE_ID))
+                .thenThrow(new RuntimeException(EXPECTED_EXCEPTION_MESSAGE));
+        try {
+            mEpisodeRepository.getEpisodeFromServer(INCORRECT_EPISODE_ID);
+        } catch (RuntimeException e) {
+            Assert.assertEquals(EXPECTED_EXCEPTION_MESSAGE, e.getMessage());
+        }
     }
 }

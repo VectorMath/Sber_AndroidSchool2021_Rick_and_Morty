@@ -3,12 +3,11 @@ package com.eugenebaturov.rickandmorty.data.repository;
 import com.eugenebaturov.rickandmorty.data.api.LocationApi;
 import com.eugenebaturov.rickandmorty.data.repository.location.LocationRepository;
 import com.eugenebaturov.rickandmorty.data.repository.location.LocationRepositoryImpl;
-import com.eugenebaturov.rickandmorty.models.data.EpisodeResponse;
 import com.eugenebaturov.rickandmorty.models.data.LocationResponse;
 import com.eugenebaturov.rickandmorty.models.data.list.ListLocationResponse;
-import com.eugenebaturov.rickandmorty.models.domain.Episode;
 import com.eugenebaturov.rickandmorty.models.domain.Location;
 
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
@@ -18,11 +17,14 @@ import org.mockito.junit.MockitoJUnit;
 import org.mockito.junit.MockitoJUnitRunner;
 import org.mockito.junit.MockitoRule;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import io.reactivex.rxjava3.core.Single;
 
+import static com.eugenebaturov.rickandmorty.testdata.LocationTestData.createLocation;
+import static com.eugenebaturov.rickandmorty.testdata.LocationTestData.createLocations;
+import static com.eugenebaturov.rickandmorty.testdata.LocationTestData.createResponse;
+import static com.eugenebaturov.rickandmorty.testdata.LocationTestData.createListResponse;
 import static org.mockito.Mockito.when;
 
 /**
@@ -53,29 +55,31 @@ public class LocationRepositoryTest {
     public void testGetLocationsFromServer() {
         // Arrange
         Single<ListLocationResponse> serverResponse =
-                Single.just(createTestLocationResponse());
+                Single.just(createListResponse());
         when(mLocationApi.getAllLocations()).thenReturn(serverResponse);
 
         // Act
         Single<List<Location>> actual = mLocationRepository.getLocationsFromServer();
-        List<Location> expected = createExpectedLocations();
+        List<Location> expected = createLocations();
 
         // Assert
         actual.test().assertValue(expected);
     }
 
     /**
-     * Проверка на то, что если с сервера придёт null, мы получим {@link NullPointerException}
+     * Проверка на то, что если с сервера придёт ошибка, мы получим {@link RuntimeException}
      */
-    @Test(expected = NullPointerException.class)
-    public void testGetNullLocationsFromServer() {
-        // Arrange
-        Single<ListLocationResponse> serverResponse =
-                Single.just(null);
-        when(mLocationApi.getAllLocations()).thenReturn(serverResponse);
+    @Test
+    public void testErrorFromServer() {
+        String EXPECTED_EXCEPTION_MESSAGE = "Server Error!";
+        when(mLocationApi.getAllLocations())
+                .thenThrow(new RuntimeException(EXPECTED_EXCEPTION_MESSAGE));
 
-        // Act
-        mLocationRepository.getLocationsFromServer();
+        try {
+            mLocationRepository.getLocationsFromServer();
+        } catch (RuntimeException e) {
+            Assert.assertEquals(EXPECTED_EXCEPTION_MESSAGE, e.getMessage());
+        }
     }
 
     /**
@@ -86,113 +90,31 @@ public class LocationRepositoryTest {
     public void testGetLocationWithCorrectId() {
         // Arrange
         Single<LocationResponse> serverResponse =
-                Single.just(createLocationResponse());
+                Single.just(createResponse());
         when(mLocationApi.getLocationById(CORRECT_LOCATION_ID)).thenReturn(serverResponse);
 
         // Act
         Single<Location> actual = mLocationRepository.getLocationFromServer(CORRECT_LOCATION_ID);
-        Location expected = createExpectedLocation();
+        Location expected = createLocation();
 
         // Assert
         actual.test().assertValue(expected);
     }
 
     /**
-     * Проверка на то, что с некорректным id локации, мы получим {@link NullPointerException}.
+     * Проверка на то, что с некорректным id локации, мы получим {@link RuntimeException}.
      */
-    @Test(expected = NullPointerException.class)
-    public void testGetNullLocationWithIncorrectId() {
+    @Test
+    public void testLocationIsNotExist() {
         // Arrange
-        Single<LocationResponse> serverResponse =
-                Single.just(null);
-        when(mLocationApi.getLocationById(INCORRECT_LOCATION_ID)).thenReturn(serverResponse);
+        String EXPECTED_EXCEPTION_MESSAGE = "Server Error! Location is not exist...";
+        when(mLocationApi.getLocationById(INCORRECT_LOCATION_ID))
+                .thenThrow(new RuntimeException(EXPECTED_EXCEPTION_MESSAGE));
 
-        // Act
-        mLocationRepository.getLocationFromServer(INCORRECT_LOCATION_ID);
-    }
-
-    private ListLocationResponse createTestLocationResponse() {
-        List<LocationResponse> locations = new ArrayList<>();
-
-        List<String> firstResidentsList = new ArrayList<>();
-        firstResidentsList.add("https://rickandmortyapi.com/api/character/38");
-        firstResidentsList.add("https://rickandmortyapi.com/api/character/13");
-        firstResidentsList.add("https://rickandmortyapi.com/api/character/6");
-
-        List<String> secondResidentsList = new ArrayList<>();
-        secondResidentsList.add("https://rickandmortyapi.com/api/character/6");
-
-        LocationResponse firstLocationResponse = new LocationResponse(
-                1,
-                "Earth (C-137)",
-                "Planet",
-                "Dimension C-137",
-                firstResidentsList
-        );
-
-        LocationResponse secondLocationResponse = new LocationResponse(
-                2,
-                "Abadango",
-                "Cluster",
-                "unknown",
-                secondResidentsList
-        );
-
-        locations.add(firstLocationResponse);
-        locations.add(secondLocationResponse);
-
-        return new ListLocationResponse(locations);
-    }
-
-    private List<Location> createExpectedLocations() {
-        List<Location> locations = new ArrayList<>();
-
-        List<String> firstResidentsList = new ArrayList<>();
-        firstResidentsList.add("https://rickandmortyapi.com/api/character/38");
-        firstResidentsList.add("https://rickandmortyapi.com/api/character/13");
-        firstResidentsList.add("https://rickandmortyapi.com/api/character/6");
-
-        List<String> secondResidentsList = new ArrayList<>();
-        secondResidentsList.add("https://rickandmortyapi.com/api/character/6");
-
-        LocationResponse firstLocationResponse = new LocationResponse(
-                1,
-                "Earth (C-137)",
-                "Planet",
-                "Dimension C-137",
-                firstResidentsList
-        );
-
-        LocationResponse secondLocationResponse = new LocationResponse(
-                2,
-                "Abadango",
-                "Cluster",
-                "unknown",
-                secondResidentsList
-        );
-
-        locations.add(new Location(firstLocationResponse));
-        locations.add(new Location(secondLocationResponse));
-
-        return locations;
-    }
-
-    private LocationResponse createLocationResponse() {
-        List<String> firstResidentsList = new ArrayList<>();
-        firstResidentsList.add("https://rickandmortyapi.com/api/character/38");
-        firstResidentsList.add("https://rickandmortyapi.com/api/character/13");
-        firstResidentsList.add("https://rickandmortyapi.com/api/character/6");
-
-        return new LocationResponse(
-                CORRECT_LOCATION_ID,
-                "Earth (C-137)",
-                "Planet",
-                "Dimension C-137",
-                firstResidentsList
-        );
-    }
-
-    private Location createExpectedLocation() {
-        return new Location(createLocationResponse());
+        try {
+            mLocationRepository.getLocationFromServer(INCORRECT_LOCATION_ID);
+        } catch (RuntimeException e) {
+            Assert.assertEquals(EXPECTED_EXCEPTION_MESSAGE, e.getMessage());
+        }
     }
 }

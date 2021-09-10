@@ -1,7 +1,6 @@
 package com.eugenebaturov.rickandmorty.models.data;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 
 import com.google.gson.annotations.SerializedName;
 
@@ -10,44 +9,27 @@ import java.util.Objects;
 
 /**
  * Класс-сущность, который хранит информацию о локации в мульт-сериале "Рик и Морти".
- * <p>
- * [mId] - id локации.
- * <p>
- * [mName] - название локации.
- * <p>
- * [mType] - тип локации.
- * <p>
- * [mDimension] - измерение локации.
- * <p>
- * [mResidents] - список персонажей, которые находятся в локации.
  */
 public final class LocationResponse {
 
     @SerializedName("id")
-    private int mId;
+    private final int mId;
 
     @SerializedName("name")
-    @Nullable
-    private String mName;
+    @NonNull
+    private final String mName;
 
     @SerializedName("type")
-    @Nullable
-    private String mType;
+    @NonNull
+    private final String mType;
 
     @SerializedName("dimension")
-    @Nullable
-    private String mDimension;
+    @NonNull
+    private final String mDimension;
 
     @SerializedName("residents")
-    @Nullable
-    private List<String> mResidents;
-
-    /**
-     * Пустой конструктор класса.
-     */
-    public LocationResponse() {
-
-    }
+    @NonNull
+    private final List<String> mResidents;
 
     /**
      * Конструктор класса в который передаётся вся информация о локации.
@@ -60,10 +42,10 @@ public final class LocationResponse {
      */
     public LocationResponse(
             final int mId,
-            @Nullable final String mName,
-            @Nullable final String mType,
-            @Nullable final String mDimension,
-            @Nullable final List<String> mResidents) {
+            @NonNull final String mName,
+            @NonNull final String mType,
+            @NonNull final String mDimension,
+            @NonNull final List<String> mResidents) {
         this.mId = mId;
         this.mName = mName;
         this.mType = mType;
@@ -110,18 +92,22 @@ public final class LocationResponse {
         return mId;
     }
 
+    @NonNull
     public String getName() {
         return mName;
     }
 
+    @NonNull
     public String getType() {
         return mType;
     }
 
+    @NonNull
     public String getDimension() {
         return mDimension;
     }
 
+    @NonNull
     public List<String> getResidents() {
         return mResidents;
     }

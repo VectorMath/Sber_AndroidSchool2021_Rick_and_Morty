@@ -14,7 +14,7 @@
             android:layout_width="@dimen/item_locationTypeImage_width"
             android:layout_height="@dimen/item_locationTypeImage_height"
             android:layout_margin="@dimen/medium_margin"
-            android:src="@drawable/ic_launcher_background"
+            android:src="@drawable/ic_location_black"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -66,6 +66,7 @@
             app:layout_constraintEnd_toStartOf="@id/locationPopulationCount_textView" />
 
         <TextView
+            android:textStyle="bold"
             android:id="@+id/locationPopulationCount_textView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

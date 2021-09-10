@@ -20,7 +20,7 @@ public final class CharacterInteractorImpl implements CharacterInteractor {
     /**
      * Конструктор класса.
      *
-     * @param repository экземпляр интерфейса-репозитория {@link CharacterRepository}
+     * @param repository экземпляр репозитория {@link CharacterRepository}
      */
     public CharacterInteractorImpl(@NonNull final CharacterRepository repository) {
         mRepository = repository;

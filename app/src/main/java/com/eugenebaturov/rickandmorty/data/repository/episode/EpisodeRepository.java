@@ -10,22 +10,19 @@ import java.util.List;
 import io.reactivex.rxjava3.core.Single;
 
 /**
- * Интерфейс, методы которого получают данные с сервера с помощью {@link EpisodeApi}
- * в виде {@link EpisodeResponse}, а после форматируют это в {@link Episode}
+ * Интерфейс, методы которого получают данные с сервера с помощью {@link EpisodeApi}.
  */
 public interface EpisodeRepository {
 
     /**
-     * Получает данные о всех эпизодах с сервера в виде {@link ListEpisodeResponse}, а после
-     * форматирует их в {@link List}<{@link Episode}>.
+     * Получает данные о всех эпизодах с сервера.
      *
      * @return Список эпизодов в {@link Single} обёртке.
      */
     Single<List<Episode>> getEpisodesFromServer();
 
     /**
-     * Получает данные об эпизоде с сервера в виде {@link EpisodeResponse}, а после
-     * форматирует их в {@link Episode}.
+     * Получает данные об эпизоде с сервера.
      *
      * @param episodeId id эпизода.
      * @return Эпизод в {@link Single} обёртке.

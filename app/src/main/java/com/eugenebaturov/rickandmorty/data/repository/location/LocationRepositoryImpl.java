@@ -3,6 +3,7 @@ package com.eugenebaturov.rickandmorty.data.repository.location;
 import androidx.annotation.NonNull;
 
 import com.eugenebaturov.rickandmorty.data.api.LocationApi;
+import com.eugenebaturov.rickandmorty.data.utils.Converter;
 import com.eugenebaturov.rickandmorty.models.data.LocationResponse;
 import com.eugenebaturov.rickandmorty.models.domain.Location;
 
@@ -33,20 +34,11 @@ public final class LocationRepositoryImpl implements LocationRepository {
 
     @Override
     public Single<List<Location>> getLocationsFromServer() {
-
-        return mLocationApi.getAllLocations().map(response -> {
-            List<Location> locations = new ArrayList<>();
-
-            for (LocationResponse location : response.getLocations()) {
-                locations.add(new Location(location));
-            }
-
-            return locations;
-        });
+        return mLocationApi.getAllLocations().map(Converter::convertLocations);
     }
 
     @Override
     public Single<Location> getLocationFromServer(final int locationId) {
-        return mLocationApi.getLocationById(locationId).map(Location::new);
+        return mLocationApi.getLocationById(locationId).map(Converter::convertLocation);
     }
 }

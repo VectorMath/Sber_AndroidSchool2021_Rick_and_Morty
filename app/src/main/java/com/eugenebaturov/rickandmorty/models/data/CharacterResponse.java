@@ -1,7 +1,6 @@
 package com.eugenebaturov.rickandmorty.models.data;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 
 import com.google.gson.annotations.SerializedName;
 
@@ -10,72 +9,47 @@ import java.util.Objects;
 
 /**
  * Класс-сущность, который хранит информацию о персонаже мульт-сериала "Рик и Морти".
- * <p>
- * [mId] - id персонажа.
- * <p>
- * [mName] - имя персонажа.
- * <p>
- * [mStatus] - статус персонажа(Жив, Мёртв, Неизвестно).
- * <p>
- * [mSpecies] - раса персонажа.
- * <p>
- * [mType] - отличительная черта персонажа.
- * <p>
- * [mGender] - гендер персонажа.
- * <p>
- * [mImage] - изображение персонажа.
- * <p>
- * [mOrigin] - место рождения персонажа. Реализовано через класс {@link Origin}
- * <p>
- * [mCurrentLocation] - текущее местоположение персонажа.
- * Реализовано через класс {@link CurrentLocation}
- * <p>
- * [mEpisodes] - ссылка на эпизоды в которых персонаж появился.
  */
 public final class CharacterResponse {
 
     @SerializedName("id")
-    private int mId;
+    private final int mId;
 
     @SerializedName("name")
-    @Nullable
-    private String mName;
+    @NonNull
+    private final String mName;
 
     @SerializedName("status")
-    @Nullable
-    private String mStatus;
+    @NonNull
+    private final String mStatus;
 
     @SerializedName("species")
-    @Nullable
-    private String mSpecies;
+    @NonNull
+    private final String mSpecies;
 
     @SerializedName("type")
-    @Nullable
-    private String mType;
+    @NonNull
+    private final String mType;
 
     @SerializedName("gender")
-    @Nullable
-    private String mGender;
+    @NonNull
+    private final String mGender;
 
     @SerializedName("image")
-    @Nullable
-    private String mImage;
+    @NonNull
+    private final String mImage;
 
     @SerializedName("origin")
-    @Nullable
-    private Origin mOrigin;
+    @NonNull
+    private final Origin mOrigin;
 
     @SerializedName("location")
-    @Nullable
-    private CurrentLocation mCurrentLocation;
+    @NonNull
+    private final CurrentLocation mCurrentLocation;
 
     @SerializedName("episode")
-    @Nullable
-    private List<String> mEpisodes;
-
-    public CharacterResponse() {
-
-    }
+    @NonNull
+    private final List<String> mEpisodes;
 
     /**
      * Конструктор класса в который передается вся информация о персонаже, пришедшая из сервера.
@@ -94,15 +68,15 @@ public final class CharacterResponse {
      */
     public CharacterResponse(
             final int mId,
-            @Nullable final String mName,
-            @Nullable final String mStatus,
-            @Nullable final String mSpecies,
-            @Nullable final String mType,
-            @Nullable final String mGender,
-            @Nullable final String mImage,
-            @Nullable final Origin mOrigin,
-            @Nullable final CurrentLocation mCurrentLocation,
-            @Nullable final List<String> mEpisodes
+            @NonNull final String mName,
+            @NonNull final String mStatus,
+            @NonNull final String mSpecies,
+            @NonNull final String mType,
+            @NonNull final String mGender,
+            @NonNull final String mImage,
+            @NonNull final Origin mOrigin,
+            @NonNull final CurrentLocation mCurrentLocation,
+            @NonNull final List<String> mEpisodes
     ) {
         this.mId = mId;
         this.mName = mName;
@@ -170,39 +144,50 @@ public final class CharacterResponse {
         return mId;
     }
 
+    @NonNull
     public String getName() {
         return mName;
     }
 
+    @NonNull
     public String getStatus() {
         return mStatus;
     }
 
+    @NonNull
     public String getSpecies() {
         return mSpecies;
     }
 
+    @NonNull
     public String getType() {
         return mType;
     }
 
+    @NonNull
     public String getGender() {
         return mGender;
     }
 
+    @NonNull
     public String getImage() {
         return mImage;
     }
 
+    @NonNull
     public Origin getOrigin() {
         return mOrigin;
     }
 
+    @NonNull
     public CurrentLocation getCurrentLocation() {
         return mCurrentLocation;
     }
 
+    @NonNull
     public List<String> getEpisodes() {
         return mEpisodes;
     }
+
+
 }

@@ -14,27 +14,14 @@ import java.util.Objects;
  */
 public final class Episode {
     private final int mId;
-    @Nullable
+    @NonNull
     private final String mTitle;
-    @Nullable
+    @NonNull
     private final String mAirDate;
-    @Nullable
+    @NonNull
     private final String mEpisodeNumber;
-    @Nullable
+    @NonNull
     private final List<String> mCharacters;
-
-    /**
-     * Конструктор класса
-     *
-     * @param episodeResponse - моделька, которая получила данные с api.
-     */
-    public Episode(@NonNull final EpisodeResponse episodeResponse) {
-        mId = episodeResponse.getId();
-        mTitle = episodeResponse.getTitle();
-        mAirDate = episodeResponse.getAirDate();
-        mEpisodeNumber = episodeResponse.getEpisodeNumber();
-        mCharacters = episodeResponse.getCharacters();
-    }
 
     /**
      * Конструктор класса в который мы передаём всю информацию об эпизоде вручную.
@@ -47,10 +34,10 @@ public final class Episode {
      */
     public Episode(
             final int mId,
-            @Nullable final String mTitle,
-            @Nullable final String mAirDate,
-            @Nullable final String mEpisodeNumber,
-            @Nullable final List<String> mCharacters) {
+            @NonNull final String mTitle,
+            @NonNull final String mAirDate,
+            @NonNull final String mEpisodeNumber,
+            @NonNull final List<String> mCharacters) {
         this.mId = mId;
         this.mTitle = mTitle;
         this.mAirDate = mAirDate;
@@ -91,18 +78,22 @@ public final class Episode {
         return mId;
     }
 
+    @NonNull
     public String getTitle() {
         return mTitle;
     }
 
+    @NonNull
     public String getAirDate() {
         return mAirDate;
     }
 
+    @NonNull
     public String getEpisodeNumber() {
         return mEpisodeNumber;
     }
 
+    @NonNull
     public List<String> getCharacters() {
         return mCharacters;
     }

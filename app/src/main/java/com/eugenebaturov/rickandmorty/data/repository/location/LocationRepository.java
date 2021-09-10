@@ -10,22 +10,19 @@ import java.util.List;
 import io.reactivex.rxjava3.core.Single;
 
 /**
- * Интерфейс, методы которого получают данные с сервера с помощью {@link LocationApi}
- * в виде {@link LocationResponse}, а после форматируют это в {@link Location}
+ * Интерфейс, методы которого получают данные с сервера с помощью {@link LocationApi}.
  */
 public interface LocationRepository {
 
     /**
-     * Получает данные о всех локациях с сервера в виде {@link ListLocationResponse}, а после
-     * форматирует их в {@link List}<{@link Location}>.
+     * Получает данные о всех локациях с сервера.
      *
      * @return Список локаций в {@link Single} обёртке.
      */
     Single<List<Location>> getLocationsFromServer();
 
     /**
-     * Получает данные о локации с сервера в виде {@link LocationResponse}, а после
-     * форматирует их в {@link Location}.
+     * Получает данные о локации с сервера.
      *
      * @param locationId id локации.
      * @return Локация в Single {@link Single} обёртке.

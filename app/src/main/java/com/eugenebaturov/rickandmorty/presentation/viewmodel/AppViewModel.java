@@ -2,6 +2,7 @@ package com.eugenebaturov.rickandmorty.presentation.viewmodel;
 
 import androidx.lifecycle.ViewModel;
 
+import io.reactivex.rxjava3.disposables.CompositeDisposable;
 import io.reactivex.rxjava3.disposables.Disposable;
 
 /**
@@ -10,7 +11,7 @@ import io.reactivex.rxjava3.disposables.Disposable;
  */
 public abstract class AppViewModel extends ViewModel {
 
-    protected Disposable disposable;
+    protected CompositeDisposable disposable = new CompositeDisposable();
 
     @Override
     protected void onCleared() {

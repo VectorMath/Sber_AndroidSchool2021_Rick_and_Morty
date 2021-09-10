@@ -4,9 +4,8 @@ import androidx.arch.core.executor.testing.InstantTaskExecutorRule;
 import androidx.lifecycle.Observer;
 
 import com.eugenebaturov.rickandmorty.domain.interactor.character.CharacterInteractor;
-import com.eugenebaturov.rickandmorty.models.data.CurrentLocation;
-import com.eugenebaturov.rickandmorty.models.data.Origin;
 import com.eugenebaturov.rickandmorty.models.domain.Character;
+import com.eugenebaturov.rickandmorty.testdata.CharacterTestData;
 import com.eugenebaturov.rickandmorty.utils.SchedulerProvider;
 
 import org.junit.Before;
@@ -18,9 +17,6 @@ import org.mockito.InOrder;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.MockitoJUnitRunner;
-
-import java.util.ArrayList;
-import java.util.List;
 
 import io.reactivex.rxjava3.core.Single;
 import io.reactivex.rxjava3.schedulers.Schedulers;
@@ -73,24 +69,7 @@ public class CharacterViewModelTest {
         // Arrange
         Mockito
                 .when(mCharacterInteractor.getCharacterFromRepository(CORRECT_ID))
-                .thenReturn(Single.just(createTestCharacter()));
-
-        // Act
-        mCharacterViewModel.loadCharacterById(CORRECT_ID);
-
-        // Assert
-        Mockito.verify(mCharacter).onChanged(createTestCharacter());
-    }
-
-    /**
-     * Проверка на то, что методы вызываются в нужном порядке.
-     */
-    @Test
-    public void testLoadCharacterInOrder() {
-        // Arrange
-        Mockito
-                .when(mCharacterInteractor.getCharacterFromRepository(CORRECT_ID))
-                .thenReturn(Single.just(createTestCharacter()));
+                .thenReturn(Single.just(CharacterTestData.createCharacter()));
 
         // Act
         InOrder inOrder = Mockito.inOrder(mError, mCharacter, mProgress);
@@ -98,7 +77,7 @@ public class CharacterViewModelTest {
 
         // Assert
         inOrder.verify(mProgress).onChanged(true);
-        inOrder.verify(mCharacter).onChanged(createTestCharacter());
+        inOrder.verify(mCharacter).onChanged(CharacterTestData.createCharacter());
         inOrder.verify(mProgress).onChanged(false);
         inOrder.verifyNoMoreInteractions();
     }
@@ -116,31 +95,5 @@ public class CharacterViewModelTest {
         mCharacterViewModel.loadCharacterById(INCORRECT_ID);
 
         Mockito.verify(mError).onChanged(ArgumentMatchers.isA(NullPointerException.class));
-    }
-
-    private Character createTestCharacter() {
-        List<String> firstCharactersListUrlEpisode = new ArrayList<>();
-        firstCharactersListUrlEpisode.add("https://rickandmortyapi.com/api/episode/17");
-        firstCharactersListUrlEpisode.add("https://rickandmortyapi.com/api/episode/13");
-        firstCharactersListUrlEpisode.add("https://rickandmortyapi.com/api/episode/31");
-
-        return new Character(
-                1,
-                "Rick Sanchez",
-                "Alive",
-                "Human",
-                "Scientist",
-                "Male",
-                "https://rickandmortyapi.com/api/character/avatar/1.jpeg",
-                new Origin(
-                        "Earth (C-137)",
-                        "https://rickandmortyapi.com/api/location/1"
-                ),
-                new CurrentLocation(
-                        "Earth (Replacement Dimension)",
-                        "https://rickandmortyapi.com/api/location/20"
-                ),
-                firstCharactersListUrlEpisode
-        );
     }
 }

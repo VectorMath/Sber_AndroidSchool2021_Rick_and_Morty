@@ -9,6 +9,8 @@ import com.eugenebaturov.rickandmorty.models.domain.Episode;
 import com.eugenebaturov.rickandmorty.presentation.viewmodel.AppViewModel;
 import com.eugenebaturov.rickandmorty.utils.SchedulerProvider;
 
+import io.reactivex.rxjava3.disposables.CompositeDisposable;
+
 /**
  * ViewModel для эпизода.
  */
@@ -76,12 +78,12 @@ public final class EpisodeViewModel extends AppViewModel {
      * @param episodeId id эпизода.
      */
     public final void loadEpisodeById(final int episodeId) {
-        disposable = mEpisodeInteractor
+        disposable.add(mEpisodeInteractor
                 .getEpisodeFromRepository(episodeId)
                 .subscribeOn(mSchedulerProvider.io())
                 .observeOn(mSchedulerProvider.ui())
                 .doFinally(() -> mProgress.setValue(false))
                 .doOnSubscribe(d -> mProgress.setValue(true))
-                .subscribe(mEpisode::setValue, mError::setValue);
+                .subscribe(mEpisode::setValue, mError::setValue));
     }
 }

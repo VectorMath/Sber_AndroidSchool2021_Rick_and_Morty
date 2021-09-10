@@ -11,27 +11,19 @@ import java.util.Objects;
 
 /**
  * Класс-сущность, который хранит информацию о эпизодах мульт-сериала "Рик и Морти".
- * <p>
- * [mEpisodes] - список эпизодов {@link EpisodeResponse}
  */
 public final class ListEpisodeResponse {
 
     @SerializedName("results")
-    @Nullable
-    private List<EpisodeResponse> mEpisodes;
+    @NonNull
+    private final List<EpisodeResponse> mEpisodes;
 
     /**
-     * Пустой конструктор класса.
-     */
-    public ListEpisodeResponse() {
-    }
-
-    /**
-     * Конструктор класса в который передается список эпизодов с сервера.
+     * Конструктор класса.
      *
      * @param mEpisodes список эпизодов {@link EpisodeResponse}
      */
-    public ListEpisodeResponse(@Nullable final List<EpisodeResponse> mEpisodes) {
+    public ListEpisodeResponse(@NonNull final List<EpisodeResponse> mEpisodes) {
         this.mEpisodes = mEpisodes;
     }
 
@@ -56,7 +48,7 @@ public final class ListEpisodeResponse {
                 '}';
     }
 
-    @Nullable
+    @NonNull
     public List<EpisodeResponse> getEpisodes() {
         return mEpisodes;
     }

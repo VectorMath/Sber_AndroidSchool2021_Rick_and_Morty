@@ -65,4 +65,13 @@ dependencies {
     // CircleImageView
     def circle_imageView_version = "3.1.0"
     implementation "de.hdodenhof:circleimageview:$circle_imageView_version"
+
+    // Picasso
+    def picasso_version = "2.71828"
+    implementation "com.squareup.picasso:picasso:$picasso_version"
+
+    // Dagger 2
+    def dagger_two_version = "2.38.1"
+    implementation "com.google.dagger:dagger:$dagger_two_version"
+    annotationProcessor "com.google.dagger:dagger-compiler:$dagger_two_version"
 }

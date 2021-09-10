@@ -20,7 +20,7 @@ public final class EpisodeInteractorImpl implements EpisodeInteractor {
     /**
      * Конструктор класса
      *
-     * @param repository экземпляр интрефейса-репозитория {@link EpisodeRepository}
+     * @param repository экземпляр репозитория {@link EpisodeRepository}
      */
     public EpisodeInteractorImpl(@NonNull final EpisodeRepository repository) {
         mRepository = repository;

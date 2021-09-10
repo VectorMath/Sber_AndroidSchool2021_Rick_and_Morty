@@ -1,7 +1,6 @@
 package com.eugenebaturov.rickandmorty.models.data;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 
 import com.google.gson.annotations.SerializedName;
 
@@ -10,44 +9,27 @@ import java.util.Objects;
 
 /**
  * Класс-сущность, который хранит информацию об эпизоде мульт-сериала "Рик и Морти".
- * <p>
- * [mId] - id эпизода.
- * <p>
- * [mTitle] - название эпизода.
- * <p>
- * [mAirDate] - дата выпуска эпизода(пример: September 10, 2017).
- * <p>
- * [mEpisodeCount] - номер эпизода(пример: S03E07).
- * <p>
- * [mCharacters] - ссылка на персонажей, которые появились в эпизоде.
  */
 public final class EpisodeResponse {
 
     @SerializedName("id")
-    private int mId;
+    private final int mId;
 
     @SerializedName("name")
-    @Nullable
-    private String mTitle;
+    @NonNull
+    private final String mTitle;
 
     @SerializedName("air_date")
-    @Nullable
-    private String mAirDate;
+    @NonNull
+    private final String mAirDate;
 
     @SerializedName("episode")
-    @Nullable
-    private String mEpisodeNumber;
+    @NonNull
+    private final String mEpisodeNumber;
 
     @SerializedName("characters")
-    @Nullable
-    private List<String> mCharacters;
-
-    /**
-     * Пустой конструктор класса.
-     */
-    public EpisodeResponse() {
-
-    }
+    @NonNull
+    private final List<String> mCharacters;
 
     /**
      * Конструктор класса в который передается вся информация об эпизоде, пришедшая из сервера.
@@ -60,10 +42,10 @@ public final class EpisodeResponse {
      */
     public EpisodeResponse(
             final int mId,
-            @Nullable final String mTitle,
-            @Nullable final String mAirDate,
-            @Nullable final String mEpisodeNumber,
-            @Nullable final List<String> mCharacters) {
+            @NonNull final String mTitle,
+            @NonNull final String mAirDate,
+            @NonNull final String mEpisodeNumber,
+            @NonNull final List<String> mCharacters) {
         this.mId = mId;
         this.mTitle = mTitle;
         this.mAirDate = mAirDate;
@@ -110,18 +92,22 @@ public final class EpisodeResponse {
         return mId;
     }
 
+    @NonNull
     public String getTitle() {
         return mTitle;
     }
 
+    @NonNull
     public String getAirDate() {
         return mAirDate;
     }
 
+    @NonNull
     public String getEpisodeNumber() {
         return mEpisodeNumber;
     }
 
+    @NonNull
     public List<String> getCharacters() {
         return mCharacters;
     }

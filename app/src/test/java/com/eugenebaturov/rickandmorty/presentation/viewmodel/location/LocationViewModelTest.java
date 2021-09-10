@@ -5,6 +5,7 @@ import androidx.lifecycle.Observer;
 
 import com.eugenebaturov.rickandmorty.domain.interactor.location.LocationInteractor;
 import com.eugenebaturov.rickandmorty.models.domain.Location;
+import com.eugenebaturov.rickandmorty.testdata.LocationTestData;
 import com.eugenebaturov.rickandmorty.utils.SchedulerProvider;
 
 import org.junit.Before;
@@ -16,9 +17,6 @@ import org.mockito.InOrder;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.MockitoJUnitRunner;
-
-import java.util.ArrayList;
-import java.util.List;
 
 import io.reactivex.rxjava3.core.Single;
 import io.reactivex.rxjava3.schedulers.Schedulers;
@@ -76,24 +74,7 @@ public class LocationViewModelTest {
         // Arrange
         Mockito
                 .when(mLocationInteractor.getLocationFromRepository(CORRECT_ID))
-                .thenReturn(Single.just(createTestLocation()));
-
-        // Act
-        mLocationListViewModel.loadLocationById(CORRECT_ID);
-
-        // Assert
-        Mockito.verify(mLocation).onChanged(createTestLocation());
-    }
-
-    /**
-     * Проверка на то, что методы вызываются в нужном порядке.
-     */
-    @Test
-    public void testLoadLocationInOrder() {
-        // Arrange
-        Mockito
-                .when(mLocationInteractor.getLocationFromRepository(CORRECT_ID))
-                .thenReturn(Single.just(createTestLocation()));
+                .thenReturn(Single.just(LocationTestData.createLocation()));
 
         // Act
         InOrder inOrder = Mockito.inOrder(mError, mLocation, mProgress);
@@ -101,7 +82,7 @@ public class LocationViewModelTest {
 
         // Assert
         inOrder.verify(mProgress).onChanged(true);
-        inOrder.verify(mLocation).onChanged(createTestLocation());
+        inOrder.verify(mLocation).onChanged(LocationTestData.createLocation());
         inOrder.verify(mProgress).onChanged(false);
         inOrder.verifyNoMoreInteractions();
     }
@@ -119,19 +100,5 @@ public class LocationViewModelTest {
         mLocationListViewModel.loadLocationById(INCORRECT_ID);
 
         Mockito.verify(mError).onChanged(ArgumentMatchers.isA(NullPointerException.class));
-    }
-
-    private Location createTestLocation() {
-        List<String> testResidentsUrl = new ArrayList<>();
-        testResidentsUrl.add("https://rickandmortyapi.com/api/character/38");
-        testResidentsUrl.add("https://rickandmortyapi.com/api/character/31");
-        testResidentsUrl.add("https://rickandmortyapi.com/api/character/6");
-        return new Location(
-                CORRECT_ID,
-                "Nuptia 4",
-                "Planet",
-                "unknown",
-                testResidentsUrl
-        );
     }
 }

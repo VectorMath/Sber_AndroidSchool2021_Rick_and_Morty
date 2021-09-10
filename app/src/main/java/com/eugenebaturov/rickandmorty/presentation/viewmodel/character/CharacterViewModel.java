@@ -9,6 +9,8 @@ import com.eugenebaturov.rickandmorty.models.domain.Character;
 import com.eugenebaturov.rickandmorty.presentation.viewmodel.AppViewModel;
 import com.eugenebaturov.rickandmorty.utils.SchedulerProvider;
 
+import io.reactivex.rxjava3.disposables.CompositeDisposable;
+
 /**
  * ViewModel для персонажа.
  */
@@ -76,12 +78,12 @@ public final class CharacterViewModel extends AppViewModel {
      * @param characterId id персонажа.
      */
     public final void loadCharacterById(final int characterId) {
-        disposable = mCharacterInteractor
+        disposable.add(mCharacterInteractor
                 .getCharacterFromRepository(characterId)
                 .subscribeOn(mSchedulerProvider.io())
                 .observeOn(mSchedulerProvider.ui())
                 .doFinally(() -> mProgress.setValue(false))
                 .doOnSubscribe(d -> mProgress.setValue(true))
-                .subscribe(mCharacter::setValue, mError::setValue);
+                .subscribe(mCharacter::setValue, mError::setValue));
     }
 }

@@ -3,9 +3,8 @@ package com.eugenebaturov.rickandmorty.domain.interactor;
 import com.eugenebaturov.rickandmorty.data.repository.character.CharacterRepository;
 import com.eugenebaturov.rickandmorty.domain.interactor.character.CharacterInteractor;
 import com.eugenebaturov.rickandmorty.domain.interactor.character.CharacterInteractorImpl;
-import com.eugenebaturov.rickandmorty.models.data.CurrentLocation;
-import com.eugenebaturov.rickandmorty.models.data.Origin;
 import com.eugenebaturov.rickandmorty.models.domain.Character;
+import com.eugenebaturov.rickandmorty.testdata.CharacterTestData;
 import com.google.common.truth.Truth;
 
 import org.junit.Before;
@@ -17,10 +16,11 @@ import org.mockito.junit.MockitoJUnit;
 import org.mockito.junit.MockitoJUnitRunner;
 import org.mockito.junit.MockitoRule;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import io.reactivex.rxjava3.core.Single;
+
+import static org.junit.Assert.assertEquals;
 
 /**
  * Юнит-тест для {@link CharacterInteractorImpl}
@@ -29,6 +29,10 @@ import io.reactivex.rxjava3.core.Single;
 public class CharacterInteractorTest {
     private static final int CORRECT_CHARACTER_ID = 1;
     private static final int INCORRECT_CHARACTER_ID = -32;
+    private static final String EXCEPTION_MESSAGE_INCORRECT_ID =
+            "Error! Character with this ID don't exist!";
+    private static final String EXCEPTION_MESSAGE_REPOSITORY_ERROR =
+            "Repository Error!";
 
     private CharacterRepository mCharacterRepository;
     private CharacterInteractor mCharacterInteractor;
@@ -48,7 +52,8 @@ public class CharacterInteractorTest {
     @Test
     public void testGetCharactersFromRepository() {
         // Arrange
-        Single<List<Character>> expectedCharacters = createTestListCharacters();
+        Single<List<Character>> expectedCharacters =
+                Single.just(CharacterTestData.createListCharacter());
         Mockito.when(mCharacterRepository.getCharactersFromServer()).thenReturn(expectedCharacters);
 
         // Act
@@ -59,18 +64,19 @@ public class CharacterInteractorTest {
     }
 
     /**
-     * Проверка на то, что из репозитория ничего не придёт
+     * Проверка на то, что если с репозитория придёт ошибка, мы получим {@link RuntimeException}.
      */
     @Test
-    public void testGetNullCharactersFromRepository() {
-        // Arrange
-        Mockito.when(mCharacterRepository.getCharactersFromServer()).thenReturn(null);
+    public void testGetErrorFromRepository() {
+        Mockito
+                .when(mCharacterRepository.getCharactersFromServer())
+                .thenThrow(new RuntimeException(EXCEPTION_MESSAGE_REPOSITORY_ERROR));
 
-        // Act
-        Single<List<Character>> actual = mCharacterInteractor.getCharactersFromRepository();
-
-        // Arrange
-        Truth.assertThat(actual).isNull();
+        try {
+            mCharacterInteractor.getCharactersFromRepository();
+        } catch (RuntimeException exception) {
+            assertEquals(EXCEPTION_MESSAGE_REPOSITORY_ERROR, exception.getMessage());
+        }
     }
 
     /**
@@ -80,7 +86,7 @@ public class CharacterInteractorTest {
     public void testGetCharacterWithCorrectIdFromRepository() {
         // Arrange
         Single<Character> expectedCharacter =
-                Single.just(createExpectedCharacter());
+                Single.just(CharacterTestData.createCharacter());
         Mockito
                 .when(mCharacterRepository.getCharacterFromServer(CORRECT_CHARACTER_ID))
                 .thenReturn(expectedCharacter);
@@ -94,101 +100,18 @@ public class CharacterInteractorTest {
     }
 
     /**
-     * Проверка на то, что при некорректном id из репозитория придёт null.
+     * Проверка на то, что с некорректным id персонажа, мы получим {@link RuntimeException}.
      */
-    @Test(expected = NullPointerException.class)
-    public void testGetNullCharacterWithIncorrectIdFromRepository() {
-        // Arrange
-        Single<Character> expectedNull =
-                Single.just(null);
+    @Test
+    public void testCharacterIsNotExist() {
         Mockito
                 .when(mCharacterRepository.getCharacterFromServer(INCORRECT_CHARACTER_ID))
-                .thenReturn(expectedNull);
+                .thenThrow(new RuntimeException(EXCEPTION_MESSAGE_INCORRECT_ID));
 
-        // Act
-        mCharacterInteractor.getCharacterFromRepository(INCORRECT_CHARACTER_ID);
-    }
-
-    private Single<List<Character>> createTestListCharacters() {
-        List<Character> characters = new ArrayList<>();
-
-        List<String> firstCharactersListUrlEpisode = new ArrayList<>();
-        firstCharactersListUrlEpisode.add("https://rickandmortyapi.com/api/episode/17");
-        firstCharactersListUrlEpisode.add("https://rickandmortyapi.com/api/episode/13");
-        firstCharactersListUrlEpisode.add("https://rickandmortyapi.com/api/episode/31");
-
-        Character firstCharacter = new Character(
-                1,
-                "Rick Sanchez",
-                "Alive",
-                "Human",
-                "Scientist",
-                "Male",
-                "https://rickandmortyapi.com/api/character/avatar/1.jpeg",
-                new Origin(
-                        "Earth (C-137)",
-                        "https://rickandmortyapi.com/api/location/1"
-                ),
-                new CurrentLocation(
-                        "Earth (Replacement Dimension)",
-                        "https://rickandmortyapi.com/api/location/20"
-                ),
-                firstCharactersListUrlEpisode
-        );
-
-        List<String> secondCharactersListUrlEpisode = new ArrayList<>();
-        secondCharactersListUrlEpisode.add("https://rickandmortyapi.com/api/episode/7");
-        secondCharactersListUrlEpisode.add("https://rickandmortyapi.com/api/episode/23");
-        secondCharactersListUrlEpisode.add("https://rickandmortyapi.com/api/episode/1");
-
-        Character secondCharacter = new Character(
-                1,
-                "Rick Smith",
-                "Dead",
-                "Human",
-                "Gay",
-                "Java developer",
-                "https://rickandmortyapi.com/api/character/avatar/14.jpeg",
-                new Origin(
-                        "Earth (C-137)",
-                        "https://rickandmortyapi.com/api/location/1"
-                ),
-                new CurrentLocation(
-                        "Earth (Replacement Dimension)",
-                        "https://rickandmortyapi.com/api/location/20"
-                ),
-                secondCharactersListUrlEpisode
-        );
-
-        characters.add(firstCharacter);
-        characters.add(secondCharacter);
-
-        return Single.just(characters);
-    }
-
-    private Character createExpectedCharacter() {
-        List<String> firstCharactersListUrlEpisode = new ArrayList<>();
-        firstCharactersListUrlEpisode.add("https://rickandmortyapi.com/api/episode/17");
-        firstCharactersListUrlEpisode.add("https://rickandmortyapi.com/api/episode/13");
-        firstCharactersListUrlEpisode.add("https://rickandmortyapi.com/api/episode/31");
-
-        return new Character(
-                1,
-                "Rick Sanchez",
-                "Alive",
-                "Human",
-                "Scientist",
-                "Male",
-                "https://rickandmortyapi.com/api/character/avatar/1.jpeg",
-                new Origin(
-                        "Earth (C-137)",
-                        "https://rickandmortyapi.com/api/location/1"
-                ),
-                new CurrentLocation(
-                        "Earth (Replacement Dimension)",
-                        "https://rickandmortyapi.com/api/location/20"
-                ),
-                firstCharactersListUrlEpisode
-        );
+        try {
+            mCharacterInteractor.getCharacterFromRepository(INCORRECT_CHARACTER_ID);
+        } catch (Exception ex) {
+            assertEquals(EXCEPTION_MESSAGE_INCORRECT_ID, ex.getMessage());
+        }
     }
 }

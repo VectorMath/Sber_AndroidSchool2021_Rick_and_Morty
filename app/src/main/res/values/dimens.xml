@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!--Item character -->
-    <dimen name="item_characterImage_width">220dp</dimen>
+    <dimen name="item_characterImage_width">280dp</dimen>
     <dimen name="item_characterImage_height">220dp</dimen>
 
     <!--Item location -->

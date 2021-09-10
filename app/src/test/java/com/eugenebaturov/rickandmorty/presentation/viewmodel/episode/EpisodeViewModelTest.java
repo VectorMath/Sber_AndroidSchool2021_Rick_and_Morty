@@ -5,6 +5,7 @@ import androidx.lifecycle.Observer;
 
 import com.eugenebaturov.rickandmorty.domain.interactor.episode.EpisodeInteractor;
 import com.eugenebaturov.rickandmorty.models.domain.Episode;
+import com.eugenebaturov.rickandmorty.testdata.EpisodeTestData;
 import com.eugenebaturov.rickandmorty.utils.SchedulerProvider;
 
 import org.junit.Before;
@@ -16,9 +17,6 @@ import org.mockito.InOrder;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.MockitoJUnitRunner;
-
-import java.util.ArrayList;
-import java.util.List;
 
 import io.reactivex.rxjava3.core.Single;
 import io.reactivex.rxjava3.schedulers.Schedulers;
@@ -67,28 +65,11 @@ public class EpisodeViewModelTest {
      * Проверка на то, что после подписки мы получим ожидаемую информацию об локации.
      */
     @Test
-    public void testLoadEpisodeById() {
+    public void testLoadEpisodeById(){
         // Arrange
         Mockito
                 .when(mEpisodeInteractor.getEpisodeFromRepository(CORRECT_ID))
-                .thenReturn(Single.just(createTestEpisode()));
-
-        // Act
-        mEpisodeViewModel.loadEpisodeById(CORRECT_ID);
-
-        // Assert
-        Mockito.verify(mEpisode).onChanged(createTestEpisode());
-    }
-
-    /**
-     * Проверка на то, что методы вызываются в нужном порядке.
-     */
-    @Test
-    public void testLoadEpisodeInOrder() {
-        // Arrange
-        Mockito
-                .when(mEpisodeInteractor.getEpisodeFromRepository(CORRECT_ID))
-                .thenReturn(Single.just(createTestEpisode()));
+                .thenReturn(Single.just(EpisodeTestData.createEpisode()));
 
         // Act
         mEpisodeViewModel.loadEpisodeById(CORRECT_ID);
@@ -96,7 +77,7 @@ public class EpisodeViewModelTest {
 
         // Assert
         inOrder.verify(mProgress).onChanged(true);
-        inOrder.verify(mEpisode).onChanged(createTestEpisode());
+        inOrder.verify(mEpisode).onChanged(EpisodeTestData.createEpisode());
         inOrder.verify(mProgress).onChanged(false);
         inOrder.verifyNoMoreInteractions();
     }
@@ -117,20 +98,5 @@ public class EpisodeViewModelTest {
 
         // Assert
         Mockito.verify(mError).onChanged(ArgumentMatchers.isA(NullPointerException.class));
-    }
-
-    private Episode createTestEpisode() {
-        List<String> firstEpisodeCharactersUrl = new ArrayList<>();
-        firstEpisodeCharactersUrl.add("https://rickandmortyapi.com/api/character/31");
-        firstEpisodeCharactersUrl.add("https://rickandmortyapi.com/api/character/12");
-        firstEpisodeCharactersUrl.add("https://rickandmortyapi.com/api/character/5");
-
-        return new Episode(
-                1,
-                "Pilot",
-                "September 10, 2017",
-                "S03E07",
-                firstEpisodeCharactersUrl
-        );
     }
 }

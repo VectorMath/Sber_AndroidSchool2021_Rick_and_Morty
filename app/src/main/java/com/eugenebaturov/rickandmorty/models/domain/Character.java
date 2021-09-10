@@ -11,47 +11,37 @@ import java.util.List;
 import java.util.Objects;
 
 /**
- * Класс-сущность, которая обрабатывает данные из класса-сущности
- * {@link CharacterResponse} в data-слое
+ * Класс-сущность персонажа в domain/ui - слое.
  */
 public final class Character {
     private final int mId;
-    @Nullable
-    private final String mName;
-    @Nullable
-    private final String mStatus;
-    @Nullable
-    private final String mSpecies;
-    @Nullable
-    private final String mType;
-    @Nullable
-    private final String mGender;
-    @Nullable
-    private final String mImage;
-    @Nullable
-    private final Origin mOrigin;
-    @Nullable
-    private final CurrentLocation mCurrentLocation;
-    @Nullable
-    private final List<String> mEpisodes;
 
-    /**
-     * Конструктор класса
-     *
-     * @param characterResponse - моделька, которая получила данные с api.
-     */
-    public Character(@NonNull final CharacterResponse characterResponse) {
-        mId = characterResponse.getId();
-        mName = characterResponse.getName();
-        mStatus = characterResponse.getStatus();
-        mSpecies = characterResponse.getSpecies();
-        mType = characterResponse.getType();
-        mGender = characterResponse.getGender();
-        mImage = characterResponse.getImage();
-        mOrigin = characterResponse.getOrigin();
-        mCurrentLocation = characterResponse.getCurrentLocation();
-        mEpisodes = characterResponse.getEpisodes();
-    }
+    @NonNull
+    private final String mName;
+
+    @NonNull
+    private final String mStatus;
+
+    @NonNull
+    private final String mSpecies;
+
+    @NonNull
+    private final String mType;
+
+    @NonNull
+    private final String mGender;
+
+    @NonNull
+    private final String mImage;
+
+    @NonNull
+    private final Origin mOrigin;
+
+    @NonNull
+    private final CurrentLocation mCurrentLocation;
+
+    @NonNull
+    private final List<String> mEpisodes;
 
     /**
      * Конструктор класса в который мы вручную передаём все параметры персонажа.
@@ -69,15 +59,15 @@ public final class Character {
      */
     public Character(
             final int mId,
-            @Nullable final String mName,
-            @Nullable final String mStatus,
-            @Nullable final String mSpecies,
-            @Nullable final String mType,
-            @Nullable final String mGender,
-            @Nullable final String mImage,
-            @Nullable final Origin mOrigin,
-            @Nullable final CurrentLocation mCurrentLocation,
-            @Nullable final List<String> mEpisodes) {
+            @NonNull final String mName,
+            @NonNull final String mStatus,
+            @NonNull final String mSpecies,
+            @NonNull final String mType,
+            @NonNull final String mGender,
+            @NonNull final String mImage,
+            @NonNull final Origin mOrigin,
+            @NonNull final CurrentLocation mCurrentLocation,
+            @NonNull final List<String> mEpisodes) {
         this.mId = mId;
         this.mName = mName;
         this.mStatus = mStatus;
@@ -133,38 +123,47 @@ public final class Character {
         return mId;
     }
 
+    @NonNull
     public String getName() {
         return mName;
     }
 
+    @NonNull
     public String getStatus() {
         return mStatus;
     }
 
+    @NonNull
     public String getSpecies() {
         return mSpecies;
     }
 
+    @NonNull
     public String getType() {
         return mType;
     }
 
+    @NonNull
     public String getGender() {
         return mGender;
     }
 
+    @NonNull
     public String getImage() {
         return mImage;
     }
 
+    @NonNull
     public Origin getOrigin() {
         return mOrigin;
     }
 
+    @NonNull
     public CurrentLocation getCurrentLocation() {
         return mCurrentLocation;
     }
 
+    @NonNull
     public List<String> getEpisodes() {
         return mEpisodes;
     }

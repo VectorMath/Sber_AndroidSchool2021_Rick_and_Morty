@@ -11,28 +11,19 @@ import java.util.Objects;
 
 /**
  * Класс-сущность, который хранит информацию о локациях мульт-сериала "Рик и Морти".
- * <p>
- * [mLocations] - список локаций {@link LocationResponse}
  */
 public final class ListLocationResponse {
 
     @SerializedName("results")
-    @Nullable
-    private List<LocationResponse> mLocations;
-
-    /**
-     * Пустой конструктор класса.
-     */
-    public ListLocationResponse() {
-
-    }
+    @NonNull
+    private final List<LocationResponse> mLocations;
 
     /**
      * Конструктор класса в который мы передаём информацию о локация, полученную с сервера.
      *
      * @param mLocations список локаций.
      */
-    public ListLocationResponse(@Nullable final List<LocationResponse> mLocations) {
+    public ListLocationResponse(@NonNull final List<LocationResponse> mLocations) {
         this.mLocations = mLocations;
     }
 
@@ -57,7 +48,7 @@ public final class ListLocationResponse {
                 '}';
     }
 
-    @Nullable
+    @NonNull
     public List<LocationResponse> getLocations() {
         return mLocations;
     }

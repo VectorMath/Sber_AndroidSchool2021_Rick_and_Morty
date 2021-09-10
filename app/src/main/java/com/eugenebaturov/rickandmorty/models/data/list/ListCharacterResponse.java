@@ -17,21 +17,15 @@ import java.util.Objects;
 public final class ListCharacterResponse {
 
     @SerializedName("results")
-    @Nullable
-    private List<CharacterResponse> mCharactersResponse;
+    @NonNull
+    private final List<CharacterResponse> mCharactersResponse;
 
     /**
-     * Пустой конструктор класса.
-     */
-    public ListCharacterResponse() {
-    }
-
-    /**
-     * Конструктор класса в который передаётся {@link List}<{@link CharacterResponse}>.
+     * Конструктор класса.
      *
      * @param charactersResponse Список персонажей в виде ответа из сервера.
      */
-    public ListCharacterResponse(@Nullable final List<CharacterResponse> charactersResponse) {
+    public ListCharacterResponse(@NonNull final List<CharacterResponse> charactersResponse) {
         mCharactersResponse = charactersResponse;
     }
 
@@ -56,12 +50,8 @@ public final class ListCharacterResponse {
                 '}';
     }
 
-    @Nullable
+    @NonNull
     public List<CharacterResponse> getCharacters() {
         return mCharactersResponse;
-    }
-
-    public void setCharacters(@NonNull final List<CharacterResponse> mCharacters) {
-        this.mCharactersResponse = mCharacters;
     }
 }

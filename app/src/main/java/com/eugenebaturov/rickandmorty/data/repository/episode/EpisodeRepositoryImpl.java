@@ -3,6 +3,7 @@ package com.eugenebaturov.rickandmorty.data.repository.episode;
 import androidx.annotation.NonNull;
 
 import com.eugenebaturov.rickandmorty.data.api.EpisodeApi;
+import com.eugenebaturov.rickandmorty.data.utils.Converter;
 import com.eugenebaturov.rickandmorty.models.data.EpisodeResponse;
 import com.eugenebaturov.rickandmorty.models.domain.Episode;
 
@@ -35,19 +36,11 @@ public final class EpisodeRepositoryImpl implements EpisodeRepository {
     @Override
     public Single<List<Episode>> getEpisodesFromServer() {
 
-        return mEpisodeApi.getAllEpisodes().map(response -> {
-            List<Episode> episodes = new ArrayList<>();
-
-            for (EpisodeResponse episode : response.getEpisodes()) {
-                episodes.add(new Episode(episode));
-            }
-
-            return episodes;
-        });
+        return mEpisodeApi.getAllEpisodes().map(Converter::convertEpisodes);
     }
 
     @Override
     public Single<Episode> getEpisodeFromServer(final int episodeId) {
-        return mEpisodeApi.getEpisodeById(episodeId).map(Episode::new);
+        return mEpisodeApi.getEpisodeById(episodeId).map(Converter::convertEpisode);
     }
 }

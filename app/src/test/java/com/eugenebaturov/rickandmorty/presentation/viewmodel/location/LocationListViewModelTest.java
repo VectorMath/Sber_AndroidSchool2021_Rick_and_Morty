@@ -4,8 +4,8 @@ import androidx.arch.core.executor.testing.InstantTaskExecutorRule;
 import androidx.lifecycle.Observer;
 
 import com.eugenebaturov.rickandmorty.domain.interactor.location.LocationInteractor;
-import com.eugenebaturov.rickandmorty.models.data.LocationResponse;
 import com.eugenebaturov.rickandmorty.models.domain.Location;
+import com.eugenebaturov.rickandmorty.testdata.LocationTestData;
 import com.eugenebaturov.rickandmorty.utils.SchedulerProvider;
 
 import org.junit.Before;
@@ -18,7 +18,6 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.MockitoJUnitRunner;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import io.reactivex.rxjava3.core.Single;
@@ -75,24 +74,7 @@ public class LocationListViewModelTest {
         // Arrange
         Mockito
                 .when(mLocationInteractor.getLocationsFromRepository())
-                .thenReturn(Single.just(createTestData()));
-
-        // Act
-        mLocationListViewModel.loadLocations();
-
-        // Assert
-        Mockito.verify(mLocations).onChanged(createTestData());
-    }
-
-    /**
-     * Проверка на то, что методы вызывутся в нужном порядке.
-     */
-    @Test
-    public void testLoadLocationsInOrder() {
-        // Arrange
-        Mockito
-                .when(mLocationInteractor.getLocationsFromRepository())
-                .thenReturn(Single.just(createTestData()));
+                .thenReturn(Single.just(LocationTestData.createLocations()));
 
         // Act
         mLocationListViewModel.loadLocations();
@@ -100,7 +82,7 @@ public class LocationListViewModelTest {
 
         // Assert
         inOrder.verify(mProgress).onChanged(true);
-        inOrder.verify(mLocations).onChanged(createTestData());
+        inOrder.verify(mLocations).onChanged(LocationTestData.createLocations());
         inOrder.verify(mProgress).onChanged(false);
         inOrder.verifyNoMoreInteractions();
     }
@@ -121,38 +103,5 @@ public class LocationListViewModelTest {
 
         // Assert
         Mockito.verify(mError).onChanged(ArgumentMatchers.isA(IllegalAccessException.class));
-    }
-
-    private List<Location> createTestData() {
-        List<Location> locations = new ArrayList<>();
-
-        List<String> firstResidentsList = new ArrayList<>();
-        firstResidentsList.add("https://rickandmortyapi.com/api/character/38");
-        firstResidentsList.add("https://rickandmortyapi.com/api/character/13");
-        firstResidentsList.add("https://rickandmortyapi.com/api/character/6");
-
-        List<String> secondResidentsList = new ArrayList<>();
-        secondResidentsList.add("https://rickandmortyapi.com/api/character/6");
-
-        LocationResponse firstLocationResponse = new LocationResponse(
-                1,
-                "Earth (C-137)",
-                "Planet",
-                "Dimension C-137",
-                firstResidentsList
-        );
-
-        LocationResponse secondLocationResponse = new LocationResponse(
-                2,
-                "Abadango",
-                "Cluster",
-                "unknown",
-                secondResidentsList
-        );
-
-        locations.add(new Location(firstLocationResponse));
-        locations.add(new Location(secondLocationResponse));
-
-        return locations;
     }
 }

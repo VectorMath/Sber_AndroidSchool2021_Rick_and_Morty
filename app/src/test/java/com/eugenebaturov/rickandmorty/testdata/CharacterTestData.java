@@ -1,0 +1,179 @@
+package com.eugenebaturov.rickandmorty.testdata;
+
+import com.eugenebaturov.rickandmorty.models.data.CharacterResponse;
+import com.eugenebaturov.rickandmorty.models.data.CurrentLocation;
+import com.eugenebaturov.rickandmorty.models.data.Origin;
+import com.eugenebaturov.rickandmorty.models.data.list.ListCharacterResponse;
+import com.eugenebaturov.rickandmorty.models.domain.Character;
+
+import java.util.ArrayList;
+import java.util.List;
+
+/**
+ * Создаёт тестовые данные о персонаже/персонажах для unit-тестов.
+ */
+public final class CharacterTestData {
+
+    public static CharacterResponse createResponse() {
+        Origin firstTestOrigin = new Origin(
+                "Earth (C-137)",
+                "https://rickandmortyapi.com/api/location/1");
+        CurrentLocation firstTestCurrentLocation = new CurrentLocation(
+                "Earth (Replacement Dimension)",
+                "https://rickandmortyapi.com/api/location/20");
+        List<String> firstTestEpisodesUrl = new ArrayList<>();
+        firstTestEpisodesUrl.add("https://rickandmortyapi.com/api/episode/20");
+        firstTestEpisodesUrl.add("https://rickandmortyapi.com/api/episode/16");
+        firstTestEpisodesUrl.add("https://rickandmortyapi.com/api/episode/5");
+
+        return new CharacterResponse(
+                1,
+                "Rick Sanchez",
+                "Alive",
+                "Human",
+                "Scientist",
+                "Male",
+                "https://rickandmortyapi.com/api/character/avatar/1.jpeg",
+                firstTestOrigin,
+                firstTestCurrentLocation,
+                firstTestEpisodesUrl
+        );
+    }
+
+    public static ListCharacterResponse createListResponse() {
+        List<CharacterResponse> charactersResponses = new ArrayList<>();
+
+        Origin firstTestOrigin = new Origin(
+                "Earth (C-137)",
+                "https://rickandmortyapi.com/api/location/1");
+        CurrentLocation firstTestCurrentLocation = new CurrentLocation(
+                "Earth (Replacement Dimension)",
+                "https://rickandmortyapi.com/api/location/20");
+        List<String> firstTestEpisodesUrl = new ArrayList<>();
+        firstTestEpisodesUrl.add("https://rickandmortyapi.com/api/episode/20");
+        firstTestEpisodesUrl.add("https://rickandmortyapi.com/api/episode/16");
+        firstTestEpisodesUrl.add("https://rickandmortyapi.com/api/episode/5");
+
+        charactersResponses.add(new CharacterResponse(
+                1,
+                "Rick Sanchez",
+                "Alive",
+                "Human",
+                "Scientist",
+                "Male",
+                "https://rickandmortyapi.com/api/character/avatar/1.jpeg",
+                firstTestOrigin,
+                firstTestCurrentLocation,
+                firstTestEpisodesUrl
+        ));
+
+        Origin secondTestOrigin = new Origin(
+                "Earth (C-137)",
+                "https://rickandmortyapi.com/api/location/1");
+        CurrentLocation secondTestCurrentLocation = new CurrentLocation(
+                "Earth (Replacement Dimension)",
+                "https://rickandmortyapi.com/api/location/20");
+        List<String> secondTestEpisodesUrl = new ArrayList<>();
+        secondTestEpisodesUrl.add("https://rickandmortyapi.com/api/episode/4");
+        secondTestEpisodesUrl.add("https://rickandmortyapi.com/api/episode/10");
+        secondTestEpisodesUrl.add("https://rickandmortyapi.com/api/episode/17");
+
+        charactersResponses.add(new CharacterResponse(
+                2,
+                "Morty Smith",
+                "Alive",
+                "Human",
+                "Faggot",
+                "Male",
+                "https://rickandmortyapi.com/api/character/avatar/2.jpeg",
+                secondTestOrigin,
+                secondTestCurrentLocation,
+                secondTestEpisodesUrl
+        ));
+
+
+        return new ListCharacterResponse(charactersResponses);
+    }
+
+    public static Character createCharacter() {
+        Origin testOrigin = new Origin(
+                "Earth (C-137)",
+                "https://rickandmortyapi.com/api/location/1");
+        CurrentLocation testCurrentLocation = new CurrentLocation(
+                "Earth (Replacement Dimension)",
+                "https://rickandmortyapi.com/api/location/20");
+        List<String> testEpisodesUrl = new ArrayList<>();
+        testEpisodesUrl.add("https://rickandmortyapi.com/api/episode/20");
+        testEpisodesUrl.add("https://rickandmortyapi.com/api/episode/16");
+        testEpisodesUrl.add("https://rickandmortyapi.com/api/episode/5");
+
+        return new Character(
+                1,
+                "Rick Sanchez",
+                "Alive",
+                "Human",
+                "Scientist",
+                "Male",
+                "https://rickandmortyapi.com/api/character/avatar/1.jpeg",
+                testOrigin,
+                testCurrentLocation,
+                testEpisodesUrl
+        );
+    }
+
+    public static List<Character> createListCharacter() {
+        List<Character> characters = new ArrayList<>();
+
+        Origin firstOrigin = new Origin(
+                "Earth (C-137)",
+                "https://rickandmortyapi.com/api/location/1");
+        CurrentLocation firstCurrentLocation = new CurrentLocation(
+                "Earth (Replacement Dimension)",
+                "https://rickandmortyapi.com/api/location/20");
+        List<String> firstEpisodesUrl = new ArrayList<>();
+        firstEpisodesUrl.add("https://rickandmortyapi.com/api/episode/20");
+        firstEpisodesUrl.add("https://rickandmortyapi.com/api/episode/16");
+        firstEpisodesUrl.add("https://rickandmortyapi.com/api/episode/5");
+
+        Character firstCharacter = new Character(
+                1,
+                "Rick Sanchez",
+                "Alive",
+                "Human",
+                "Scientist",
+                "Male",
+                "https://rickandmortyapi.com/api/character/avatar/1.jpeg",
+                firstOrigin,
+                firstCurrentLocation,
+                firstEpisodesUrl
+        );
+
+        Origin secondOrigin = new Origin(
+                "Earth (C-137)",
+                "https://rickandmortyapi.com/api/location/1");
+        CurrentLocation secondCurrentLocation = new CurrentLocation(
+                "Earth (Replacement Dimension)",
+                "https://rickandmortyapi.com/api/location/20");
+        List<String> secondEpisodesUrl = new ArrayList<>();
+        secondEpisodesUrl.add("https://rickandmortyapi.com/api/episode/4");
+        secondEpisodesUrl.add("https://rickandmortyapi.com/api/episode/10");
+        secondEpisodesUrl.add("https://rickandmortyapi.com/api/episode/17");
+
+        Character secondCharacter = new Character(
+                2,
+                "Morty Smith",
+                "Alive",
+                "Human",
+                "Faggot",
+                "Male",
+                "https://rickandmortyapi.com/api/character/avatar/2.jpeg",
+                secondOrigin,
+                secondCurrentLocation,
+                secondEpisodesUrl
+        );
+
+        characters.add(firstCharacter);
+        characters.add(secondCharacter);
+        return characters;
+    }
+}
