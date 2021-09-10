@@ -9,21 +9,48 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.eugenebaturov.rickandmorty.R;
 import com.eugenebaturov.rickandmorty.models.domain.Episode;
+import com.eugenebaturov.rickandmorty.presentation.ui.activity.EpisodeActivity;
 import com.eugenebaturov.rickandmorty.presentation.ui.viewholder.EpisodeViewHolder;
 
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Адаптер для списка {@link Episode}.
+ */
 public final class EpisodesAdapter extends RecyclerView.Adapter<EpisodeViewHolder> {
     private final EpisodePage mEpisodePage;
     private List<Episode> mData = new ArrayList<>();
 
+    /**
+     * Callback-интерфейс для перехода на {@link EpisodeActivity}.
+     */
     public interface EpisodePage {
+        /**
+         * Переход на активити конкретного эпизода.
+         *
+         * @param id     id эпизода.
+         * @param imgRes drawable-ресурс изображения сезона.
+         */
         void goToEpisode(int id, int imgRes);
     }
 
+    /**
+     * Конструктор адаптера.
+     *
+     * @param episodePage реализация интерфейса {@link EpisodePage}.
+     */
     public EpisodesAdapter(EpisodePage episodePage) {
         mEpisodePage = episodePage;
+    }
+
+    /**
+     * Обновляет список эпизодов в адаптере.
+     * @param data список эпизодов.
+     */
+    public void updateData(List<Episode> data) {
+        mData = data;
+        notifyDataSetChanged();
     }
 
     @NonNull
@@ -56,34 +83,29 @@ public final class EpisodesAdapter extends RecyclerView.Adapter<EpisodeViewHolde
         return mData.size();
     }
 
-    public void updateData(List<Episode> data) {
-        mData = data;
-        notifyDataSetChanged();
-    }
-
     private String getSeason(String episodeNumber) {
-        return episodeNumber.substring(2,3);
+        return episodeNumber.substring(2, 3);
     }
 
     private int getImageSeason(String season) {
         switch (season) {
-            case "1" : {
+            case "1": {
                 return R.drawable.ic_first_season_black;
             }
 
-            case "2" : {
+            case "2": {
                 return R.drawable.ic_second_season_black;
             }
 
-            case "3" : {
+            case "3": {
                 return R.drawable.ic_thrid_season_black;
             }
 
-            case "4" : {
+            case "4": {
                 return R.drawable.ic_fourth_season_black;
             }
 
-            case "5" : {
+            case "5": {
                 return R.drawable.ic_fifth_season_black;
             }
         }

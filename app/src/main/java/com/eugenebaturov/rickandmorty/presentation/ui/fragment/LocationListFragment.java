@@ -23,6 +23,10 @@ import com.eugenebaturov.rickandmorty.presentation.ui.adapter.LocationsAdapter;
 import com.eugenebaturov.rickandmorty.presentation.viewmodel.location.LocationListViewModel;
 import com.eugenebaturov.rickandmorty.utils.Keys;
 
+/**
+ * Фрагмент, который отображает список локаций.
+ * Так же является реализацией интерфейса {@link LocationsAdapter.LocationPage}.
+ */
 public class LocationListFragment extends Fragment implements LocationsAdapter.LocationPage {
 
     private ProgressBar mProgress;
@@ -62,6 +66,11 @@ public class LocationListFragment extends Fragment implements LocationsAdapter.L
         startActivity(intent);
     }
 
+    /**
+     * Создаёт новый образец {@link LocationListFragment}.
+     *
+     * @return фрагмент списка локаций.
+     */
     public static LocationListFragment newInstance() {
         return new LocationListFragment();
     }

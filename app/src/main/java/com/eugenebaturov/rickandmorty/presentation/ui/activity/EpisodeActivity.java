@@ -13,6 +13,9 @@ import com.eugenebaturov.rickandmorty.di.episode.EpisodeComponent;
 import com.eugenebaturov.rickandmorty.presentation.viewmodel.episode.EpisodeViewModel;
 import com.eugenebaturov.rickandmorty.utils.Keys;
 
+/**
+ * Активити в которой отображается вся информация об конкретном эпизоде.
+ */
 public class EpisodeActivity extends AppCompatActivity {
     private EpisodeViewModel mViewModel;
     private ImageView mEpisodeSeasonImageView;

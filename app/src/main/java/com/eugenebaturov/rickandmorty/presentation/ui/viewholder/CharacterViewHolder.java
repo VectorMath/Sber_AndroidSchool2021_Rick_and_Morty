@@ -9,12 +9,20 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.eugenebaturov.rickandmorty.R;
 
+/**
+ * Вью-холдер персонажа.
+ */
 public final class CharacterViewHolder extends RecyclerView.ViewHolder {
     public ImageView characterStatusImageView;
     public ImageView characterImageView;
     public TextView characterNameTextView;
     public TextView characterStatusTextView;
 
+    /**
+     * Коструктор класса.
+     *
+     * @param itemView вьюшка, которая используется в качестве элемента списка.
+     */
     public CharacterViewHolder(@NonNull View itemView) {
         super(itemView);
         init(itemView);

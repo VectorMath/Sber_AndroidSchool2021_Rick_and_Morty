@@ -9,6 +9,9 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.eugenebaturov.rickandmorty.R;
 
+/**
+ * Вью-холдер локации.
+ */
 public final class LocationViewHolder extends RecyclerView.ViewHolder {
 
     public ImageView locationTypeImageView;
@@ -17,6 +20,11 @@ public final class LocationViewHolder extends RecyclerView.ViewHolder {
     public TextView locationResidentsTextView;
     public TextView locationDimensionsTextView;
 
+    /**
+     * Конструктор класса.
+     *
+     * @param itemView вьюшка, которая используется в качестве элемента списка.
+     */
     public LocationViewHolder(@NonNull View itemView) {
         super(itemView);
         init(itemView);

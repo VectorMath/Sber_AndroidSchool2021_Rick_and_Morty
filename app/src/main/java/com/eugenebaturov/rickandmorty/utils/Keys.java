@@ -1,5 +1,8 @@
 package com.eugenebaturov.rickandmorty.utils;
 
+/**
+ * Класс, который хранит в себе ключи.
+ */
 public final class Keys {
     public static final String KEY_LOCATION_ID = "KEY_LOCATION_ID";
     public static final String KEY_EPISODE_ID = "KEY_EPISODE_ID";

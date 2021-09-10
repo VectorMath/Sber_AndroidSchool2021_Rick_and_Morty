@@ -17,6 +17,9 @@ import com.eugenebaturov.rickandmorty.utils.IdTaker;
 import com.eugenebaturov.rickandmorty.utils.Keys;
 import com.squareup.picasso.Picasso;
 
+/**
+ * Активити в которой отображается вся информация о конкретном персонаже.
+ */
 public class CharacterActivity extends AppCompatActivity {
     private CharacterViewModel mViewModel;
     private int mId;

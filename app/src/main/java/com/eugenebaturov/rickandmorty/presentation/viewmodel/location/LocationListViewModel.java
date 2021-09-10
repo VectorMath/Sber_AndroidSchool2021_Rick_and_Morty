@@ -11,9 +11,6 @@ import com.eugenebaturov.rickandmorty.utils.SchedulerProvider;
 
 import java.util.List;
 
-import io.reactivex.rxjava3.disposables.CompositeDisposable;
-import io.reactivex.rxjava3.disposables.Disposable;
-
 /**
  * ViewModel для списка локаций.
  */

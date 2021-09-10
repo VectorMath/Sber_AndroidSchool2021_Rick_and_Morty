@@ -18,11 +18,14 @@ import com.eugenebaturov.rickandmorty.R;
 import com.eugenebaturov.rickandmorty.di.character.CharacterComponent;
 import com.eugenebaturov.rickandmorty.di.character.DaggerCharacterComponent;
 import com.eugenebaturov.rickandmorty.presentation.ui.activity.CharacterActivity;
-import com.eugenebaturov.rickandmorty.presentation.ui.activity.MainActivity;
 import com.eugenebaturov.rickandmorty.presentation.ui.adapter.CharactersAdapter;
 import com.eugenebaturov.rickandmorty.presentation.viewmodel.character.CharacterListViewModel;
 import com.eugenebaturov.rickandmorty.utils.Keys;
 
+/**
+ * Фрагмент, который отображает список персонажей.
+ * Так же является реализацией интерфейса {@link CharactersAdapter.CharacterPage}.
+ */
 public class CharacterListFragment extends Fragment implements CharactersAdapter.CharacterPage {
     private ProgressBar mProgress;
     private RecyclerView mRecyclerView;
@@ -55,6 +58,11 @@ public class CharacterListFragment extends Fragment implements CharactersAdapter
         startActivity(intent);
     }
 
+    /**
+     * Создаёт новый образец {@link CharacterListFragment}.
+     *
+     * @return фрагмент списка персонажей.
+     */
     public static CharacterListFragment newInstance() {
         return new CharacterListFragment();
     }

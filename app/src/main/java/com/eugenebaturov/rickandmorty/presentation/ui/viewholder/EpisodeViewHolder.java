@@ -9,11 +9,19 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.eugenebaturov.rickandmorty.R;
 
+/**
+ * Вью-холдер эпизода.
+ */
 public final class EpisodeViewHolder extends RecyclerView.ViewHolder {
     public ImageView episodeSeasonImageView;
     public TextView episodeTitleTextView;
     public TextView episodeCharactersCountTextView;
 
+    /**
+     * Конструктор класса.
+     *
+     * @param itemView вьюшка, которая используется в качестве элемента списка.
+     */
     public EpisodeViewHolder(@NonNull View itemView) {
         super(itemView);
         init(itemView);

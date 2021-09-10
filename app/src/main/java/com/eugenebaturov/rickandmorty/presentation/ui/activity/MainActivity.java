@@ -13,6 +13,9 @@ import com.eugenebaturov.rickandmorty.presentation.ui.fragment.EpisodeListFragme
 import com.eugenebaturov.rickandmorty.presentation.ui.fragment.LocationListFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
+/**
+ * Главная активити, где отображаются списки персонажей/эпизодов/локаций.
+ */
 public class MainActivity extends AppCompatActivity {
 
     private Fragment fragment;

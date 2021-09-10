@@ -22,6 +22,10 @@ import com.eugenebaturov.rickandmorty.presentation.ui.adapter.EpisodesAdapter;
 import com.eugenebaturov.rickandmorty.presentation.viewmodel.episode.EpisodeListViewModel;
 import com.eugenebaturov.rickandmorty.utils.Keys;
 
+/**
+ * Фрагмент, который отображает список эпизодов.
+ * Так же является реализацией интерфейса {@link EpisodesAdapter.EpisodePage}.
+ */
 public class EpisodeListFragment extends Fragment implements EpisodesAdapter.EpisodePage {
     private ProgressBar mProgress;
     private RecyclerView mRecyclerView;
@@ -55,6 +59,11 @@ public class EpisodeListFragment extends Fragment implements EpisodesAdapter.Epi
         startActivity(intent);
     }
 
+    /**
+     * Создаёт новый образец {@link EpisodeListFragment}.
+     *
+     * @return фрагмент списка эпизодов.
+     */
     public static EpisodeListFragment newInstance() {
         return new EpisodeListFragment();
     }

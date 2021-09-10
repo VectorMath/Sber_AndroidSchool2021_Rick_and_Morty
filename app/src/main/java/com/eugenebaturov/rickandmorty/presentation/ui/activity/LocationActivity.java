@@ -12,6 +12,9 @@ import com.eugenebaturov.rickandmorty.di.location.LocationComponent;
 import com.eugenebaturov.rickandmorty.presentation.viewmodel.location.LocationViewModel;
 import com.eugenebaturov.rickandmorty.utils.Keys;
 
+/**
+ * Активити в которой отображается вся информация о конкретной локации.
+ */
 public class LocationActivity extends AppCompatActivity {
     private LocationViewModel mViewModel;
     private TextView mLocationTitleTextView;

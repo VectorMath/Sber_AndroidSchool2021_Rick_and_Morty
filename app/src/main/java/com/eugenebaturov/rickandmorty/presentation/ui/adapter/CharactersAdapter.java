@@ -1,6 +1,5 @@
 package com.eugenebaturov.rickandmorty.presentation.ui.adapter;
 
-import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,23 +9,48 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.eugenebaturov.rickandmorty.R;
 import com.eugenebaturov.rickandmorty.models.domain.Character;
+import com.eugenebaturov.rickandmorty.presentation.ui.activity.CharacterActivity;
 import com.eugenebaturov.rickandmorty.presentation.ui.viewholder.CharacterViewHolder;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Адаптер для списка {@link Character}.
+ */
 public final class CharactersAdapter extends RecyclerView.Adapter<CharacterViewHolder> {
 
     private List<Character> mData = new ArrayList<>();
     private final CharacterPage mCharacterPage;
 
+    /**
+     * Callback-интерфейс для перехода на {@link CharacterActivity}.
+     */
     public interface CharacterPage {
+
+        /**
+         * Переход на активити конкретного персонажа.
+         * @param id id персонажа.
+         */
         void goToCharacterActivity(int id);
     }
 
+    /**
+     * Конструктор адаптера.
+     * @param characterPage реализация интерфейса {@link CharacterPage}.
+     */
     public CharactersAdapter(CharacterPage characterPage) {
         mCharacterPage = characterPage;
+    }
+
+    /**
+     * Обновляет список персонажей в адаптере.
+     * @param data список персонажей.
+     */
+    public void updateData(List<Character> data) {
+        mData = data;
+        notifyDataSetChanged();
     }
 
     @NonNull
@@ -58,17 +82,17 @@ public final class CharactersAdapter extends RecyclerView.Adapter<CharacterViewH
     private void setImageStatus(String status, CharacterViewHolder holder) {
 
         switch (status) {
-            case "Alive" : {
+            case "Alive": {
                 holder.characterStatusImageView.setImageResource(R.drawable.ic_status_alive);
                 break;
             }
 
-            case "Dead" : {
+            case "Dead": {
                 holder.characterStatusImageView.setImageResource(R.drawable.ic_status_dead);
                 break;
             }
 
-            case "unknown" : {
+            case "unknown": {
                 holder.characterStatusImageView.setImageResource(R.drawable.ic_status_unknown);
                 break;
             }
@@ -78,10 +102,5 @@ public final class CharactersAdapter extends RecyclerView.Adapter<CharacterViewH
     @Override
     public int getItemCount() {
         return mData.size();
-    }
-
-    public void updateData(List<Character> data) {
-        mData = data;
-        notifyDataSetChanged();
     }
 }

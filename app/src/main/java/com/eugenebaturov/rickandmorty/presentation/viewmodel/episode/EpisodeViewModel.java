@@ -9,8 +9,6 @@ import com.eugenebaturov.rickandmorty.models.domain.Episode;
 import com.eugenebaturov.rickandmorty.presentation.viewmodel.AppViewModel;
 import com.eugenebaturov.rickandmorty.utils.SchedulerProvider;
 
-import io.reactivex.rxjava3.disposables.CompositeDisposable;
-
 /**
  * ViewModel для эпизода.
  */

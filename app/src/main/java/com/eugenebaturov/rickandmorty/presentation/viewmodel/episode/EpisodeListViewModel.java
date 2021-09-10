@@ -11,8 +11,6 @@ import com.eugenebaturov.rickandmorty.utils.SchedulerProvider;
 
 import java.util.List;
 
-import io.reactivex.rxjava3.disposables.CompositeDisposable;
-
 /**
  * ViewModel для списка эпизодов.
  */

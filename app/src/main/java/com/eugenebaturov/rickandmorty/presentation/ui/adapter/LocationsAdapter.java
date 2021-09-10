@@ -9,21 +9,48 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.eugenebaturov.rickandmorty.R;
 import com.eugenebaturov.rickandmorty.models.domain.Location;
+import com.eugenebaturov.rickandmorty.presentation.ui.activity.LocationActivity;
 import com.eugenebaturov.rickandmorty.presentation.ui.viewholder.LocationViewHolder;
 
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Адаптер для списка {@link Location}.
+ */
 public final class LocationsAdapter extends RecyclerView.Adapter<LocationViewHolder> {
     private final LocationPage mLocationPage;
     private List<Location> mData = new ArrayList<>();
 
+    /**
+     * Callback-интерфейс для перехода на {@link LocationActivity}.
+     */
     public interface LocationPage {
+        /**
+         * Переход на активити конкретной локации.
+         *
+         * @param id id локации.
+         */
         void goToLocation(int id);
     }
 
+    /**
+     * Конструктор адаптера.
+     *
+     * @param locationPage реализация интерфейса {@link LocationPage}.
+     */
     public LocationsAdapter(LocationPage locationPage) {
         mLocationPage = locationPage;
+    }
+
+    /**
+     * Обновляет список локаций в адаптере.
+     *
+     * @param data список локаций.
+     */
+    public void updateData(List<Location> data) {
+        mData = data;
+        notifyDataSetChanged();
     }
 
     @NonNull
@@ -55,10 +82,5 @@ public final class LocationsAdapter extends RecyclerView.Adapter<LocationViewHol
     @Override
     public int getItemCount() {
         return mData.size();
-    }
-
-    public void updateData(List<Location> data) {
-        mData = data;
-        notifyDataSetChanged();
     }
 }
