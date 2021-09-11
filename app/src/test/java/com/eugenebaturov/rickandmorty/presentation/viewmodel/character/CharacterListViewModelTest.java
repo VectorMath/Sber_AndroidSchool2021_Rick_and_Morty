@@ -28,6 +28,8 @@ import io.reactivex.rxjava3.schedulers.Schedulers;
  */
 @RunWith(MockitoJUnitRunner.class)
 public class CharacterListViewModelTest {
+    private static final String CHARACTER_NAME_QUERY = "Rick Sanchez";
+    private static final String INCORRECT_QUERY = "_30RS_FJDFIK2F_JEFK";
 
     @Mock
     private SchedulerProvider mSchedulerProvider;
@@ -88,6 +90,28 @@ public class CharacterListViewModelTest {
     }
 
     /**
+     * Проверка на то, что после подписки с конкретным запросом
+     * мы получим ожидаемые тестовые данные.
+     */
+    @Test
+    public void testLoadCharactersWithQuery() {
+        // Arrange
+        Mockito
+                .when(mCharacterInteractor.getSearchedCharacterFromRepository(CHARACTER_NAME_QUERY))
+                .thenReturn(Single.just(CharacterTestData.createSearchedCharacter()));
+
+        // Act
+        mCharacterListViewModel.loadCharacters(CHARACTER_NAME_QUERY);
+        InOrder inOrder = Mockito.inOrder(mError, mCharacters, mProgress);
+
+        // Assert
+        inOrder.verify(mProgress).onChanged(true);
+        inOrder.verify(mCharacters).onChanged(CharacterTestData.createSearchedCharacter());
+        inOrder.verify(mProgress).onChanged(false);
+        inOrder.verifyNoMoreInteractions();
+    }
+
+    /**
      * Проверка на то, что если интерактор вернёт {@link IllegalAccessException},
      * то и наша вью-моделька получит её.
      */
@@ -100,6 +124,24 @@ public class CharacterListViewModelTest {
 
         // Act
         mCharacterListViewModel.loadCharacters();
+
+        // Assert
+        Mockito.verify(mError).onChanged(ArgumentMatchers.isA(IllegalAccessException.class));
+    }
+
+    /**
+     * Проверка на то, что если интерактор вернёт {@link IllegalAccessException},
+     * то и наша вью-моделька получит её.
+     */
+    @Test
+    public void testLoadQueryCharactersWithError() {
+        // Arrange
+        Mockito
+                .when(mCharacterInteractor.getSearchedCharacterFromRepository(INCORRECT_QUERY))
+                .thenReturn(Single.error(new IllegalAccessException()));
+
+        // Act
+        mCharacterListViewModel.loadCharacters(INCORRECT_QUERY);
 
         // Assert
         Mockito.verify(mError).onChanged(ArgumentMatchers.isA(IllegalAccessException.class));

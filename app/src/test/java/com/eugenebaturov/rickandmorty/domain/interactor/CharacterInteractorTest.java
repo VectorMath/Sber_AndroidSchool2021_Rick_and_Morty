@@ -33,6 +33,10 @@ public class CharacterInteractorTest {
             "Error! Character with this ID don't exist!";
     private static final String EXCEPTION_MESSAGE_REPOSITORY_ERROR =
             "Repository Error!";
+    private static final String EXCEPTION_MESSAGE_BAD_QUERY =
+            "There is nothing here";
+    private static final String CHARACTER_NAME_QUERY = "Rick Sanchez";
+    private static final String INCORRECT_QUERY = "_30RS_FJDFIK2F_JEFK";
 
     private CharacterRepository mCharacterRepository;
     private CharacterInteractor mCharacterInteractor;
@@ -58,6 +62,26 @@ public class CharacterInteractorTest {
 
         // Act
         Single<List<Character>> actual = mCharacterInteractor.getCharactersFromRepository();
+
+        // Assert
+        Truth.assertThat(actual).isEqualTo(expectedCharacters);
+    }
+
+    /**
+     * Проверка на то, что при конкретном запросе репозиторий выдаст нам ожидаемый список персонажей.
+     */
+    @Test
+    public void testGetSearchedCharactersFromRepository() {
+        // Arrange
+        Single<List<Character>> expectedCharacters =
+                Single.just(CharacterTestData.createSearchedCharacter());
+        Mockito
+                .when(mCharacterRepository.getSearchedCharacter(CHARACTER_NAME_QUERY))
+                .thenReturn(expectedCharacters);
+
+        // Act
+        Single<List<Character>> actual =
+                mCharacterInteractor.getSearchedCharacterFromRepository(CHARACTER_NAME_QUERY);
 
         // Assert
         Truth.assertThat(actual).isEqualTo(expectedCharacters);
@@ -97,6 +121,23 @@ public class CharacterInteractorTest {
 
         // Assert
         Truth.assertThat(actualCharacter).isEqualTo(expectedCharacter);
+    }
+
+    /**
+     * Проверка на то, что при некорректном запросе из репозитория
+     * мы получим {@link RuntimeException}.
+     */
+    @Test
+    public void testGetSearchedErrorFromRepository() {
+        Mockito
+                .when(mCharacterRepository.getSearchedCharacter(INCORRECT_QUERY))
+                .thenThrow(new RuntimeException(EXCEPTION_MESSAGE_BAD_QUERY));
+
+        try {
+            mCharacterInteractor.getSearchedCharacterFromRepository(INCORRECT_QUERY);
+        } catch (RuntimeException exception) {
+            assertEquals(EXCEPTION_MESSAGE_BAD_QUERY, exception.getMessage());
+        }
     }
 
     /**

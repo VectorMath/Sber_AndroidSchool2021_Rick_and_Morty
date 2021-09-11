@@ -34,13 +34,16 @@ public class CharacterRepositoryTest {
     @Rule
     public final MockitoRule mockitoRule = MockitoJUnit.rule();
 
-
     private static final int CORRECT_CHARACTER_ID = 1;
     private static final int INCORRECT_CHARACTER_ID = -225;
     private static final String EXCEPTION_MESSAGE_INCORRECT_ID =
             "Error! Character with this ID don't exist!";
     private static final String EXCEPTION_MESSAGE_SERVER_ERROR =
             "Server Error!";
+    private static final String EXCEPTION_MESSAGE_BAD_QUERY =
+            "There is nothing here";
+    private static final String CHARACTER_NAME_QUERY = "Rick Sanchez";
+    private static final String INCORRECT_QUERY = "_30RS_FJDFIK2F_JEFK";
 
     private CharacterApi mApi;
     private CharacterRepository mRepository;
@@ -63,9 +66,31 @@ public class CharacterRepositoryTest {
         Mockito.when(mApi.getAllCharacters()).thenReturn(serverResponse);
 
         // Act
-        Single<List<Character>> actual = null;
+        Single<List<Character>> actual;
         actual = mRepository.getCharactersFromServer();
         List<Character> expected = CharacterTestData.createListCharacter();
+
+        // Assert
+        actual.test().assertValue(expected);
+    }
+
+    /**
+     * Проверка на то, что с сервера придут нужные данные в виде {@link ListCharacterResponse}
+     * исходя из нужного запроса,
+     * и после они обрабатываются в ожидаемый {@link List}<{@link Character}>.
+     */
+    @Test
+    public void testGetSearchedCharactersFromServer() {
+        // Arrange
+        Single<ListCharacterResponse> serverResponse =
+                Single.just(CharacterTestData.createSearchedResponse());
+        Mockito
+                .when(mApi.getSearchedCharacters(CHARACTER_NAME_QUERY))
+                .thenReturn(serverResponse);
+
+        // Act
+        List<Character> expected = CharacterTestData.createSearchedCharacter();
+        Single<List<Character>> actual = mRepository.getSearchedCharacter(CHARACTER_NAME_QUERY);
 
         // Assert
         actual.test().assertValue(expected);
@@ -84,6 +109,23 @@ public class CharacterRepositoryTest {
             mRepository.getCharactersFromServer();
         } catch (RuntimeException exception) {
             assertEquals(EXCEPTION_MESSAGE_SERVER_ERROR, exception.getMessage());
+        }
+    }
+
+    /**
+     * Проверка на то, что при некорректном запросе с сервера придёт ошибка,
+     * и мы получим {@link RuntimeException}.
+     */
+    @Test
+    public void testGetSearchErrorFromServer() {
+        Mockito
+                .when(mApi.getSearchedCharacters(INCORRECT_QUERY))
+                .thenThrow(new RuntimeException(EXCEPTION_MESSAGE_BAD_QUERY));
+
+        try {
+            mRepository.getSearchedCharacter(INCORRECT_QUERY);
+        } catch (RuntimeException exception) {
+            assertEquals(EXCEPTION_MESSAGE_BAD_QUERY, exception.getMessage());
         }
     }
 
