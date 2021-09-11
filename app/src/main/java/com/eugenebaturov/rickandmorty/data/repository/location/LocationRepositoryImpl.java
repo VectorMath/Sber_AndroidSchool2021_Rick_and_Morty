@@ -9,7 +9,6 @@ import com.eugenebaturov.rickandmorty.models.domain.Location;
 import java.util.List;
 
 import io.reactivex.rxjava3.core.Single;
-import retrofit2.Retrofit;
 
 /**
  * Класс-репозиторий, который является реализацией интерфейса {@link LocationRepository}.
@@ -23,8 +22,7 @@ public final class LocationRepositoryImpl implements LocationRepository {
      * Конструктор класса, в который мы передаём {@link LocationApi}, чтобы была
      * возможность получить данные с сервера.
      *
-     * @param locationApi экземпляр {@link LocationApi},
-     *                    для его создания требуется {@link Retrofit}.
+     * @param locationApi экземпляр {@link LocationApi}.
      */
     public LocationRepositoryImpl(@NonNull final LocationApi locationApi) {
         mLocationApi = locationApi;
@@ -33,6 +31,11 @@ public final class LocationRepositoryImpl implements LocationRepository {
     @Override
     public Single<List<Location>> getLocationsFromServer() {
         return mLocationApi.getAllLocations().map(Converter::convertLocations);
+    }
+
+    @Override
+    public Single<List<Location>> getSearchedLocationsFromServer(String searchName) {
+        return mLocationApi.getSearchedLocations(searchName).map(Converter::convertLocations);
     }
 
     @Override

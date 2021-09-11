@@ -6,6 +6,7 @@ import com.eugenebaturov.rickandmorty.models.data.list.ListLocationResponse;
 import io.reactivex.rxjava3.core.Single;
 import retrofit2.http.GET;
 import retrofit2.http.Path;
+import retrofit2.http.Query;
 
 import static com.eugenebaturov.rickandmorty.data.api.RickAndMortyURL.LOCATIONS_URL;
 
@@ -21,6 +22,15 @@ public interface LocationApi {
      */
     @GET(LOCATIONS_URL)
     Single<ListLocationResponse> getAllLocations();
+
+    /**
+     * Ручка, которая получает информацию с сервера о локациях по поисковому запросу.
+     *
+     * @param queryName строка запроса.
+     * @return Список данных об локациях в {@link Single} обёртке.
+     */
+    @GET(LOCATIONS_URL)
+    Single<ListLocationResponse> getSearchedLocations(@Query("name") final String queryName);
 
     /**
      * Ручка, которая получает информацию о локации по id с сервера.

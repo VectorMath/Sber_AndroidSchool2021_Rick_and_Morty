@@ -32,6 +32,11 @@ public final class LocationInteractorImpl implements LocationInteractor {
     }
 
     @Override
+    public Single<List<Location>> getSearchedLocationsFromRepository(String query) {
+        return mRepository.getSearchedLocationsFromServer(query);
+    }
+
+    @Override
     public Single<Location> getLocationFromRepository(final int locationId) {
         return mRepository.getLocationFromServer(locationId);
     }

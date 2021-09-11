@@ -96,6 +96,8 @@ public class MainActivity extends AppCompatActivity {
 
                 case R.id.page_2: {
                     mFragment = LocationListFragment.newInstance();
+                    mSearcher = (LocationListFragment) mFragment;
+                    mSearchType = Keys.LOCATION_SEARCH;
                     startFragment(mFragment);
                     break;
                 }

@@ -84,4 +84,18 @@ public final class LocationListViewModel extends AppViewModel {
                 .doOnSubscribe(d -> mProgress.setValue(true))
                 .subscribe(mLocations::setValue, mError::setValue));
     }
+
+    /**
+     * Метод, в котором поле mLocations подписывается на источник данных
+     * в виде получение информации об локации, которые удоволетворяют строке запроса с сервера.
+     */
+    public void loadLocations(String query) {
+        disposable.add(mLocationInteractor
+                .getSearchedLocationsFromRepository(query)
+                .subscribeOn(mSchedulerProvider.io())
+                .observeOn(mSchedulerProvider.ui())
+                .doFinally(() -> mProgress.setValue(false))
+                .doOnSubscribe(d -> mProgress.setValue(true))
+                .subscribe(mLocations::setValue, mError::setValue));
+    }
 }

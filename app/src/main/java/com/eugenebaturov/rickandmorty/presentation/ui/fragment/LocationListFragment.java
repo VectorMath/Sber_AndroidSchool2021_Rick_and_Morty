@@ -19,6 +19,7 @@ import com.eugenebaturov.rickandmorty.R;
 import com.eugenebaturov.rickandmorty.di.location.DaggerLocationComponent;
 import com.eugenebaturov.rickandmorty.di.location.LocationComponent;
 import com.eugenebaturov.rickandmorty.presentation.ui.activity.LocationActivity;
+import com.eugenebaturov.rickandmorty.presentation.ui.activity.MainActivity;
 import com.eugenebaturov.rickandmorty.presentation.ui.adapter.LocationsAdapter;
 import com.eugenebaturov.rickandmorty.presentation.viewmodel.location.LocationListViewModel;
 import com.eugenebaturov.rickandmorty.utils.Keys;
@@ -27,7 +28,8 @@ import com.eugenebaturov.rickandmorty.utils.Keys;
  * Фрагмент, который отображает список локаций.
  * Так же является реализацией интерфейса {@link LocationsAdapter.LocationPage}.
  */
-public class LocationListFragment extends Fragment implements LocationsAdapter.LocationPage {
+public class LocationListFragment extends Fragment
+        implements LocationsAdapter.LocationPage, MainActivity.Searcher {
 
     private ProgressBar mProgress;
     private RecyclerView mRecyclerView;
@@ -64,6 +66,11 @@ public class LocationListFragment extends Fragment implements LocationsAdapter.L
         Intent intent = new Intent(getContext(), LocationActivity.class);
         intent.putExtra(Keys.KEY_LOCATION_ID, id);
         startActivity(intent);
+    }
+
+    @Override
+    public void search(String whereSearch, String whatSearch) {
+        mViewModel.loadLocations(whatSearch);
     }
 
     /**

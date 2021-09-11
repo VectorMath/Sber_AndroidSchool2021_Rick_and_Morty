@@ -20,6 +20,14 @@ public interface LocationRepository {
     Single<List<Location>> getLocationsFromServer();
 
     /**
+     * Получает данные об локациях, которые удоволетворяют строке запроса.
+     *
+     * @param searchName строка запроса.
+     * @return Список локаций в {@link Single} обёртке.
+     */
+    Single<List<Location>> getSearchedLocationsFromServer(final String searchName);
+
+    /**
      * Получает данные о локации с сервера.
      *
      * @param locationId id локации.

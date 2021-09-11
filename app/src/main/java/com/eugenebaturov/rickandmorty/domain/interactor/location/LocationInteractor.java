@@ -20,6 +20,14 @@ public interface LocationInteractor {
     Single<List<Location>> getLocationsFromRepository();
 
     /**
+     * Получает список локаций по заданному запросу из репозитория.
+     *
+     * @param query строка запроса
+     * @return Список локаций [{@link List}<{@link Location}>] в {@link Single} обёртке.
+     */
+    Single<List<Location>> getSearchedLocationsFromRepository(final String query);
+
+    /**
      * Получает локацию с конкретным id.
      *
      * @param locationId id локации.

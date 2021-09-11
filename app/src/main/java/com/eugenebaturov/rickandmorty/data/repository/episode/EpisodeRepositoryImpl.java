@@ -9,7 +9,6 @@ import com.eugenebaturov.rickandmorty.models.domain.Episode;
 import java.util.List;
 
 import io.reactivex.rxjava3.core.Single;
-import retrofit2.Retrofit;
 
 /**
  * Класс-репозиторий, который является реализацией интерфейса {@link EpisodeRepository}.
@@ -23,8 +22,7 @@ public final class EpisodeRepositoryImpl implements EpisodeRepository {
      * Конструктор класса, в который мы передаём {@link EpisodeApi}, чтобы была
      * возможность получить данные с сервера.
      *
-     * @param episodeApi экземпляр {@link EpisodeApi},
-     *                   для его создания требуется {@link Retrofit}.
+     * @param episodeApi экземпляр {@link EpisodeApi}.
      */
     public EpisodeRepositoryImpl(@NonNull final EpisodeApi episodeApi) {
         mEpisodeApi = episodeApi;
