@@ -35,4 +35,9 @@ public final class CharacterInteractorImpl implements CharacterInteractor {
     public Single<Character> getCharacterFromRepository(final int characterId) {
         return mRepository.getCharacterFromServer(characterId);
     }
+
+    @Override
+    public Single<List<Character>> getSearchedCharacterFromRepository(String searchName) {
+        return mRepository.getSearchedCharacter(searchName);
+    }
 }

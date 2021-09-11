@@ -84,4 +84,14 @@ public final class CharacterListViewModel extends AppViewModel {
                 .doOnSubscribe(d -> mProgress.setValue(true))
                 .subscribe(mCharacters::setValue, mError::setValue));
     }
+
+    public final void loadCharacters(String searchName) {
+        disposable.add(mCharacterInteractor
+                .getSearchedCharacterFromRepository(searchName)
+                .subscribeOn(mSchedulerProvider.io())
+                .observeOn(mSchedulerProvider.ui())
+                .doFinally(() -> mProgress.setValue(false))
+                .doOnSubscribe(d -> mProgress.setValue(true))
+                .subscribe(mCharacters::setValue, mError::setValue));
+    }
 }

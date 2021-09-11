@@ -6,6 +6,7 @@ import com.eugenebaturov.rickandmorty.models.data.list.ListCharacterResponse;
 import io.reactivex.rxjava3.core.Single;
 import retrofit2.http.GET;
 import retrofit2.http.Path;
+import retrofit2.http.Query;
 
 import static com.eugenebaturov.rickandmorty.data.api.RickAndMortyURL.CHARACTERS_URL;
 
@@ -30,4 +31,7 @@ public interface CharacterApi {
      */
     @GET(CHARACTERS_URL + "{id}")
     Single<CharacterResponse> getCharacterById(@Path("id") final int characterId);
+
+    @GET(CHARACTERS_URL)
+    Single<ListCharacterResponse> getSearchedCharacters(@Query("name") final String name);
 }

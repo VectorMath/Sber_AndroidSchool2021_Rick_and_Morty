@@ -2,7 +2,7 @@ package com.eugenebaturov.rickandmorty.presentation.ui.activity;
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;
-import android.widget.ProgressBar;
+import android.widget.SearchView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
@@ -11,6 +11,7 @@ import com.eugenebaturov.rickandmorty.R;
 import com.eugenebaturov.rickandmorty.presentation.ui.fragment.CharacterListFragment;
 import com.eugenebaturov.rickandmorty.presentation.ui.fragment.EpisodeListFragment;
 import com.eugenebaturov.rickandmorty.presentation.ui.fragment.LocationListFragment;
+import com.eugenebaturov.rickandmorty.utils.Keys;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 /**
@@ -18,41 +19,89 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
  */
 public class MainActivity extends AppCompatActivity {
 
-    private Fragment fragment;
+    private Fragment mFragment;
+    private Searcher mSearcher;
+    private String mSearchType;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        getSupportActionBar().hide();
         initUI();
+    }
+
+    /**
+     * Callback-интерфейс для поиска.
+     */
+    public interface Searcher {
+        /**
+         * Осуществляет поиск необходимый информции.
+         *
+         * @param whereSearch где ищем(в персонажах/эпизодах/локациях).
+         * @param whatSearch  строка запроса.
+         */
+        void search(String whereSearch, String whatSearch);
     }
 
     @SuppressLint("NonConstantResourceId")
     private void initUI() {
         BottomNavigationView mBottomNavigationView = findViewById(R.id.bottom_navigation);
+        SearchView mSearchView = findViewById(R.id.main_searchView);
 
-        if (fragment == null) {
-            fragment = CharacterListFragment.newInstance();
-            startFragment(fragment);
+        if (mFragment == null) {
+            mFragment = CharacterListFragment.newInstance();
+            mSearcher = (CharacterListFragment) mFragment;
+            mSearchType = Keys.CHARACTER_SEARCH;
+            startFragment(mFragment);
         }
 
+        mSearchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                switch (mSearchType) {
+                    case Keys.CHARACTER_SEARCH: {
+                        mSearcher.search(mSearchType, newText);
+                    }
+                    case Keys.EPISODE_SEARCH: {
+                        mSearcher.search(mSearchType, newText);
+                    }
+                    case Keys.LOCATION_SEARCH: {
+                        mSearcher.search(mSearchType, newText);
+                    }
+                }
+
+                return false;
+            }
+        });
+
         mBottomNavigationView.setOnItemSelectedListener(item -> {
+            mSearchView.clearFocus();
+            mSearchView.setQuery("", true);
+
             switch (item.getItemId()) {
                 case R.id.page_1: {
-                    fragment = CharacterListFragment.newInstance();
-                    startFragment(fragment);
+                    mFragment = CharacterListFragment.newInstance();
+                    mSearcher = (CharacterListFragment) mFragment;
+                    mSearchType = Keys.CHARACTER_SEARCH;
+                    startFragment(mFragment);
                     break;
                 }
 
                 case R.id.page_2: {
-                    fragment = LocationListFragment.newInstance();
-                    startFragment(fragment);
+                    mFragment = LocationListFragment.newInstance();
+                    startFragment(mFragment);
                     break;
                 }
 
                 case R.id.page_3: {
-                    fragment = EpisodeListFragment.newInstance();
-                    startFragment(fragment);
+                    mFragment = EpisodeListFragment.newInstance();
+                    startFragment(mFragment);
                     break;
                 }
             }
@@ -63,7 +112,7 @@ public class MainActivity extends AppCompatActivity {
     private void startFragment(Fragment fragment) {
         getSupportFragmentManager()
                 .beginTransaction()
-                .replace(R.id.current_fragment, fragment)
+                .add(R.id.current_fragment, fragment)
                 .commit();
     }
 

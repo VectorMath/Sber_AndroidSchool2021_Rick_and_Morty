@@ -26,4 +26,6 @@ public interface CharacterRepository {
      * @return Персонаж с данным id в {@link Single} обёртке.
      */
     Single<Character> getCharacterFromServer(final int characterId);
+
+    Single<List<Character>> getSearchedCharacter(final String searchName);
 }

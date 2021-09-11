@@ -1,7 +1,9 @@
 package com.eugenebaturov.rickandmorty.presentation.ui.fragment;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,6 +20,7 @@ import com.eugenebaturov.rickandmorty.R;
 import com.eugenebaturov.rickandmorty.di.character.CharacterComponent;
 import com.eugenebaturov.rickandmorty.di.character.DaggerCharacterComponent;
 import com.eugenebaturov.rickandmorty.presentation.ui.activity.CharacterActivity;
+import com.eugenebaturov.rickandmorty.presentation.ui.activity.MainActivity;
 import com.eugenebaturov.rickandmorty.presentation.ui.adapter.CharactersAdapter;
 import com.eugenebaturov.rickandmorty.presentation.viewmodel.character.CharacterListViewModel;
 import com.eugenebaturov.rickandmorty.utils.Keys;
@@ -26,7 +29,9 @@ import com.eugenebaturov.rickandmorty.utils.Keys;
  * Фрагмент, который отображает список персонажей.
  * Так же является реализацией интерфейса {@link CharactersAdapter.CharacterPage}.
  */
-public class CharacterListFragment extends Fragment implements CharactersAdapter.CharacterPage {
+public class CharacterListFragment extends Fragment implements
+        CharactersAdapter.CharacterPage,
+        MainActivity.Searcher {
     private ProgressBar mProgress;
     private RecyclerView mRecyclerView;
     private CharactersAdapter mAdapter;
@@ -102,5 +107,13 @@ public class CharacterListFragment extends Fragment implements CharactersAdapter
             else
                 mProgress.setVisibility(View.VISIBLE);
         });
+    }
+
+    @Override
+    public void search(String whereSearch, String whatSearch) {
+        mViewModel.loadCharacters(whatSearch);
+        observeCharacters();
+        observeProgress();
+        mAdapter.notifyDataSetChanged();
     }
 }
