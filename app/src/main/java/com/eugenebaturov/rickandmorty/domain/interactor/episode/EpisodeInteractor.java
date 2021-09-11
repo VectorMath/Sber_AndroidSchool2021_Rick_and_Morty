@@ -1,6 +1,7 @@
 package com.eugenebaturov.rickandmorty.domain.interactor.episode;
 
 import com.eugenebaturov.rickandmorty.data.repository.episode.EpisodeRepository;
+import com.eugenebaturov.rickandmorty.models.domain.Character;
 import com.eugenebaturov.rickandmorty.models.domain.Episode;
 
 import java.util.List;
@@ -18,6 +19,14 @@ public interface EpisodeInteractor {
      * @return Список эпизодов [{@link List}<{@link Episode}>] в {@link Single} обёртке.
      */
     Single<List<Episode>> getEpisodesFromRepository();
+
+    /**
+     * Получает список эпизодов по заданному запросу из репозитория.
+     *
+     * @param query строка запроса
+     * @return Список эпизодов [{@link List}<{@link Episode}>] в {@link Single} обёртке.
+     */
+    Single<List<Episode>> getSearchedEpisodesFromRepository(final String query);
 
     /**
      * Получает эпизод с конкретным id.

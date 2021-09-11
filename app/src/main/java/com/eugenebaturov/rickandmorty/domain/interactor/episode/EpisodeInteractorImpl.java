@@ -32,6 +32,11 @@ public final class EpisodeInteractorImpl implements EpisodeInteractor {
     }
 
     @Override
+    public Single<List<Episode>> getSearchedEpisodesFromRepository(String query) {
+        return mRepository.getSearchedEpisodesFromServer(query);
+    }
+
+    @Override
     public Single<Episode> getEpisodeFromRepository(final int episodeId) {
         return mRepository.getEpisodeFromServer(episodeId);
     }

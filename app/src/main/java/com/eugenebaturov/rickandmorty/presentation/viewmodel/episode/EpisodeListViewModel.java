@@ -84,4 +84,20 @@ public final class EpisodeListViewModel extends AppViewModel {
                 .doOnSubscribe(d -> mProgress.setValue(true))
                 .subscribe(mEpisodes::setValue, mError::setValue));
     }
+
+    /**
+     * Метод, в котором поле mEpisodes подписывается на источник данных
+     * в виде получение информации об эпизодах, которые удоволетворяют строке запроса с сервера.
+     *
+     * @param query строка запроса.
+     */
+    public void loadEpisodes(String query) {
+        disposable.add(mEpisodeInteractor
+                .getSearchedEpisodesFromRepository(query)
+                .subscribeOn(mSchedulerProvider.io())
+                .observeOn(mSchedulerProvider.ui())
+                .doFinally(() -> mProgress.setValue(false))
+                .doOnSubscribe(d -> mProgress.setValue(true))
+                .subscribe(mEpisodes::setValue, mError::setValue));
+    }
 }

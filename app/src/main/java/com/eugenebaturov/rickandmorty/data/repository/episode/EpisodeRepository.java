@@ -3,6 +3,7 @@ package com.eugenebaturov.rickandmorty.data.repository.episode;
 import com.eugenebaturov.rickandmorty.data.api.EpisodeApi;
 import com.eugenebaturov.rickandmorty.models.data.EpisodeResponse;
 import com.eugenebaturov.rickandmorty.models.data.list.ListEpisodeResponse;
+import com.eugenebaturov.rickandmorty.models.domain.Character;
 import com.eugenebaturov.rickandmorty.models.domain.Episode;
 
 import java.util.List;
@@ -20,6 +21,14 @@ public interface EpisodeRepository {
      * @return Список эпизодов в {@link Single} обёртке.
      */
     Single<List<Episode>> getEpisodesFromServer();
+
+    /**
+     * Получает данные об эпизодах с сервера, которые удоволетворяют строке запроса.
+     *
+     * @param searchName строка запроса.
+     * @return Список эпизодов в {@link Single} обёртке.
+     */
+    Single<List<Episode>> getSearchedEpisodesFromServer(final String searchName);
 
     /**
      * Получает данные об эпизоде с сервера.

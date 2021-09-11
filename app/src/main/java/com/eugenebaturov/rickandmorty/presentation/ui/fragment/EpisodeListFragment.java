@@ -2,6 +2,7 @@ package com.eugenebaturov.rickandmorty.presentation.ui.fragment;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,6 +19,7 @@ import com.eugenebaturov.rickandmorty.R;
 import com.eugenebaturov.rickandmorty.di.episode.DaggerEpisodeComponent;
 import com.eugenebaturov.rickandmorty.di.episode.EpisodeComponent;
 import com.eugenebaturov.rickandmorty.presentation.ui.activity.EpisodeActivity;
+import com.eugenebaturov.rickandmorty.presentation.ui.activity.MainActivity;
 import com.eugenebaturov.rickandmorty.presentation.ui.adapter.EpisodesAdapter;
 import com.eugenebaturov.rickandmorty.presentation.viewmodel.episode.EpisodeListViewModel;
 import com.eugenebaturov.rickandmorty.utils.Keys;
@@ -26,7 +28,9 @@ import com.eugenebaturov.rickandmorty.utils.Keys;
  * Фрагмент, который отображает список эпизодов.
  * Так же является реализацией интерфейса {@link EpisodesAdapter.EpisodePage}.
  */
-public class EpisodeListFragment extends Fragment implements EpisodesAdapter.EpisodePage {
+public class EpisodeListFragment extends Fragment implements
+        EpisodesAdapter.EpisodePage,
+        MainActivity.Searcher {
     private ProgressBar mProgress;
     private RecyclerView mRecyclerView;
     private EpisodesAdapter mAdapter;
@@ -57,6 +61,11 @@ public class EpisodeListFragment extends Fragment implements EpisodesAdapter.Epi
         intent.putExtra(Keys.KEY_EPISODE_ID, id);
         intent.putExtra(Keys.KEY_EPISODE_IMAGE, imgRes);
         startActivity(intent);
+    }
+
+    @Override
+    public void search(String whereSearch, String whatSearch) {
+        mViewModel.loadEpisodes(whatSearch);
     }
 
     /**

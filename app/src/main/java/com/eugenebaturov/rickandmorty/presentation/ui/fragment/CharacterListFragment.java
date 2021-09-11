@@ -63,6 +63,11 @@ public class CharacterListFragment extends Fragment implements
         startActivity(intent);
     }
 
+    @Override
+    public void search(String whereSearch, String whatSearch) {
+        mViewModel.loadCharacters(whatSearch);
+    }
+
     /**
      * Создаёт новый образец {@link CharacterListFragment}.
      *
@@ -107,13 +112,5 @@ public class CharacterListFragment extends Fragment implements
             else
                 mProgress.setVisibility(View.VISIBLE);
         });
-    }
-
-    @Override
-    public void search(String whereSearch, String whatSearch) {
-        mViewModel.loadCharacters(whatSearch);
-        observeCharacters();
-        observeProgress();
-        mAdapter.notifyDataSetChanged();
     }
 }

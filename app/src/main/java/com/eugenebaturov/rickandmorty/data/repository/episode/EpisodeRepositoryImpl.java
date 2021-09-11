@@ -4,13 +4,10 @@ import androidx.annotation.NonNull;
 
 import com.eugenebaturov.rickandmorty.data.api.EpisodeApi;
 import com.eugenebaturov.rickandmorty.data.utils.Converter;
-import com.eugenebaturov.rickandmorty.models.data.EpisodeResponse;
 import com.eugenebaturov.rickandmorty.models.domain.Episode;
 
-import java.util.ArrayList;
 import java.util.List;
 
-import io.reactivex.rxjava3.annotations.Nullable;
 import io.reactivex.rxjava3.core.Single;
 import retrofit2.Retrofit;
 
@@ -37,6 +34,11 @@ public final class EpisodeRepositoryImpl implements EpisodeRepository {
     public Single<List<Episode>> getEpisodesFromServer() {
 
         return mEpisodeApi.getAllEpisodes().map(Converter::convertEpisodes);
+    }
+
+    @Override
+    public Single<List<Episode>> getSearchedEpisodesFromServer(String searchName) {
+        return mEpisodeApi.getSearchedEpisodes(searchName).map(Converter::convertEpisodes);
     }
 
     @Override
