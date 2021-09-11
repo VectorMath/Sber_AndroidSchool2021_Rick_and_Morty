@@ -20,12 +20,18 @@ public interface CharacterRepository {
     Single<List<Character>> getCharactersFromServer();
 
     /**
+     * Получает данные о персонажах, которые удоволетворяют строке запроса.
+     *
+     * @param searchName строка запроса.
+     * @return Список персонажей в {@link Single} обёртке.
+     */
+    Single<List<Character>> getSearchedCharacter(final String searchName);
+
+    /**
      * Получает данные о персонаже с сервера.
      *
      * @param characterId id персонажа.
      * @return Персонаж с данным id в {@link Single} обёртке.
      */
     Single<Character> getCharacterFromServer(final int characterId);
-
-    Single<List<Character>> getSearchedCharacter(final String searchName);
 }

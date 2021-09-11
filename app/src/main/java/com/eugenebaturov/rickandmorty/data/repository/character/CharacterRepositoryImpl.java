@@ -34,12 +34,12 @@ public final class CharacterRepositoryImpl implements CharacterRepository {
     }
 
     @Override
-    public Single<Character> getCharacterFromServer(final int characterId) {
-        return mCharacterApi.getCharacterById(characterId).map(Converter::convertCharacter);
+    public Single<List<Character>> getSearchedCharacter(String searchName) {
+        return mCharacterApi.getSearchedCharacters(searchName).map(Converter::convertCharacters);
     }
 
     @Override
-    public Single<List<Character>> getSearchedCharacter(String searchName) {
-        return mCharacterApi.getSearchedCharacters(searchName).map(Converter::convertCharacters);
+    public Single<Character> getCharacterFromServer(final int characterId) {
+        return mCharacterApi.getCharacterById(characterId).map(Converter::convertCharacter);
     }
 }

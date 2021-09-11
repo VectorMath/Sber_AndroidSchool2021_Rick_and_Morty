@@ -85,6 +85,12 @@ public final class CharacterListViewModel extends AppViewModel {
                 .subscribe(mCharacters::setValue, mError::setValue));
     }
 
+    /**
+     * Метод, в котором поле mCharacters подписывается на источник данных
+     * в виде получение информации о персонажах, которые удоволетворяют строке запроса с сервера.
+     *
+     * @param searchName строка запроса.
+     */
     public final void loadCharacters(String searchName) {
         disposable.add(mCharacterInteractor
                 .getSearchedCharacterFromRepository(searchName)

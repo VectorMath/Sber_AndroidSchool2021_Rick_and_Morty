@@ -20,12 +20,18 @@ public interface CharacterInteractor {
     Single<List<Character>> getCharactersFromRepository();
 
     /**
+     * Получает список персонажей по заданному запросу.
+     *
+     * @param query строка запроса
+     * @return Список персонажей [{@link List}<{@link Character}>] в {@link Single} обёртке.
+     */
+    Single<List<Character>> getSearchedCharacterFromRepository(final String query);
+
+    /**
      * Получает персонажа с конкретным id.
      *
      * @param characterId id персонажа.
      * @return Персонаж [{@link Character}] в {@link Single} обёртке.
      */
     Single<Character> getCharacterFromRepository(final int characterId);
-
-    Single<List<Character>> getSearchedCharacterFromRepository(final String searchName);
 }

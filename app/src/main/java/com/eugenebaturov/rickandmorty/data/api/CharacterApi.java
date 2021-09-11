@@ -24,6 +24,15 @@ public interface CharacterApi {
     Single<ListCharacterResponse> getAllCharacters();
 
     /**
+     * Ручка, которая получает информацию о персонажах по поисковому запросу.
+     *
+     * @param queryName строка запроса.
+     * @return Список данных о персонажах в {@link Single} обёртке
+     */
+    @GET(CHARACTERS_URL)
+    Single<ListCharacterResponse> getSearchedCharacters(@Query("name") final String queryName);
+
+    /**
      * Ручка, которая получает информацию о персонаже по id с сервера
      *
      * @param characterId id персонажа
@@ -31,7 +40,4 @@ public interface CharacterApi {
      */
     @GET(CHARACTERS_URL + "{id}")
     Single<CharacterResponse> getCharacterById(@Path("id") final int characterId);
-
-    @GET(CHARACTERS_URL)
-    Single<ListCharacterResponse> getSearchedCharacters(@Query("name") final String name);
 }

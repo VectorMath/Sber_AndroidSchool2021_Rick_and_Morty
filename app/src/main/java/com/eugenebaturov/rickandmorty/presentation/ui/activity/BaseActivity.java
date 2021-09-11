@@ -7,6 +7,9 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+/**
+ * Базовая активити. Позволяет не писать одинаковый код у других экранов.
+ */
 public class BaseActivity extends AppCompatActivity {
 
     @Override
