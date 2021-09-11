@@ -28,6 +28,8 @@ import io.reactivex.rxjava3.core.Single;
 public class EpisodeInteractorTest {
     private static final int CORRECT_EPISODE_ID = 39;
     private static final int INCORRECT_EPISODE_ID = 0;
+    private static final String EPISODE_NAME_QUERY = "Day";
+    private static final String INCORRECT_QUERY = "_3fFIK2F_JFK";
 
     private EpisodeRepository mEpisodeRepository;
     private EpisodeInteractor mEpisodeInteractor;
@@ -73,6 +75,44 @@ public class EpisodeInteractorTest {
             mEpisodeInteractor.getEpisodesFromRepository();
         } catch (RuntimeException e) {
             Assert.assertEquals(EXPECTED_EXCEPTION_MESSAGE, e.getMessage());
+        }
+    }
+
+    /**
+     * Проверка на то, что при конкретном запросе(query)
+     * с репозитория приходят нужные данные.
+     */
+    @Test
+    public void testGetSearchedEpisodesFromServer() {
+        // Arrange
+        Single<List<Episode>> episodesFromRepository =
+                Single.just(EpisodeTestData.createSearchedEpisodes());
+        Mockito
+                .when(mEpisodeRepository.getSearchedEpisodesFromServer(EPISODE_NAME_QUERY))
+                .thenReturn(episodesFromRepository);
+
+        // Act
+        Single<List<Episode>> actual =
+                mEpisodeInteractor.getSearchedEpisodesFromRepository(EPISODE_NAME_QUERY);
+
+        // Assert
+        Truth.assertThat(actual).isEqualTo(episodesFromRepository);
+    }
+
+    /**
+     * Проверка на то, что при некорретном запросе мы получим {@link RuntimeException}.
+     */
+    @Test
+    public void testGetSearchedErrorFromServer() {
+        String EXPECTED_EXCEPTION_MESSAGE = "Repository Error! Nothing found...";
+        Mockito
+                .when(mEpisodeRepository.getSearchedEpisodesFromServer(INCORRECT_QUERY))
+                .thenThrow(new RuntimeException(EXPECTED_EXCEPTION_MESSAGE));
+
+        try {
+            mEpisodeInteractor.getSearchedEpisodesFromRepository(INCORRECT_QUERY);
+        } catch (RuntimeException exception) {
+            Assert.assertEquals(EXPECTED_EXCEPTION_MESSAGE, exception.getMessage());
         }
     }
 

@@ -45,6 +45,39 @@ public final class EpisodeTestData {
         return new ListEpisodeResponse(episodes);
     }
 
+    public static ListEpisodeResponse createSearchedResponse() {
+        List<EpisodeResponse> episodes = new ArrayList<>();
+
+        List<String> firstEpisodeCharactersUrl = new ArrayList<>();
+        firstEpisodeCharactersUrl.add("https://rickandmortyapi.com/api/character/1");
+        firstEpisodeCharactersUrl.add("https://rickandmortyapi.com/api/character/2");
+        firstEpisodeCharactersUrl.add("https://rickandmortyapi.com/api/character/35");
+        EpisodeResponse firstEpisode = new EpisodeResponse(
+                3,
+                "Last Day",
+                "December 2, 2013",
+                "S01E03",
+                firstEpisodeCharactersUrl
+        );
+
+        List<String> secondEpisodeCharactersUrl = new ArrayList<>();
+        secondEpisodeCharactersUrl.add("https://rickandmortyapi.com/api/character/31");
+        secondEpisodeCharactersUrl.add("https://rickandmortyapi.com/api/character/12");
+        secondEpisodeCharactersUrl.add("https://rickandmortyapi.com/api/character/5");
+        EpisodeResponse secondEpisode = new EpisodeResponse(
+                24,
+                "Thanksgiving Day",
+                "December 9, 2013",
+                "S03E12",
+                secondEpisodeCharactersUrl
+        );
+
+        episodes.add(firstEpisode);
+        episodes.add(secondEpisode);
+
+        return new ListEpisodeResponse(episodes);
+    }
+
     public static List<Episode> createEpisodes() {
         List<Episode> episodes = new ArrayList<>();
 
@@ -69,6 +102,39 @@ public final class EpisodeTestData {
                 "Lawnmower Dog",
                 "December 9, 2013",
                 "S01E02",
+                secondEpisodeCharactersUrl
+        );
+
+        episodes.add(firstEpisode);
+        episodes.add(secondEpisode);
+
+        return episodes;
+    }
+
+    public static List<Episode> createSearchedEpisodes() {
+        List<Episode> episodes = new ArrayList<>();
+
+        List<String> firstEpisodeCharactersUrl = new ArrayList<>();
+        firstEpisodeCharactersUrl.add("https://rickandmortyapi.com/api/character/1");
+        firstEpisodeCharactersUrl.add("https://rickandmortyapi.com/api/character/2");
+        firstEpisodeCharactersUrl.add("https://rickandmortyapi.com/api/character/35");
+        Episode firstEpisode = new Episode(
+                3,
+                "Last Day",
+                "December 2, 2013",
+                "S01E03",
+                firstEpisodeCharactersUrl
+        );
+
+        List<String> secondEpisodeCharactersUrl = new ArrayList<>();
+        secondEpisodeCharactersUrl.add("https://rickandmortyapi.com/api/character/31");
+        secondEpisodeCharactersUrl.add("https://rickandmortyapi.com/api/character/12");
+        secondEpisodeCharactersUrl.add("https://rickandmortyapi.com/api/character/5");
+        Episode secondEpisode = new Episode(
+                24,
+                "Thanksgiving Day",
+                "December 9, 2013",
+                "S03E12",
                 secondEpisodeCharactersUrl
         );
 

@@ -30,6 +30,8 @@ import io.reactivex.rxjava3.core.Single;
 public class EpisodeRepositoryTest {
     private static final int CORRECT_EPISODE_ID = 15;
     private static final int INCORRECT_EPISODE_ID = -228;
+    private static final String EPISODE_NAME_QUERY = "Day";
+    private static final String INCORRECT_QUERY = "_3fFIK2F_JFK";
 
     private EpisodeApi mEpisodeApi;
     private EpisodeRepository mEpisodeRepository;
@@ -77,6 +79,46 @@ public class EpisodeRepositoryTest {
             mEpisodeRepository.getEpisodesFromServer();
         } catch (RuntimeException e) {
             Assert.assertEquals(EXPECTED_EXCEPTION_MESSAGE, e.getMessage());
+        }
+    }
+
+    /**
+     * Проверка на то, что при конкретном запросе(query)
+     * с сервера приходят нужные данные в виде {@link ListEpisodeResponse}
+     * и после они обрабатываются в ожидаемый {@link List}<{@link Episode}>.
+     */
+    @Test
+    public void testGetSearchedEpisodesFromServer() {
+        // Arrange
+        Single<ListEpisodeResponse> serverResponse =
+                Single.just(EpisodeTestData.createSearchedResponse());
+        Mockito
+                .when(mEpisodeApi.getSearchedEpisodes(EPISODE_NAME_QUERY))
+                .thenReturn(serverResponse);
+
+        // Act
+        List<Episode> expected = EpisodeTestData.createSearchedEpisodes();
+        Single<List<Episode>> actual =
+                mEpisodeRepository.getSearchedEpisodesFromServer(EPISODE_NAME_QUERY);
+
+        // Assert
+        actual.test().assertValue(expected);
+    }
+
+    /**
+     * Проверка на то, что при некорретном запросе мы получим {@link RuntimeException}.
+     */
+    @Test
+    public void testGetSearchedErrorFromServer() {
+        String EXPECTED_EXCEPTION_MESSAGE = "Server Error! Nothing found...";
+        Mockito
+                .when(mEpisodeApi.getSearchedEpisodes(INCORRECT_QUERY))
+                .thenThrow(new RuntimeException(EXPECTED_EXCEPTION_MESSAGE));
+
+        try {
+            mEpisodeRepository.getSearchedEpisodesFromServer(INCORRECT_QUERY);
+        } catch (RuntimeException exception) {
+            Assert.assertEquals(EXPECTED_EXCEPTION_MESSAGE, exception.getMessage());
         }
     }
 

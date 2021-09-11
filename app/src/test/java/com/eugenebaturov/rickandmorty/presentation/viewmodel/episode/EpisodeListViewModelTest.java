@@ -28,6 +28,9 @@ import io.reactivex.rxjava3.schedulers.Schedulers;
  */
 @RunWith(MockitoJUnitRunner.class)
 public class EpisodeListViewModelTest {
+    private static final String EPISODE_NAME_QUERY = "Day";
+    private static final String INCORRECT_QUERY = "_3fFIK2F_JFK";
+
     @Mock
     private SchedulerProvider mSchedulerProvider;
 
@@ -61,7 +64,7 @@ public class EpisodeListViewModelTest {
     }
 
     /**
-     * Проверка на то, что после подписки мы получим ожидаемые тестовые данные о локациях.
+     * Проверка на то, что после подписки мы получим ожидаемые тестовые данные об эпизодах.
      */
     @Test
     public void testLoadEpisodes() {
@@ -82,6 +85,28 @@ public class EpisodeListViewModelTest {
     }
 
     /**
+     * Проверка на то, что после подписки с конкретным запросом
+     * мы получим ожидаемые тестовые данные об эпизодах.
+     */
+    @Test
+    public void testLoadEpisodesWithQuery() {
+        // Arrange
+        Mockito
+                .when(mEpisodeInteractor.getSearchedEpisodesFromRepository(EPISODE_NAME_QUERY))
+                .thenReturn(Single.just(EpisodeTestData.createSearchedEpisodes()));
+
+        // Act
+        mEpisodeListViewModel.loadEpisodes(EPISODE_NAME_QUERY);
+        InOrder inOrder = Mockito.inOrder(mError, mEpisodes, mProgress);
+
+        // Assert
+        inOrder.verify(mProgress).onChanged(true);
+        inOrder.verify(mEpisodes).onChanged(EpisodeTestData.createSearchedEpisodes());
+        inOrder.verify(mProgress).onChanged(false);
+        inOrder.verifyNoMoreInteractions();
+    }
+
+    /**
      * Проверка на то, что если интерактор вернёт {@link IllegalAccessException},
      * то и наша вью-моделька получит её.
      */
@@ -94,6 +119,24 @@ public class EpisodeListViewModelTest {
 
         // Act
         mEpisodeListViewModel.loadEpisodes();
+
+        // Assert
+        Mockito.verify(mError).onChanged(ArgumentMatchers.isA(IllegalAccessException.class));
+    }
+
+    /**
+     * Проверка на то, что если интерактор вернёт {@link IllegalAccessException},
+     * то и наша вью-моделька получит её.
+     */
+    @Test
+    public void testLoadSearchedEpisodesWithError() {
+        // Arrange
+        Mockito
+                .when(mEpisodeInteractor.getSearchedEpisodesFromRepository(INCORRECT_QUERY))
+                .thenReturn(Single.error(new IllegalAccessException()));
+
+        // Act
+        mEpisodeListViewModel.loadEpisodes(INCORRECT_QUERY);
 
         // Assert
         Mockito.verify(mError).onChanged(ArgumentMatchers.isA(IllegalAccessException.class));
