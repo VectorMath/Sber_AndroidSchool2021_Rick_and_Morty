@@ -1,7 +1,6 @@
 package com.eugenebaturov.rickandmorty.data.api;
 
 import com.eugenebaturov.rickandmorty.models.data.EpisodeResponse;
-import com.eugenebaturov.rickandmorty.models.data.list.ListCharacterResponse;
 import com.eugenebaturov.rickandmorty.models.data.list.ListEpisodeResponse;
 
 import io.reactivex.rxjava3.core.Single;
@@ -9,7 +8,6 @@ import retrofit2.http.GET;
 import retrofit2.http.Path;
 import retrofit2.http.Query;
 
-import static com.eugenebaturov.rickandmorty.data.api.RickAndMortyURL.CHARACTERS_URL;
 import static com.eugenebaturov.rickandmorty.data.api.RickAndMortyURL.EPISODES_URL;
 
 /**

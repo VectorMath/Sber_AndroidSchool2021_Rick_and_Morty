@@ -1,7 +1,6 @@
 package com.eugenebaturov.rickandmorty.domain.interactor.episode;
 
 import com.eugenebaturov.rickandmorty.data.repository.episode.EpisodeRepository;
-import com.eugenebaturov.rickandmorty.models.domain.Character;
 import com.eugenebaturov.rickandmorty.models.domain.Episode;
 
 import java.util.List;

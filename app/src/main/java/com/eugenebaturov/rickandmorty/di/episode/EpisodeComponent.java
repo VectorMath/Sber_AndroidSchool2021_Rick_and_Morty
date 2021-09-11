@@ -5,7 +5,6 @@ import com.eugenebaturov.rickandmorty.presentation.viewmodel.episode.EpisodeList
 import com.eugenebaturov.rickandmorty.presentation.viewmodel.episode.EpisodeListViewModelFactory;
 import com.eugenebaturov.rickandmorty.presentation.viewmodel.episode.EpisodeViewModel;
 import com.eugenebaturov.rickandmorty.presentation.viewmodel.episode.EpisodeViewModelFactory;
-import com.eugenebaturov.rickandmorty.presentation.viewmodel.location.LocationViewModel;
 
 import dagger.Component;
 

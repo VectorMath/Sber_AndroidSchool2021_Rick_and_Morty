@@ -1,6 +1,5 @@
 package com.eugenebaturov.rickandmorty.presentation.ui.activity;
 
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
 
 import android.os.Bundle;

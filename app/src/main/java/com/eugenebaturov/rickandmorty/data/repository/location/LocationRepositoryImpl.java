@@ -4,10 +4,8 @@ import androidx.annotation.NonNull;
 
 import com.eugenebaturov.rickandmorty.data.api.LocationApi;
 import com.eugenebaturov.rickandmorty.data.utils.Converter;
-import com.eugenebaturov.rickandmorty.models.data.LocationResponse;
 import com.eugenebaturov.rickandmorty.models.domain.Location;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import io.reactivex.rxjava3.core.Single;

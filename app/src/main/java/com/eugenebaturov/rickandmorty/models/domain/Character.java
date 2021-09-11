@@ -1,9 +1,7 @@
 package com.eugenebaturov.rickandmorty.models.domain;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 
-import com.eugenebaturov.rickandmorty.models.data.CharacterResponse;
 import com.eugenebaturov.rickandmorty.models.data.CurrentLocation;
 import com.eugenebaturov.rickandmorty.models.data.Origin;
 

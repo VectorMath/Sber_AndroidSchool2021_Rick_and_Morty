@@ -1,7 +1,6 @@
 package com.eugenebaturov.rickandmorty.models.data.list;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 
 import com.eugenebaturov.rickandmorty.models.data.EpisodeResponse;
 import com.google.gson.annotations.SerializedName;
