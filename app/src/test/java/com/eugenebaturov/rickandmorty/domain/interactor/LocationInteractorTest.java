@@ -30,6 +30,8 @@ import static org.mockito.Mockito.when;
 public class LocationInteractorTest {
     private static final int CORRECT_LOCATION_ID = 5;
     private static final int INCORRECT_LOCATION_ID = -51;
+    private static final String LOCATION_NAME_QUERY = "Earth";
+    private static final String INCORRECT_QUERY = "_3fFIK2F_JFK";
 
     private LocationRepository mLocationRepository;
     private LocationInteractor mLocationInteractor;
@@ -61,11 +63,32 @@ public class LocationInteractorTest {
     }
 
     /**
+     * Проверка на то, что при конкретном запросе репозиторий выдаст нам нужную информацию
+     * о локациях, которые соответствуют данному запросу.
+     */
+    @Test
+    public void testGetSearchedLocationsFromRepository() {
+        // Arrange
+        Single<List<Location>> expected =
+                Single.just(LocationTestData.createSearchedLocations());
+        Mockito
+                .when(mLocationRepository.getSearchedLocationsFromServer(LOCATION_NAME_QUERY))
+                .thenReturn(expected);
+
+        // Act
+        Single<List<Location>> actual =
+                mLocationInteractor.getSearchedLocationsFromRepository(LOCATION_NAME_QUERY);
+
+        // Assert
+        Truth.assertThat(actual).isEqualTo(expected);
+    }
+
+    /**
      * Проверка на то, что если с репозитория придёт ошибка, мы получим {@link RuntimeException}
      */
     @Test
-    public void testErrorFromServer() {
-        String EXPECTED_EXCEPTION_MESSAGE = "Server Error!";
+    public void testErrorFromRepository() {
+        String EXPECTED_EXCEPTION_MESSAGE = "Repository Error!";
         when(mLocationRepository.getLocationsFromServer())
                 .thenThrow(new RuntimeException(EXPECTED_EXCEPTION_MESSAGE));
 
@@ -73,6 +96,19 @@ public class LocationInteractorTest {
             mLocationInteractor.getLocationsFromRepository();
         } catch (RuntimeException e) {
             Assert.assertEquals(EXPECTED_EXCEPTION_MESSAGE, e.getMessage());
+        }
+    }
+
+    @Test
+    public void testGetSearchedErrorFromRepository() {
+        String EXPECTED_EXCEPTION_MESSAGE = "Repository Error! Bad query...";
+        when(mLocationRepository.getSearchedLocationsFromServer(INCORRECT_QUERY))
+                .thenThrow(new RuntimeException(EXPECTED_EXCEPTION_MESSAGE));
+
+        try {
+            mLocationInteractor.getSearchedLocationsFromRepository(INCORRECT_QUERY);
+        } catch (RuntimeException exception) {
+            Assert.assertEquals(EXPECTED_EXCEPTION_MESSAGE, exception.getMessage());
         }
     }
 

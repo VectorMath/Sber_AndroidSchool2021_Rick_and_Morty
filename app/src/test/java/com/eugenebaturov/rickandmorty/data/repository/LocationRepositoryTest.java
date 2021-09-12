@@ -6,6 +6,7 @@ import com.eugenebaturov.rickandmorty.data.repository.location.LocationRepositor
 import com.eugenebaturov.rickandmorty.models.data.LocationResponse;
 import com.eugenebaturov.rickandmorty.models.data.list.ListLocationResponse;
 import com.eugenebaturov.rickandmorty.models.domain.Location;
+import com.eugenebaturov.rickandmorty.testdata.LocationTestData;
 
 import org.junit.Assert;
 import org.junit.Before;
@@ -21,10 +22,10 @@ import java.util.List;
 
 import io.reactivex.rxjava3.core.Single;
 
+import static com.eugenebaturov.rickandmorty.testdata.LocationTestData.createListResponse;
 import static com.eugenebaturov.rickandmorty.testdata.LocationTestData.createLocation;
 import static com.eugenebaturov.rickandmorty.testdata.LocationTestData.createLocations;
 import static com.eugenebaturov.rickandmorty.testdata.LocationTestData.createResponse;
-import static com.eugenebaturov.rickandmorty.testdata.LocationTestData.createListResponse;
 import static org.mockito.Mockito.when;
 
 /**
@@ -34,6 +35,8 @@ import static org.mockito.Mockito.when;
 public class LocationRepositoryTest {
     private static final int CORRECT_LOCATION_ID = 3;
     private static final int INCORRECT_LOCATION_ID = -69;
+    private static final String LOCATION_NAME_QUERY = "Earth";
+    private static final String INCORRECT_QUERY = "_3fFIK2F_JFK";
 
     private LocationApi mLocationApi;
     private LocationRepository mLocationRepository;
@@ -67,6 +70,29 @@ public class LocationRepositoryTest {
     }
 
     /**
+     * Проверка на то, что при конкретном запросе(query)
+     * с сервера приходят нужные данные в виде {@link ListLocationResponse}
+     * и после они обрабатываются в ожидаемый {@link List}<{@link Location}>.
+     */
+    @Test
+    public void testGetSearchedLocationsFromServer() {
+        // Arrange
+        Single<ListLocationResponse> serverResponse =
+                Single.just(LocationTestData.createSearchedResponse());
+        Mockito
+                .when(mLocationApi.getSearchedLocations(LOCATION_NAME_QUERY))
+                .thenReturn(serverResponse);
+
+        // Act
+        List<Location> excepted = LocationTestData.createSearchedLocations();
+        Single<List<Location>> actual =
+                mLocationRepository.getSearchedLocationsFromServer(LOCATION_NAME_QUERY);
+
+        // Assert
+        actual.test().assertValue(excepted);
+    }
+
+    /**
      * Проверка на то, что если с сервера придёт ошибка, мы получим {@link RuntimeException}
      */
     @Test
@@ -79,6 +105,23 @@ public class LocationRepositoryTest {
             mLocationRepository.getLocationsFromServer();
         } catch (RuntimeException e) {
             Assert.assertEquals(EXPECTED_EXCEPTION_MESSAGE, e.getMessage());
+        }
+    }
+
+    /**
+     * Проверка на то, что при некорретном запросе мы получим {@link RuntimeException}.
+     */
+    @Test
+    public void testGetSearchedErrorFromServer() {
+        String EXPECTED_EXCEPTION_MESSAGE = "Server Error! Nothing found...";
+        Mockito
+                .when(mLocationApi.getSearchedLocations(INCORRECT_QUERY))
+                .thenThrow(new RuntimeException(EXPECTED_EXCEPTION_MESSAGE));
+
+        try {
+            mLocationRepository.getSearchedLocationsFromServer(INCORRECT_QUERY);
+        } catch (RuntimeException exception) {
+            Assert.assertEquals(EXPECTED_EXCEPTION_MESSAGE, exception.getMessage());
         }
     }
 

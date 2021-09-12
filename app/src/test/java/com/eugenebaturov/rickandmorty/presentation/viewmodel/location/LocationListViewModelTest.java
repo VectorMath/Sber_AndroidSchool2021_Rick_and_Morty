@@ -28,6 +28,8 @@ import io.reactivex.rxjava3.schedulers.Schedulers;
  */
 @RunWith(MockitoJUnitRunner.class)
 public class LocationListViewModelTest {
+    private static final String LOCATION_NAME_QUERY = "Earth";
+    private static final String INCORRECT_QUERY = "_3fFIK2F_JFK";
 
     @Mock
     private SchedulerProvider mSchedulerProvider;
@@ -100,6 +102,45 @@ public class LocationListViewModelTest {
 
         // Act
         mLocationListViewModel.loadLocations();
+
+        // Assert
+        Mockito.verify(mError).onChanged(ArgumentMatchers.isA(IllegalAccessException.class));
+    }
+
+    /**
+     * Проверка на то, что после подписки мы получим ожидаемые тестовые данные о локациях.
+     */
+    @Test
+    public void testLoadLocationsWithQuery() {
+        // Arrange
+        Mockito
+                .when(mLocationInteractor.getSearchedLocationsFromRepository(LOCATION_NAME_QUERY))
+                .thenReturn(Single.just(LocationTestData.createSearchedLocations()));
+
+        // Act
+        mLocationListViewModel.loadLocations(LOCATION_NAME_QUERY);
+        InOrder inOrder = Mockito.inOrder(mError, mLocations, mProgress);
+
+        // Assert
+        inOrder.verify(mProgress).onChanged(true);
+        inOrder.verify(mLocations).onChanged(LocationTestData.createSearchedLocations());
+        inOrder.verify(mProgress).onChanged(false);
+        inOrder.verifyNoMoreInteractions();
+    }
+
+    /**
+     * Проверка на то, что если интерактор вернёт {@link IllegalAccessException},
+     * то и наша вью-моделька получит её.
+     */
+    @Test
+    public void testLoadSearchedLocationsWithError() {
+        // Arrange
+        Mockito
+                .when(mLocationInteractor.getSearchedLocationsFromRepository(INCORRECT_QUERY))
+                .thenReturn(Single.error(new IllegalAccessException()));
+
+        // Act
+        mLocationListViewModel.loadLocations(INCORRECT_QUERY);
 
         // Assert
         Mockito.verify(mError).onChanged(ArgumentMatchers.isA(IllegalAccessException.class));
