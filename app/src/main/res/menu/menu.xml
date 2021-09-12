@@ -3,13 +3,16 @@
     <item
         android:id="@+id/page_1"
         android:enabled="true"
+        android:icon="@drawable/ic_characters_white"
         android:title="@string/characters"/>
     <item
+        android:icon="@drawable/ic_location_white"
         android:id="@+id/page_2"
         android:enabled="true"
         android:title="@string/locations"/>
 
     <item
+        android:icon="@drawable/ic_episodes_white"
         android:id="@+id/page_3"
         android:enabled="true"
         android:title="@string/episodes"/>
