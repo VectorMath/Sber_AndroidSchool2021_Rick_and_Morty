@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:layout_gravity="center_horizontal"
-    android:orientation="vertical"
-    tools:context=".presentation.ui.activity.CharacterActivity">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_gravity="center"
+    android:background="@color/white"
+    android:orientation="vertical">
 
     <androidx.cardview.widget.CardView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_gravity="center"
         android:layout_marginTop="@dimen/large_margin"
-        app:cardCornerRadius="16dp">
+        app:cardCornerRadius="@dimen/cardView_corner_radius">
 
         <ImageView
             android:id="@+id/character_imageView"
@@ -22,7 +22,7 @@
     </androidx.cardview.widget.CardView>
 
     <TextView
-        android:id="@+id/characterName_textView"
+        android:id="@+id/character_name_textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
@@ -45,7 +45,7 @@
             android:src="@drawable/ic_status_alive" />
 
         <TextView
-            android:id="@+id/characterStatus_textView"
+            android:id="@+id/character_status_textView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
@@ -62,7 +62,7 @@
         android:orientation="horizontal">
 
         <TextView
-            android:id="@+id/characterRace_textView"
+            android:id="@+id/character_race_textView"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -94,7 +94,7 @@
         android:textSize="@dimen/medium_textSize" />
 
     <TextView
-        android:id="@+id/characterOrigin_textView"
+        android:id="@+id/character_origin_textView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/small_margin"
@@ -114,7 +114,7 @@
         android:textSize="@dimen/medium_textSize" />
 
     <TextView
-        android:id="@+id/characterCurrentLocation_textView"
+        android:id="@+id/character_current_location_textView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/small_margin"

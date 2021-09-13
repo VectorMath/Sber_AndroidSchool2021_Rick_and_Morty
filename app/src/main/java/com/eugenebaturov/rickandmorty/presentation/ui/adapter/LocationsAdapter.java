@@ -5,11 +5,12 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.eugenebaturov.rickandmorty.R;
 import com.eugenebaturov.rickandmorty.models.domain.Location;
-import com.eugenebaturov.rickandmorty.presentation.ui.activity.LocationActivity;
+import com.eugenebaturov.rickandmorty.presentation.ui.fragment.location.LocationListFragment;
 import com.eugenebaturov.rickandmorty.presentation.ui.viewholder.LocationViewHolder;
 
 import java.util.ArrayList;
@@ -19,27 +20,18 @@ import java.util.List;
  * Адаптер для списка {@link Location}.
  */
 public final class LocationsAdapter extends RecyclerView.Adapter<LocationViewHolder> {
-    private final LocationPage mLocationPage;
-    private List<Location> mData = new ArrayList<>();
+    @Nullable
+    private final LocationListFragment.BottomNavigation mLocationPage;
 
-    /**
-     * Callback-интерфейс для перехода на {@link LocationActivity}.
-     */
-    public interface LocationPage {
-        /**
-         * Переход на активити конкретной локации.
-         *
-         * @param id id локации.
-         */
-        void goToLocation(int id);
-    }
+    @NonNull
+    private List<Location> mData = new ArrayList<>();
 
     /**
      * Конструктор адаптера.
      *
-     * @param locationPage реализация интерфейса {@link LocationPage}.
+     * @param locationPage реализация интерфейса {@link LocationListFragment.BottomNavigation}.
      */
-    public LocationsAdapter(LocationPage locationPage) {
+    public LocationsAdapter(@Nullable LocationListFragment.BottomNavigation locationPage) {
         mLocationPage = locationPage;
     }
 
@@ -65,18 +57,21 @@ public final class LocationsAdapter extends RecyclerView.Adapter<LocationViewHol
 
     @Override
     public void onBindViewHolder(@NonNull LocationViewHolder holder, int position) {
-        Location location = mData.get(position);
-        String name = location.getName();
-        String type = location.getType();
-        String dimension = location.getDimension();
-        String residentsCount = String.valueOf(location.getResidents().size());
+        final Location location = mData.get(position);
+        final String name = location.getName();
+        final String type = location.getType();
+        final String dimension = location.getDimension();
+        final String residentsCount = String.valueOf(location.getResidents().size());
 
         holder.locationTitleTextView.setText(name);
         holder.locationTypeTextView.setText(type);
         holder.locationDimensionsTextView.setText(dimension);
         holder.locationResidentsTextView.setText(residentsCount);
 
-        holder.itemView.setOnClickListener(v -> mLocationPage.goToLocation(location.getId()));
+        holder.itemView.setOnClickListener(v -> {
+            assert mLocationPage != null;
+            mLocationPage.goToLocation(location.getId());
+        });
     }
 
     @Override

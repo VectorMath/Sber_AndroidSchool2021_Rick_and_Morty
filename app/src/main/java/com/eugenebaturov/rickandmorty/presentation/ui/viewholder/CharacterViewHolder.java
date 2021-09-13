@@ -29,9 +29,9 @@ public final class CharacterViewHolder extends RecyclerView.ViewHolder {
     }
 
     private void init(View view) {
-        characterStatusImageView = view.findViewById(R.id.character_itemStatus_imageView);
+        characterStatusImageView = view.findViewById(R.id.character_item_status_imageView);
         characterImageView = view.findViewById(R.id.character_imageView);
-        characterNameTextView = view.findViewById(R.id.characterName_textView);
-        characterStatusTextView = view.findViewById(R.id.characterStatus_textView);
+        characterNameTextView = view.findViewById(R.id.character_name_textView);
+        characterStatusTextView = view.findViewById(R.id.character_status_textView);
     }
 }

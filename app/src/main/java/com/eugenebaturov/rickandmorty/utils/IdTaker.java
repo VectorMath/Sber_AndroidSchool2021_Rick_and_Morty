@@ -1,6 +1,9 @@
 package com.eugenebaturov.rickandmorty.utils;
 
-import static com.eugenebaturov.rickandmorty.data.api.RickAndMortyURL.BASE_URL;
+import androidx.annotation.NonNull;
+
+import com.eugenebaturov.rickandmorty.BuildConfig;
+
 import static com.eugenebaturov.rickandmorty.data.api.RickAndMortyURL.CHARACTERS_URL;
 import static com.eugenebaturov.rickandmorty.data.api.RickAndMortyURL.EPISODES_URL;
 import static com.eugenebaturov.rickandmorty.data.api.RickAndMortyURL.LOCATIONS_URL;
@@ -9,9 +12,14 @@ import static com.eugenebaturov.rickandmorty.data.api.RickAndMortyURL.LOCATIONS_
  * Класс, который вытаскивает id из url-строки.
  */
 public final class IdTaker {
-    private static final int CHARACTER_URL_LENGTH = BASE_URL.length() + CHARACTERS_URL.length();
-    private static final int EPISODE_URL_LENGTH = BASE_URL.length() + EPISODES_URL.length();
-    private static final int LOCATION_URL_LENGTH = BASE_URL.length() + LOCATIONS_URL.length();
+    private static final int CHARACTER_URL_LENGTH
+            = BuildConfig.BASE_URL.length() + CHARACTERS_URL.length();
+
+    private static final int EPISODE_URL_LENGTH
+            = BuildConfig.BASE_URL.length() + EPISODES_URL.length();
+
+    private static final int LOCATION_URL_LENGTH
+            = BuildConfig.BASE_URL.length() + LOCATIONS_URL.length();
 
     /**
      * Получает id персонажа из url-строки.
@@ -19,7 +27,7 @@ public final class IdTaker {
      * @param url адресс персонажа.
      * @return id персонажа.
      */
-    public static int getCharacterId(String url) {
+    public static int getCharacterId(@NonNull String url) {
         String id = url.substring(CHARACTER_URL_LENGTH);
         return Integer.parseInt(id);
     }
@@ -30,7 +38,7 @@ public final class IdTaker {
      * @param url адресс локации.
      * @return id локации.
      */
-    public static int getLocationId(String url) {
+    public static int getLocationId(@NonNull String url) {
         String id = url.substring(LOCATION_URL_LENGTH);
         return Integer.parseInt(id);
     }
@@ -41,7 +49,7 @@ public final class IdTaker {
      * @param url адресс эпизода.
      * @return id эпизода.
      */
-    public static int getEpisodeId(String url) {
+    public static int getEpisodeId(@NonNull String url) {
         String id = url.substring(EPISODE_URL_LENGTH);
         return Integer.parseInt(id);
     }

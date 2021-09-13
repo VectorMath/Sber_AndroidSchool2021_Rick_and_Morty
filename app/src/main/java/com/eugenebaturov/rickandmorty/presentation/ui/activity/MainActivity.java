@@ -2,110 +2,107 @@ package com.eugenebaturov.rickandmorty.presentation.ui.activity;
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;
-import android.widget.SearchView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 
 import com.eugenebaturov.rickandmorty.R;
-import com.eugenebaturov.rickandmorty.presentation.ui.fragment.CharacterListFragment;
-import com.eugenebaturov.rickandmorty.presentation.ui.fragment.EpisodeListFragment;
-import com.eugenebaturov.rickandmorty.presentation.ui.fragment.LocationListFragment;
-import com.eugenebaturov.rickandmorty.utils.Extras;
+import com.eugenebaturov.rickandmorty.presentation.ui.fragment.character.CharacterFragment;
+import com.eugenebaturov.rickandmorty.presentation.ui.fragment.character.CharacterListFragment;
+import com.eugenebaturov.rickandmorty.presentation.ui.fragment.episode.EpisodeFragment;
+import com.eugenebaturov.rickandmorty.presentation.ui.fragment.episode.EpisodeListFragment;
+import com.eugenebaturov.rickandmorty.presentation.ui.fragment.location.LocationFragment;
+import com.eugenebaturov.rickandmorty.presentation.ui.fragment.location.LocationListFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 /**
- * Главная активити, где отображаются списки персонажей/эпизодов/локаций.
+ * Главная активити, где происходят все действия приложения.
  */
-public class MainActivity extends AppCompatActivity {
-
+public final class MainActivity extends AppCompatActivity implements CharacterListFragment.BottomNavigation,
+        EpisodeListFragment.BottomNavigation, LocationListFragment.BottomNavigation,
+        CharacterFragment.FromTo {
     private Fragment mFragment;
-    private Searcher mSearcher;
-    private String mSearchType;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        getSupportActionBar().hide();
         initUI();
     }
 
-    /**
-     * Callback-интерфейс для поиска.
-     */
-    public interface Searcher {
-        /**
-         * Осуществляет поиск необходимый информции.
-         *
-         * @param whereSearch где ищем(в персонажах/эпизодах/локациях).
-         * @param whatSearch  строка запроса.
-         */
-        void search(String whereSearch, String whatSearch);
+    @Override
+    public void goToCharacter(final int characterId) {
+        mFragment = CharacterFragment.newInstance(characterId);
+        getSupportFragmentManager()
+                .beginTransaction()
+                .replace(R.id.current_fragment, mFragment)
+                .addToBackStack(null)
+                .commit();
     }
 
+    @Override
+    public void goToEpisode(final int episodeId,final int imageRecourse) {
+        mFragment = EpisodeFragment.newInstance(episodeId, imageRecourse);
+        getSupportFragmentManager()
+                .beginTransaction()
+                .replace(R.id.current_fragment, mFragment)
+                .addToBackStack(null)
+                .commit();
+    }
 
+    @Override
+    public void goToLocation(final int locationId) {
+        mFragment = LocationFragment.newInstance(locationId);
+        getSupportFragmentManager()
+                .beginTransaction()
+                .replace(R.id.current_fragment, mFragment)
+                .addToBackStack(null)
+                .commit();
+    }
+
+    @Override
+    public void fromCharacterToLocation(final int locationId) {
+        mFragment = LocationFragment.newInstance(locationId);
+        getSupportFragmentManager()
+                .beginTransaction()
+                .replace(R.id.current_fragment, mFragment)
+                .addToBackStack(null)
+                .commit();
+    }
+
+    @SuppressLint("NonConstantResourceId")
     private void initUI() {
         BottomNavigationView mBottomNavigationView = findViewById(R.id.bottom_navigation);
-        SearchView mSearchView = findViewById(R.id.main_searchView);
 
         if (mFragment == null) {
             mFragment = CharacterListFragment.newInstance();
-            mSearcher = (CharacterListFragment) mFragment;
-            mSearchType = Extras.CHARACTER_SEARCH;
-            startFragment(mFragment);
+            getSupportFragmentManager()
+                    .beginTransaction()
+                    .add(R.id.current_fragment, mFragment)
+                    .commit();
         }
 
-        mSearchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-            @Override
-            public boolean onQueryTextSubmit(String query) {
-                mSearchView.clearFocus();
-                return false;
-            }
-
-            @Override
-            public boolean onQueryTextChange(String newText) {
-                switch (mSearchType) {
-                    case Extras.CHARACTER_SEARCH: {
-                        mSearcher.search(mSearchType, newText);
-                    }
-                    case Extras.EPISODE_SEARCH: {
-                        mSearcher.search(mSearchType, newText);
-                    }
-                    case Extras.LOCATION_SEARCH: {
-                        mSearcher.search(mSearchType, newText);
-                    }
-                }
-
-                return false;
-            }
-        });
-
         mBottomNavigationView.setOnItemSelectedListener(item -> {
-            mSearchView.clearFocus();
-            mSearchView.setQuery("", true);
 
             switch (item.getItemId()) {
                 case R.id.page_1: {
+                    clearBackStack();
                     mFragment = CharacterListFragment.newInstance();
-                    mSearcher = (CharacterListFragment) mFragment;
-                    mSearchType = Extras.CHARACTER_SEARCH;
                     startFragment(mFragment);
                     break;
                 }
 
                 case R.id.page_2: {
+                    clearBackStack();
                     mFragment = LocationListFragment.newInstance();
-                    mSearcher = (LocationListFragment) mFragment;
-                    mSearchType = Extras.LOCATION_SEARCH;
                     startFragment(mFragment);
                     break;
                 }
 
                 case R.id.page_3: {
+                    clearBackStack();
                     mFragment = EpisodeListFragment.newInstance();
-                    mSearcher = (EpisodeListFragment) mFragment;
-                    mSearchType = Extras.EPISODE_SEARCH;
                     startFragment(mFragment);
                     break;
                 }
@@ -117,8 +114,14 @@ public class MainActivity extends AppCompatActivity {
     private void startFragment(Fragment fragment) {
         getSupportFragmentManager()
                 .beginTransaction()
-                .add(R.id.current_fragment, fragment)
+                .replace(R.id.current_fragment, fragment)
                 .commit();
     }
 
+    private void clearBackStack() {
+        final FragmentManager fragmentManager = getSupportFragmentManager();
+        for (int i = 0; i < fragmentManager.getBackStackEntryCount(); ++i) {
+            fragmentManager.popBackStack();
+        }
+    }
 }

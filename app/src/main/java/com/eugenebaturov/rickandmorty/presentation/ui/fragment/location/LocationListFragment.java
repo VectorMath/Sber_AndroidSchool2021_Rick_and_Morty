@@ -1,7 +1,6 @@
-package com.eugenebaturov.rickandmorty.presentation.ui.fragment;
+package com.eugenebaturov.rickandmorty.presentation.ui.fragment.location;
 
 import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,29 +11,25 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.eugenebaturov.rickandmorty.R;
 import com.eugenebaturov.rickandmorty.di.location.DaggerLocationComponent;
 import com.eugenebaturov.rickandmorty.di.location.LocationComponent;
-import com.eugenebaturov.rickandmorty.presentation.ui.activity.LocationActivity;
 import com.eugenebaturov.rickandmorty.presentation.ui.activity.MainActivity;
 import com.eugenebaturov.rickandmorty.presentation.ui.adapter.LocationsAdapter;
 import com.eugenebaturov.rickandmorty.presentation.viewmodel.location.LocationListViewModel;
-import com.eugenebaturov.rickandmorty.utils.Extras;
 
 /**
  * Фрагмент, который отображает список локаций.
- * Так же является реализацией интерфейса {@link LocationsAdapter.LocationPage}.
  */
-public class LocationListFragment extends Fragment
-        implements LocationsAdapter.LocationPage, MainActivity.Searcher {
-
+public final class LocationListFragment extends Fragment {
     private ProgressBar mProgress;
     private RecyclerView mRecyclerView;
     private LocationsAdapter mAdapter;
+
     private LocationListViewModel mViewModel;
+    private BottomNavigation mBottomNavigation;
 
     @Nullable
     @Override
@@ -42,56 +37,42 @@ public class LocationListFragment extends Fragment
             @NonNull LayoutInflater inflater,
             @Nullable ViewGroup container,
             @Nullable Bundle savedInstanceState) {
+        initViewModel();
         return inflater.inflate(R.layout.fragment_list_locations, container, false);
-    }
-
-    @Override
-    public void onAttach(@NonNull Context context) {
-        super.onAttach(context);
-
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         initUI(view);
-        initViewModel();
         setRecyclerView();
+        mViewModel.loadLocations();
         observeLocations();
         observeProgress();
     }
 
     @Override
-    public void goToLocation(int id) {
-        Intent intent = new Intent(getContext(), LocationActivity.class);
-        intent.putExtra(Extras.EXTRA_LOCATION_ID, id);
-        startActivity(intent);
+    public void onAttach(@NonNull Context context) {
+        super.onAttach(context);
+        mBottomNavigation = (MainActivity) context;
     }
 
     @Override
-    public void search(String whereSearch, String whatSearch) {
-        mViewModel.loadLocations(whatSearch);
+    public void onDetach() {
+        super.onDetach();
+        mBottomNavigation = null;
     }
 
     /**
-     * Создаёт новый образец {@link LocationListFragment}.
-     *
-     * @return фрагмент списка локаций.
+     * Callback-интерфейс для перехода на фрагмент с конкретной сущностью.
      */
-    public static LocationListFragment newInstance() {
-        return new LocationListFragment();
+    public interface BottomNavigation {
+        void goToLocation(int locationId);
     }
 
     private void initUI(View view) {
         mProgress = view.findViewById(R.id.progress_bar);
         mRecyclerView = view.findViewById(R.id.recyclerView_locations);
-    }
-
-    private void setRecyclerView() {
-        mAdapter = new LocationsAdapter(this);
-        mRecyclerView.hasFixedSize();
-        mRecyclerView.setAdapter(mAdapter);
-        mViewModel.loadLocations();
     }
 
     private void initViewModel() {
@@ -100,6 +81,12 @@ public class LocationListFragment extends Fragment
                 this,
                 locationComponent.getListViewModelFactory())
                 .get(LocationListViewModel.class);
+    }
+
+    private void setRecyclerView() {
+        mAdapter = new LocationsAdapter(mBottomNavigation);
+        mRecyclerView.hasFixedSize();
+        mRecyclerView.setAdapter(mAdapter);
     }
 
     private void observeLocations() {
@@ -115,5 +102,14 @@ public class LocationListFragment extends Fragment
             else
                 mProgress.setVisibility(View.VISIBLE);
         });
+    }
+
+    /**
+     * Создаёт новый образец {@link LocationListFragment}.
+     *
+     * @return фрагмент списка локаций.
+     */
+    public static LocationListFragment newInstance() {
+        return new LocationListFragment();
     }
 }

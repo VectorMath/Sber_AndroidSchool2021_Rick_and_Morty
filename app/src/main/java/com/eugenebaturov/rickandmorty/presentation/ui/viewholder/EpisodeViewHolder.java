@@ -28,8 +28,8 @@ public final class EpisodeViewHolder extends RecyclerView.ViewHolder {
     }
 
     private void init(View view) {
-        episodeSeasonImageView = view.findViewById(R.id.episodeSeasonNumb_imageView);
-        episodeTitleTextView = view.findViewById(R.id.episodeTitle_textView);
-        episodeCharactersCountTextView = view.findViewById(R.id.episodeCharactersCount_textView);
+        episodeSeasonImageView = view.findViewById(R.id.episode_season_numb_imageView);
+        episodeTitleTextView = view.findViewById(R.id.episode_title_textView);
+        episodeCharactersCountTextView = view.findViewById(R.id.episode_characters_count_textView);
     }
 }

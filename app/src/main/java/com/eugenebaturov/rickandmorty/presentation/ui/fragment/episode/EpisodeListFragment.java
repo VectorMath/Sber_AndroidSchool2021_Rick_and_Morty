@@ -1,6 +1,6 @@
-package com.eugenebaturov.rickandmorty.presentation.ui.fragment;
+package com.eugenebaturov.rickandmorty.presentation.ui.fragment.episode;
 
-import android.content.Intent;
+import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,29 +11,25 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.eugenebaturov.rickandmorty.R;
 import com.eugenebaturov.rickandmorty.di.episode.DaggerEpisodeComponent;
 import com.eugenebaturov.rickandmorty.di.episode.EpisodeComponent;
-import com.eugenebaturov.rickandmorty.presentation.ui.activity.EpisodeActivity;
 import com.eugenebaturov.rickandmorty.presentation.ui.activity.MainActivity;
 import com.eugenebaturov.rickandmorty.presentation.ui.adapter.EpisodesAdapter;
 import com.eugenebaturov.rickandmorty.presentation.viewmodel.episode.EpisodeListViewModel;
-import com.eugenebaturov.rickandmorty.utils.Extras;
 
 /**
  * Фрагмент, который отображает список эпизодов.
- * Так же является реализацией интерфейса {@link EpisodesAdapter.EpisodePage}.
  */
-public class EpisodeListFragment extends Fragment implements
-        EpisodesAdapter.EpisodePage,
-        MainActivity.Searcher {
+public final class EpisodeListFragment extends Fragment {
     private ProgressBar mProgress;
     private RecyclerView mRecyclerView;
     private EpisodesAdapter mAdapter;
+
     private EpisodeListViewModel mViewModel;
+    private BottomNavigation mBottomNavigation;
 
     @Nullable
     @Override
@@ -41,6 +37,7 @@ public class EpisodeListFragment extends Fragment implements
             @NonNull LayoutInflater inflater,
             @Nullable ViewGroup container,
             @Nullable Bundle savedInstanceState) {
+        initViewModel();
         return inflater.inflate(R.layout.fragment_list_episodes, container, false);
     }
 
@@ -48,44 +45,29 @@ public class EpisodeListFragment extends Fragment implements
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         initUI(view);
-        initViewModel();
         setRecyclerView();
+        mViewModel.loadEpisodes();
         observeEpisodes();
         observeProgress();
     }
 
     @Override
-    public void goToEpisode(int id, int imgRes) {
-        Intent intent = new Intent(getContext(), EpisodeActivity.class);
-        intent.putExtra(Extras.EXTRA_EPISODE_ID, id);
-        intent.putExtra(Extras.EXTRA_EPISODE_IMAGE, imgRes);
-        startActivity(intent);
+    public void onAttach(@NonNull Context context) {
+        super.onAttach(context);
+        mBottomNavigation = (MainActivity) context;
     }
 
     @Override
-    public void search(String whereSearch, String whatSearch) {
-        mViewModel.loadEpisodes(whatSearch);
+    public void onDetach() {
+        super.onDetach();
+        mBottomNavigation = null;
     }
 
     /**
-     * Создаёт новый образец {@link EpisodeListFragment}.
-     *
-     * @return фрагмент списка эпизодов.
+     * Callback-интерфейс для перехода на фрагмент с конкретной сущностью.
      */
-    public static EpisodeListFragment newInstance() {
-        return new EpisodeListFragment();
-    }
-
-    private void initUI(View view) {
-        mProgress = view.findViewById(R.id.progress_bar);
-        mRecyclerView = view.findViewById(R.id.recyclerView_episodes);
-    }
-
-    private void setRecyclerView() {
-        mAdapter = new EpisodesAdapter(this);
-        mRecyclerView.hasFixedSize();
-        mRecyclerView.setAdapter(mAdapter);
-        mViewModel.loadEpisodes();
+    public interface BottomNavigation {
+        void goToEpisode(final int episodeId, final int imageRecourse);
     }
 
     private void initViewModel() {
@@ -94,6 +76,17 @@ public class EpisodeListFragment extends Fragment implements
                 this,
                 episodeComponent.getListViewModelFactory())
                 .get(EpisodeListViewModel.class);
+    }
+
+    private void initUI(View view) {
+        mProgress = view.findViewById(R.id.progress_bar);
+        mRecyclerView = view.findViewById(R.id.recyclerView_episodes);
+    }
+
+    private void setRecyclerView() {
+        mAdapter = new EpisodesAdapter(mBottomNavigation);
+        mRecyclerView.hasFixedSize();
+        mRecyclerView.setAdapter(mAdapter);
     }
 
     private void observeEpisodes() {
@@ -109,5 +102,14 @@ public class EpisodeListFragment extends Fragment implements
             else
                 mProgress.setVisibility(View.VISIBLE);
         });
+    }
+
+    /**
+     * Создаёт новый образец {@link EpisodeListFragment}.
+     *
+     * @return фрагмент списка эпизодов.
+     */
+    public static EpisodeListFragment newInstance() {
+        return new EpisodeListFragment();
     }
 }

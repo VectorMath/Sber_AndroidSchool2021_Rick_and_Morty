@@ -1,10 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".presentation.ui.activity.EpisodeActivity">
+    android:layout_height="match_parent">
 
     <androidx.cardview.widget.CardView
         android:layout_width="wrap_content"
@@ -21,12 +19,12 @@
             android:padding="@dimen/medium_padding">
 
             <TextView
-                android:id="@+id/episodeTitle_textView"
+                android:id="@+id/episode_title_textView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center"
                 android:layout_margin="@dimen/medium_margin"
                 android:text="@string/episode_title"
-                android:layout_gravity="center"
                 android:textAlignment="center"
                 android:textColor="@color/black"
                 android:textSize="@dimen/large_textSize" />
@@ -48,9 +46,9 @@
                     android:textSize="@dimen/medium_textSize" />
 
                 <ImageView
-                    android:id="@+id/episodeSeasonNumb_imageView"
-                    android:layout_width="@dimen/item_episodeSeasonNumbImage_width"
-                    android:layout_height="@dimen/item_episodeSeasonNumbImage_height"
+                    android:id="@+id/episode_season_numb_imageView"
+                    android:layout_width="@dimen/item_episode_season_numb_image_width"
+                    android:layout_height="@dimen/item_episode_season_numb_image_height"
                     android:layout_marginStart="@dimen/small_margin"
                     android:src="@drawable/ic_first_season_black" />
 
@@ -85,7 +83,7 @@
             </LinearLayout>
 
             <TextView
-                android:id="@+id/episode_airDate_textView"
+                android:id="@+id/episode_air_date_textView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"

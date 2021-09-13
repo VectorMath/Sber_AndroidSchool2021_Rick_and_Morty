@@ -1,6 +1,6 @@
-package com.eugenebaturov.rickandmorty.presentation.ui.fragment;
+package com.eugenebaturov.rickandmorty.presentation.ui.fragment.character;
 
-import android.content.Intent;
+import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,23 +16,20 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.eugenebaturov.rickandmorty.R;
 import com.eugenebaturov.rickandmorty.di.character.CharacterComponent;
 import com.eugenebaturov.rickandmorty.di.character.DaggerCharacterComponent;
-import com.eugenebaturov.rickandmorty.presentation.ui.activity.CharacterActivity;
 import com.eugenebaturov.rickandmorty.presentation.ui.activity.MainActivity;
 import com.eugenebaturov.rickandmorty.presentation.ui.adapter.CharactersAdapter;
 import com.eugenebaturov.rickandmorty.presentation.viewmodel.character.CharacterListViewModel;
-import com.eugenebaturov.rickandmorty.utils.Extras;
 
 /**
  * Фрагмент, который отображает список персонажей.
- * Так же является реализацией интерфейса {@link CharactersAdapter.CharacterPage}.
  */
-public class CharacterListFragment extends Fragment implements
-        CharactersAdapter.CharacterPage,
-        MainActivity.Searcher {
+public final class CharacterListFragment extends Fragment {
     private ProgressBar mProgress;
     private RecyclerView mRecyclerView;
     private CharactersAdapter mAdapter;
+
     private CharacterListViewModel mViewModel;
+    private BottomNavigation mBottomNavigation;
 
     @Nullable
     @Override
@@ -40,6 +37,7 @@ public class CharacterListFragment extends Fragment implements
             @NonNull LayoutInflater inflater,
             @Nullable ViewGroup container,
             @Nullable Bundle savedInstanceState) {
+        initViewModel();
         return inflater.inflate(R.layout.fragment_list_characters, container, false);
     }
 
@@ -47,43 +45,29 @@ public class CharacterListFragment extends Fragment implements
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         initUI(view);
-        initViewModel();
         setRecyclerView();
+        mViewModel.loadCharacters();
         observeCharacters();
         observeProgress();
     }
 
     @Override
-    public void goToCharacterActivity(int id) {
-        Intent intent = new Intent(getContext(), CharacterActivity.class);
-        intent.putExtra(Extras.EXTRA_CHARACTER_ID, id);
-        startActivity(intent);
+    public void onAttach(@NonNull Context context) {
+        super.onAttach(context);
+        mBottomNavigation = (MainActivity) context;
     }
 
     @Override
-    public void search(String whereSearch, String whatSearch) {
-        mViewModel.loadCharacters(whatSearch);
+    public void onDetach() {
+        super.onDetach();
+        mBottomNavigation = null;
     }
 
     /**
-     * Создаёт новый образец {@link CharacterListFragment}.
-     *
-     * @return фрагмент списка персонажей.
+     * Callback-интерфейс для перехода на фрагмент с конкретной сущностью.
      */
-    public static CharacterListFragment newInstance() {
-        return new CharacterListFragment();
-    }
-
-    private void initUI(View view) {
-        mProgress = view.findViewById(R.id.progress_bar);
-        mRecyclerView = view.findViewById(R.id.recyclerView_characters);
-    }
-
-    private void setRecyclerView() {
-        mAdapter = new CharactersAdapter(this);
-        mRecyclerView.hasFixedSize();
-        mRecyclerView.setAdapter(mAdapter);
-        mViewModel.loadCharacters();
+    public interface BottomNavigation {
+        void goToCharacter(final int characterId);
     }
 
     private void initViewModel() {
@@ -92,6 +76,17 @@ public class CharacterListFragment extends Fragment implements
                 this,
                 characterComponent.getListViewModelFactory())
                 .get(CharacterListViewModel.class);
+    }
+
+    private void initUI(View view) {
+        mProgress = view.findViewById(R.id.progress_bar);
+        mRecyclerView = view.findViewById(R.id.recyclerView_characters);
+    }
+
+    private void setRecyclerView() {
+        mAdapter = new CharactersAdapter(mBottomNavigation);
+        mRecyclerView.setAdapter(mAdapter);
+        mRecyclerView.hasFixedSize();
     }
 
     private void observeCharacters() {
@@ -107,5 +102,14 @@ public class CharacterListFragment extends Fragment implements
             else
                 mProgress.setVisibility(View.VISIBLE);
         });
+    }
+
+    /**
+     * Создаёт новый образец {@link CharacterListFragment}.
+     *
+     * @return фрагмент списка персонажей.
+     */
+    public static CharacterListFragment newInstance() {
+        return new CharacterListFragment();
     }
 }

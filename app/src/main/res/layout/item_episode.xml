@@ -3,26 +3,26 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="@dimen/medium_margin"
-    android:layout_gravity="center">
+    android:layout_gravity="center"
+    android:layout_margin="@dimen/medium_margin">
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:padding="@dimen/medium_padding"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:padding="@dimen/medium_padding">
 
         <ImageView
-            android:layout_marginEnd="30dp"
-            android:id="@+id/episodeSeasonNumb_imageView"
-            android:layout_width="@dimen/item_episodeSeasonNumbImage_width"
-            android:layout_height="@dimen/item_episodeSeasonNumbImage_height"
+            android:id="@+id/episode_season_numb_imageView"
+            android:layout_width="@dimen/item_episode_season_numb_image_width"
+            android:layout_height="@dimen/item_episode_season_numb_image_height"
             android:layout_marginTop="@dimen/medium_margin"
+            android:layout_marginEnd="30dp"
             android:src="@drawable/ic_first_season_black"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/episodeTitle_textView"
+            android:id="@+id/episode_title_textView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/medium_margin"
@@ -34,7 +34,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/episodeSeasonNumb_imageView" />
+            app:layout_constraintTop_toBottomOf="@id/episode_season_numb_imageView" />
 
         <LinearLayout
             android:id="@+id/linearLayout"
@@ -43,24 +43,24 @@
             android:layout_marginStart="@dimen/large_margin"
             android:orientation="horizontal"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/episodeSeasonNumb_imageView">
+            app:layout_constraintTop_toTopOf="@+id/episode_season_numb_imageView">
 
             <ImageView
                 android:id="@+id/episode"
-                android:layout_width="@dimen/item_episodeCharactersNumbImage_width"
-                android:layout_height="@dimen/item_episodeCharactersNumbImage_height"
+                android:layout_width="@dimen/item_episode_characters_numb_image_width"
+                android:layout_height="@dimen/item_episode_characters_numb_image_height"
                 android:src="@drawable/ic_population_black" />
 
             <TextView
-                android:textStyle="bold"
-                android:id="@+id/episodeCharactersCount_textView"
+                android:id="@+id/episode_characters_count_textView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
                 android:layout_marginStart="@dimen/small_margin"
                 android:text="@string/episode_characters_count"
                 android:textColor="@color/black"
-                android:textSize="@dimen/medium_textSize" />
+                android:textSize="@dimen/medium_textSize"
+                android:textStyle="bold" />
         </LinearLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>

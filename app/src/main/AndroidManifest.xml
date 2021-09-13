@@ -10,11 +10,6 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.RickAndMorty">
-
-        <!-- Одно активти на всё приложение-->
-        <activity android:name=".presentation.ui.activity.EpisodeActivity" />
-        <activity android:name=".presentation.ui.activity.LocationActivity" />
-        <activity android:name=".presentation.ui.activity.CharacterActivity" />
         <activity android:name=".presentation.ui.activity.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

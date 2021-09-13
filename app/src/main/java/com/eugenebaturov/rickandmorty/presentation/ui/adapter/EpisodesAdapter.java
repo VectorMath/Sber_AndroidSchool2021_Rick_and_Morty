@@ -5,11 +5,12 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.eugenebaturov.rickandmorty.R;
 import com.eugenebaturov.rickandmorty.models.domain.Episode;
-import com.eugenebaturov.rickandmorty.presentation.ui.activity.EpisodeActivity;
+import com.eugenebaturov.rickandmorty.presentation.ui.fragment.episode.EpisodeListFragment;
 import com.eugenebaturov.rickandmorty.presentation.ui.viewholder.EpisodeViewHolder;
 
 import java.util.ArrayList;
@@ -19,36 +20,27 @@ import java.util.List;
  * Адаптер для списка {@link Episode}.
  */
 public final class EpisodesAdapter extends RecyclerView.Adapter<EpisodeViewHolder> {
-    private final EpisodePage mEpisodePage;
-    private List<Episode> mData = new ArrayList<>();
+    @Nullable
+    private final EpisodeListFragment.BottomNavigation mEpisodePage;
 
-    /**
-     * Callback-интерфейс для перехода на {@link EpisodeActivity}.
-     */
-    public interface EpisodePage {
-        /**
-         * Переход на активити конкретного эпизода.
-         *
-         * @param id     id эпизода.
-         * @param imgRes drawable-ресурс изображения сезона.
-         */
-        void goToEpisode(int id, int imgRes);
-    }
+    @NonNull
+    private List<Episode> mData = new ArrayList<>();
 
     /**
      * Конструктор адаптера.
      *
-     * @param episodePage реализация интерфейса {@link EpisodePage}.
+     * @param episodePage реализация интерфейса {@link EpisodeListFragment.BottomNavigation}.
      */
-    public EpisodesAdapter(EpisodePage episodePage) {
+    public EpisodesAdapter(@Nullable EpisodeListFragment.BottomNavigation episodePage) {
         mEpisodePage = episodePage;
     }
 
     /**
      * Обновляет список эпизодов в адаптере.
+     *
      * @param data список эпизодов.
      */
-    public void updateData(List<Episode> data) {
+    public void updateData(@NonNull final List<Episode> data) {
         mData = data;
         notifyDataSetChanged();
     }
@@ -75,7 +67,10 @@ public final class EpisodesAdapter extends RecyclerView.Adapter<EpisodeViewHolde
         holder.episodeTitleTextView.setText(title);
         holder.episodeCharactersCountTextView.setText(String.valueOf(charactersCount));
 
-        holder.itemView.setOnClickListener(v -> mEpisodePage.goToEpisode(episode.getId(), getImageSeason(seasonNumber)));
+        holder.itemView.setOnClickListener(v -> {
+            assert mEpisodePage != null;
+            mEpisodePage.goToEpisode(episode.getId(), getImageSeason(seasonNumber));
+        });
     }
 
     @Override
@@ -83,11 +78,11 @@ public final class EpisodesAdapter extends RecyclerView.Adapter<EpisodeViewHolde
         return mData.size();
     }
 
-    private String getSeason(String episodeNumber) {
+    private String getSeason(@NonNull final String episodeNumber) {
         return episodeNumber.substring(2, 3);
     }
 
-    private int getImageSeason(String season) {
+    private int getImageSeason(@NonNull final String season) {
 
         // Связать сезон и картинку через enum
         switch (season) {

@@ -5,13 +5,14 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.eugenebaturov.rickandmorty.R;
 import com.eugenebaturov.rickandmorty.models.domain.Character;
-import com.eugenebaturov.rickandmorty.presentation.ui.activity.CharacterActivity;
+import com.eugenebaturov.rickandmorty.presentation.ui.fragment.character.CharacterListFragment;
 import com.eugenebaturov.rickandmorty.presentation.ui.viewholder.CharacterViewHolder;
-import com.squareup.picasso.Picasso;
+import com.eugenebaturov.rickandmorty.utils.ImageLoader;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,28 +22,18 @@ import java.util.List;
  */
 public final class CharactersAdapter extends RecyclerView.Adapter<CharacterViewHolder> {
 
+    @NonNull
     private List<Character> mData = new ArrayList<>();
-    private final CharacterPage mCharacterPage;
 
-    /**
-     * Callback-интерфейс для перехода на {@link CharacterActivity}.
-     */
-    public interface CharacterPage {
-
-        /**
-         * Переход на активити конкретного персонажа.
-         *
-         * @param id id персонажа.
-         */
-        void goToCharacterActivity(int id);
-    }
+    @Nullable
+    private final CharacterListFragment.BottomNavigation mCharacterPage;
 
     /**
      * Конструктор адаптера.
      *
-     * @param characterPage реализация интерфейса {@link CharacterPage}.
+     * @param characterPage реализация {@link CharacterListFragment.BottomNavigation}
      */
-    public CharactersAdapter(CharacterPage characterPage) {
+    public CharactersAdapter(@Nullable CharacterListFragment.BottomNavigation characterPage) {
         mCharacterPage = characterPage;
     }
 
@@ -51,7 +42,7 @@ public final class CharactersAdapter extends RecyclerView.Adapter<CharacterViewH
      *
      * @param data список персонажей.
      */
-    public void updateData(List<Character> data) {
+    public void updateData(@NonNull final List<Character> data) {
         mData = data;
         notifyDataSetChanged();
     }
@@ -69,18 +60,21 @@ public final class CharactersAdapter extends RecyclerView.Adapter<CharacterViewH
 
     @Override
     public void onBindViewHolder(@NonNull CharacterViewHolder holder, int position) {
-        Character character = mData.get(position);
-        String imageUrl = character.getImage();
-        String name = character.getName();
-        String status = character.getStatus();
+        final Character character = mData.get(position);
+        final String imageUrl = character.getImage();
+        final String name = character.getName();
+        final String status = character.getStatus();
 
-        Picasso.get().load(imageUrl).into(holder.characterImageView);
+        ImageLoader.loadFromPicasso(imageUrl, holder.characterImageView);
         setImageStatus(character.getStatus(), holder);
         holder.characterNameTextView.setText(name);
         holder.characterStatusTextView.setText(status);
 
         holder.itemView.setOnClickListener(
-                v -> mCharacterPage.goToCharacterActivity(character.getId()));
+                v -> {
+                    assert mCharacterPage != null;
+                    mCharacterPage.goToCharacter(character.getId());
+                });
     }
 
     private void setImageStatus(String status, CharacterViewHolder holder) {

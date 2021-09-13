@@ -31,10 +31,10 @@ public final class LocationViewHolder extends RecyclerView.ViewHolder {
     }
 
     private void init(View view) {
-        locationTypeImageView = view.findViewById(R.id.locationType_imageView);
-        locationTypeTextView = view.findViewById(R.id.locationType_textView);
-        locationTitleTextView = view.findViewById(R.id.locationTitle_textView);
-        locationResidentsTextView = view.findViewById(R.id.locationPopulationCount_textView);
-        locationDimensionsTextView = view.findViewById(R.id.locationDimension_textView);
+        locationTypeImageView = view.findViewById(R.id.location_type_imageView);
+        locationTypeTextView = view.findViewById(R.id.location_type_textView);
+        locationTitleTextView = view.findViewById(R.id.location_title_textView);
+        locationResidentsTextView = view.findViewById(R.id.location_population_count_textView);
+        locationDimensionsTextView = view.findViewById(R.id.location_dimension_textView);
     }
 }

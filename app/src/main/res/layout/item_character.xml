@@ -13,8 +13,8 @@
 
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/character_imageView"
-            android:layout_width="@dimen/item_characterImage_width"
-            android:layout_height="@dimen/item_characterImage_height"
+            android:layout_width="@dimen/item_character_image_width"
+            android:layout_height="@dimen/item_character_image_height"
             android:layout_margin="@dimen/medium_margin"
             android:src="@drawable/ic_launcher_background"
             app:layout_constraintEnd_toEndOf="parent"
@@ -22,7 +22,7 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/characterName_textView"
+            android:id="@+id/character_name_textView"
             android:layout_width="200dp"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/medium_margin"
@@ -36,32 +36,32 @@
 
 
         <LinearLayout
-            app:layout_constraintBottom_toBottomOf="parent"
-            android:layout_marginTop="@dimen/small_margin"
-            android:layout_marginBottom="@dimen/large_margin"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/small_margin"
+            android:layout_marginBottom="@dimen/large_margin"
             android:orientation="horizontal"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/characterName_textView">
+            app:layout_constraintTop_toBottomOf="@id/character_name_textView">
 
             <ImageView
-                android:id="@+id/character_itemStatus_imageView"
-                android:layout_gravity="center"
+                android:id="@+id/character_item_status_imageView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/ic_status_alive"/>
+                android:layout_gravity="center"
+                android:src="@drawable/ic_status_alive" />
 
             <TextView
-                android:layout_marginStart="@dimen/small_margin"
-                android:id="@+id/characterStatus_textView"
+                android:id="@+id/character_status_textView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/small_margin"
                 android:text="@string/character_status"
                 android:textAlignment="center"
                 android:textColor="@color/black"
-                android:textSize="@dimen/medium_textSize"/>
+                android:textSize="@dimen/medium_textSize" />
 
         </LinearLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
