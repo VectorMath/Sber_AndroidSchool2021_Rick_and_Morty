@@ -1,6 +1,7 @@
 package com.eugenebaturov.rickandmorty.data.repository.episode;
 
-import com.eugenebaturov.rickandmorty.data.api.EpisodeApi;
+import androidx.annotation.NonNull;
+
 import com.eugenebaturov.rickandmorty.models.domain.Episode;
 
 import java.util.List;
@@ -8,24 +9,26 @@ import java.util.List;
 import io.reactivex.rxjava3.core.Single;
 
 /**
- * Интерфейс, методы которого получают данные с сервера с помощью {@link EpisodeApi}.
+ * Репозиторий для получения эпизодов.
  */
 public interface EpisodeRepository {
 
     /**
-     * Получает данные о всех эпизодах с сервера.
+     * Получает данные о всех эпизодах.
      *
      * @return Список эпизодов в {@link Single} обёртке.
      */
-    Single<List<Episode>> getEpisodesFromServer();
+    @NonNull
+    Single<List<Episode>> getEpisodes();
 
     /**
-     * Получает данные об эпизодах с сервера, которые удоволетворяют строке запроса.
+     * Получает данные об эпизодах, которые удоволетворяют строке запроса.
      *
-     * @param searchName строка запроса.
+     * @param query строка запроса.
      * @return Список эпизодов в {@link Single} обёртке.
      */
-    Single<List<Episode>> getSearchedEpisodesFromServer(final String searchName);
+    @NonNull
+    Single<List<Episode>> getEpisodes(@NonNull final String query);
 
     /**
      * Получает данные об эпизоде с сервера.
@@ -33,5 +36,6 @@ public interface EpisodeRepository {
      * @param episodeId id эпизода.
      * @return Эпизод в {@link Single} обёртке.
      */
-    Single<Episode> getEpisodeFromServer(final int episodeId);
+    @NonNull
+    Single<Episode> getEpisodeById(final int episodeId);
 }

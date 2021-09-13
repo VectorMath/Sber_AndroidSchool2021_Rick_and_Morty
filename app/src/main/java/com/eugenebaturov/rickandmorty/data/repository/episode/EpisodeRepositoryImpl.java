@@ -4,6 +4,10 @@ import androidx.annotation.NonNull;
 
 import com.eugenebaturov.rickandmorty.data.api.EpisodeApi;
 import com.eugenebaturov.rickandmorty.data.utils.Converter;
+import com.eugenebaturov.rickandmorty.data.utils.episode.EpisodeConverter;
+import com.eugenebaturov.rickandmorty.data.utils.episode.EpisodesConverter;
+import com.eugenebaturov.rickandmorty.models.data.EpisodeResponse;
+import com.eugenebaturov.rickandmorty.models.data.list.ListEpisodeResponse;
 import com.eugenebaturov.rickandmorty.models.domain.Episode;
 
 import java.util.List;
@@ -11,7 +15,7 @@ import java.util.List;
 import io.reactivex.rxjava3.core.Single;
 
 /**
- * Класс-репозиторий, который является реализацией интерфейса {@link EpisodeRepository}.
+ * Реализация {@link EpisodeRepository}.
  */
 public final class EpisodeRepositoryImpl implements EpisodeRepository {
 
@@ -19,8 +23,7 @@ public final class EpisodeRepositoryImpl implements EpisodeRepository {
     private final EpisodeApi mEpisodeApi;
 
     /**
-     * Конструктор класса, в который мы передаём {@link EpisodeApi}, чтобы была
-     * возможность получить данные с сервера.
+     * Конструктор класса.
      *
      * @param episodeApi экземпляр {@link EpisodeApi}.
      */
@@ -29,18 +32,26 @@ public final class EpisodeRepositoryImpl implements EpisodeRepository {
     }
 
     @Override
-    public Single<List<Episode>> getEpisodesFromServer() {
-
-        return mEpisodeApi.getAllEpisodes().map(Converter::convertEpisodes);
+    public @NonNull
+    Single<List<Episode>> getEpisodes() {
+        final Converter<ListEpisodeResponse, List<Episode>> mConverter =
+                new EpisodesConverter();
+        return mEpisodeApi.getAllEpisodes().map(mConverter::convert);
     }
 
     @Override
-    public Single<List<Episode>> getSearchedEpisodesFromServer(String searchName) {
-        return mEpisodeApi.getSearchedEpisodes(searchName).map(Converter::convertEpisodes);
+    public @NonNull
+    Single<List<Episode>> getEpisodes(@NonNull String query) {
+        final Converter<ListEpisodeResponse, List<Episode>> mConverter =
+                new EpisodesConverter();
+        return mEpisodeApi.getSearchedEpisodes(query).map(mConverter::convert);
     }
 
     @Override
-    public Single<Episode> getEpisodeFromServer(final int episodeId) {
-        return mEpisodeApi.getEpisodeById(episodeId).map(Converter::convertEpisode);
+    public @NonNull
+    Single<Episode> getEpisodeById(final int episodeId) {
+        final Converter<EpisodeResponse, Episode> mConverter =
+                new EpisodeConverter();
+        return mEpisodeApi.getEpisodeById(episodeId).map(mConverter::convert);
     }
 }

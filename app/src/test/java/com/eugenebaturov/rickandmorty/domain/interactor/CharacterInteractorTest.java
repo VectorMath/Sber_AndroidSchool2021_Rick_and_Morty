@@ -58,10 +58,10 @@ public class CharacterInteractorTest {
         // Arrange
         Single<List<Character>> expectedCharacters =
                 Single.just(CharacterTestData.createListCharacter());
-        Mockito.when(mCharacterRepository.getCharactersFromServer()).thenReturn(expectedCharacters);
+        Mockito.when(mCharacterRepository.getCharacters()).thenReturn(expectedCharacters);
 
         // Act
-        Single<List<Character>> actual = mCharacterInteractor.getCharactersFromRepository();
+        Single<List<Character>> actual = mCharacterInteractor.getCharacters();
 
         // Assert
         Truth.assertThat(actual).isEqualTo(expectedCharacters);
@@ -76,12 +76,12 @@ public class CharacterInteractorTest {
         Single<List<Character>> expectedCharacters =
                 Single.just(CharacterTestData.createSearchedCharacter());
         Mockito
-                .when(mCharacterRepository.getSearchedCharacter(CHARACTER_NAME_QUERY))
+                .when(mCharacterRepository.getCharacters(CHARACTER_NAME_QUERY))
                 .thenReturn(expectedCharacters);
 
         // Act
         Single<List<Character>> actual =
-                mCharacterInteractor.getSearchedCharacterFromRepository(CHARACTER_NAME_QUERY);
+                mCharacterInteractor.getCharacters(CHARACTER_NAME_QUERY);
 
         // Assert
         Truth.assertThat(actual).isEqualTo(expectedCharacters);
@@ -93,11 +93,11 @@ public class CharacterInteractorTest {
     @Test
     public void testGetErrorFromRepository() {
         Mockito
-                .when(mCharacterRepository.getCharactersFromServer())
+                .when(mCharacterRepository.getCharacters())
                 .thenThrow(new RuntimeException(EXCEPTION_MESSAGE_REPOSITORY_ERROR));
 
         try {
-            mCharacterInteractor.getCharactersFromRepository();
+            mCharacterInteractor.getCharacters();
         } catch (RuntimeException exception) {
             assertEquals(EXCEPTION_MESSAGE_REPOSITORY_ERROR, exception.getMessage());
         }
@@ -112,12 +112,12 @@ public class CharacterInteractorTest {
         Single<Character> expectedCharacter =
                 Single.just(CharacterTestData.createCharacter());
         Mockito
-                .when(mCharacterRepository.getCharacterFromServer(CORRECT_CHARACTER_ID))
+                .when(mCharacterRepository.getCharacterById(CORRECT_CHARACTER_ID))
                 .thenReturn(expectedCharacter);
 
         // Act
         Single<Character> actualCharacter =
-                mCharacterInteractor.getCharacterFromRepository(CORRECT_CHARACTER_ID);
+                mCharacterInteractor.getCharacterById(CORRECT_CHARACTER_ID);
 
         // Assert
         Truth.assertThat(actualCharacter).isEqualTo(expectedCharacter);
@@ -130,11 +130,11 @@ public class CharacterInteractorTest {
     @Test
     public void testGetSearchedErrorFromRepository() {
         Mockito
-                .when(mCharacterRepository.getSearchedCharacter(INCORRECT_QUERY))
+                .when(mCharacterRepository.getCharacters(INCORRECT_QUERY))
                 .thenThrow(new RuntimeException(EXCEPTION_MESSAGE_BAD_QUERY));
 
         try {
-            mCharacterInteractor.getSearchedCharacterFromRepository(INCORRECT_QUERY);
+            mCharacterInteractor.getCharacters(INCORRECT_QUERY);
         } catch (RuntimeException exception) {
             assertEquals(EXCEPTION_MESSAGE_BAD_QUERY, exception.getMessage());
         }
@@ -146,11 +146,11 @@ public class CharacterInteractorTest {
     @Test
     public void testCharacterIsNotExist() {
         Mockito
-                .when(mCharacterRepository.getCharacterFromServer(INCORRECT_CHARACTER_ID))
+                .when(mCharacterRepository.getCharacterById(INCORRECT_CHARACTER_ID))
                 .thenThrow(new RuntimeException(EXCEPTION_MESSAGE_INCORRECT_ID));
 
         try {
-            mCharacterInteractor.getCharacterFromRepository(INCORRECT_CHARACTER_ID);
+            mCharacterInteractor.getCharacterById(INCORRECT_CHARACTER_ID);
         } catch (Exception ex) {
             assertEquals(EXCEPTION_MESSAGE_INCORRECT_ID, ex.getMessage());
         }

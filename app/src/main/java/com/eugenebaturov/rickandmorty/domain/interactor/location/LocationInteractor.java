@@ -1,6 +1,7 @@
 package com.eugenebaturov.rickandmorty.domain.interactor.location;
 
-import com.eugenebaturov.rickandmorty.data.repository.location.LocationRepository;
+import androidx.annotation.NonNull;
+
 import com.eugenebaturov.rickandmorty.models.domain.Location;
 
 import java.util.List;
@@ -8,7 +9,7 @@ import java.util.List;
 import io.reactivex.rxjava3.core.Single;
 
 /**
- * Получает информацию из {@link LocationRepository}, чтобы после передать во view-слой.
+ * Интерактор локаций.
  */
 public interface LocationInteractor {
 
@@ -17,7 +18,8 @@ public interface LocationInteractor {
      *
      * @return Список эпизодов [{@link List}<{@link Location}>] в {@link Single} обёртке.
      */
-    Single<List<Location>> getLocationsFromRepository();
+    @NonNull
+    Single<List<Location>> getLocations();
 
     /**
      * Получает список локаций по заданному запросу из репозитория.
@@ -25,7 +27,8 @@ public interface LocationInteractor {
      * @param query строка запроса
      * @return Список локаций [{@link List}<{@link Location}>] в {@link Single} обёртке.
      */
-    Single<List<Location>> getSearchedLocationsFromRepository(final String query);
+    @NonNull
+    Single<List<Location>> getLocations(@NonNull final String query);
 
     /**
      * Получает локацию с конкретным id.
@@ -33,5 +36,6 @@ public interface LocationInteractor {
      * @param locationId id локации.
      * @return Локация [{@link Location}] в {@link Single} обёртке.
      */
-    Single<Location> getLocationFromRepository(final int locationId);
+    @NonNull
+    Single<Location> getLocationById(final int locationId);
 }

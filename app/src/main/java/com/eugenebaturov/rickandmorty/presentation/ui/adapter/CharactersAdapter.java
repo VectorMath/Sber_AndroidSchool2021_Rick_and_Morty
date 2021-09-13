@@ -31,6 +31,7 @@ public final class CharactersAdapter extends RecyclerView.Adapter<CharacterViewH
 
         /**
          * Переход на активити конкретного персонажа.
+         *
          * @param id id персонажа.
          */
         void goToCharacterActivity(int id);
@@ -38,6 +39,7 @@ public final class CharactersAdapter extends RecyclerView.Adapter<CharacterViewH
 
     /**
      * Конструктор адаптера.
+     *
      * @param characterPage реализация интерфейса {@link CharacterPage}.
      */
     public CharactersAdapter(CharacterPage characterPage) {
@@ -46,6 +48,7 @@ public final class CharactersAdapter extends RecyclerView.Adapter<CharacterViewH
 
     /**
      * Обновляет список персонажей в адаптере.
+     *
      * @param data список персонажей.
      */
     public void updateData(List<Character> data) {
@@ -56,6 +59,7 @@ public final class CharactersAdapter extends RecyclerView.Adapter<CharacterViewH
     @NonNull
     @Override
     public CharacterViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        // Создание во Viewhodler
         View itemView = LayoutInflater
                 .from(parent.getContext())
                 .inflate(R.layout.item_character, parent, false);
@@ -80,19 +84,21 @@ public final class CharactersAdapter extends RecyclerView.Adapter<CharacterViewH
     }
 
     private void setImageStatus(String status, CharacterViewHolder holder) {
+        final String STATUS_ALIVE = "Alive";
+        final String STATUS_DEAD = "Dead";
 
         switch (status) {
-            case "Alive": {
+            case STATUS_ALIVE: {
                 holder.characterStatusImageView.setImageResource(R.drawable.ic_status_alive);
                 break;
             }
 
-            case "Dead": {
+            case STATUS_DEAD: {
                 holder.characterStatusImageView.setImageResource(R.drawable.ic_status_dead);
                 break;
             }
 
-            case "unknown": {
+            default: {
                 holder.characterStatusImageView.setImageResource(R.drawable.ic_status_unknown);
                 break;
             }

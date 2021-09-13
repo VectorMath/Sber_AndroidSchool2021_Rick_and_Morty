@@ -1,6 +1,7 @@
 package com.eugenebaturov.rickandmorty.models.data;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.VisibleForTesting;
 
 import com.google.gson.annotations.SerializedName;
 
@@ -21,12 +22,16 @@ public final class CurrentLocation {
 
     /**
      * Конструктор класса в который передается вся информация об локации, пришедшая из сервера.
-     * @param mName название локации.
-     * @param mUrl URL локации.
+     * <p>
+     * Используется в unit-тестах!!!
+     *
+     * @param name название локации.
+     * @param url  URL локации.
      */
-    public CurrentLocation(@NonNull final String mName, @NonNull final String mUrl) {
-        this.mName = mName;
-        this.mUrl = mUrl;
+    @VisibleForTesting
+    public CurrentLocation(@NonNull final String name, @NonNull final String url) {
+        mName = name;
+        mUrl = url;
     }
 
     @Override
@@ -52,11 +57,21 @@ public final class CurrentLocation {
                 '}';
     }
 
+    /**
+     * Получить название локации
+     *
+     * @return название локации.
+     */
     @NonNull
     public String getName() {
         return mName;
     }
 
+    /**
+     * Получить ссылку на локацию
+     *
+     * @return url локации.
+     */
     @NonNull
     public String getUrl() {
         return mUrl;

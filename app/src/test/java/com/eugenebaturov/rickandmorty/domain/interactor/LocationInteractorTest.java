@@ -53,10 +53,10 @@ public class LocationInteractorTest {
         // Arrange
         Single<List<Location>> expectedLocations =
                 Single.just(LocationTestData.createLocations());
-        Mockito.when(mLocationRepository.getLocationsFromServer()).thenReturn(expectedLocations);
+        Mockito.when(mLocationRepository.getLocations()).thenReturn(expectedLocations);
 
         // Act
-        Single<List<Location>> actual = mLocationInteractor.getLocationsFromRepository();
+        Single<List<Location>> actual = mLocationInteractor.getLocations();
 
         // Assert
         Truth.assertThat(actual).isEqualTo(expectedLocations);
@@ -72,12 +72,12 @@ public class LocationInteractorTest {
         Single<List<Location>> expected =
                 Single.just(LocationTestData.createSearchedLocations());
         Mockito
-                .when(mLocationRepository.getSearchedLocationsFromServer(LOCATION_NAME_QUERY))
+                .when(mLocationRepository.getLocations(LOCATION_NAME_QUERY))
                 .thenReturn(expected);
 
         // Act
         Single<List<Location>> actual =
-                mLocationInteractor.getSearchedLocationsFromRepository(LOCATION_NAME_QUERY);
+                mLocationInteractor.getLocations(LOCATION_NAME_QUERY);
 
         // Assert
         Truth.assertThat(actual).isEqualTo(expected);
@@ -89,11 +89,11 @@ public class LocationInteractorTest {
     @Test
     public void testErrorFromRepository() {
         String EXPECTED_EXCEPTION_MESSAGE = "Repository Error!";
-        when(mLocationRepository.getLocationsFromServer())
+        when(mLocationRepository.getLocations())
                 .thenThrow(new RuntimeException(EXPECTED_EXCEPTION_MESSAGE));
 
         try {
-            mLocationInteractor.getLocationsFromRepository();
+            mLocationInteractor.getLocations();
         } catch (RuntimeException e) {
             Assert.assertEquals(EXPECTED_EXCEPTION_MESSAGE, e.getMessage());
         }
@@ -102,11 +102,11 @@ public class LocationInteractorTest {
     @Test
     public void testGetSearchedErrorFromRepository() {
         String EXPECTED_EXCEPTION_MESSAGE = "Repository Error! Bad query...";
-        when(mLocationRepository.getSearchedLocationsFromServer(INCORRECT_QUERY))
+        when(mLocationRepository.getLocations(INCORRECT_QUERY))
                 .thenThrow(new RuntimeException(EXPECTED_EXCEPTION_MESSAGE));
 
         try {
-            mLocationInteractor.getSearchedLocationsFromRepository(INCORRECT_QUERY);
+            mLocationInteractor.getLocations(INCORRECT_QUERY);
         } catch (RuntimeException exception) {
             Assert.assertEquals(EXPECTED_EXCEPTION_MESSAGE, exception.getMessage());
         }
@@ -120,12 +120,12 @@ public class LocationInteractorTest {
         // Arrange
         Single<Location> expectedLocation =
                 Single.just(LocationTestData.createLocation());
-        Mockito.when(mLocationRepository.getLocationFromServer(CORRECT_LOCATION_ID))
+        Mockito.when(mLocationRepository.getLocationById(CORRECT_LOCATION_ID))
                 .thenReturn(expectedLocation);
 
         // Act
         Single<Location> actual =
-                mLocationInteractor.getLocationFromRepository(CORRECT_LOCATION_ID);
+                mLocationInteractor.getLocationById(CORRECT_LOCATION_ID);
 
         // Assert
         Truth.assertThat(actual).isEqualTo(expectedLocation);
@@ -138,11 +138,11 @@ public class LocationInteractorTest {
     public void testLocationIsNotExist() {
         // Arrange
         String EXPECTED_EXCEPTION_MESSAGE = "Repository Error! Location is not exist...";
-        when(mLocationRepository.getLocationFromServer(INCORRECT_LOCATION_ID))
+        when(mLocationRepository.getLocationById(INCORRECT_LOCATION_ID))
                 .thenThrow(new RuntimeException(EXPECTED_EXCEPTION_MESSAGE));
 
         try {
-            mLocationInteractor.getLocationFromRepository(INCORRECT_LOCATION_ID);
+            mLocationInteractor.getLocationById(INCORRECT_LOCATION_ID);
         } catch (RuntimeException e) {
             Assert.assertEquals(EXPECTED_EXCEPTION_MESSAGE, e.getMessage());
         }

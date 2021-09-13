@@ -11,12 +11,12 @@ import retrofit2.http.Query;
 import static com.eugenebaturov.rickandmorty.data.api.RickAndMortyURL.LOCATIONS_URL;
 
 /**
- * API которое позволяет получить информацию о {@link LocationResponse} с сервера.
+ * API которое позволяет получить информацию об локациях с сервера.
  */
 public interface LocationApi {
 
     /**
-     * Ручка, которая получает информацию о всех локациях с сервера.
+     * Получить информацию о всех локациях с сервера.
      *
      * @return Список локаций в {@link Single} обёртке.
      */
@@ -24,20 +24,20 @@ public interface LocationApi {
     Single<ListLocationResponse> getAllLocations();
 
     /**
-     * Ручка, которая получает информацию с сервера о локациях по поисковому запросу.
+     * Получить информацию с сервера о локациях по строке запроса.
      *
      * @param queryName строка запроса.
      * @return Список данных об локациях в {@link Single} обёртке.
      */
     @GET(LOCATIONS_URL)
-    Single<ListLocationResponse> getSearchedLocations(@Query("name") final String queryName);
+    Single<ListLocationResponse> getSearchedLocations(@Query("name") String queryName);
 
     /**
-     * Ручка, которая получает информацию о локации по id с сервера.
+     * Получить информацию о локации по id с сервера.
      *
      * @param locationId id локации.
      * @return Данные о локации в {@link Single} обёртке.
      */
     @GET(LOCATIONS_URL + "{id}")
-    Single<LocationResponse> getLocationById(@Path("id") final int locationId);
+    Single<LocationResponse> getLocationById(@Path("id") int locationId);
 }

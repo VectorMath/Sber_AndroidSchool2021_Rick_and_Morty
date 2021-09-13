@@ -16,13 +16,13 @@ import dagger.Provides;
 import retrofit2.Retrofit;
 
 /**
- * Внедряет зависимости, которые необходимы {@link LocationComponent}.
+ * Предоставляет зависимости, которые необходимы {@link LocationComponent}.
  */
 @Module
 public final class LocationModule {
 
     /**
-     * Внедряет фабрику для {@link LocationListViewModel}.
+     * Предоставляет фабрику для {@link LocationListViewModel}.
      *
      * @param schedulerProvider  шедулер.
      * @param locationInteractor интерактор локаций.
@@ -36,7 +36,7 @@ public final class LocationModule {
     }
 
     /**
-     * Внедряет фабрику для {@link LocationViewModel}.
+     * Предоставляет фабрику для {@link LocationViewModel}.
      *
      * @param schedulerProvider  шедулер.
      * @param locationInteractor интерактор локаций.
@@ -50,7 +50,7 @@ public final class LocationModule {
     }
 
     /**
-     * Внедряет вью-модельку {@link LocationListViewModel}.
+     * Предоставляет вью-модельку {@link LocationListViewModel}.
      *
      * @param schedulerProvider  шедулер.
      * @param locationInteractor интерактор локаций.
@@ -64,7 +64,7 @@ public final class LocationModule {
     }
 
     /**
-     * Внедряет вью-модельку {@link LocationViewModel}.
+     * Предоставляет вью-модельку {@link LocationViewModel}.
      *
      * @param schedulerProvider  шедулер.
      * @param locationInteractor интерактор локаций.
@@ -78,7 +78,7 @@ public final class LocationModule {
     }
 
     /**
-     * Внедряет интерактор локаций {@link LocationInteractor}.
+     * Предоставляет интерактор локаций {@link LocationInteractor}.
      *
      * @param locationRepository репозиторий локаций.
      * @return интерактор локаций.
@@ -89,7 +89,7 @@ public final class LocationModule {
     }
 
     /**
-     * Внедряет репозиторий локаций {@link LocationRepository}.
+     * Предоставляет репозиторий локаций {@link LocationRepository}.
      *
      * @param locationApi api локаций.
      * @return репозиторий локаций.
@@ -100,7 +100,7 @@ public final class LocationModule {
     }
 
     /**
-     * Внедряет api локаций {@link LocationApi}.
+     * Предоставляет api локаций {@link LocationApi}.
      *
      * @param retrofit ретрофит.
      * @return api с реализованными методами.

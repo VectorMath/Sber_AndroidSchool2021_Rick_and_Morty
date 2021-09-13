@@ -75,7 +75,7 @@ public class LocationListViewModelTest {
     public void testLoadLocations() {
         // Arrange
         Mockito
-                .when(mLocationInteractor.getLocationsFromRepository())
+                .when(mLocationInteractor.getLocations())
                 .thenReturn(Single.just(LocationTestData.createLocations()));
 
         // Act
@@ -97,7 +97,7 @@ public class LocationListViewModelTest {
     public void testLoadLocationsWithError() {
         // Arrange
         Mockito
-                .when(mLocationInteractor.getLocationsFromRepository())
+                .when(mLocationInteractor.getLocations())
                 .thenReturn(Single.error(new IllegalAccessException()));
 
         // Act
@@ -114,7 +114,7 @@ public class LocationListViewModelTest {
     public void testLoadLocationsWithQuery() {
         // Arrange
         Mockito
-                .when(mLocationInteractor.getSearchedLocationsFromRepository(LOCATION_NAME_QUERY))
+                .when(mLocationInteractor.getLocations(LOCATION_NAME_QUERY))
                 .thenReturn(Single.just(LocationTestData.createSearchedLocations()));
 
         // Act
@@ -136,7 +136,7 @@ public class LocationListViewModelTest {
     public void testLoadSearchedLocationsWithError() {
         // Arrange
         Mockito
-                .when(mLocationInteractor.getSearchedLocationsFromRepository(INCORRECT_QUERY))
+                .when(mLocationInteractor.getLocations(INCORRECT_QUERY))
                 .thenReturn(Single.error(new IllegalAccessException()));
 
         // Act

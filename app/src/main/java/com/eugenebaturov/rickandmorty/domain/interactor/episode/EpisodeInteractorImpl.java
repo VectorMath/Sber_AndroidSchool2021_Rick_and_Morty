@@ -10,34 +10,34 @@ import java.util.List;
 import io.reactivex.rxjava3.core.Single;
 
 /**
- * Реализация интерфейса {@link EpisodeInteractor}
+ * Реализация {@link EpisodeInteractor}
  */
 public final class EpisodeInteractorImpl implements EpisodeInteractor {
 
     @NonNull
-    private final EpisodeRepository mRepository;
+    private final EpisodeRepository mEpisodeRepository;
 
     /**
      * Конструктор класса
      *
-     * @param repository экземпляр репозитория {@link EpisodeRepository}
+     * @param episodeRepository экземпляр репозитория {@link EpisodeRepository}
      */
-    public EpisodeInteractorImpl(@NonNull final EpisodeRepository repository) {
-        mRepository = repository;
+    public EpisodeInteractorImpl(@NonNull final EpisodeRepository episodeRepository) {
+        mEpisodeRepository = episodeRepository;
     }
 
     @Override
-    public Single<List<Episode>> getEpisodesFromRepository() {
-        return mRepository.getEpisodesFromServer();
+    public @NonNull Single<List<Episode>> getEpisodes() {
+        return mEpisodeRepository.getEpisodes();
     }
 
     @Override
-    public Single<List<Episode>> getSearchedEpisodesFromRepository(String query) {
-        return mRepository.getSearchedEpisodesFromServer(query);
+    public @NonNull Single<List<Episode>> getEpisodes(@NonNull String query) {
+        return mEpisodeRepository.getEpisodes(query);
     }
 
     @Override
-    public Single<Episode> getEpisodeFromRepository(final int episodeId) {
-        return mRepository.getEpisodeFromServer(episodeId);
+    public @NonNull Single<Episode> getEpisodeById(final int episodeId) {
+        return mEpisodeRepository.getEpisodeById(episodeId);
     }
 }

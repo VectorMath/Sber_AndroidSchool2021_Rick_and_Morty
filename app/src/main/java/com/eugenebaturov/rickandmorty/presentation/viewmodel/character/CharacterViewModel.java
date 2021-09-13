@@ -6,13 +6,13 @@ import androidx.lifecycle.MutableLiveData;
 
 import com.eugenebaturov.rickandmorty.domain.interactor.character.CharacterInteractor;
 import com.eugenebaturov.rickandmorty.models.domain.Character;
-import com.eugenebaturov.rickandmorty.presentation.viewmodel.AppViewModel;
+import com.eugenebaturov.rickandmorty.presentation.viewmodel.RxViewModel;
 import com.eugenebaturov.rickandmorty.utils.SchedulerProvider;
 
 /**
  * ViewModel для персонажа.
  */
-public final class CharacterViewModel extends AppViewModel {
+public final class CharacterViewModel extends RxViewModel {
 
     @NonNull
     private final MutableLiveData<Character> mCharacter = new MutableLiveData<>();
@@ -77,7 +77,7 @@ public final class CharacterViewModel extends AppViewModel {
      */
     public final void loadCharacterById(final int characterId) {
         disposable.add(mCharacterInteractor
-                .getCharacterFromRepository(characterId)
+                .getCharacterById(characterId)
                 .subscribeOn(mSchedulerProvider.io())
                 .observeOn(mSchedulerProvider.ui())
                 .doFinally(() -> mProgress.setValue(false))

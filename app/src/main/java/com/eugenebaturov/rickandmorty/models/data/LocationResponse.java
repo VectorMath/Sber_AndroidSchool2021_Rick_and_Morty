@@ -1,6 +1,7 @@
 package com.eugenebaturov.rickandmorty.models.data;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.VisibleForTesting;
 
 import com.google.gson.annotations.SerializedName;
 
@@ -29,28 +30,31 @@ public final class LocationResponse {
 
     @SerializedName("residents")
     @NonNull
-    private final List<String> mResidents;
+    private final List<String> mResidentsUrl;
 
     /**
      * Конструктор класса в который передаётся вся информация о локации.
+     * <p>
+     * Используется в unit-тестах!!!
      *
-     * @param mId        id локации.
-     * @param mName      название локации.
-     * @param mType      тип локации.
-     * @param mDimension измерение локации.
-     * @param mResidents список жителей в этой локации.
+     * @param id           id локации.
+     * @param name         название локации.
+     * @param type         тип локации.
+     * @param dimension    измерение локации.
+     * @param residentsUrl url-список жителей в этой локации.
      */
+    @VisibleForTesting
     public LocationResponse(
-            final int mId,
-            @NonNull final String mName,
-            @NonNull final String mType,
-            @NonNull final String mDimension,
-            @NonNull final List<String> mResidents) {
-        this.mId = mId;
-        this.mName = mName;
-        this.mType = mType;
-        this.mDimension = mDimension;
-        this.mResidents = mResidents;
+            final int id,
+            @NonNull final String name,
+            @NonNull final String type,
+            @NonNull final String dimension,
+            @NonNull final List<String> residentsUrl) {
+        mId = id;
+        mName = name;
+        mType = type;
+        mDimension = dimension;
+        mResidentsUrl = residentsUrl;
     }
 
     @Override
@@ -62,7 +66,7 @@ public final class LocationResponse {
                 Objects.equals(mName, locationResponse.mName) &&
                 Objects.equals(mType, locationResponse.mType) &&
                 Objects.equals(mDimension, locationResponse.mDimension) &&
-                Objects.equals(mResidents, locationResponse.mResidents);
+                Objects.equals(mResidentsUrl, locationResponse.mResidentsUrl);
     }
 
     @Override
@@ -72,7 +76,7 @@ public final class LocationResponse {
                 mName,
                 mType,
                 mDimension,
-                mResidents
+                mResidentsUrl
         );
     }
 
@@ -84,31 +88,56 @@ public final class LocationResponse {
                 ", mName='" + mName + '\'' +
                 ", mType='" + mType + '\'' +
                 ", mDimension='" + mDimension + '\'' +
-                ", mResidents=" + mResidents +
+                ", mResidentsUrl=" + mResidentsUrl +
                 '}';
     }
 
+    /**
+     * Получить id локации.
+     *
+     * @return id локации.
+     */
     public int getId() {
         return mId;
     }
 
+    /**
+     * Получить название локации.
+     *
+     * @return название локации.
+     */
     @NonNull
     public String getName() {
         return mName;
     }
 
+    /**
+     * Получить тип локации.
+     *
+     * @return тип локации.
+     */
     @NonNull
     public String getType() {
         return mType;
     }
 
+    /**
+     * Получить измерение локации.
+     *
+     * @return измерение локации.
+     */
     @NonNull
     public String getDimension() {
         return mDimension;
     }
 
+    /**
+     * Получить список url-ссылок персонажей, которые живут в этой локации.
+     *
+     * @return url-список персонажей.
+     */
     @NonNull
     public List<String> getResidents() {
-        return mResidents;
+        return mResidentsUrl;
     }
 }

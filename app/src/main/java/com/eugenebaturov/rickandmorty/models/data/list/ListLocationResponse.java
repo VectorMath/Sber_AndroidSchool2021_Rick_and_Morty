@@ -1,6 +1,7 @@
 package com.eugenebaturov.rickandmorty.models.data.list;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.VisibleForTesting;
 
 import com.eugenebaturov.rickandmorty.models.data.LocationResponse;
 import com.google.gson.annotations.SerializedName;
@@ -18,12 +19,15 @@ public final class ListLocationResponse {
     private final List<LocationResponse> mLocations;
 
     /**
-     * Конструктор класса в который мы передаём информацию о локация, полученную с сервера.
+     * Конструктор класса.
+     * <p>
+     * Используется в unit-тестах!!!
      *
-     * @param mLocations список локаций.
+     * @param locations список локаций.
      */
-    public ListLocationResponse(@NonNull final List<LocationResponse> mLocations) {
-        this.mLocations = mLocations;
+    @VisibleForTesting
+    public ListLocationResponse(@NonNull final List<LocationResponse> locations) {
+        mLocations = locations;
     }
 
     @Override
@@ -47,6 +51,11 @@ public final class ListLocationResponse {
                 '}';
     }
 
+    /**
+     * Получить список локаций.
+     *
+     * @return список локаций в виде ответа из сервера.
+     */
     @NonNull
     public List<LocationResponse> getLocations() {
         return mLocations;

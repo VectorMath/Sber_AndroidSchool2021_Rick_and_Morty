@@ -70,7 +70,7 @@ public class EpisodeListViewModelTest {
     public void testLoadEpisodes() {
         // Arrange
         Mockito
-                .when(mEpisodeInteractor.getEpisodesFromRepository())
+                .when(mEpisodeInteractor.getEpisodes())
                 .thenReturn(Single.just(EpisodeTestData.createEpisodes()));
 
         // Act
@@ -92,7 +92,7 @@ public class EpisodeListViewModelTest {
     public void testLoadEpisodesWithQuery() {
         // Arrange
         Mockito
-                .when(mEpisodeInteractor.getSearchedEpisodesFromRepository(EPISODE_NAME_QUERY))
+                .when(mEpisodeInteractor.getEpisodes(EPISODE_NAME_QUERY))
                 .thenReturn(Single.just(EpisodeTestData.createSearchedEpisodes()));
 
         // Act
@@ -114,7 +114,7 @@ public class EpisodeListViewModelTest {
     public void testLoadEpisodesWithError() {
         // Arrange
         Mockito
-                .when(mEpisodeInteractor.getEpisodesFromRepository())
+                .when(mEpisodeInteractor.getEpisodes())
                 .thenReturn(Single.error(new IllegalAccessException()));
 
         // Act
@@ -132,7 +132,7 @@ public class EpisodeListViewModelTest {
     public void testLoadSearchedEpisodesWithError() {
         // Arrange
         Mockito
-                .when(mEpisodeInteractor.getSearchedEpisodesFromRepository(INCORRECT_QUERY))
+                .when(mEpisodeInteractor.getEpisodes(INCORRECT_QUERY))
                 .thenReturn(Single.error(new IllegalAccessException()));
 
         // Act

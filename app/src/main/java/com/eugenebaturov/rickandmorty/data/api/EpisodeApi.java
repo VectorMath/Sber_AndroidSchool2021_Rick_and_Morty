@@ -11,12 +11,12 @@ import retrofit2.http.Query;
 import static com.eugenebaturov.rickandmorty.data.api.RickAndMortyURL.EPISODES_URL;
 
 /**
- * API которое позволяет получить информацию о {@link EpisodeResponse} с сервера.
+ * API которое позволяет получить информацию об эпизодах с сервера.
  */
 public interface EpisodeApi {
 
     /**
-     * Ручка, которая получает информацию о всех эпизодах с сервера.
+     * Получить информацию о всех эпизодах с сервера.
      *
      * @return Список данных об эпизодах в {@link Single} обёртке.
      */
@@ -24,20 +24,20 @@ public interface EpisodeApi {
     Single<ListEpisodeResponse> getAllEpisodes();
 
     /**
-     * Ручка, которая получает информацию о эпизодах по поисковому запросу.
+     * Получить информацию о всех эпизодах с сервера, которые удоволетворяют строке запроса.
      *
      * @param queryName строка запроса.
      * @return Список данных об эпизодах в {@link Single} обёртке.
      */
     @GET(EPISODES_URL)
-    Single<ListEpisodeResponse> getSearchedEpisodes(@Query("name") final String queryName);
+    Single<ListEpisodeResponse> getSearchedEpisodes(@Query("name") String queryName);
 
     /**
-     * Ручка, которая получает информацию о эпизоде по id с сервера.
+     * Получить информацию об эпизоде с конкретным id.
      *
      * @param episodeId id эпизода.
      * @return Данные об эпизоде в {@link Single} обёртке.
      */
     @GET(EPISODES_URL + "{id}")
-    Single<EpisodeResponse> getEpisodeById(@Path("id") final int episodeId);
+    Single<EpisodeResponse> getEpisodeById(@Path("id") int episodeId);
 }

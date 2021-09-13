@@ -63,11 +63,11 @@ public class CharacterRepositoryTest {
         // Arrange
         Single<ListCharacterResponse> serverResponse =
                 Single.just(CharacterTestData.createListResponse());
-        Mockito.when(mApi.getAllCharacters()).thenReturn(serverResponse);
+        Mockito.when(mApi.getCharacters()).thenReturn(serverResponse);
 
         // Act
         Single<List<Character>> actual;
-        actual = mRepository.getCharactersFromServer();
+        actual = mRepository.getCharacters();
         List<Character> expected = CharacterTestData.createListCharacter();
 
         // Assert
@@ -85,12 +85,12 @@ public class CharacterRepositoryTest {
         Single<ListCharacterResponse> serverResponse =
                 Single.just(CharacterTestData.createSearchedResponse());
         Mockito
-                .when(mApi.getSearchedCharacters(CHARACTER_NAME_QUERY))
+                .when(mApi.getCharacters(CHARACTER_NAME_QUERY))
                 .thenReturn(serverResponse);
 
         // Act
         List<Character> expected = CharacterTestData.createSearchedCharacter();
-        Single<List<Character>> actual = mRepository.getSearchedCharacter(CHARACTER_NAME_QUERY);
+        Single<List<Character>> actual = mRepository.getCharacters(CHARACTER_NAME_QUERY);
 
         // Assert
         actual.test().assertValue(expected);
@@ -102,11 +102,11 @@ public class CharacterRepositoryTest {
     @Test
     public void testGetErrorFromServer() {
         Mockito
-                .when(mApi.getAllCharacters())
+                .when(mApi.getCharacters())
                 .thenThrow(new RuntimeException(EXCEPTION_MESSAGE_SERVER_ERROR));
 
         try {
-            mRepository.getCharactersFromServer();
+            mRepository.getCharacters();
         } catch (RuntimeException exception) {
             assertEquals(EXCEPTION_MESSAGE_SERVER_ERROR, exception.getMessage());
         }
@@ -119,11 +119,11 @@ public class CharacterRepositoryTest {
     @Test
     public void testGetSearchErrorFromServer() {
         Mockito
-                .when(mApi.getSearchedCharacters(INCORRECT_QUERY))
+                .when(mApi.getCharacters(INCORRECT_QUERY))
                 .thenThrow(new RuntimeException(EXCEPTION_MESSAGE_BAD_QUERY));
 
         try {
-            mRepository.getSearchedCharacter(INCORRECT_QUERY);
+            mRepository.getCharacters(INCORRECT_QUERY);
         } catch (RuntimeException exception) {
             assertEquals(EXCEPTION_MESSAGE_BAD_QUERY, exception.getMessage());
         }
@@ -141,7 +141,7 @@ public class CharacterRepositoryTest {
         Mockito.when(mApi.getCharacterById(CORRECT_CHARACTER_ID)).thenReturn(serverResponse);
 
         // Act
-        Single<Character> actual = mRepository.getCharacterFromServer(CORRECT_CHARACTER_ID);
+        Single<Character> actual = mRepository.getCharacterById(CORRECT_CHARACTER_ID);
         Character expected = createCharacter();
 
         // Assert
@@ -158,7 +158,7 @@ public class CharacterRepositoryTest {
                 .thenThrow(new RuntimeException(EXCEPTION_MESSAGE_INCORRECT_ID));
 
         try {
-            mRepository.getCharacterFromServer(INCORRECT_CHARACTER_ID);
+            mRepository.getCharacterById(INCORRECT_CHARACTER_ID);
         } catch (Exception ex) {
             assertEquals(EXCEPTION_MESSAGE_INCORRECT_ID, ex.getMessage());
         }

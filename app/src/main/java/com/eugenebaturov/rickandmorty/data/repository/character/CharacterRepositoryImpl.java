@@ -4,6 +4,10 @@ import androidx.annotation.NonNull;
 
 import com.eugenebaturov.rickandmorty.data.api.CharacterApi;
 import com.eugenebaturov.rickandmorty.data.utils.Converter;
+import com.eugenebaturov.rickandmorty.data.utils.character.CharacterConverter;
+import com.eugenebaturov.rickandmorty.data.utils.character.CharactersConverter;
+import com.eugenebaturov.rickandmorty.models.data.CharacterResponse;
+import com.eugenebaturov.rickandmorty.models.data.list.ListCharacterResponse;
 import com.eugenebaturov.rickandmorty.models.domain.Character;
 
 import java.util.List;
@@ -11,7 +15,7 @@ import java.util.List;
 import io.reactivex.rxjava3.core.Single;
 
 /**
- * Класс-репозиторий, который является реализацией {@link CharacterRepository}.
+ * Реализация {@link CharacterRepository}.
  */
 public final class CharacterRepositoryImpl implements CharacterRepository {
 
@@ -19,8 +23,7 @@ public final class CharacterRepositoryImpl implements CharacterRepository {
     private final CharacterApi mCharacterApi;
 
     /**
-     * Конструктор класса, в который мы передаём {@link CharacterApi}, чтобы была
-     * возможность получить данные с сервера.
+     * Конструктор класса.
      *
      * @param characterApi экземпляр {@link CharacterApi}.
      */
@@ -29,17 +32,26 @@ public final class CharacterRepositoryImpl implements CharacterRepository {
     }
 
     @Override
-    public Single<List<Character>> getCharactersFromServer() {
-        return mCharacterApi.getAllCharacters().map(Converter::convertCharacters);
+    public @NonNull
+    Single<List<Character>> getCharacters() {
+        final Converter<ListCharacterResponse, List<Character>> mConverter
+                = new CharactersConverter();
+        return mCharacterApi.getCharacters().map(mConverter::convert);
     }
 
     @Override
-    public Single<List<Character>> getSearchedCharacter(String searchName) {
-        return mCharacterApi.getSearchedCharacters(searchName).map(Converter::convertCharacters);
+    public @NonNull
+    Single<List<Character>> getCharacters(@NonNull final String query) {
+        final Converter<ListCharacterResponse, List<Character>> mConverter
+                = new CharactersConverter();
+        return mCharacterApi.getCharacters(query).map(mConverter::convert);
     }
 
     @Override
-    public Single<Character> getCharacterFromServer(final int characterId) {
-        return mCharacterApi.getCharacterById(characterId).map(Converter::convertCharacter);
+    public @NonNull
+    Single<Character> getCharacterById(final int characterId) {
+        final Converter<CharacterResponse, Character> mConverter
+                = new CharacterConverter();
+        return mCharacterApi.getCharacterById(characterId).map(mConverter::convert);
     }
 }

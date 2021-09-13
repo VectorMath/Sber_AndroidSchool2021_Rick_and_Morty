@@ -1,6 +1,7 @@
 package com.eugenebaturov.rickandmorty.models.data.list;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.VisibleForTesting;
 
 import com.eugenebaturov.rickandmorty.models.data.EpisodeResponse;
 import com.google.gson.annotations.SerializedName;
@@ -19,11 +20,14 @@ public final class ListEpisodeResponse {
 
     /**
      * Конструктор класса.
+     * <p>
+     * Используется в unit-тестах!!!
      *
-     * @param mEpisodes список эпизодов {@link EpisodeResponse}
+     * @param episodes список эпизодов {@link EpisodeResponse}
      */
-    public ListEpisodeResponse(@NonNull final List<EpisodeResponse> mEpisodes) {
-        this.mEpisodes = mEpisodes;
+    @VisibleForTesting
+    public ListEpisodeResponse(@NonNull final List<EpisodeResponse> episodes) {
+        mEpisodes = episodes;
     }
 
     @Override
@@ -47,6 +51,11 @@ public final class ListEpisodeResponse {
                 '}';
     }
 
+    /**
+     * Получить список эпизодов.
+     *
+     * @return список эпизодов в виде ответа из сервера.
+     */
     @NonNull
     public List<EpisodeResponse> getEpisodes() {
         return mEpisodes;

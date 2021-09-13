@@ -51,10 +51,10 @@ public class EpisodeInteractorTest {
         // Arrange
         Single<List<Episode>> episodesFromRepository =
                 Single.just(EpisodeTestData.createEpisodes());
-        Mockito.when(mEpisodeRepository.getEpisodesFromServer()).thenReturn(episodesFromRepository);
+        Mockito.when(mEpisodeRepository.getEpisodes()).thenReturn(episodesFromRepository);
 
         // Act
-        Single<List<Episode>> actual = mEpisodeInteractor.getEpisodesFromRepository();
+        Single<List<Episode>> actual = mEpisodeInteractor.getEpisodes();
 
         // Assert
         Truth.assertThat(actual).isEqualTo(episodesFromRepository);
@@ -68,11 +68,11 @@ public class EpisodeInteractorTest {
         // Arrange
         String EXPECTED_EXCEPTION_MESSAGE = "Repository Error!";
         Mockito
-                .when(mEpisodeRepository.getEpisodesFromServer())
+                .when(mEpisodeRepository.getEpisodes())
                 .thenThrow(new RuntimeException(EXPECTED_EXCEPTION_MESSAGE));
 
         try {
-            mEpisodeInteractor.getEpisodesFromRepository();
+            mEpisodeInteractor.getEpisodes();
         } catch (RuntimeException e) {
             Assert.assertEquals(EXPECTED_EXCEPTION_MESSAGE, e.getMessage());
         }
@@ -88,12 +88,12 @@ public class EpisodeInteractorTest {
         Single<List<Episode>> episodesFromRepository =
                 Single.just(EpisodeTestData.createSearchedEpisodes());
         Mockito
-                .when(mEpisodeRepository.getSearchedEpisodesFromServer(EPISODE_NAME_QUERY))
+                .when(mEpisodeRepository.getEpisodes(EPISODE_NAME_QUERY))
                 .thenReturn(episodesFromRepository);
 
         // Act
         Single<List<Episode>> actual =
-                mEpisodeInteractor.getSearchedEpisodesFromRepository(EPISODE_NAME_QUERY);
+                mEpisodeInteractor.getEpisodes(EPISODE_NAME_QUERY);
 
         // Assert
         Truth.assertThat(actual).isEqualTo(episodesFromRepository);
@@ -106,11 +106,11 @@ public class EpisodeInteractorTest {
     public void testGetSearchedErrorFromServer() {
         String EXPECTED_EXCEPTION_MESSAGE = "Repository Error! Nothing found...";
         Mockito
-                .when(mEpisodeRepository.getSearchedEpisodesFromServer(INCORRECT_QUERY))
+                .when(mEpisodeRepository.getEpisodes(INCORRECT_QUERY))
                 .thenThrow(new RuntimeException(EXPECTED_EXCEPTION_MESSAGE));
 
         try {
-            mEpisodeInteractor.getSearchedEpisodesFromRepository(INCORRECT_QUERY);
+            mEpisodeInteractor.getEpisodes(INCORRECT_QUERY);
         } catch (RuntimeException exception) {
             Assert.assertEquals(EXPECTED_EXCEPTION_MESSAGE, exception.getMessage());
         }
@@ -124,11 +124,11 @@ public class EpisodeInteractorTest {
     public void testGetEpisodeFromRepositoryWithCorrectId() {
         // Arrange
         Single<Episode> expectedEpisode = Single.just(EpisodeTestData.createEpisode());
-        Mockito.when(mEpisodeRepository.getEpisodeFromServer(CORRECT_EPISODE_ID))
+        Mockito.when(mEpisodeRepository.getEpisodeById(CORRECT_EPISODE_ID))
                 .thenReturn(expectedEpisode);
 
         // Act
-        Single<Episode> actual = mEpisodeInteractor.getEpisodeFromRepository(CORRECT_EPISODE_ID);
+        Single<Episode> actual = mEpisodeInteractor.getEpisodeById(CORRECT_EPISODE_ID);
 
         // Assert
         Truth.assertThat(actual).isEqualTo(expectedEpisode);
@@ -140,10 +140,10 @@ public class EpisodeInteractorTest {
     @Test
     public void testEpisodeIsNotExist() {
         String EXPECTED_EXCEPTION_MESSAGE = "Repository Error! Episode is not exist...";
-        Mockito.when(mEpisodeRepository.getEpisodeFromServer(INCORRECT_EPISODE_ID))
+        Mockito.when(mEpisodeRepository.getEpisodeById(INCORRECT_EPISODE_ID))
                 .thenThrow(new RuntimeException(EXPECTED_EXCEPTION_MESSAGE));
         try {
-            mEpisodeInteractor.getEpisodeFromRepository(INCORRECT_EPISODE_ID);
+            mEpisodeInteractor.getEpisodeById(INCORRECT_EPISODE_ID);
         } catch (RuntimeException e) {
             Assert.assertEquals(EXPECTED_EXCEPTION_MESSAGE, e.getMessage());
         }

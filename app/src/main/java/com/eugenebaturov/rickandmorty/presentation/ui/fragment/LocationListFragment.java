@@ -22,7 +22,7 @@ import com.eugenebaturov.rickandmorty.presentation.ui.activity.LocationActivity;
 import com.eugenebaturov.rickandmorty.presentation.ui.activity.MainActivity;
 import com.eugenebaturov.rickandmorty.presentation.ui.adapter.LocationsAdapter;
 import com.eugenebaturov.rickandmorty.presentation.viewmodel.location.LocationListViewModel;
-import com.eugenebaturov.rickandmorty.utils.Keys;
+import com.eugenebaturov.rickandmorty.utils.Extras;
 
 /**
  * Фрагмент, который отображает список локаций.
@@ -64,7 +64,7 @@ public class LocationListFragment extends Fragment
     @Override
     public void goToLocation(int id) {
         Intent intent = new Intent(getContext(), LocationActivity.class);
-        intent.putExtra(Keys.KEY_LOCATION_ID, id);
+        intent.putExtra(Extras.EXTRA_LOCATION_ID, id);
         startActivity(intent);
     }
 
@@ -88,12 +88,10 @@ public class LocationListFragment extends Fragment
     }
 
     private void setRecyclerView() {
-        mViewModel.loadLocations();
         mAdapter = new LocationsAdapter(this);
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
         mRecyclerView.hasFixedSize();
-        mRecyclerView.setLayoutManager(linearLayoutManager);
         mRecyclerView.setAdapter(mAdapter);
+        mViewModel.loadLocations();
     }
 
     private void initViewModel() {

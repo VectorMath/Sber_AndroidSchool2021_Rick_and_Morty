@@ -6,7 +6,7 @@ import androidx.lifecycle.MutableLiveData;
 
 import com.eugenebaturov.rickandmorty.domain.interactor.episode.EpisodeInteractor;
 import com.eugenebaturov.rickandmorty.models.domain.Episode;
-import com.eugenebaturov.rickandmorty.presentation.viewmodel.AppViewModel;
+import com.eugenebaturov.rickandmorty.presentation.viewmodel.RxViewModel;
 import com.eugenebaturov.rickandmorty.utils.SchedulerProvider;
 
 import java.util.List;
@@ -14,7 +14,7 @@ import java.util.List;
 /**
  * ViewModel для списка эпизодов.
  */
-public final class EpisodeListViewModel extends AppViewModel {
+public final class EpisodeListViewModel extends RxViewModel {
 
     @NonNull
     private final MutableLiveData<List<Episode>> mEpisodes = new MutableLiveData<>();
@@ -77,7 +77,7 @@ public final class EpisodeListViewModel extends AppViewModel {
      */
     public void loadEpisodes() {
         disposable.add(mEpisodeInteractor
-                .getEpisodesFromRepository()
+                .getEpisodes()
                 .subscribeOn(mSchedulerProvider.io())
                 .observeOn(mSchedulerProvider.ui())
                 .doFinally(() -> mProgress.setValue(false))
@@ -93,7 +93,7 @@ public final class EpisodeListViewModel extends AppViewModel {
      */
     public void loadEpisodes(String query) {
         disposable.add(mEpisodeInteractor
-                .getSearchedEpisodesFromRepository(query)
+                .getEpisodes(query)
                 .subscribeOn(mSchedulerProvider.io())
                 .observeOn(mSchedulerProvider.ui())
                 .doFinally(() -> mProgress.setValue(false))

@@ -62,7 +62,7 @@ public class LocationRepositoryTest {
         when(mLocationApi.getAllLocations()).thenReturn(serverResponse);
 
         // Act
-        Single<List<Location>> actual = mLocationRepository.getLocationsFromServer();
+        Single<List<Location>> actual = mLocationRepository.getLocations();
         List<Location> expected = createLocations();
 
         // Assert
@@ -86,7 +86,7 @@ public class LocationRepositoryTest {
         // Act
         List<Location> excepted = LocationTestData.createSearchedLocations();
         Single<List<Location>> actual =
-                mLocationRepository.getSearchedLocationsFromServer(LOCATION_NAME_QUERY);
+                mLocationRepository.getLocations(LOCATION_NAME_QUERY);
 
         // Assert
         actual.test().assertValue(excepted);
@@ -102,7 +102,7 @@ public class LocationRepositoryTest {
                 .thenThrow(new RuntimeException(EXPECTED_EXCEPTION_MESSAGE));
 
         try {
-            mLocationRepository.getLocationsFromServer();
+            mLocationRepository.getLocations();
         } catch (RuntimeException e) {
             Assert.assertEquals(EXPECTED_EXCEPTION_MESSAGE, e.getMessage());
         }
@@ -119,7 +119,7 @@ public class LocationRepositoryTest {
                 .thenThrow(new RuntimeException(EXPECTED_EXCEPTION_MESSAGE));
 
         try {
-            mLocationRepository.getSearchedLocationsFromServer(INCORRECT_QUERY);
+            mLocationRepository.getLocations(INCORRECT_QUERY);
         } catch (RuntimeException exception) {
             Assert.assertEquals(EXPECTED_EXCEPTION_MESSAGE, exception.getMessage());
         }
@@ -137,7 +137,7 @@ public class LocationRepositoryTest {
         when(mLocationApi.getLocationById(CORRECT_LOCATION_ID)).thenReturn(serverResponse);
 
         // Act
-        Single<Location> actual = mLocationRepository.getLocationFromServer(CORRECT_LOCATION_ID);
+        Single<Location> actual = mLocationRepository.getLocationById(CORRECT_LOCATION_ID);
         Location expected = createLocation();
 
         // Assert
@@ -155,7 +155,7 @@ public class LocationRepositoryTest {
                 .thenThrow(new RuntimeException(EXPECTED_EXCEPTION_MESSAGE));
 
         try {
-            mLocationRepository.getLocationFromServer(INCORRECT_LOCATION_ID);
+            mLocationRepository.getLocationById(INCORRECT_LOCATION_ID);
         } catch (RuntimeException e) {
             Assert.assertEquals(EXPECTED_EXCEPTION_MESSAGE, e.getMessage());
         }

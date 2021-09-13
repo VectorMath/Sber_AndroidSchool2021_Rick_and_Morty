@@ -21,7 +21,7 @@ import com.eugenebaturov.rickandmorty.presentation.ui.activity.EpisodeActivity;
 import com.eugenebaturov.rickandmorty.presentation.ui.activity.MainActivity;
 import com.eugenebaturov.rickandmorty.presentation.ui.adapter.EpisodesAdapter;
 import com.eugenebaturov.rickandmorty.presentation.viewmodel.episode.EpisodeListViewModel;
-import com.eugenebaturov.rickandmorty.utils.Keys;
+import com.eugenebaturov.rickandmorty.utils.Extras;
 
 /**
  * Фрагмент, который отображает список эпизодов.
@@ -57,8 +57,8 @@ public class EpisodeListFragment extends Fragment implements
     @Override
     public void goToEpisode(int id, int imgRes) {
         Intent intent = new Intent(getContext(), EpisodeActivity.class);
-        intent.putExtra(Keys.KEY_EPISODE_ID, id);
-        intent.putExtra(Keys.KEY_EPISODE_IMAGE, imgRes);
+        intent.putExtra(Extras.EXTRA_EPISODE_ID, id);
+        intent.putExtra(Extras.EXTRA_EPISODE_IMAGE, imgRes);
         startActivity(intent);
     }
 
@@ -82,12 +82,10 @@ public class EpisodeListFragment extends Fragment implements
     }
 
     private void setRecyclerView() {
-        mViewModel.loadEpisodes();
         mAdapter = new EpisodesAdapter(this);
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
         mRecyclerView.hasFixedSize();
-        mRecyclerView.setLayoutManager(linearLayoutManager);
         mRecyclerView.setAdapter(mAdapter);
+        mViewModel.loadEpisodes();
     }
 
     private void initViewModel() {

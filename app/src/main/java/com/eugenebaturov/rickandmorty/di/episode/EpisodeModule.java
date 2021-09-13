@@ -16,13 +16,13 @@ import dagger.Provides;
 import retrofit2.Retrofit;
 
 /**
- * Внедряет зависимости, которые необходимы {@link EpisodeComponent}.
+ * Предоставляет зависимости, которые необходимы {@link EpisodeComponent}.
  */
 @Module
 public final class EpisodeModule {
 
     /**
-     * Внедряет фабрику для {@link EpisodeListViewModel}.
+     * Предоставляет фабрику для {@link EpisodeListViewModel}.
      *
      * @param schedulerProvider шедулер.
      * @param episodeInteractor интерактор эпизодов.
@@ -36,7 +36,7 @@ public final class EpisodeModule {
     }
 
     /**
-     * Внедряет фабрику для {@link EpisodeViewModel}.
+     * Предоставляет фабрику для {@link EpisodeViewModel}.
      *
      * @param schedulerProvider шедулер.
      * @param episodeInteractor интерактор эпизодов.
@@ -50,7 +50,7 @@ public final class EpisodeModule {
     }
 
     /**
-     * Внедряет вью-модельку {@link EpisodeListViewModel}
+     * Предоставляет вью-модельку {@link EpisodeListViewModel}
      *
      * @param schedulerProvider шедулер.
      * @param episodeInteractor интерактор эпизодов.
@@ -64,7 +64,7 @@ public final class EpisodeModule {
     }
 
     /**
-     * Внедряет вью-модельку {@link EpisodeViewModel}
+     * Предоставляет вью-модельку {@link EpisodeViewModel}
      *
      * @param schedulerProvider шедулер.
      * @param episodeInteractor интерактор эпизодов.
@@ -78,18 +78,19 @@ public final class EpisodeModule {
     }
 
     /**
-     * Внедряет интерактор эпизодов {@link EpisodeInteractor}.
+     * Предоставляет интерактор эпизодов {@link EpisodeInteractor}.
      *
      * @param episodeRepository репозиторий эпизодов.
      * @return интерактор эпизодов.
      */
+    // Нейминг
     @Provides
     EpisodeInteractor provideInteractor(EpisodeRepository episodeRepository) {
         return new EpisodeInteractorImpl(episodeRepository);
     }
 
     /**
-     * Внедряет репозиторий эпизодов {@link EpisodeRepository}.
+     * Предоставляет репозиторий эпизодов {@link EpisodeRepository}.
      *
      * @param episodeApi api эпизодов.
      * @return репозиторий эпизодов.
@@ -100,7 +101,7 @@ public final class EpisodeModule {
     }
 
     /**
-     * Внедряет апи эпизодов {@link EpisodeApi}.
+     * Предоставляет апи эпизодов {@link EpisodeApi}.
      *
      * @param retrofit ретрофит.
      * @return апи с реализованными методами.

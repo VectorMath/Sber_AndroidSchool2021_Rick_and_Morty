@@ -73,7 +73,7 @@ public class LocationViewModelTest {
     public void loadLocationById() {
         // Arrange
         Mockito
-                .when(mLocationInteractor.getLocationFromRepository(CORRECT_ID))
+                .when(mLocationInteractor.getLocationById(CORRECT_ID))
                 .thenReturn(Single.just(LocationTestData.createLocation()));
 
         // Act
@@ -94,7 +94,7 @@ public class LocationViewModelTest {
     @Test
     public void testLoadLocationByIncorrectId() {
         Mockito
-                .when(mLocationInteractor.getLocationFromRepository(INCORRECT_ID))
+                .when(mLocationInteractor.getLocationById(INCORRECT_ID))
                 .thenReturn(Single.error(NullPointerException::new));
 
         mLocationListViewModel.loadLocationById(INCORRECT_ID);

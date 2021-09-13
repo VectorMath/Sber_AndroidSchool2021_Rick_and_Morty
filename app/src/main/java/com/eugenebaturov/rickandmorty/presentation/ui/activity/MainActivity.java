@@ -11,7 +11,7 @@ import com.eugenebaturov.rickandmorty.R;
 import com.eugenebaturov.rickandmorty.presentation.ui.fragment.CharacterListFragment;
 import com.eugenebaturov.rickandmorty.presentation.ui.fragment.EpisodeListFragment;
 import com.eugenebaturov.rickandmorty.presentation.ui.fragment.LocationListFragment;
-import com.eugenebaturov.rickandmorty.utils.Keys;
+import com.eugenebaturov.rickandmorty.utils.Extras;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 /**
@@ -44,7 +44,7 @@ public class MainActivity extends AppCompatActivity {
         void search(String whereSearch, String whatSearch);
     }
 
-    @SuppressLint("NonConstantResourceId")
+
     private void initUI() {
         BottomNavigationView mBottomNavigationView = findViewById(R.id.bottom_navigation);
         SearchView mSearchView = findViewById(R.id.main_searchView);
@@ -52,7 +52,7 @@ public class MainActivity extends AppCompatActivity {
         if (mFragment == null) {
             mFragment = CharacterListFragment.newInstance();
             mSearcher = (CharacterListFragment) mFragment;
-            mSearchType = Keys.CHARACTER_SEARCH;
+            mSearchType = Extras.CHARACTER_SEARCH;
             startFragment(mFragment);
         }
 
@@ -66,13 +66,13 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public boolean onQueryTextChange(String newText) {
                 switch (mSearchType) {
-                    case Keys.CHARACTER_SEARCH: {
+                    case Extras.CHARACTER_SEARCH: {
                         mSearcher.search(mSearchType, newText);
                     }
-                    case Keys.EPISODE_SEARCH: {
+                    case Extras.EPISODE_SEARCH: {
                         mSearcher.search(mSearchType, newText);
                     }
-                    case Keys.LOCATION_SEARCH: {
+                    case Extras.LOCATION_SEARCH: {
                         mSearcher.search(mSearchType, newText);
                     }
                 }
@@ -89,7 +89,7 @@ public class MainActivity extends AppCompatActivity {
                 case R.id.page_1: {
                     mFragment = CharacterListFragment.newInstance();
                     mSearcher = (CharacterListFragment) mFragment;
-                    mSearchType = Keys.CHARACTER_SEARCH;
+                    mSearchType = Extras.CHARACTER_SEARCH;
                     startFragment(mFragment);
                     break;
                 }
@@ -97,7 +97,7 @@ public class MainActivity extends AppCompatActivity {
                 case R.id.page_2: {
                     mFragment = LocationListFragment.newInstance();
                     mSearcher = (LocationListFragment) mFragment;
-                    mSearchType = Keys.LOCATION_SEARCH;
+                    mSearchType = Extras.LOCATION_SEARCH;
                     startFragment(mFragment);
                     break;
                 }
@@ -105,7 +105,7 @@ public class MainActivity extends AppCompatActivity {
                 case R.id.page_3: {
                     mFragment = EpisodeListFragment.newInstance();
                     mSearcher = (EpisodeListFragment) mFragment;
-                    mSearchType = Keys.EPISODE_SEARCH;
+                    mSearchType = Extras.EPISODE_SEARCH;
                     startFragment(mFragment);
                     break;
                 }

@@ -10,7 +10,7 @@ import com.eugenebaturov.rickandmorty.R;
 import com.eugenebaturov.rickandmorty.di.episode.DaggerEpisodeComponent;
 import com.eugenebaturov.rickandmorty.di.episode.EpisodeComponent;
 import com.eugenebaturov.rickandmorty.presentation.viewmodel.episode.EpisodeViewModel;
-import com.eugenebaturov.rickandmorty.utils.Keys;
+import com.eugenebaturov.rickandmorty.utils.Extras;
 
 /**
  * Активити в которой отображается вся информация об конкретном эпизоде.
@@ -44,14 +44,14 @@ public class EpisodeActivity extends BaseActivity {
                 component.getViewModelFactory())
                 .get(EpisodeViewModel.class);
 
-        int id = getIntent().getIntExtra(Keys.KEY_EPISODE_ID, 0);
+        int id = getIntent().getIntExtra(Extras.EXTRA_EPISODE_ID, 0);
         mViewModel.loadEpisodeById(id);
         observeEpisode();
     }
 
     private void observeEpisode() {
         int seasonImageResource = getIntent().getIntExtra(
-                Keys.KEY_EPISODE_IMAGE,
+                Extras.EXTRA_EPISODE_IMAGE,
                 R.drawable.ic_first_season_black);
 
         mViewModel.getEpisode().observe(this, episode -> {

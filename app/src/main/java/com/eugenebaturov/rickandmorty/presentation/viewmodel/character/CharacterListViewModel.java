@@ -6,7 +6,7 @@ import androidx.lifecycle.MutableLiveData;
 
 import com.eugenebaturov.rickandmorty.domain.interactor.character.CharacterInteractor;
 import com.eugenebaturov.rickandmorty.models.domain.Character;
-import com.eugenebaturov.rickandmorty.presentation.viewmodel.AppViewModel;
+import com.eugenebaturov.rickandmorty.presentation.viewmodel.RxViewModel;
 import com.eugenebaturov.rickandmorty.utils.SchedulerProvider;
 
 import java.util.List;
@@ -14,7 +14,7 @@ import java.util.List;
 /**
  * ViewModel для списка персонажей.
  */
-public final class CharacterListViewModel extends AppViewModel {
+public final class CharacterListViewModel extends RxViewModel {
 
     @NonNull
     private final MutableLiveData<List<Character>> mCharacters = new MutableLiveData<>();
@@ -76,8 +76,13 @@ public final class CharacterListViewModel extends AppViewModel {
      * в виде получение информации о персонажах с сервера.
      */
     public final void loadCharacters() {
+
+//        Observable.just("")
+//                .debounce()
+//                .distinctUntilChanged();
+
         disposable.add(mCharacterInteractor
-                .getCharactersFromRepository()
+                .getCharacters()
                 .subscribeOn(mSchedulerProvider.io())
                 .observeOn(mSchedulerProvider.ui())
                 .doFinally(() -> mProgress.setValue(false))
@@ -93,7 +98,7 @@ public final class CharacterListViewModel extends AppViewModel {
      */
     public final void loadCharacters(String searchName) {
         disposable.add(mCharacterInteractor
-                .getSearchedCharacterFromRepository(searchName)
+                .getCharacters(searchName)
                 .subscribeOn(mSchedulerProvider.io())
                 .observeOn(mSchedulerProvider.ui())
                 .doFinally(() -> mProgress.setValue(false))

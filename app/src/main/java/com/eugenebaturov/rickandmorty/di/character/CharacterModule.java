@@ -16,12 +16,12 @@ import dagger.Provides;
 import retrofit2.Retrofit;
 
 /**
- * Внедряет зависимости, которые необходимы {@link CharacterComponent}.
+ * Предоставляет зависимости, которые необходимы {@link CharacterComponent}.
  */
 @Module
 public final class CharacterModule {
     /**
-     * Внедряет фабрику для {@link CharacterViewModel}.
+     * Предоставляет фабрику для {@link CharacterViewModel}.
      *
      * @param schedulerProvider   шедулер.
      * @param characterInteractor интерактор персонажей.
@@ -35,7 +35,7 @@ public final class CharacterModule {
     }
 
     /**
-     * Внедряет фабрику для {@link CharacterListViewModel}.
+     * Предоставляет фабрику для {@link CharacterListViewModel}.
      *
      * @param schedulerProvider   шедулер.
      * @param characterInteractor интерактор персонажей.
@@ -49,7 +49,7 @@ public final class CharacterModule {
     }
 
     /**
-     * Внедряет вью-модельку {@link CharacterViewModel}
+     * Предоставляет вью-модельку {@link CharacterViewModel}
      *
      * @param schedulerProvider   шедулер.
      * @param characterInteractor интерактор персонажей.
@@ -63,7 +63,7 @@ public final class CharacterModule {
     }
 
     /**
-     * Внедряет вью-модельку {@link CharacterListViewModel}
+     * Предоставляет вью-модельку {@link CharacterListViewModel}
      *
      * @param schedulerProvider   шедулер.
      * @param characterInteractor интерактор персонажей.
@@ -77,7 +77,7 @@ public final class CharacterModule {
     }
 
     /**
-     * Внедряет интерактор персонажей {@link CharacterInteractor}.
+     * Предоставляет интерактор персонажей {@link CharacterInteractor}.
      *
      * @param characterRepository репозиторий персонажей.
      * @return интерактор персонажей
@@ -88,7 +88,7 @@ public final class CharacterModule {
     }
 
     /**
-     * Внедряет репозиторий персонажей {@link CharacterRepository}.
+     * Предоставляет репозиторий персонажей {@link CharacterRepository}.
      *
      * @param characterApi апи персонажей.
      * @return репозиторий персонажей
@@ -99,7 +99,7 @@ public final class CharacterModule {
     }
 
     /**
-     * Внедряет апи персонажей {@link CharacterApi}
+     * Предоставляет апи персонажей {@link CharacterApi}
      *
      * @param retrofit ретрофит.
      * @return апи с реализованными методами.

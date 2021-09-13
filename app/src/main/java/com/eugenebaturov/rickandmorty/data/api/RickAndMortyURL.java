@@ -1,15 +1,13 @@
 package com.eugenebaturov.rickandmorty.data.api;
 
+import com.eugenebaturov.rickandmorty.BuildConfig;
+
 /**
  * Класс, который хранит в себе урлы, для Rick&MortyAPI.
- * <p>
- * Где используется:
- * - {@link CharacterApi}
- * - {@link EpisodeApi}
- * - {@link LocationApi}
  */
 public final class RickAndMortyURL {
 
+    // Можно вынести в gradle app, для настроек разных тип сборок
     public static final String BASE_URL = "https://rickandmortyapi.com/api/";
 
     // Characters URL.

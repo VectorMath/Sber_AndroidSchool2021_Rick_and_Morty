@@ -1,6 +1,7 @@
 package com.eugenebaturov.rickandmorty.models.domain;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.VisibleForTesting;
 
 import com.eugenebaturov.rickandmorty.models.data.EpisodeResponse;
 
@@ -20,28 +21,28 @@ public final class Episode {
     @NonNull
     private final String mEpisodeNumber;
     @NonNull
-    private final List<String> mCharacters;
+    private final List<String> mCharactersUrl;
 
     /**
      * Конструктор класса в который мы передаём всю информацию об эпизоде вручную.
      *
-     * @param mId            id эпизода.
-     * @param mTitle         название эпизода.
-     * @param mAirDate       дата выпуска эпизода(пример: September 10, 2017).
-     * @param mEpisodeNumber номер эпизода(пример: S03E07).
-     * @param mCharacters    ссылка на персонажей, которые появились в эпизоде.
+     * @param id            id эпизода.
+     * @param title         название эпизода.
+     * @param airDate       дата выпуска эпизода(пример: September 10, 2017).
+     * @param episodeNumber номер эпизода(пример: S03E07).
+     * @param charactersUrl ссылка на персонажей, которые появились в эпизоде.
      */
     public Episode(
-            final int mId,
-            @NonNull final String mTitle,
-            @NonNull final String mAirDate,
-            @NonNull final String mEpisodeNumber,
-            @NonNull final List<String> mCharacters) {
-        this.mId = mId;
-        this.mTitle = mTitle;
-        this.mAirDate = mAirDate;
-        this.mEpisodeNumber = mEpisodeNumber;
-        this.mCharacters = mCharacters;
+            final int id,
+            @NonNull final String title,
+            @NonNull final String airDate,
+            @NonNull final String episodeNumber,
+            @NonNull final List<String> charactersUrl) {
+        mId = id;
+        mTitle = title;
+        mAirDate = airDate;
+        mEpisodeNumber = episodeNumber;
+        mCharactersUrl = charactersUrl;
     }
 
     @Override
@@ -53,12 +54,12 @@ public final class Episode {
                 Objects.equals(mTitle, episode.mTitle) &&
                 Objects.equals(mAirDate, episode.mAirDate) &&
                 Objects.equals(mEpisodeNumber, episode.mEpisodeNumber) &&
-                Objects.equals(mCharacters, episode.mCharacters);
+                Objects.equals(mCharactersUrl, episode.mCharactersUrl);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(mId, mTitle, mAirDate, mEpisodeNumber, mCharacters);
+        return Objects.hash(mId, mTitle, mAirDate, mEpisodeNumber, mCharactersUrl);
     }
 
     @Override
@@ -69,31 +70,56 @@ public final class Episode {
                 ", mTitle='" + mTitle + '\'' +
                 ", mAirDate='" + mAirDate + '\'' +
                 ", mEpisodeNumber='" + mEpisodeNumber + '\'' +
-                ", mCharacters=" + mCharacters +
+                ", mCharactersUrl=" + mCharactersUrl +
                 '}';
     }
 
+    /**
+     * Получить id эпизода.
+     *
+     * @return id эпизода.
+     */
     public int getId() {
         return mId;
     }
 
+    /**
+     * Получить название эпизода.
+     *
+     * @return название эпизода.
+     */
     @NonNull
     public String getTitle() {
         return mTitle;
     }
 
+    /**
+     * Получить дата выхода эпизода.
+     *
+     * @return дата выхода эпизода.
+     */
     @NonNull
     public String getAirDate() {
         return mAirDate;
     }
 
+    /**
+     * Получить номер эпизода.
+     *
+     * @return номер эпизода.
+     */
     @NonNull
     public String getEpisodeNumber() {
         return mEpisodeNumber;
     }
 
+    /**
+     * Получить список url персонажей, которые были в этом эпизоде.
+     *
+     * @return url-список персонажей.
+     */
     @NonNull
     public List<String> getCharacters() {
-        return mCharacters;
+        return mCharactersUrl;
     }
 }

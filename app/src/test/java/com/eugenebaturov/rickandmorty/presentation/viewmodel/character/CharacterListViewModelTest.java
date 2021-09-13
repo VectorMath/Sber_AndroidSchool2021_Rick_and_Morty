@@ -75,7 +75,7 @@ public class CharacterListViewModelTest {
     public void testLoadCharacters() {
         // Arrange
         Mockito
-                .when(mCharacterInteractor.getCharactersFromRepository())
+                .when(mCharacterInteractor.getCharacters())
                 .thenReturn(Single.just(CharacterTestData.createListCharacter()));
 
         // Act
@@ -97,7 +97,7 @@ public class CharacterListViewModelTest {
     public void testLoadCharactersWithQuery() {
         // Arrange
         Mockito
-                .when(mCharacterInteractor.getSearchedCharacterFromRepository(CHARACTER_NAME_QUERY))
+                .when(mCharacterInteractor.getCharacters(CHARACTER_NAME_QUERY))
                 .thenReturn(Single.just(CharacterTestData.createSearchedCharacter()));
 
         // Act
@@ -119,7 +119,7 @@ public class CharacterListViewModelTest {
     public void testLoadCharactersWithError() {
         // Arrange
         Mockito
-                .when(mCharacterInteractor.getCharactersFromRepository())
+                .when(mCharacterInteractor.getCharacters())
                 .thenReturn(Single.error(new IllegalAccessException()));
 
         // Act
@@ -137,7 +137,7 @@ public class CharacterListViewModelTest {
     public void testLoadQueryCharactersWithError() {
         // Arrange
         Mockito
-                .when(mCharacterInteractor.getSearchedCharacterFromRepository(INCORRECT_QUERY))
+                .when(mCharacterInteractor.getCharacters(INCORRECT_QUERY))
                 .thenReturn(Single.error(new IllegalAccessException()));
 
         // Act

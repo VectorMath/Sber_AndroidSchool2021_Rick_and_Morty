@@ -1,6 +1,7 @@
 package com.eugenebaturov.rickandmorty.models.data;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.VisibleForTesting;
 
 import com.google.gson.annotations.SerializedName;
 
@@ -21,12 +22,16 @@ public final class Origin {
 
     /**
      * Конструктор класса.
-     * @param mName название локации.
-     * @param mUrl Url локации.
+     * <p>
+     * Используется в unit-тестах!!!
+     *
+     * @param name название локации.
+     * @param url  Url локации.
      */
-    public Origin(@NonNull final String mName, @NonNull final String mUrl) {
-        this.mName = mName;
-        this.mUrl = mUrl;
+    @VisibleForTesting
+    public Origin(@NonNull final String name, @NonNull final String url) {
+        mName = name;
+        mUrl = url;
     }
 
     @Override
@@ -52,11 +57,21 @@ public final class Origin {
                 '}';
     }
 
+    /**
+     * Получить название локации
+     *
+     * @return название локации.
+     */
     @NonNull
     public String getName() {
         return mName;
     }
 
+    /**
+     * Получить ссылку на локацию
+     *
+     * @return url локации.
+     */
     @NonNull
     public String getUrl() {
         return mUrl;

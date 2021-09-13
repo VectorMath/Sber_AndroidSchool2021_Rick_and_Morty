@@ -10,6 +10,8 @@ import androidx.appcompat.app.AppCompatActivity;
 /**
  * Базовая активити. Позволяет не писать одинаковый код у других экранов.
  */
+
+//  Не нужно
 public class BaseActivity extends AppCompatActivity {
 
     @Override

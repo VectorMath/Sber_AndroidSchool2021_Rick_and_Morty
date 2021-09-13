@@ -11,7 +11,6 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.eugenebaturov.rickandmorty.R;
@@ -21,7 +20,7 @@ import com.eugenebaturov.rickandmorty.presentation.ui.activity.CharacterActivity
 import com.eugenebaturov.rickandmorty.presentation.ui.activity.MainActivity;
 import com.eugenebaturov.rickandmorty.presentation.ui.adapter.CharactersAdapter;
 import com.eugenebaturov.rickandmorty.presentation.viewmodel.character.CharacterListViewModel;
-import com.eugenebaturov.rickandmorty.utils.Keys;
+import com.eugenebaturov.rickandmorty.utils.Extras;
 
 /**
  * Фрагмент, который отображает список персонажей.
@@ -57,7 +56,7 @@ public class CharacterListFragment extends Fragment implements
     @Override
     public void goToCharacterActivity(int id) {
         Intent intent = new Intent(getContext(), CharacterActivity.class);
-        intent.putExtra(Keys.KEY_CHARACTER_ID, id);
+        intent.putExtra(Extras.EXTRA_CHARACTER_ID, id);
         startActivity(intent);
     }
 
@@ -81,12 +80,10 @@ public class CharacterListFragment extends Fragment implements
     }
 
     private void setRecyclerView() {
-        mViewModel.loadCharacters();
         mAdapter = new CharactersAdapter(this);
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
         mRecyclerView.hasFixedSize();
-        mRecyclerView.setLayoutManager(linearLayoutManager);
         mRecyclerView.setAdapter(mAdapter);
+        mViewModel.loadCharacters();
     }
 
     private void initViewModel() {
@@ -100,7 +97,7 @@ public class CharacterListFragment extends Fragment implements
     private void observeCharacters() {
         mViewModel.getCharacters().observe(
                 getViewLifecycleOwner(),
-                characters -> mAdapter.updateData(characters));
+                mAdapter::updateData);
     }
 
     private void observeProgress() {

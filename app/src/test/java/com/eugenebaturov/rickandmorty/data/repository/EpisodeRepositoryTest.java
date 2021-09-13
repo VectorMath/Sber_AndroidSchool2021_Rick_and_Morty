@@ -57,7 +57,7 @@ public class EpisodeRepositoryTest {
         Mockito.when(mEpisodeApi.getAllEpisodes()).thenReturn(serverResponse);
 
         // Act
-        Single<List<Episode>> actual = mEpisodeRepository.getEpisodesFromServer();
+        Single<List<Episode>> actual = mEpisodeRepository.getEpisodes();
         List<Episode> expected = EpisodeTestData.createEpisodes();
 
         // Assert
@@ -76,7 +76,7 @@ public class EpisodeRepositoryTest {
                 .thenThrow(new RuntimeException(EXPECTED_EXCEPTION_MESSAGE));
 
         try {
-            mEpisodeRepository.getEpisodesFromServer();
+            mEpisodeRepository.getEpisodes();
         } catch (RuntimeException e) {
             Assert.assertEquals(EXPECTED_EXCEPTION_MESSAGE, e.getMessage());
         }
@@ -99,7 +99,7 @@ public class EpisodeRepositoryTest {
         // Act
         List<Episode> expected = EpisodeTestData.createSearchedEpisodes();
         Single<List<Episode>> actual =
-                mEpisodeRepository.getSearchedEpisodesFromServer(EPISODE_NAME_QUERY);
+                mEpisodeRepository.getEpisodes(EPISODE_NAME_QUERY);
 
         // Assert
         actual.test().assertValue(expected);
@@ -116,7 +116,7 @@ public class EpisodeRepositoryTest {
                 .thenThrow(new RuntimeException(EXPECTED_EXCEPTION_MESSAGE));
 
         try {
-            mEpisodeRepository.getSearchedEpisodesFromServer(INCORRECT_QUERY);
+            mEpisodeRepository.getEpisodes(INCORRECT_QUERY);
         } catch (RuntimeException exception) {
             Assert.assertEquals(EXPECTED_EXCEPTION_MESSAGE, exception.getMessage());
         }
@@ -134,7 +134,7 @@ public class EpisodeRepositoryTest {
         Mockito.when(mEpisodeApi.getEpisodeById(CORRECT_EPISODE_ID)).thenReturn(serverResponse);
 
         // Act
-        Single<Episode> actual = mEpisodeRepository.getEpisodeFromServer(CORRECT_EPISODE_ID);
+        Single<Episode> actual = mEpisodeRepository.getEpisodeById(CORRECT_EPISODE_ID);
         Episode expected = EpisodeTestData.createEpisode();
 
         // Assert
@@ -150,7 +150,7 @@ public class EpisodeRepositoryTest {
         Mockito.when(mEpisodeApi.getEpisodeById(INCORRECT_EPISODE_ID))
                 .thenThrow(new RuntimeException(EXPECTED_EXCEPTION_MESSAGE));
         try {
-            mEpisodeRepository.getEpisodeFromServer(INCORRECT_EPISODE_ID);
+            mEpisodeRepository.getEpisodeById(INCORRECT_EPISODE_ID);
         } catch (RuntimeException e) {
             Assert.assertEquals(EXPECTED_EXCEPTION_MESSAGE, e.getMessage());
         }

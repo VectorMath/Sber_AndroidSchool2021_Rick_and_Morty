@@ -6,13 +6,13 @@ import androidx.lifecycle.MutableLiveData;
 
 import com.eugenebaturov.rickandmorty.domain.interactor.episode.EpisodeInteractor;
 import com.eugenebaturov.rickandmorty.models.domain.Episode;
-import com.eugenebaturov.rickandmorty.presentation.viewmodel.AppViewModel;
+import com.eugenebaturov.rickandmorty.presentation.viewmodel.RxViewModel;
 import com.eugenebaturov.rickandmorty.utils.SchedulerProvider;
 
 /**
  * ViewModel для эпизода.
  */
-public final class EpisodeViewModel extends AppViewModel {
+public final class EpisodeViewModel extends RxViewModel {
 
     @NonNull
     private final MutableLiveData<Episode> mEpisode = new MutableLiveData<>();
@@ -77,7 +77,7 @@ public final class EpisodeViewModel extends AppViewModel {
      */
     public final void loadEpisodeById(final int episodeId) {
         disposable.add(mEpisodeInteractor
-                .getEpisodeFromRepository(episodeId)
+                .getEpisodeById(episodeId)
                 .subscribeOn(mSchedulerProvider.io())
                 .observeOn(mSchedulerProvider.ui())
                 .doFinally(() -> mProgress.setValue(false))

@@ -1,6 +1,7 @@
 package com.eugenebaturov.rickandmorty.models.data.list;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.VisibleForTesting;
 
 import com.eugenebaturov.rickandmorty.models.data.CharacterResponse;
 import com.google.gson.annotations.SerializedName;
@@ -21,9 +22,12 @@ public final class ListCharacterResponse {
 
     /**
      * Конструктор класса.
+     * <p>
+     * Используется в unit-тестах!!!
      *
      * @param charactersResponse Список персонажей в виде ответа из сервера.
      */
+    @VisibleForTesting
     public ListCharacterResponse(@NonNull final List<CharacterResponse> charactersResponse) {
         mCharactersResponse = charactersResponse;
     }
@@ -49,6 +53,11 @@ public final class ListCharacterResponse {
                 '}';
     }
 
+    /**
+     * Получить список персонажей.
+     *
+     * @return список персонажей в виде ответа из сервера.
+     */
     @NonNull
     public List<CharacterResponse> getCharacters() {
         return mCharactersResponse;

@@ -6,13 +6,13 @@ import androidx.lifecycle.MutableLiveData;
 
 import com.eugenebaturov.rickandmorty.domain.interactor.location.LocationInteractor;
 import com.eugenebaturov.rickandmorty.models.domain.Location;
-import com.eugenebaturov.rickandmorty.presentation.viewmodel.AppViewModel;
+import com.eugenebaturov.rickandmorty.presentation.viewmodel.RxViewModel;
 import com.eugenebaturov.rickandmorty.utils.SchedulerProvider;
 
 /**
  * ViewModel для локации.
  */
-public final class LocationViewModel extends AppViewModel {
+public final class LocationViewModel extends RxViewModel {
 
     @NonNull
     private final MutableLiveData<Location> mLocation = new MutableLiveData<>();
@@ -77,7 +77,7 @@ public final class LocationViewModel extends AppViewModel {
      */
     public void loadLocationById(final int locationId) {
         disposable.add(mLocationInteractor
-                .getLocationFromRepository(locationId)
+                .getLocationById(locationId)
                 .subscribeOn(mSchedulerProvider.io())
                 .observeOn(mSchedulerProvider.ui())
                 .doFinally(() -> mProgress.setValue(false))

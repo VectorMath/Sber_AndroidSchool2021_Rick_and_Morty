@@ -1,6 +1,7 @@
 package com.eugenebaturov.rickandmorty.domain.interactor.character;
 
-import com.eugenebaturov.rickandmorty.data.repository.character.CharacterRepository;
+import androidx.annotation.NonNull;
+
 import com.eugenebaturov.rickandmorty.models.domain.Character;
 
 import java.util.List;
@@ -8,7 +9,7 @@ import java.util.List;
 import io.reactivex.rxjava3.core.Single;
 
 /**
- * Получает информацию из {@link CharacterRepository}, чтобы после передать во view-слой.
+ * Интерактор персонажей.
  */
 public interface CharacterInteractor {
 
@@ -17,7 +18,8 @@ public interface CharacterInteractor {
      *
      * @return Список персонажей [{@link List}<{@link Character}>] в {@link Single} обёртке.
      */
-    Single<List<Character>> getCharactersFromRepository();
+    @NonNull
+    Single<List<Character>> getCharacters();
 
     /**
      * Получает список персонажей по заданному запросу.
@@ -25,7 +27,8 @@ public interface CharacterInteractor {
      * @param query строка запроса
      * @return Список персонажей [{@link List}<{@link Character}>] в {@link Single} обёртке.
      */
-    Single<List<Character>> getSearchedCharacterFromRepository(final String query);
+    @NonNull
+    Single<List<Character>> getCharacters(@NonNull final String query);
 
     /**
      * Получает персонажа с конкретным id.
@@ -33,5 +36,6 @@ public interface CharacterInteractor {
      * @param characterId id персонажа.
      * @return Персонаж [{@link Character}] в {@link Single} обёртке.
      */
-    Single<Character> getCharacterFromRepository(final int characterId);
+    @NonNull
+    Single<Character> getCharacterById(final int characterId);
 }

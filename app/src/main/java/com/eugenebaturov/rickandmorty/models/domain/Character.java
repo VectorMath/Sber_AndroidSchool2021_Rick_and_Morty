@@ -1,6 +1,7 @@
 package com.eugenebaturov.rickandmorty.models.domain;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.VisibleForTesting;
 
 import com.eugenebaturov.rickandmorty.models.data.CurrentLocation;
 import com.eugenebaturov.rickandmorty.models.data.Origin;
@@ -30,7 +31,7 @@ public final class Character {
     private final String mGender;
 
     @NonNull
-    private final String mImage;
+    private final String mImageUrl;
 
     @NonNull
     private final Origin mOrigin;
@@ -39,43 +40,43 @@ public final class Character {
     private final CurrentLocation mCurrentLocation;
 
     @NonNull
-    private final List<String> mEpisodes;
+    private final List<String> mEpisodesUrl;
 
     /**
      * Конструктор класса в который мы вручную передаём все параметры персонажа.
      *
-     * @param mId              id персонажа.
-     * @param mName            имя персонажа.
-     * @param mStatus          статус персонажа.
-     * @param mSpecies         раса персонажа
-     * @param mType            отличительная черта персонажа.
-     * @param mGender          пол персонажа.
-     * @param mImage           аватарка персонажа
-     * @param mOrigin          место рождения персонажа.
-     * @param mCurrentLocation текущая локация в которой находится персонаж.
-     * @param mEpisodes        список URL эпизодов в которых персонаж появился.
+     * @param id              id персонажа.
+     * @param name            имя персонажа.
+     * @param status          статус персонажа.
+     * @param species         раса персонажа
+     * @param type            отличительная черта персонажа.
+     * @param gender          пол персонажа.
+     * @param imageUrl        url аватарки персонажа
+     * @param origin          место рождения персонажа.
+     * @param currentLocation текущая локация в которой находится персонаж.
+     * @param episodesUrl     список URL эпизодов в которых персонаж появился.
      */
     public Character(
-            final int mId,
-            @NonNull final String mName,
-            @NonNull final String mStatus,
-            @NonNull final String mSpecies,
-            @NonNull final String mType,
-            @NonNull final String mGender,
-            @NonNull final String mImage,
-            @NonNull final Origin mOrigin,
-            @NonNull final CurrentLocation mCurrentLocation,
-            @NonNull final List<String> mEpisodes) {
-        this.mId = mId;
-        this.mName = mName;
-        this.mStatus = mStatus;
-        this.mSpecies = mSpecies;
-        this.mType = mType;
-        this.mGender = mGender;
-        this.mImage = mImage;
-        this.mOrigin = mOrigin;
-        this.mCurrentLocation = mCurrentLocation;
-        this.mEpisodes = mEpisodes;
+            final int id,
+            @NonNull final String name,
+            @NonNull final String status,
+            @NonNull final String species,
+            @NonNull final String type,
+            @NonNull final String gender,
+            @NonNull final String imageUrl,
+            @NonNull final Origin origin,
+            @NonNull final CurrentLocation currentLocation,
+            @NonNull final List<String> episodesUrl) {
+        mId = id;
+        mName = name;
+        mStatus = status;
+        mSpecies = species;
+        mType = type;
+        mGender = gender;
+        mImageUrl = imageUrl;
+        mOrigin = origin;
+        mCurrentLocation = currentLocation;
+        mEpisodesUrl = episodesUrl;
     }
 
     @Override
@@ -89,15 +90,15 @@ public final class Character {
                 Objects.equals(mSpecies, character.mSpecies) &&
                 Objects.equals(mType, character.mType) &&
                 Objects.equals(mGender, character.mGender) &&
-                Objects.equals(mImage, character.mImage) &&
+                Objects.equals(mImageUrl, character.mImageUrl) &&
                 Objects.equals(mOrigin, character.mOrigin) &&
                 Objects.equals(mCurrentLocation, character.mCurrentLocation) &&
-                Objects.equals(mEpisodes, character.mEpisodes);
+                Objects.equals(mEpisodesUrl, character.mEpisodesUrl);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(mId, mName, mStatus, mSpecies, mType, mGender, mImage, mOrigin, mCurrentLocation, mEpisodes);
+        return Objects.hash(mId, mName, mStatus, mSpecies, mType, mGender, mImageUrl, mOrigin, mCurrentLocation, mEpisodesUrl);
     }
 
     @Override
@@ -110,59 +111,110 @@ public final class Character {
                 ", mSpecies='" + mSpecies + '\'' +
                 ", mType='" + mType + '\'' +
                 ", mGender='" + mGender + '\'' +
-                ", mImage='" + mImage + '\'' +
+                ", mImageUrl='" + mImageUrl + '\'' +
                 ", mOrigin=" + mOrigin +
                 ", mCurrentLocation=" + mCurrentLocation +
-                ", mEpisodes=" + mEpisodes +
+                ", mEpisodesUrl=" + mEpisodesUrl +
                 '}';
     }
 
+    /**
+     * Получить id персонажа.
+     *
+     * @return id персонажа.
+     */
     public int getId() {
         return mId;
     }
 
+
+    /**
+     * Получить имя персонажа.
+     *
+     * @return имя персонажа.
+     */
     @NonNull
     public String getName() {
         return mName;
     }
 
+    /**
+     * Получить статус персонажа.
+     *
+     * @return статус персонажа.
+     */
     @NonNull
     public String getStatus() {
         return mStatus;
     }
 
+    /**
+     * Получить расу персонажа.
+     *
+     * @return раса персонажа.
+     */
     @NonNull
     public String getSpecies() {
         return mSpecies;
     }
 
+    /**
+     * Получить отличительную черту персонажа.
+     *
+     * @return отличительная черта персонажа.
+     */
     @NonNull
     public String getType() {
         return mType;
     }
 
+    /**
+     * Получить пол персонажа.
+     *
+     * @return пол персонажа.
+     */
     @NonNull
     public String getGender() {
         return mGender;
     }
 
+    /**
+     * Получить url-изображение персонажа.
+     *
+     * @return url-изображение персонажа.
+     */
     @NonNull
     public String getImage() {
-        return mImage;
+        return mImageUrl;
     }
 
+    /**
+     * Получить id персонажа.
+     *
+     * @return id персонажа.
+     */
     @NonNull
     public Origin getOrigin() {
         return mOrigin;
     }
 
+    /**
+     * Получить место рождения персонажа.
+     *
+     * @return место рождения персонажа.
+     */
     @NonNull
     public CurrentLocation getCurrentLocation() {
         return mCurrentLocation;
     }
 
+    /**
+     * Получить url список эпизодов в которых учавствовал персонаж.
+     *
+     * @return список url-эпизодов.
+     */
     @NonNull
-    public List<String> getEpisodes() {
-        return mEpisodes;
+    public List<String> getEpisodesUrl() {
+        return mEpisodesUrl;
     }
 }

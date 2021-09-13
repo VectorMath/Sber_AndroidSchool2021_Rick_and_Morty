@@ -15,29 +15,32 @@ import io.reactivex.rxjava3.core.Single;
 public final class LocationInteractorImpl implements LocationInteractor {
 
     @NonNull
-    private final LocationRepository mRepository;
+    private final LocationRepository mLocationRepository;
 
     /**
      * Конструктор класса.
      *
-     * @param repository - экземпляр репозитория {@link LocationRepository}
+     * @param locationRepository - экземпляр репозитория {@link LocationRepository}
      */
-    public LocationInteractorImpl(@NonNull final LocationRepository repository) {
-        mRepository = repository;
+    public LocationInteractorImpl(@NonNull final LocationRepository locationRepository) {
+        mLocationRepository = locationRepository;
     }
 
     @Override
-    public Single<List<Location>> getLocationsFromRepository() {
-        return mRepository.getLocationsFromServer();
+    public @NonNull
+    Single<List<Location>> getLocations() {
+        return mLocationRepository.getLocations();
     }
 
     @Override
-    public Single<List<Location>> getSearchedLocationsFromRepository(String query) {
-        return mRepository.getSearchedLocationsFromServer(query);
+    public @NonNull
+    Single<List<Location>> getLocations(@NonNull String query) {
+        return mLocationRepository.getLocations(query);
     }
 
     @Override
-    public Single<Location> getLocationFromRepository(final int locationId) {
-        return mRepository.getLocationFromServer(locationId);
+    public @NonNull
+    Single<Location> getLocationById(final int locationId) {
+        return mLocationRepository.getLocationById(locationId);
     }
 }

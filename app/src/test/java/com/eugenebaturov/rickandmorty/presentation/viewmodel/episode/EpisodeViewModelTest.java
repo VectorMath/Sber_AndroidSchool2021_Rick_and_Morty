@@ -68,7 +68,7 @@ public class EpisodeViewModelTest {
     public void testLoadEpisodeById(){
         // Arrange
         Mockito
-                .when(mEpisodeInteractor.getEpisodeFromRepository(CORRECT_ID))
+                .when(mEpisodeInteractor.getEpisodeById(CORRECT_ID))
                 .thenReturn(Single.just(EpisodeTestData.createEpisode()));
 
         // Act
@@ -90,7 +90,7 @@ public class EpisodeViewModelTest {
     public void testLoadEpisodeWithError() {
         // Arrange
         Mockito
-                .when(mEpisodeInteractor.getEpisodeFromRepository(INCORRECT_ID))
+                .when(mEpisodeInteractor.getEpisodeById(INCORRECT_ID))
                 .thenReturn(Single.error(new NullPointerException()));
 
         // Act

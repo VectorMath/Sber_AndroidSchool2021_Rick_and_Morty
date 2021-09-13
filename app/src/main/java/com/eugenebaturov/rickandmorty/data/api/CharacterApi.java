@@ -11,33 +11,33 @@ import retrofit2.http.Query;
 import static com.eugenebaturov.rickandmorty.data.api.RickAndMortyURL.CHARACTERS_URL;
 
 /**
- * API которое позволяет получить информацию о {@link CharacterResponse} с сервера
+ * API которое позволяет получить информацию о персонажах с сервера
  */
 public interface CharacterApi {
 
     /**
-     * Ручка, которая получает информацию о всех персонажах с сервера
+     * Получить информацию о всех персонажах с сервера
      *
      * @return Список данных о персонажах в {@link Single} обёртке
      */
     @GET(CHARACTERS_URL)
-    Single<ListCharacterResponse> getAllCharacters();
+    Single<ListCharacterResponse> getCharacters();
 
     /**
-     * Ручка, которая получает информацию о персонажах по поисковому запросу.
+     * Получить информацию о всех персонажах с сервера, которые удоволетворяют строке запроса.
      *
      * @param queryName строка запроса.
      * @return Список данных о персонажах в {@link Single} обёртке
      */
     @GET(CHARACTERS_URL)
-    Single<ListCharacterResponse> getSearchedCharacters(@Query("name") final String queryName);
+    Single<ListCharacterResponse> getCharacters(@Query("name") String queryName);
 
     /**
-     * Ручка, которая получает информацию о персонаже по id с сервера
+     * Получить информацию о персонаже с конкретным id.
      *
      * @param characterId id персонажа
      * @return Данные о персонаже в {@link Single} обёртке
      */
     @GET(CHARACTERS_URL + "{id}")
-    Single<CharacterResponse> getCharacterById(@Path("id") final int characterId);
+    Single<CharacterResponse> getCharacterById(@Path("id") int characterId);
 }

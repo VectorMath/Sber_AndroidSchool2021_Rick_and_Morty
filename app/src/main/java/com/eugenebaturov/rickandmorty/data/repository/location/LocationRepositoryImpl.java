@@ -4,6 +4,10 @@ import androidx.annotation.NonNull;
 
 import com.eugenebaturov.rickandmorty.data.api.LocationApi;
 import com.eugenebaturov.rickandmorty.data.utils.Converter;
+import com.eugenebaturov.rickandmorty.data.utils.location.LocationConverter;
+import com.eugenebaturov.rickandmorty.data.utils.location.LocationsConverter;
+import com.eugenebaturov.rickandmorty.models.data.LocationResponse;
+import com.eugenebaturov.rickandmorty.models.data.list.ListLocationResponse;
 import com.eugenebaturov.rickandmorty.models.domain.Location;
 
 import java.util.List;
@@ -11,7 +15,7 @@ import java.util.List;
 import io.reactivex.rxjava3.core.Single;
 
 /**
- * Класс-репозиторий, который является реализацией интерфейса {@link LocationRepository}.
+ * Реализация {@link LocationRepository}.
  */
 public final class LocationRepositoryImpl implements LocationRepository {
 
@@ -19,8 +23,7 @@ public final class LocationRepositoryImpl implements LocationRepository {
     private final LocationApi mLocationApi;
 
     /**
-     * Конструктор класса, в который мы передаём {@link LocationApi}, чтобы была
-     * возможность получить данные с сервера.
+     * Конструктор класса.
      *
      * @param locationApi экземпляр {@link LocationApi}.
      */
@@ -29,17 +32,26 @@ public final class LocationRepositoryImpl implements LocationRepository {
     }
 
     @Override
-    public Single<List<Location>> getLocationsFromServer() {
-        return mLocationApi.getAllLocations().map(Converter::convertLocations);
+    public @NonNull
+    Single<List<Location>> getLocations() {
+        final Converter<ListLocationResponse, List<Location>> mConverter =
+                new LocationsConverter();
+        return mLocationApi.getAllLocations().map(mConverter::convert);
     }
 
     @Override
-    public Single<List<Location>> getSearchedLocationsFromServer(String searchName) {
-        return mLocationApi.getSearchedLocations(searchName).map(Converter::convertLocations);
+    public @NonNull
+    Single<List<Location>> getLocations(@NonNull String query) {
+        final Converter<ListLocationResponse, List<Location>> mConverter =
+                new LocationsConverter();
+        return mLocationApi.getSearchedLocations(query).map(mConverter::convert);
     }
 
     @Override
-    public Single<Location> getLocationFromServer(final int locationId) {
-        return mLocationApi.getLocationById(locationId).map(Converter::convertLocation);
+    public @NonNull
+    Single<Location> getLocationById(final int locationId) {
+        final Converter<LocationResponse, Location> mConverter =
+                new LocationConverter();
+        return mLocationApi.getLocationById(locationId).map(mConverter::convert);
     }
 }

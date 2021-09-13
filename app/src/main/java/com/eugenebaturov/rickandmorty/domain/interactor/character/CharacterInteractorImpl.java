@@ -10,34 +10,35 @@ import java.util.List;
 import io.reactivex.rxjava3.core.Single;
 
 /**
- * Реализация интерфейса {@link CharacterInteractor}
+ * Реализация {@link CharacterInteractor}
  */
 public final class CharacterInteractorImpl implements CharacterInteractor {
 
     @NonNull
-    private final CharacterRepository mRepository;
+    private final CharacterRepository mCharacterRepository;
 
     /**
      * Конструктор класса.
      *
-     * @param repository экземпляр репозитория {@link CharacterRepository}
+     * @param characterRepository экземпляр репозитория {@link CharacterRepository}
      */
-    public CharacterInteractorImpl(@NonNull final CharacterRepository repository) {
-        mRepository = repository;
+    public CharacterInteractorImpl(@NonNull final CharacterRepository characterRepository) {
+        mCharacterRepository = characterRepository;
+    }
+
+    @NonNull
+    @Override
+    public Single<List<Character>> getCharacters() {
+        return mCharacterRepository.getCharacters();
     }
 
     @Override
-    public Single<List<Character>> getCharactersFromRepository() {
-        return mRepository.getCharactersFromServer();
+    public @NonNull Single<List<Character>> getCharacters(@NonNull String query) {
+        return mCharacterRepository.getCharacters(query);
     }
 
     @Override
-    public Single<List<Character>> getSearchedCharacterFromRepository(String searchName) {
-        return mRepository.getSearchedCharacter(searchName);
-    }
-
-    @Override
-    public Single<Character> getCharacterFromRepository(final int characterId) {
-        return mRepository.getCharacterFromServer(characterId);
+    public @NonNull Single<Character> getCharacterById(final int characterId) {
+        return mCharacterRepository.getCharacterById(characterId);
     }
 }

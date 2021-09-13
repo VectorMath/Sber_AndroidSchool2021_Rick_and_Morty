@@ -9,7 +9,7 @@ import com.eugenebaturov.rickandmorty.R;
 import com.eugenebaturov.rickandmorty.di.location.DaggerLocationComponent;
 import com.eugenebaturov.rickandmorty.di.location.LocationComponent;
 import com.eugenebaturov.rickandmorty.presentation.viewmodel.location.LocationViewModel;
-import com.eugenebaturov.rickandmorty.utils.Keys;
+import com.eugenebaturov.rickandmorty.utils.Extras;
 
 /**
  * Активити в которой отображается вся информация о конкретной локации.
@@ -26,6 +26,9 @@ public class LocationActivity extends BaseActivity {
         setContentView(R.layout.activity_location);
         initUI();
         initViewModel();
+        int mId = getIntent().getIntExtra(Extras.EXTRA_LOCATION_ID, 0);
+        mViewModel.loadLocationById(mId);
+        observeLocationInfo();
     }
 
     private void initUI() {
@@ -41,9 +44,6 @@ public class LocationActivity extends BaseActivity {
                 locationComponent.getViewModelFactory())
                 .get(LocationViewModel.class);
 
-        int mId = getIntent().getIntExtra(Keys.KEY_LOCATION_ID, 0);
-        mViewModel.loadLocationById(mId);
-        observeLocationInfo();
     }
 
     private void observeLocationInfo() {

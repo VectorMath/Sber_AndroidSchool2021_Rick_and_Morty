@@ -68,7 +68,7 @@ public class CharacterViewModelTest {
     public void testLoadCharacterById() {
         // Arrange
         Mockito
-                .when(mCharacterInteractor.getCharacterFromRepository(CORRECT_ID))
+                .when(mCharacterInteractor.getCharacterById(CORRECT_ID))
                 .thenReturn(Single.just(CharacterTestData.createCharacter()));
 
         // Act
@@ -89,7 +89,7 @@ public class CharacterViewModelTest {
     @Test
     public void testLoadCharacterByIncorrectId() {
         Mockito
-                .when(mCharacterInteractor.getCharacterFromRepository(INCORRECT_ID))
+                .when(mCharacterInteractor.getCharacterById(INCORRECT_ID))
                 .thenReturn(Single.error(NullPointerException::new));
 
         mCharacterViewModel.loadCharacterById(INCORRECT_ID);

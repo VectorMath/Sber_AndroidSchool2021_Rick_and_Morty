@@ -88,6 +88,8 @@ public final class EpisodesAdapter extends RecyclerView.Adapter<EpisodeViewHolde
     }
 
     private int getImageSeason(String season) {
+
+        // Связать сезон и картинку через enum
         switch (season) {
             case "1": {
                 return R.drawable.ic_first_season_black;

@@ -6,7 +6,7 @@ import androidx.lifecycle.MutableLiveData;
 
 import com.eugenebaturov.rickandmorty.domain.interactor.location.LocationInteractor;
 import com.eugenebaturov.rickandmorty.models.domain.Location;
-import com.eugenebaturov.rickandmorty.presentation.viewmodel.AppViewModel;
+import com.eugenebaturov.rickandmorty.presentation.viewmodel.RxViewModel;
 import com.eugenebaturov.rickandmorty.utils.SchedulerProvider;
 
 import java.util.List;
@@ -14,7 +14,7 @@ import java.util.List;
 /**
  * ViewModel для списка локаций.
  */
-public final class LocationListViewModel extends AppViewModel {
+public final class LocationListViewModel extends RxViewModel {
 
     @NonNull
     private final MutableLiveData<List<Location>> mLocations = new MutableLiveData<>();
@@ -77,7 +77,7 @@ public final class LocationListViewModel extends AppViewModel {
      */
     public void loadLocations() {
         disposable.add(mLocationInteractor
-                .getLocationsFromRepository()
+                .getLocations()
                 .subscribeOn(mSchedulerProvider.io())
                 .observeOn(mSchedulerProvider.ui())
                 .doFinally(() -> mProgress.setValue(false))
@@ -91,7 +91,7 @@ public final class LocationListViewModel extends AppViewModel {
      */
     public void loadLocations(String query) {
         disposable.add(mLocationInteractor
-                .getSearchedLocationsFromRepository(query)
+                .getLocations(query)
                 .subscribeOn(mSchedulerProvider.io())
                 .observeOn(mSchedulerProvider.ui())
                 .doFinally(() -> mProgress.setValue(false))
