@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
+import android.widget.SearchView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -71,8 +72,22 @@ public final class LocationListFragment extends Fragment {
     }
 
     private void initUI(View view) {
+        SearchView mSearchView = view.findViewById(R.id.location_searchView);
         mProgress = view.findViewById(R.id.progress_bar);
         mRecyclerView = view.findViewById(R.id.recyclerView_locations);
+
+        mSearchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                mViewModel.loadLocations(newText);
+                return false;
+            }
+        });
     }
 
     private void initViewModel() {
