@@ -42,7 +42,7 @@ public final class MainActivity extends AppCompatActivity implements CharacterLi
     }
 
     @Override
-    public void goToEpisode(final int episodeId,final int imageRecourse) {
+    public void goToEpisode(final int episodeId, final int imageRecourse) {
         mFragment = EpisodeFragment.newInstance(episodeId, imageRecourse);
         getSupportFragmentManager()
                 .beginTransaction()
