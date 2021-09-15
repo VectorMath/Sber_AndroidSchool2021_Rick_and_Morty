@@ -3,8 +3,10 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_gravity="center"
-    android:layout_margin="@dimen/medium_margin">
+    android:layout_marginStart="64dp"
+    android:layout_marginEnd="64dp"
+    android:layout_marginTop="@dimen/large_margin"
+    android:layout_marginBottom="@dimen/large_margin">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -23,13 +25,12 @@
 
         <TextView
             android:id="@+id/episode_title_textView"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/medium_margin"
             android:gravity="center"
             android:text="@string/episode_title"
             android:textAlignment="center"
-            android:textColor="@color/black"
             android:textSize="@dimen/large_textSize"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -58,7 +59,6 @@
                 android:layout_gravity="center_vertical"
                 android:layout_marginStart="@dimen/small_margin"
                 android:text="@string/episode_characters_count"
-                android:textColor="@color/black"
                 android:textSize="@dimen/medium_textSize"
                 android:textStyle="bold" />
         </LinearLayout>

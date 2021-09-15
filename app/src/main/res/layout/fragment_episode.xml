@@ -26,7 +26,6 @@
                 android:layout_margin="@dimen/medium_margin"
                 android:text="@string/episode_title"
                 android:textAlignment="center"
-                android:textColor="@color/black"
                 android:textSize="@dimen/large_textSize" />
 
             <LinearLayout
@@ -42,7 +41,6 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
                     android:text="@string/season"
-                    android:textColor="@color/black"
                     android:textSize="@dimen/medium_textSize" />
 
                 <ImageView
@@ -67,7 +65,6 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
                     android:text="@string/episode"
-                    android:textColor="@color/black"
                     android:textSize="@dimen/medium_textSize" />
 
                 <TextView
@@ -77,7 +74,6 @@
                     android:layout_gravity="center_vertical"
                     android:layout_marginStart="@dimen/small_margin"
                     android:text="@string/episode_number"
-                    android:textColor="@color/black"
                     android:textSize="@dimen/medium_textSize" />
 
             </LinearLayout>
@@ -90,7 +86,6 @@
                 android:layout_margin="@dimen/medium_margin"
                 android:text="@string/air_date"
                 android:textAlignment="center"
-                android:textColor="@color/black"
                 android:textSize="@dimen/medium_textSize" />
         </LinearLayout>
     </androidx.cardview.widget.CardView>

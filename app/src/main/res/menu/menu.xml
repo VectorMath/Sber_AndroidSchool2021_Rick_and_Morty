@@ -16,4 +16,10 @@
         android:id="@+id/page_3"
         android:enabled="true"
         android:title="@string/episodes"/>
+
+    <item
+        android:icon="@drawable/ic_settings"
+        android:id="@+id/page_4"
+        android:title="@string/settings"
+        android:enabled="true"/>
 </menu>

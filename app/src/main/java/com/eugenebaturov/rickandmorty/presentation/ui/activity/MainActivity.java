@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
 import com.eugenebaturov.rickandmorty.R;
+import com.eugenebaturov.rickandmorty.prefs.SettingsFragment;
 import com.eugenebaturov.rickandmorty.presentation.ui.fragment.character.CharacterFragment;
 import com.eugenebaturov.rickandmorty.presentation.ui.fragment.character.CharacterListFragment;
 import com.eugenebaturov.rickandmorty.presentation.ui.fragment.episode.EpisodeFragment;
@@ -103,6 +104,13 @@ public final class MainActivity extends AppCompatActivity implements CharacterLi
                 case R.id.page_3: {
                     clearBackStack();
                     mFragment = EpisodeListFragment.newInstance();
+                    startFragment(mFragment);
+                    break;
+                }
+
+                case R.id.page_4: {
+                    clearBackStack();
+                    mFragment = SettingsFragment.newInstance();
                     startFragment(mFragment);
                     break;
                 }

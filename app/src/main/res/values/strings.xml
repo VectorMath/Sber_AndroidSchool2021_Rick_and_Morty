@@ -7,7 +7,6 @@
     <string name="character_race">Race</string>
     <string name="character_gender">Gender</string>
     <string name="character_origin">Origin</string>
-    <string name="characters">Characters</string>
 
     <!--Episode's string-->
     <string name="episode_title">Episode title</string>
@@ -16,7 +15,6 @@
     <string name="episode">Episode:</string>
     <string name="episode_number">0</string>
     <string name="air_date">Air-Date</string>
-    <string name="episodes">Episodes</string>
 
     <!--Location's string-->
     <string name="type_of_location">Type of location</string>
@@ -25,6 +23,16 @@
     <string name="residents_count">0</string>
     <string name="link">Link</string>
     <string name="current_location">Current Location</string>
-    <string name="locations">Locations</string>
 
+    <!--Bottom Navigation View-->
+    <string name="characters">Characters</string>
+    <string name="locations">Locations</string>
+    <string name="episodes">Episodes</string>
+    <string name="settings">Settings</string>
+
+    <!--Preference key-->
+    <string name="night_mode_key">night_mode_key</string>
+
+    <!--Preference string-->
+    <string name="night_mode">Night mode</string>
 </resources>

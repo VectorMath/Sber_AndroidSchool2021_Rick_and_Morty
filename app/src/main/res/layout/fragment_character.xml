@@ -4,7 +4,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_gravity="center"
-    android:background="@color/white"
     android:orientation="vertical">
 
     <androidx.cardview.widget.CardView
@@ -28,7 +27,6 @@
         android:layout_gravity="center"
         android:layout_marginTop="@dimen/medium_margin"
         android:text="@string/character_name"
-        android:textColor="@color/black"
         android:textSize="@dimen/large_textSize" />
 
     <LinearLayout
@@ -51,7 +49,6 @@
             android:layout_gravity="center_vertical"
             android:layout_marginStart="@dimen/small_margin"
             android:text="@string/character_status"
-            android:textColor="@color/black"
             android:textSize="@dimen/small_textSize" />
     </LinearLayout>
 
@@ -68,7 +65,6 @@
             android:layout_weight="1"
             android:text="@string/character_race"
             android:textAlignment="center"
-            android:textColor="@color/black"
             android:textSize="@dimen/medium_textSize" />
 
         <TextView
@@ -79,7 +75,6 @@
             android:layout_weight="1"
             android:text="@string/character_gender"
             android:textAlignment="center"
-            android:textColor="@color/black"
             android:textSize="@dimen/medium_textSize" />
     </LinearLayout>
 
@@ -90,7 +85,6 @@
         android:layout_marginTop="@dimen/medium_margin"
         android:text="@string/character_origin"
         android:textAlignment="center"
-        android:textColor="@color/black"
         android:textSize="@dimen/medium_textSize" />
 
     <TextView
@@ -110,7 +104,6 @@
         android:layout_marginTop="@dimen/medium_margin"
         android:text="@string/current_location"
         android:textAlignment="center"
-        android:textColor="@color/black"
         android:textSize="@dimen/medium_textSize" />
 
     <TextView

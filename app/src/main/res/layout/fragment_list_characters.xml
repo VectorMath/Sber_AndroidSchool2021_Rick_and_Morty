@@ -4,7 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white"
     android:orientation="vertical"
     app:layout_scrollFlags="scroll|enterAlways">
 
@@ -13,11 +12,13 @@
         android:layout_height="wrap_content">
 
         <androidx.appcompat.widget.Toolbar
+            style="@style/ToolbarStyle"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             app:layout_scrollFlags="scroll|enterAlways">
 
             <SearchView
+                style="@style/ToolbarStyle"
                 android:id="@+id/character_searchView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
