@@ -8,12 +8,11 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.eugenebaturov.rickandmorty.R;
 import com.eugenebaturov.rickandmorty.App;
-import com.eugenebaturov.rickandmorty.di.location.LocationComponent;
+import com.eugenebaturov.rickandmorty.di.location.LocationSubcomponent;
 import com.eugenebaturov.rickandmorty.presentation.ui.fragment.BaseFragment;
 import com.eugenebaturov.rickandmorty.presentation.viewmodel.location.LocationViewModel;
 import com.eugenebaturov.rickandmorty.presentation.viewmodel.location.LocationViewModelFactory;
@@ -56,8 +55,8 @@ public final class LocationFragment extends BaseFragment {
     }
 
     private void injectDependency() {
-        LocationComponent mComponent
-                = App.getAppComponent(requireContext()).getLocationComponent();
+        LocationSubcomponent mComponent
+                = App.getAppComponent(requireContext()).getLocationSubcomponent();
         mComponent.inject(this);
     }
 

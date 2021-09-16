@@ -1,6 +1,5 @@
 package com.eugenebaturov.rickandmorty.presentation.ui.fragment.character;
 
-import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,9 +15,7 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.eugenebaturov.rickandmorty.App;
 import com.eugenebaturov.rickandmorty.R;
-import com.eugenebaturov.rickandmorty.di.character.CharacterComponent;
-import com.eugenebaturov.rickandmorty.presentation.ui.MainActivity;
-import com.eugenebaturov.rickandmorty.presentation.ui.Navigation;
+import com.eugenebaturov.rickandmorty.di.character.CharacterSubcomponent;
 import com.eugenebaturov.rickandmorty.presentation.ui.fragment.BaseFragment;
 import com.eugenebaturov.rickandmorty.presentation.viewmodel.character.CharacterViewModel;
 import com.eugenebaturov.rickandmorty.presentation.viewmodel.character.CharacterViewModelFactory;
@@ -77,9 +74,9 @@ public final class CharacterFragment extends BaseFragment {
     }
 
     private void injectDependency() {
-        CharacterComponent characterComponent
-                = App.getAppComponent(requireContext()).getCharacterComponent();
-        characterComponent.inject(this);
+        CharacterSubcomponent characterSubcomponent
+                = App.getAppComponent(requireContext()).getCharacterSubcomponent();
+        characterSubcomponent.inject(this);
     }
 
     private void initViewModel() {

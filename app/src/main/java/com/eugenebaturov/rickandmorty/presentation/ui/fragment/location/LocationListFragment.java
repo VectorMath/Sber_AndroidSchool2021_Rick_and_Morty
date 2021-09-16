@@ -14,7 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.eugenebaturov.rickandmorty.App;
 import com.eugenebaturov.rickandmorty.R;
-import com.eugenebaturov.rickandmorty.di.location.LocationComponent;
+import com.eugenebaturov.rickandmorty.di.location.LocationSubcomponent;
 import com.eugenebaturov.rickandmorty.presentation.ui.adapter.LocationsAdapter;
 import com.eugenebaturov.rickandmorty.presentation.ui.fragment.BaseFragment;
 import com.eugenebaturov.rickandmorty.presentation.viewmodel.location.LocationListViewModel;
@@ -56,9 +56,9 @@ public final class LocationListFragment extends BaseFragment {
     }
 
     private void injectDependency() {
-        LocationComponent locationComponent
-                = App.getAppComponent(requireContext()).getLocationComponent();
-        locationComponent.inject(this);
+        LocationSubcomponent locationSubcomponent
+                = App.getAppComponent(requireContext()).getLocationSubcomponent();
+        locationSubcomponent.inject(this);
     }
 
     private void initViewModel() {

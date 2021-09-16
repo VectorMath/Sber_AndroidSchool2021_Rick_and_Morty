@@ -16,7 +16,7 @@ import dagger.Provides;
 import retrofit2.Retrofit;
 
 /**
- * Предоставляет зависимости, которые необходимы {@link EpisodeComponent}.
+ * Предоставляет зависимости, которые необходимы {@link EpisodeSubcomponent}.
  */
 @Module
 public final class EpisodeModule {

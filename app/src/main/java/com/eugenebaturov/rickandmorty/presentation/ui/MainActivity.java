@@ -9,7 +9,9 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.ViewModelProvider;
 
+import com.eugenebaturov.rickandmorty.App;
 import com.eugenebaturov.rickandmorty.R;
+import com.eugenebaturov.rickandmorty.di.main.MainActivitySubcomponent;
 import com.eugenebaturov.rickandmorty.prefs.SettingsFragment;
 import com.eugenebaturov.rickandmorty.presentation.ui.fragment.character.CharacterFragment;
 import com.eugenebaturov.rickandmorty.presentation.ui.fragment.character.CharacterListFragment;
@@ -21,17 +23,23 @@ import com.eugenebaturov.rickandmorty.presentation.viewmodel.main.MainViewModel;
 import com.eugenebaturov.rickandmorty.presentation.viewmodel.main.MainViewModelFactory;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
+import javax.inject.Inject;
+
 /**
  * Главная активити, где происходят все действия приложения.
  */
 public final class MainActivity extends AppCompatActivity implements Navigation {
-    private MainViewModelFactory mViewModelFactory;
     private MainViewModel mViewModel;
+
+    @Inject
+    MainViewModelFactory mViewModelFactory;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        injectDependency();
+        initViewModel();
         initUI();
     }
 
@@ -53,13 +61,18 @@ public final class MainActivity extends AppCompatActivity implements Navigation 
         goToFragment(mViewModel.getFragment());
     }
 
+    private void injectDependency() {
+        MainActivitySubcomponent activitySubcomponent
+                = App.getAppComponent(this).getMainActivitySubcomponent();
+        activitySubcomponent.inject(this);
+    }
+
+    private void initViewModel() {
+        mViewModel = new ViewModelProvider(this, mViewModelFactory).get(MainViewModel.class);
+    }
+
     @SuppressLint("NonConstantResourceId")
     private void initUI() {
-        mViewModelFactory = new MainViewModelFactory();
-        mViewModel = new ViewModelProvider(this, mViewModelFactory).get(MainViewModel.class);
-
-        BottomNavigationView mBottomNavigationView = findViewById(R.id.bottom_navigation);
-
         if (mViewModel.getFragment() == null) {
             mViewModel.setFragment(CharacterListFragment.newInstance());
             getSupportFragmentManager()
@@ -68,6 +81,7 @@ public final class MainActivity extends AppCompatActivity implements Navigation 
                     .commit();
         }
 
+        BottomNavigationView mBottomNavigationView = findViewById(R.id.bottom_navigation);
         mBottomNavigationView.setOnItemSelectedListener(item -> {
 
             switch (item.getItemId()) {

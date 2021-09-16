@@ -9,12 +9,11 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.eugenebaturov.rickandmorty.R;
 import com.eugenebaturov.rickandmorty.App;
-import com.eugenebaturov.rickandmorty.di.episode.EpisodeComponent;
+import com.eugenebaturov.rickandmorty.di.episode.EpisodeSubcomponent;
 import com.eugenebaturov.rickandmorty.presentation.ui.fragment.BaseFragment;
 import com.eugenebaturov.rickandmorty.presentation.viewmodel.episode.EpisodeViewModel;
 import com.eugenebaturov.rickandmorty.presentation.viewmodel.episode.EpisodeViewModelFactory;
@@ -59,9 +58,9 @@ public final class EpisodeFragment extends BaseFragment {
     }
 
     private void injectDependency() {
-        EpisodeComponent mEpisodeComponent
-                = App.getAppComponent(requireContext()).getEpisodeComponent();
-        mEpisodeComponent.inject(this);
+        EpisodeSubcomponent mEpisodeSubcomponent
+                = App.getAppComponent(requireContext()).getEpisodeSubcomponent();
+        mEpisodeSubcomponent.inject(this);
     }
 
     private void initViewModel() {

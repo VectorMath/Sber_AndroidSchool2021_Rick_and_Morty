@@ -16,7 +16,7 @@ import dagger.Provides;
 import retrofit2.Retrofit;
 
 /**
- * Предоставляет зависимости, которые необходимы {@link CharacterComponent}.
+ * Предоставляет зависимости, которые необходимы {@link CharacterSubcomponent}.
  */
 @Module
 public final class CharacterModule {

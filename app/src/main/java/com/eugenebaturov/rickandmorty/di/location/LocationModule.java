@@ -16,7 +16,7 @@ import dagger.Provides;
 import retrofit2.Retrofit;
 
 /**
- * Предоставляет зависимости, которые необходимы {@link LocationComponent}.
+ * Предоставляет зависимости, которые необходимы {@link LocationSubcomponent}.
  */
 @Module
 public final class LocationModule {

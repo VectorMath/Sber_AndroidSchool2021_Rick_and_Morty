@@ -1,22 +1,48 @@
 package com.eugenebaturov.rickandmorty.di;
 
-import com.eugenebaturov.rickandmorty.di.character.CharacterComponent;
-import com.eugenebaturov.rickandmorty.di.episode.EpisodeComponent;
-import com.eugenebaturov.rickandmorty.di.location.LocationComponent;
+import com.eugenebaturov.rickandmorty.di.character.CharacterSubcomponent;
+import com.eugenebaturov.rickandmorty.di.episode.EpisodeSubcomponent;
+import com.eugenebaturov.rickandmorty.di.location.LocationSubcomponent;
+import com.eugenebaturov.rickandmorty.di.main.MainActivitySubcomponent;
 
 import javax.inject.Singleton;
 
 import dagger.Component;
 
+/**
+ * Основной компонент зависимостей.
+ */
 @Singleton
 @Component(modules = {AppModule.class})
 public interface AppComponent {
 
-    CharacterComponent getCharacterComponent();
+    /**
+     * Предоставляет подкомпонент с зависимостями для главной активити.
+     *
+     * @return подкомпонент {@link MainActivitySubcomponent}.
+     */
+    MainActivitySubcomponent getMainActivitySubcomponent();
 
-    EpisodeComponent getEpisodeComponent();
+    /**
+     * Предоставляет подкомпонент с зависимостями для персонажей.
+     *
+     * @return подкомпонент {@link CharacterSubcomponent}.
+     */
+    CharacterSubcomponent getCharacterSubcomponent();
 
-    LocationComponent getLocationComponent();
+    /**
+     * Предоставляет подкомпонент с зависимостями для эпизодов.
+     *
+     * @return подкомпонент {@link EpisodeSubcomponent}.
+     */
+    EpisodeSubcomponent getEpisodeSubcomponent();
+
+    /**
+     * Предоставляет подкомпонент с зависимостями для локаций.
+     *
+     * @return подкомпонент {@link LocationSubcomponent}.
+     */
+    LocationSubcomponent getLocationSubcomponent();
 
     @Component.Factory
     interface Factory {

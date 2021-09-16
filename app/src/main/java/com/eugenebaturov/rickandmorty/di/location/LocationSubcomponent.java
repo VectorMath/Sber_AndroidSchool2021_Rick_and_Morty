@@ -11,9 +11,19 @@ import dagger.Subcomponent;
  */
 @FragmentScope
 @Subcomponent(modules = LocationModule.class)
-public interface LocationComponent {
+public interface LocationSubcomponent {
 
+    /**
+     * Внедряет необходимые зависимости в {@link LocationListFragment}
+     *
+     * @param locationListFragment образец фрагмента со списком локаций.
+     */
     void inject(LocationListFragment locationListFragment);
 
+    /**
+     * Внедряет необходимые зависимости в {@link LocationListFragment}
+     *
+     * @param locationFragment образец фрагмента с конкретной локацией.
+     */
     void inject(LocationFragment locationFragment);
 }

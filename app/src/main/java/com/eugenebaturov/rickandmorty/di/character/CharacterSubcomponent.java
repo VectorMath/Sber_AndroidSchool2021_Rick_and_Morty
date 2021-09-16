@@ -3,10 +3,6 @@ package com.eugenebaturov.rickandmorty.di.character;
 import com.eugenebaturov.rickandmorty.di.FragmentScope;
 import com.eugenebaturov.rickandmorty.presentation.ui.fragment.character.CharacterFragment;
 import com.eugenebaturov.rickandmorty.presentation.ui.fragment.character.CharacterListFragment;
-import com.eugenebaturov.rickandmorty.presentation.viewmodel.character.CharacterListViewModel;
-import com.eugenebaturov.rickandmorty.presentation.viewmodel.character.CharacterListViewModelFactory;
-import com.eugenebaturov.rickandmorty.presentation.viewmodel.character.CharacterViewModel;
-import com.eugenebaturov.rickandmorty.presentation.viewmodel.character.CharacterViewModelFactory;
 
 import dagger.Subcomponent;
 
@@ -15,9 +11,19 @@ import dagger.Subcomponent;
  */
 @FragmentScope
 @Subcomponent(modules = CharacterModule.class)
-public interface CharacterComponent {
+public interface CharacterSubcomponent {
 
+    /**
+     * Внедряет необходимые зависимости в {@link CharacterListFragment}
+     *
+     * @param characterListFragment образец фрагмента со списком персонажей.
+     */
     void inject(CharacterListFragment characterListFragment);
 
+    /**
+     * Внедряет необходимые зависимости в {@link CharacterFragment}
+     *
+     * @param characterFragment образец фрагмента с конкретным персонажем.
+     */
     void inject(CharacterFragment characterFragment);
 }

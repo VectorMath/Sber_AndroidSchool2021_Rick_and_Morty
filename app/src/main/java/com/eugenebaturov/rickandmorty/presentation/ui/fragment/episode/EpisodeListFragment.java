@@ -1,6 +1,5 @@
 package com.eugenebaturov.rickandmorty.presentation.ui.fragment.episode;
 
-import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,15 +9,12 @@ import android.widget.SearchView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.eugenebaturov.rickandmorty.R;
 import com.eugenebaturov.rickandmorty.App;
-import com.eugenebaturov.rickandmorty.di.episode.EpisodeComponent;
-import com.eugenebaturov.rickandmorty.presentation.ui.MainActivity;
-import com.eugenebaturov.rickandmorty.presentation.ui.Navigation;
+import com.eugenebaturov.rickandmorty.di.episode.EpisodeSubcomponent;
 import com.eugenebaturov.rickandmorty.presentation.ui.adapter.EpisodesAdapter;
 import com.eugenebaturov.rickandmorty.presentation.ui.fragment.BaseFragment;
 import com.eugenebaturov.rickandmorty.presentation.viewmodel.episode.EpisodeListViewModel;
@@ -60,9 +56,9 @@ public final class EpisodeListFragment extends BaseFragment {
     }
 
     private void injectDependency() {
-        EpisodeComponent episodeComponent
-                = App.getAppComponent(requireContext()).getEpisodeComponent();
-        episodeComponent.inject(this);
+        EpisodeSubcomponent episodeSubcomponent
+                = App.getAppComponent(requireContext()).getEpisodeSubcomponent();
+        episodeSubcomponent.inject(this);
     }
 
     private void initViewModel() {

@@ -11,9 +11,19 @@ import dagger.Subcomponent;
  */
 @FragmentScope
 @Subcomponent(modules = EpisodeModule.class)
-public interface EpisodeComponent {
+public interface EpisodeSubcomponent {
 
+    /**
+     * Внедряет необходимые зависимости в {@link EpisodeListFragment}
+     *
+     * @param episodeListFragment образец фрагмента со списком эпизодов.
+     */
     void inject(EpisodeListFragment episodeListFragment);
 
+    /**
+     * Внедряет необходимые зависимости в {@link EpisodeFragment}
+     *
+     * @param episodeFragment образец фрагмента с конкретным эпизодом.
+     */
     void inject(EpisodeFragment episodeFragment);
 }
