@@ -1,6 +1,10 @@
 package com.eugenebaturov.rickandmorty.models.domain;
 
 import androidx.annotation.NonNull;
+import androidx.room.ColumnInfo;
+import androidx.room.Embedded;
+import androidx.room.Entity;
+import androidx.room.PrimaryKey;
 
 import com.eugenebaturov.rickandmorty.models.data.CurrentLocation;
 import com.eugenebaturov.rickandmorty.models.data.Origin;
@@ -11,39 +15,56 @@ import java.util.Objects;
 /**
  * Класс-сущность персонажа в domain/ui - слое.
  */
+@Entity(tableName = "character_table")
 public final class Character {
+    @ColumnInfo(name = "id")
+    @PrimaryKey
     private final int mId;
 
+    @ColumnInfo(name = "name")
     @NonNull
     private final String mName;
 
+    @ColumnInfo(name = "status")
     @NonNull
     private final String mStatus;
 
+    @ColumnInfo(name = "image_status_res")
     private final int mImageStatusResource;
 
+    @ColumnInfo(name = "species")
     @NonNull
     private final String mSpecies;
 
+    @ColumnInfo(name = "type")
     @NonNull
     private final String mType;
 
+    @ColumnInfo(name = "gender")
     @NonNull
     private final String mGender;
 
+    @ColumnInfo(name = "image_url")
     @NonNull
     private final String mImageUrl;
 
+    @ColumnInfo(name = "origin")
+    @Embedded
     @NonNull
     private final Origin mOrigin;
 
+    @ColumnInfo(name = "origin_id")
     private final int mOriginId;
 
+    @ColumnInfo(name = "current_location")
+    @Embedded
     @NonNull
     private final CurrentLocation mCurrentLocation;
 
+    @ColumnInfo(name = "current_location_id")
     private final int mCurrentLocationId;
 
+    @ColumnInfo(name = "episodes_urls")
     @NonNull
     private final List<String> mEpisodesUrl;
 
