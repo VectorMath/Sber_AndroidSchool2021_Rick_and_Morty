@@ -1,6 +1,6 @@
 package com.eugenebaturov.rickandmorty.di.episode;
 
-import com.eugenebaturov.rickandmorty.di.FragmentScope;
+import com.eugenebaturov.rickandmorty.di.annotations.FragmentScope;
 import com.eugenebaturov.rickandmorty.presentation.ui.fragment.episode.EpisodeFragment;
 import com.eugenebaturov.rickandmorty.presentation.ui.fragment.episode.EpisodeListFragment;
 

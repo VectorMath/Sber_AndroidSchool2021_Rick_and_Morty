@@ -86,34 +86,46 @@ public final class MainActivity extends AppCompatActivity implements Navigation 
 
             switch (item.getItemId()) {
                 case R.id.page_1: {
-                    clearBackStack();
-                    mViewModel.setFragment(CharacterListFragment.newInstance());
-                    startFragment(mViewModel.getFragment());
+                    if (!(mViewModel.getFragment() instanceof CharacterListFragment)) {
+                        clearBackStack();
+                        mViewModel.setFragment(CharacterListFragment.newInstance());
+                        startFragment(mViewModel.getFragment());
+                        return true;
+                    }
                     break;
                 }
 
                 case R.id.page_2: {
-                    clearBackStack();
-                    mViewModel.setFragment(LocationListFragment.newInstance());
-                    startFragment(mViewModel.getFragment());
+                    if (!(mViewModel.getFragment() instanceof LocationListFragment)) {
+                        clearBackStack();
+                        mViewModel.setFragment(LocationListFragment.newInstance());
+                        startFragment(mViewModel.getFragment());
+                        return true;
+                    }
                     break;
                 }
 
                 case R.id.page_3: {
-                    clearBackStack();
-                    mViewModel.setFragment(EpisodeListFragment.newInstance());
-                    startFragment(mViewModel.getFragment());
+                    if (!(mViewModel.getFragment() instanceof EpisodeListFragment)) {
+                        clearBackStack();
+                        mViewModel.setFragment(EpisodeListFragment.newInstance());
+                        startFragment(mViewModel.getFragment());
+                        return true;
+                    }
                     break;
                 }
 
                 case R.id.page_4: {
-                    clearBackStack();
-                    mViewModel.setFragment(SettingsFragment.newInstance());
-                    startFragment(mViewModel.getFragment());
+                    if (!(mViewModel.getFragment() instanceof SettingsFragment)) {
+                        clearBackStack();
+                        mViewModel.setFragment(SettingsFragment.newInstance());
+                        startFragment(mViewModel.getFragment());
+                        return true;
+                    }
                     break;
                 }
             }
-            return true;
+            return false;
         });
     }
 

@@ -1,6 +1,6 @@
 package com.eugenebaturov.rickandmorty.di.location;
 
-import com.eugenebaturov.rickandmorty.di.FragmentScope;
+import com.eugenebaturov.rickandmorty.di.annotations.FragmentScope;
 import com.eugenebaturov.rickandmorty.presentation.ui.fragment.location.LocationFragment;
 import com.eugenebaturov.rickandmorty.presentation.ui.fragment.location.LocationListFragment;
 

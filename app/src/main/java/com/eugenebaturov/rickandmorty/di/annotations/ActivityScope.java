@@ -1,4 +1,4 @@
-package com.eugenebaturov.rickandmorty.di;
+package com.eugenebaturov.rickandmorty.di.annotations;
 
 import java.lang.annotation.Documented;
 import java.lang.annotation.Retention;

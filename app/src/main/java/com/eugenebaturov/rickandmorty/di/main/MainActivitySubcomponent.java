@@ -1,6 +1,6 @@
 package com.eugenebaturov.rickandmorty.di.main;
 
-import com.eugenebaturov.rickandmorty.di.ActivityScope;
+import com.eugenebaturov.rickandmorty.di.annotations.ActivityScope;
 import com.eugenebaturov.rickandmorty.presentation.ui.MainActivity;
 
 import dagger.Subcomponent;
@@ -11,5 +11,11 @@ import dagger.Subcomponent;
 @ActivityScope
 @Subcomponent(modules = MainActivityModule.class)
 public interface MainActivitySubcomponent {
+
+    /**
+     * Внедряет необходимые зависимости в {@link MainActivity}
+     *
+     * @param mainActivity образец главной активити.
+     */
     void inject(MainActivity mainActivity);
 }

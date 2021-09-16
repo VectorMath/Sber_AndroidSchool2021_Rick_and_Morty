@@ -1,6 +1,6 @@
 package com.eugenebaturov.rickandmorty.di.character;
 
-import com.eugenebaturov.rickandmorty.di.FragmentScope;
+import com.eugenebaturov.rickandmorty.di.annotations.FragmentScope;
 import com.eugenebaturov.rickandmorty.presentation.ui.fragment.character.CharacterFragment;
 import com.eugenebaturov.rickandmorty.presentation.ui.fragment.character.CharacterListFragment;
 
