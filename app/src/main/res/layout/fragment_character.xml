@@ -94,7 +94,6 @@
         android:layout_marginTop="@dimen/small_margin"
         android:text="@string/link"
         android:textAlignment="center"
-        android:textColor="@color/purple_500"
         android:textSize="@dimen/medium_textSize" />
 
     <TextView
@@ -113,7 +112,6 @@
         android:layout_marginTop="@dimen/small_margin"
         android:text="@string/link"
         android:textAlignment="center"
-        android:textColor="@color/purple_500"
         android:textSize="@dimen/medium_textSize" />
 
 

@@ -3,9 +3,9 @@ package com.eugenebaturov.rickandmorty.data.repository.character;
 import androidx.annotation.NonNull;
 
 import com.eugenebaturov.rickandmorty.data.api.CharacterApi;
-import com.eugenebaturov.rickandmorty.data.utils.Converter;
-import com.eugenebaturov.rickandmorty.data.utils.character.CharacterConverter;
-import com.eugenebaturov.rickandmorty.data.utils.character.CharactersConverter;
+import com.eugenebaturov.rickandmorty.data.converter.Converter;
+import com.eugenebaturov.rickandmorty.data.converter.character.CharacterConverter;
+import com.eugenebaturov.rickandmorty.data.converter.character.CharactersConverter;
 import com.eugenebaturov.rickandmorty.models.data.CharacterResponse;
 import com.eugenebaturov.rickandmorty.models.data.list.ListCharacterResponse;
 import com.eugenebaturov.rickandmorty.models.domain.Character;

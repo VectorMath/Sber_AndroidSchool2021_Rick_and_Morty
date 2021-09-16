@@ -1,8 +1,9 @@
-package com.eugenebaturov.rickandmorty.data.utils.character;
+package com.eugenebaturov.rickandmorty.data.converter.character;
 
 import androidx.annotation.NonNull;
 
-import com.eugenebaturov.rickandmorty.data.utils.Converter;
+import com.eugenebaturov.rickandmorty.data.converter.Converter;
+import com.eugenebaturov.rickandmorty.data.converter.Taker;
 import com.eugenebaturov.rickandmorty.models.data.CharacterResponse;
 import com.eugenebaturov.rickandmorty.models.data.list.ListCharacterResponse;
 import com.eugenebaturov.rickandmorty.models.domain.Character;
@@ -28,12 +29,15 @@ public final class CharactersConverter
                     response.getId(),
                     response.getName(),
                     response.getStatus(),
+                    Taker.getCharacterImageStatusResource(response.getStatus()),
                     response.getSpecies(),
                     response.getType(),
                     response.getGender(),
                     response.getImage(),
                     response.getOrigin(),
+                    Taker.getLocationId(response.getOrigin().getUrl()),
                     response.getCurrentLocation(),
+                    Taker.getLocationId(response.getCurrentLocation().getUrl()),
                     response.getEpisodesUrl()
             );
             characters.add(character);

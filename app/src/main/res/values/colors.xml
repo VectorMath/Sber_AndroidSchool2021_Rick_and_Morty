@@ -16,4 +16,6 @@
 
     <!--Light Mode colors-->
     <color name="light_mode_textColor">#FF000000</color>
+
+    <color name="text_link">#2D4AA1</color>
 </resources>

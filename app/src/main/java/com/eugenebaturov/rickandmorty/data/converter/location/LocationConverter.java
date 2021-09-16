@@ -1,8 +1,8 @@
-package com.eugenebaturov.rickandmorty.data.utils.location;
+package com.eugenebaturov.rickandmorty.data.converter.location;
 
 import androidx.annotation.NonNull;
 
-import com.eugenebaturov.rickandmorty.data.utils.Converter;
+import com.eugenebaturov.rickandmorty.data.converter.Converter;
 import com.eugenebaturov.rickandmorty.models.data.LocationResponse;
 import com.eugenebaturov.rickandmorty.models.domain.Location;
 

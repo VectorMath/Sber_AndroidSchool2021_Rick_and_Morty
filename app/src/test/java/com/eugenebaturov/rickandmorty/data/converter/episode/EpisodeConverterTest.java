@@ -1,7 +1,6 @@
 package com.eugenebaturov.rickandmorty.data.converter.episode;
 
-import com.eugenebaturov.rickandmorty.data.utils.Converter;
-import com.eugenebaturov.rickandmorty.data.utils.episode.EpisodeConverter;
+import com.eugenebaturov.rickandmorty.data.converter.Converter;
 import com.eugenebaturov.rickandmorty.models.data.EpisodeResponse;
 import com.eugenebaturov.rickandmorty.models.domain.Episode;
 import com.eugenebaturov.rickandmorty.testdata.EpisodeTestData;

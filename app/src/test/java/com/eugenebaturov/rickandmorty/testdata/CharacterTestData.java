@@ -1,5 +1,6 @@
 package com.eugenebaturov.rickandmorty.testdata;
 
+import com.eugenebaturov.rickandmorty.R;
 import com.eugenebaturov.rickandmorty.models.data.CharacterResponse;
 import com.eugenebaturov.rickandmorty.models.data.CurrentLocation;
 import com.eugenebaturov.rickandmorty.models.data.Origin;
@@ -113,12 +114,15 @@ public final class CharacterTestData {
                 1,
                 "Rick Sanchez",
                 "Alive",
+                R.drawable.ic_status_alive,
                 "Human",
                 "Scientist",
                 "Male",
                 "https://rickandmortyapi.com/api/character/avatar/1.jpeg",
                 firstTestOrigin,
+                1,
                 firstTestCurrentLocation,
+                20,
                 firstTestEpisodesUrl
         ));
 
@@ -137,12 +141,15 @@ public final class CharacterTestData {
                 23,
                 "Old Rick Sanchez",
                 "Alive",
+                R.drawable.ic_status_alive,
                 "Human",
                 "Faggot",
                 "Male",
                 "https://rickandmortyapi.com/api/character/avatar/23.jpeg",
                 secondTestOrigin,
+                1,
                 secondTestCurrentLocation,
+                20,
                 secondTestEpisodesUrl
         ));
 
@@ -221,12 +228,15 @@ public final class CharacterTestData {
                 1,
                 "Rick Sanchez",
                 "Alive",
+                R.drawable.ic_status_alive,
                 "Human",
                 "Scientist",
                 "Male",
                 "https://rickandmortyapi.com/api/character/avatar/1.jpeg",
                 testOrigin,
+                1,
                 testCurrentLocation,
+                20,
                 testEpisodesUrl
         );
     }
@@ -249,12 +259,15 @@ public final class CharacterTestData {
                 1,
                 "Rick Sanchez",
                 "Alive",
+                R.drawable.ic_status_alive,
                 "Human",
                 "Scientist",
                 "Male",
                 "https://rickandmortyapi.com/api/character/avatar/1.jpeg",
                 firstOrigin,
+                1,
                 firstCurrentLocation,
+                20,
                 firstEpisodesUrl
         );
 
@@ -273,12 +286,15 @@ public final class CharacterTestData {
                 2,
                 "Morty Smith",
                 "Alive",
+                R.drawable.ic_status_alive,
                 "Human",
                 "Faggot",
                 "Male",
                 "https://rickandmortyapi.com/api/character/avatar/2.jpeg",
                 secondOrigin,
+                1,
                 secondCurrentLocation,
+                20,
                 secondEpisodesUrl
         );
 

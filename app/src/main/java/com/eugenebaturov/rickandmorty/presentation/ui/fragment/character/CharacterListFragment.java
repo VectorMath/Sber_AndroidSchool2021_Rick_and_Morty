@@ -1,6 +1,7 @@
 package com.eugenebaturov.rickandmorty.presentation.ui.fragment.character;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -97,7 +98,10 @@ public final class CharacterListFragment extends BaseFragment {
     private void observeCharacters() {
         mViewModel.getCharacters().observe(
                 getViewLifecycleOwner(),
-                mAdapter::updateData);
+                characters -> {
+                    Log.d("ttest", characters.toString());
+                    mAdapter.updateData(characters);
+                });
     }
 
     private void observeProgress() {

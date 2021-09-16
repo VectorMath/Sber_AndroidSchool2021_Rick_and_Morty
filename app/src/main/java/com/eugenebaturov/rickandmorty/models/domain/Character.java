@@ -1,7 +1,6 @@
 package com.eugenebaturov.rickandmorty.models.domain;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.VisibleForTesting;
 
 import com.eugenebaturov.rickandmorty.models.data.CurrentLocation;
 import com.eugenebaturov.rickandmorty.models.data.Origin;
@@ -21,6 +20,8 @@ public final class Character {
     @NonNull
     private final String mStatus;
 
+    private final int mImageStatusResource;
+
     @NonNull
     private final String mSpecies;
 
@@ -36,8 +37,12 @@ public final class Character {
     @NonNull
     private final Origin mOrigin;
 
+    private final int mOriginId;
+
     @NonNull
     private final CurrentLocation mCurrentLocation;
+
+    private final int mCurrentLocationId;
 
     @NonNull
     private final List<String> mEpisodesUrl;
@@ -45,37 +50,45 @@ public final class Character {
     /**
      * Конструктор класса в который мы вручную передаём все параметры персонажа.
      *
-     * @param id              id персонажа.
-     * @param name            имя персонажа.
-     * @param status          статус персонажа.
-     * @param species         раса персонажа
-     * @param type            отличительная черта персонажа.
-     * @param gender          пол персонажа.
-     * @param imageUrl        url аватарки персонажа
-     * @param origin          место рождения персонажа.
-     * @param currentLocation текущая локация в которой находится персонаж.
-     * @param episodesUrl     список URL эпизодов в которых персонаж появился.
+     * @param id                id персонажа.
+     * @param name              имя персонажа.
+     * @param status            статус персонажа.
+     * @param species           раса персонажа
+     * @param type              отличительная черта персонажа.
+     * @param gender            пол персонажа.
+     * @param imageUrl          url аватарки персонажа
+     * @param origin            место рождения персонажа.
+     * @param originId          id локации места рождения.
+     * @param currentLocation   текущая локация в которой находится персонаж.
+     * @param currentLocationId id текущей локации.
+     * @param episodesUrl       список URL эпизодов в которых персонаж появился.
      */
     public Character(
             final int id,
             @NonNull final String name,
             @NonNull final String status,
+            final int imageStatusResource,
             @NonNull final String species,
             @NonNull final String type,
             @NonNull final String gender,
             @NonNull final String imageUrl,
             @NonNull final Origin origin,
+            final int originId,
             @NonNull final CurrentLocation currentLocation,
+            final int currentLocationId,
             @NonNull final List<String> episodesUrl) {
         mId = id;
         mName = name;
         mStatus = status;
+        mImageStatusResource = imageStatusResource;
         mSpecies = species;
         mType = type;
         mGender = gender;
         mImageUrl = imageUrl;
         mOrigin = origin;
+        mOriginId = originId;
         mCurrentLocation = currentLocation;
+        mCurrentLocationId = currentLocationId;
         mEpisodesUrl = episodesUrl;
     }
 
@@ -85,35 +98,40 @@ public final class Character {
         if (o == null || getClass() != o.getClass()) return false;
         Character character = (Character) o;
         return mId == character.mId &&
-                Objects.equals(mName, character.mName) &&
-                Objects.equals(mStatus, character.mStatus) &&
-                Objects.equals(mSpecies, character.mSpecies) &&
-                Objects.equals(mType, character.mType) &&
-                Objects.equals(mGender, character.mGender) &&
-                Objects.equals(mImageUrl, character.mImageUrl) &&
-                Objects.equals(mOrigin, character.mOrigin) &&
-                Objects.equals(mCurrentLocation, character.mCurrentLocation) &&
-                Objects.equals(mEpisodesUrl, character.mEpisodesUrl);
+                mImageStatusResource == character.mImageStatusResource &&
+                mOriginId == character.mOriginId &&
+                mCurrentLocationId == character.mCurrentLocationId &&
+                mName.equals(character.mName) &&
+                mStatus.equals(character.mStatus) &&
+                mSpecies.equals(character.mSpecies) &&
+                mType.equals(character.mType) &&
+                mGender.equals(character.mGender) &&
+                mImageUrl.equals(character.mImageUrl) &&
+                mOrigin.equals(character.mOrigin) &&
+                mCurrentLocation.equals(character.mCurrentLocation) &&
+                mEpisodesUrl.equals(character.mEpisodesUrl);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(mId, mName, mStatus, mSpecies, mType, mGender, mImageUrl, mOrigin, mCurrentLocation, mEpisodesUrl);
+        return Objects.hash(mId, mName, mStatus, mImageStatusResource, mSpecies, mType, mGender, mImageUrl, mOrigin, mOriginId, mCurrentLocation, mCurrentLocationId, mEpisodesUrl);
     }
 
     @Override
-    @NonNull
     public String toString() {
         return "Character{" +
                 "mId=" + mId +
                 ", mName='" + mName + '\'' +
                 ", mStatus='" + mStatus + '\'' +
+                ", mImageStatusResource=" + mImageStatusResource +
                 ", mSpecies='" + mSpecies + '\'' +
                 ", mType='" + mType + '\'' +
                 ", mGender='" + mGender + '\'' +
                 ", mImageUrl='" + mImageUrl + '\'' +
                 ", mOrigin=" + mOrigin +
+                ", mOriginId=" + mOriginId +
                 ", mCurrentLocation=" + mCurrentLocation +
+                ", mCurrentLocationId=" + mCurrentLocationId +
                 ", mEpisodesUrl=" + mEpisodesUrl +
                 '}';
     }
@@ -146,6 +164,15 @@ public final class Character {
     @NonNull
     public String getStatus() {
         return mStatus;
+    }
+
+    /**
+     * Получить ресурс изображения статуса персонажа.
+     *
+     * @return ресурс изображения статуса персонажа.
+     */
+    public int getImageStatusResource() {
+        return mImageStatusResource;
     }
 
     /**
@@ -216,5 +243,23 @@ public final class Character {
     @NonNull
     public List<String> getEpisodesUrl() {
         return mEpisodesUrl;
+    }
+
+    /**
+     * Получить id места рождения.
+     *
+     * @return id места рождения.
+     */
+    public int getOriginId() {
+        return mOriginId;
+    }
+
+    /**
+     * Получить id текущей локации.
+     *
+     * @return id текущей локации.
+     */
+    public int getCurrentLocationId() {
+        return mCurrentLocationId;
     }
 }

@@ -1,4 +1,4 @@
-package com.eugenebaturov.rickandmorty.data.utils;
+package com.eugenebaturov.rickandmorty.data.converter;
 
 /**
  * Конвертер данных.

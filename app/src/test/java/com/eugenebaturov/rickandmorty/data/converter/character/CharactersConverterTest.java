@@ -1,7 +1,7 @@
 package com.eugenebaturov.rickandmorty.data.converter.character;
 
-import com.eugenebaturov.rickandmorty.data.utils.Converter;
-import com.eugenebaturov.rickandmorty.data.utils.character.CharactersConverter;
+import com.eugenebaturov.rickandmorty.R;
+import com.eugenebaturov.rickandmorty.data.converter.Converter;
 import com.eugenebaturov.rickandmorty.models.data.CurrentLocation;
 import com.eugenebaturov.rickandmorty.models.data.Origin;
 import com.eugenebaturov.rickandmorty.models.data.list.ListCharacterResponse;
@@ -66,12 +66,15 @@ public class CharactersConverterTest {
                 1,
                 "Rick San",
                 "Alive",
+                R.drawable.ic_status_alive,
                 "Human",
                 "Scientist",
                 "Male",
                 "https://rickandmortyapi.com/api/character/avatar/1.jpeg",
                 firstOrigin,
+                1,
                 firstCurrentLocation,
+                20,
                 firstEpisodesUrl
         );
 
@@ -90,12 +93,15 @@ public class CharactersConverterTest {
                 2,
                 "Morty Steve",
                 "Alive",
+                R.drawable.ic_status_alive,
                 "Human",
                 "Faggot",
                 "Male",
                 "https://rickandmortyapi.com/api/character/avatar/2.jpeg",
                 secondOrigin,
+                1,
                 secondCurrentLocation,
+                20,
                 secondEpisodesUrl
         );
 

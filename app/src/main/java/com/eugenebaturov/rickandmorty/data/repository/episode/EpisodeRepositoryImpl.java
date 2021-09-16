@@ -3,9 +3,9 @@ package com.eugenebaturov.rickandmorty.data.repository.episode;
 import androidx.annotation.NonNull;
 
 import com.eugenebaturov.rickandmorty.data.api.EpisodeApi;
-import com.eugenebaturov.rickandmorty.data.utils.Converter;
-import com.eugenebaturov.rickandmorty.data.utils.episode.EpisodeConverter;
-import com.eugenebaturov.rickandmorty.data.utils.episode.EpisodesConverter;
+import com.eugenebaturov.rickandmorty.data.converter.Converter;
+import com.eugenebaturov.rickandmorty.data.converter.episode.EpisodeConverter;
+import com.eugenebaturov.rickandmorty.data.converter.episode.EpisodesConverter;
 import com.eugenebaturov.rickandmorty.models.data.EpisodeResponse;
 import com.eugenebaturov.rickandmorty.models.data.list.ListEpisodeResponse;
 import com.eugenebaturov.rickandmorty.models.domain.Episode;

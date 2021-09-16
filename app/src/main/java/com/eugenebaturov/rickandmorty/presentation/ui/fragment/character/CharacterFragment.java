@@ -19,7 +19,6 @@ import com.eugenebaturov.rickandmorty.di.character.CharacterSubcomponent;
 import com.eugenebaturov.rickandmorty.presentation.ui.fragment.BaseFragment;
 import com.eugenebaturov.rickandmorty.presentation.viewmodel.character.CharacterViewModel;
 import com.eugenebaturov.rickandmorty.presentation.viewmodel.character.CharacterViewModelFactory;
-import com.eugenebaturov.rickandmorty.utils.IdTaker;
 import com.eugenebaturov.rickandmorty.utils.ImageLoader;
 
 import javax.inject.Inject;
@@ -29,14 +28,11 @@ import javax.inject.Inject;
  */
 public final class CharacterFragment extends BaseFragment {
     private static final String EXTRA_CHARACTER_ID = "EXTRA_CHARACTER_ID";
-    private static final String UNKNOWN = "unknown";
-    private static final String NOTHING = "-";
 
     private int mCharacterId;
-    private int mOriginId;
-    private int mCurrentLocationId;
 
     private ImageView mCharacterAvatarImageView;
+    private ImageView mCharacterStatusImageView;
     private TextView mCharacterNameTextView;
     private TextView mCharacterStatusTextView;
     private TextView mCharacterGenderTextView;
@@ -89,6 +85,8 @@ public final class CharacterFragment extends BaseFragment {
     private void initUI(View view) {
         mCharacterAvatarImageView
                 = view.findViewById(R.id.character_imageView);
+        mCharacterStatusImageView =
+                view.findViewById(R.id.characterStatus_imageView);
         mCharacterNameTextView
                 = view.findViewById(R.id.character_name_textView);
         mCharacterStatusTextView
@@ -101,55 +99,35 @@ public final class CharacterFragment extends BaseFragment {
                 = view.findViewById(R.id.character_origin_textView);
         mCharacterCurrentLocationLinkTextView
                 = view.findViewById(R.id.character_current_location_textView);
-
-        mCharacterOriginLinkTextView
-                .setOnClickListener(v -> mNavigation.goToLocation(mOriginId));
-        mCharacterCurrentLocationLinkTextView
-                .setOnClickListener(v -> mNavigation.goToLocation(mCurrentLocationId));
     }
 
     private void observeCharacter() {
         mViewModel.getCharacter().observe(getViewLifecycleOwner(), character -> {
-            final String originUrl = character.getOrigin().getUrl();
-            final String currentUrl = character.getCurrentLocation().getUrl();
-            final String originName = character.getOrigin().getName();
-            final String currentLocationName = character.getCurrentLocation().getName();
 
             ImageLoader.loadFromPicasso(character.getImage(), mCharacterAvatarImageView);
+            mCharacterStatusImageView.setImageResource(character.getImageStatusResource());
             mCharacterNameTextView.setText(character.getName());
             mCharacterStatusTextView.setText(character.getStatus());
             mCharacterGenderTextView.setText(character.getGender());
             mCharacterRaceTextView.setText(character.getSpecies());
+            mCharacterOriginLinkTextView.setText(character.getOrigin().getName());
+            mCharacterCurrentLocationLinkTextView.setText(character.getCurrentLocation().getName());
 
-            checkLocation(originUrl,
-                    originName,
-                    mCharacterOriginLinkTextView,
-                    true);
+            if (character.getOriginId() != 0) {
+                mCharacterOriginLinkTextView
+                        .setTextColor(ContextCompat.getColor(requireContext(), R.color.text_link));
+                mCharacterOriginLinkTextView
+                        .setOnClickListener(v -> mNavigation.goToLocation(character.getOriginId()));
+            }
 
-            checkLocation(currentUrl,
-                    currentLocationName,
-                    mCharacterCurrentLocationLinkTextView,
-                    false);
+
+            if (character.getCurrentLocationId() != 0) {
+                mCharacterCurrentLocationLinkTextView
+                        .setTextColor(ContextCompat.getColor(requireContext(), R.color.text_link));
+                mCharacterCurrentLocationLinkTextView
+                        .setOnClickListener(v -> mNavigation.goToLocation(character.getCurrentLocationId()));
+            }
         });
-    }
-
-    // Проверяет существует ли локация.
-    // Если да, то мы отображем название локации и получаем её id.
-    private void checkLocation(String url,
-                               String locationName,
-                               TextView textView,
-                               boolean isOrigin) {
-        if (!locationName.equals(UNKNOWN)) {
-            textView.setText(locationName);
-            if (isOrigin)
-                mOriginId = IdTaker.getLocationId(url);
-            else
-                mCurrentLocationId = IdTaker.getLocationId(url);
-        } else {
-            textView.setTextColor(ContextCompat.getColor(requireContext(), R.color.black));
-            textView.setText(NOTHING);
-            textView.setEnabled(false);
-        }
     }
 
     /**

@@ -46,14 +46,10 @@ public final class CharacterViewHolder extends RecyclerView.ViewHolder {
      */
     public void bind(@NonNull final Character character,
                      @NonNull final Navigation navigation) {
-        final String imageUrl = character.getImage();
-        final String name = character.getName();
-        final String status = character.getStatus();
-
-        ImageLoader.loadFromPicasso(imageUrl, characterImageView);
-        setImageStatus(character.getStatus());
-        characterNameTextView.setText(name);
-        characterStatusTextView.setText(status);
+        ImageLoader.loadFromPicasso(character.getImage(), characterImageView);
+        characterStatusImageView.setImageResource(character.getImageStatusResource());
+        characterNameTextView.setText(character.getName());
+        characterStatusTextView.setText(character.getStatus());
 
         itemView.setOnClickListener(
                 v -> navigation.goToCharacter(character.getId()));
@@ -74,27 +70,5 @@ public final class CharacterViewHolder extends RecyclerView.ViewHolder {
         characterImageView = view.findViewById(R.id.character_imageView);
         characterNameTextView = view.findViewById(R.id.character_name_textView);
         characterStatusTextView = view.findViewById(R.id.character_status_textView);
-    }
-
-    private void setImageStatus(String status) {
-        final String STATUS_ALIVE = "Alive";
-        final String STATUS_DEAD = "Dead";
-
-        switch (status) {
-            case STATUS_ALIVE: {
-                this.characterStatusImageView.setImageResource(R.drawable.ic_status_alive);
-                break;
-            }
-
-            case STATUS_DEAD: {
-                this.characterStatusImageView.setImageResource(R.drawable.ic_status_dead);
-                break;
-            }
-
-            default: {
-                this.characterStatusImageView.setImageResource(R.drawable.ic_status_unknown);
-                break;
-            }
-        }
     }
 }

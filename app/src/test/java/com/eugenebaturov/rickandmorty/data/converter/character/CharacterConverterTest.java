@@ -1,7 +1,6 @@
 package com.eugenebaturov.rickandmorty.data.converter.character;
 
-import com.eugenebaturov.rickandmorty.data.utils.Converter;
-import com.eugenebaturov.rickandmorty.data.utils.character.CharacterConverter;
+import com.eugenebaturov.rickandmorty.data.converter.Converter;
 import com.eugenebaturov.rickandmorty.models.data.CharacterResponse;
 import com.eugenebaturov.rickandmorty.models.data.CurrentLocation;
 import com.eugenebaturov.rickandmorty.models.data.Origin;
@@ -71,12 +70,15 @@ public class CharacterConverterTest {
         Character unexpected = new Character(1,
                 "Not Rick",
                 "Alive",
+                0,
                 "Human",
                 "Scientist",
                 "Male",
                 "https://rickandmortyapi.com/api/character/avatar/1.jpeg",
                 testOrigin,
+                2,
                 testCurrentLocation,
+                3,
                 testEpisodesUrl);
 
         // Assert

@@ -1,13 +1,8 @@
 package com.eugenebaturov.rickandmorty.data.converter.location;
 
-import com.eugenebaturov.rickandmorty.data.utils.Converter;
-import com.eugenebaturov.rickandmorty.data.utils.episode.EpisodeConverter;
-import com.eugenebaturov.rickandmorty.data.utils.location.LocationConverter;
-import com.eugenebaturov.rickandmorty.models.data.EpisodeResponse;
+import com.eugenebaturov.rickandmorty.data.converter.Converter;
 import com.eugenebaturov.rickandmorty.models.data.LocationResponse;
-import com.eugenebaturov.rickandmorty.models.domain.Episode;
 import com.eugenebaturov.rickandmorty.models.domain.Location;
-import com.eugenebaturov.rickandmorty.testdata.EpisodeTestData;
 import com.eugenebaturov.rickandmorty.testdata.LocationTestData;
 import com.google.common.truth.Truth;
 
