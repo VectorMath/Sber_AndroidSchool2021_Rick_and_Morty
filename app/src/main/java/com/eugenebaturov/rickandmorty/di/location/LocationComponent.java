@@ -1,30 +1,19 @@
 package com.eugenebaturov.rickandmorty.di.location;
 
-import com.eugenebaturov.rickandmorty.di.AppModule;
-import com.eugenebaturov.rickandmorty.presentation.viewmodel.location.LocationListViewModel;
-import com.eugenebaturov.rickandmorty.presentation.viewmodel.location.LocationListViewModelFactory;
-import com.eugenebaturov.rickandmorty.presentation.viewmodel.location.LocationViewModel;
-import com.eugenebaturov.rickandmorty.presentation.viewmodel.location.LocationViewModelFactory;
+import com.eugenebaturov.rickandmorty.di.FragmentScope;
+import com.eugenebaturov.rickandmorty.presentation.ui.fragment.location.LocationFragment;
+import com.eugenebaturov.rickandmorty.presentation.ui.fragment.location.LocationListFragment;
 
-import dagger.Component;
+import dagger.Subcomponent;
 
 /**
  * Предоставляет зависимости для локаций.
  */
-@Component(modules = {LocationModule.class, AppModule.class})
+@FragmentScope
+@Subcomponent(modules = LocationModule.class)
 public interface LocationComponent {
 
-    /**
-     * Предоставляет фабрику для {@link LocationListViewModel}.
-     *
-     * @return фабрика для вью-модельки
-     */
-    LocationListViewModelFactory getListViewModelFactory();
+    void inject(LocationListFragment locationListFragment);
 
-    /**
-     * Предоставляет фабрику для {@link LocationViewModel}.
-     *
-     * @return фабрика для вью-модельки
-     */
-    LocationViewModelFactory getViewModelFactory();
+    void inject(LocationFragment locationFragment);
 }

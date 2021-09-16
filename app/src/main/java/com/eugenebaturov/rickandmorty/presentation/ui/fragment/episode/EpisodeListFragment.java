@@ -15,11 +15,14 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.eugenebaturov.rickandmorty.R;
-import com.eugenebaturov.rickandmorty.di.episode.DaggerEpisodeComponent;
+import com.eugenebaturov.rickandmorty.app.App;
 import com.eugenebaturov.rickandmorty.di.episode.EpisodeComponent;
 import com.eugenebaturov.rickandmorty.presentation.ui.activity.MainActivity;
 import com.eugenebaturov.rickandmorty.presentation.ui.adapter.EpisodesAdapter;
 import com.eugenebaturov.rickandmorty.presentation.viewmodel.episode.EpisodeListViewModel;
+import com.eugenebaturov.rickandmorty.presentation.viewmodel.episode.EpisodeListViewModelFactory;
+
+import javax.inject.Inject;
 
 /**
  * Фрагмент, который отображает список эпизодов.
@@ -28,6 +31,9 @@ public final class EpisodeListFragment extends Fragment {
     private ProgressBar mProgress;
     private RecyclerView mRecyclerView;
     private EpisodesAdapter mAdapter;
+
+    @Inject
+    EpisodeListViewModelFactory mViewModelFactory;
 
     private EpisodeListViewModel mViewModel;
     private BottomNavigation mBottomNavigation;
@@ -72,10 +78,12 @@ public final class EpisodeListFragment extends Fragment {
     }
 
     private void initViewModel() {
-        EpisodeComponent episodeComponent = DaggerEpisodeComponent.create();
+        EpisodeComponent episodeComponent
+                = App.getAppComponent(requireContext()).getEpisodeComponent();
+        episodeComponent.inject(this);
         mViewModel = new ViewModelProvider(
                 this,
-                episodeComponent.getListViewModelFactory())
+                mViewModelFactory)
                 .get(EpisodeListViewModel.class);
     }
 

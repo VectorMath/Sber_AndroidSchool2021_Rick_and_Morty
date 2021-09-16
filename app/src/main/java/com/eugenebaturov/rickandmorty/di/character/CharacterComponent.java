@@ -1,30 +1,23 @@
 package com.eugenebaturov.rickandmorty.di.character;
 
-import com.eugenebaturov.rickandmorty.di.AppModule;
+import com.eugenebaturov.rickandmorty.di.FragmentScope;
+import com.eugenebaturov.rickandmorty.presentation.ui.fragment.character.CharacterFragment;
+import com.eugenebaturov.rickandmorty.presentation.ui.fragment.character.CharacterListFragment;
 import com.eugenebaturov.rickandmorty.presentation.viewmodel.character.CharacterListViewModel;
 import com.eugenebaturov.rickandmorty.presentation.viewmodel.character.CharacterListViewModelFactory;
 import com.eugenebaturov.rickandmorty.presentation.viewmodel.character.CharacterViewModel;
 import com.eugenebaturov.rickandmorty.presentation.viewmodel.character.CharacterViewModelFactory;
 
-import dagger.Component;
+import dagger.Subcomponent;
 
 /**
  * Предоставляет зависимости для персонажей.
  */
-@Component(modules = {CharacterModule.class, AppModule.class})
+@FragmentScope
+@Subcomponent(modules = CharacterModule.class)
 public interface CharacterComponent {
 
-    /**
-     * Предоставляет фабрику для {@link CharacterViewModel}.
-     *
-     * @return фабрика для вью-модельки
-     */
-    CharacterViewModelFactory getViewModelFactory();
+    void inject(CharacterListFragment characterListFragment);
 
-    /**
-     * Предоставляет фабрику для {@link CharacterListViewModel}.
-     *
-     * @return фабрика для вью-модельки
-     */
-    CharacterListViewModelFactory getListViewModelFactory();
+    void inject(CharacterFragment characterFragment);
 }

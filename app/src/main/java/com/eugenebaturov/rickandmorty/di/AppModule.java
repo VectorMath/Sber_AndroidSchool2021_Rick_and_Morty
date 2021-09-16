@@ -1,12 +1,16 @@
 package com.eugenebaturov.rickandmorty.di;
 
-import com.eugenebaturov.rickandmorty.app.RetrofitInstance;
+import com.eugenebaturov.rickandmorty.BuildConfig;
 import com.eugenebaturov.rickandmorty.utils.SchedulerProvider;
-import com.eugenebaturov.rickandmorty.app.SchedulerProviderInstance;
+import com.eugenebaturov.rickandmorty.utils.SchedulerProviderImpl;
+
+import javax.inject.Singleton;
 
 import dagger.Module;
 import dagger.Provides;
 import retrofit2.Retrofit;
+import retrofit2.adapter.rxjava3.RxJava3CallAdapterFactory;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 /**
  * Базовый модуль, который внедряет в компоненты общие зависимости.
@@ -19,9 +23,10 @@ public final class AppModule {
      *
      * @return шедулеры
      */
+    @Singleton
     @Provides
     SchedulerProvider provideSchedulerProvider() {
-        return SchedulerProviderInstance.getInstance().getProvider();
+        return new SchedulerProviderImpl();
     }
 
     /**
@@ -29,8 +34,13 @@ public final class AppModule {
      *
      * @return ретрофит.
      */
+    @Singleton
     @Provides
     Retrofit provideRetrofit() {
-        return RetrofitInstance.getInstance().getRetrofit();
+        return new Retrofit.Builder()
+                .baseUrl(BuildConfig.BASE_URL)
+                .addCallAdapterFactory(RxJava3CallAdapterFactory.create())
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
     }
 }

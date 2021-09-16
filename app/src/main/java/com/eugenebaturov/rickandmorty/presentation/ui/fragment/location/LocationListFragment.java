@@ -15,11 +15,14 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.eugenebaturov.rickandmorty.R;
-import com.eugenebaturov.rickandmorty.di.location.DaggerLocationComponent;
+import com.eugenebaturov.rickandmorty.app.App;
 import com.eugenebaturov.rickandmorty.di.location.LocationComponent;
 import com.eugenebaturov.rickandmorty.presentation.ui.activity.MainActivity;
 import com.eugenebaturov.rickandmorty.presentation.ui.adapter.LocationsAdapter;
 import com.eugenebaturov.rickandmorty.presentation.viewmodel.location.LocationListViewModel;
+import com.eugenebaturov.rickandmorty.presentation.viewmodel.location.LocationListViewModelFactory;
+
+import javax.inject.Inject;
 
 /**
  * Фрагмент, который отображает список локаций.
@@ -28,6 +31,9 @@ public final class LocationListFragment extends Fragment {
     private ProgressBar mProgress;
     private RecyclerView mRecyclerView;
     private LocationsAdapter mAdapter;
+
+    @Inject
+    LocationListViewModelFactory mViewModelFactory;
 
     private LocationListViewModel mViewModel;
     private BottomNavigation mBottomNavigation;
@@ -91,10 +97,12 @@ public final class LocationListFragment extends Fragment {
     }
 
     private void initViewModel() {
-        LocationComponent locationComponent = DaggerLocationComponent.create();
+        LocationComponent locationComponent
+                = App.getAppComponent(requireContext()).getLocationComponent();
+        locationComponent.inject(this);
         mViewModel = new ViewModelProvider(
                 this,
-                locationComponent.getListViewModelFactory())
+                mViewModelFactory)
                 .get(LocationListViewModel.class);
     }
 

@@ -15,11 +15,14 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.eugenebaturov.rickandmorty.R;
+import com.eugenebaturov.rickandmorty.app.App;
 import com.eugenebaturov.rickandmorty.di.character.CharacterComponent;
-import com.eugenebaturov.rickandmorty.di.character.DaggerCharacterComponent;
 import com.eugenebaturov.rickandmorty.presentation.ui.activity.MainActivity;
 import com.eugenebaturov.rickandmorty.presentation.ui.adapter.CharactersAdapter;
 import com.eugenebaturov.rickandmorty.presentation.viewmodel.character.CharacterListViewModel;
+import com.eugenebaturov.rickandmorty.presentation.viewmodel.character.CharacterListViewModelFactory;
+
+import javax.inject.Inject;
 
 /**
  * Фрагмент, который отображает список персонажей.
@@ -28,6 +31,9 @@ public final class CharacterListFragment extends Fragment {
     private ProgressBar mProgress;
     private RecyclerView mRecyclerView;
     private CharactersAdapter mAdapter;
+
+    @Inject
+    CharacterListViewModelFactory mViewModelFactory;
 
     private CharacterListViewModel mViewModel;
     private BottomNavigation mBottomNavigation;
@@ -72,10 +78,12 @@ public final class CharacterListFragment extends Fragment {
     }
 
     private void initViewModel() {
-        CharacterComponent characterComponent = DaggerCharacterComponent.create();
+        CharacterComponent characterComponent
+                = App.getAppComponent(requireContext()).getCharacterComponent();
+        characterComponent.inject(this);
         mViewModel = new ViewModelProvider(
                 this,
-                characterComponent.getListViewModelFactory())
+                mViewModelFactory)
                 .get(CharacterListViewModel.class);
     }
 

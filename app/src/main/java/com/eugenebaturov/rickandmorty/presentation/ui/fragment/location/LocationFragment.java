@@ -12,10 +12,13 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.eugenebaturov.rickandmorty.R;
-import com.eugenebaturov.rickandmorty.di.location.DaggerLocationComponent;
+import com.eugenebaturov.rickandmorty.app.App;
 import com.eugenebaturov.rickandmorty.di.location.LocationComponent;
 import com.eugenebaturov.rickandmorty.presentation.viewmodel.location.LocationViewModel;
+import com.eugenebaturov.rickandmorty.presentation.viewmodel.location.LocationViewModelFactory;
 import com.eugenebaturov.rickandmorty.utils.Extras;
+
+import javax.inject.Inject;
 
 /**
  * Фрагмент локации.
@@ -23,6 +26,9 @@ import com.eugenebaturov.rickandmorty.utils.Extras;
 public final class LocationFragment extends Fragment {
     private int mLocationId;
     private LocationViewModel mViewModel;
+
+    @Inject
+    LocationViewModelFactory mViewModelFactory;
 
     private TextView mLocationTitleTextView;
     private TextView mLocationTypeTextView;
@@ -53,10 +59,12 @@ public final class LocationFragment extends Fragment {
     }
 
     private void initViewModel() {
-        LocationComponent mComponent = DaggerLocationComponent.create();
+        LocationComponent mComponent
+                = App.getAppComponent(requireContext()).getLocationComponent();
+        mComponent.inject(this);
         mViewModel = new ViewModelProvider(
                 this,
-                mComponent.getViewModelFactory())
+                mViewModelFactory)
                 .get(LocationViewModel.class);
     }
 

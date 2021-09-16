@@ -13,15 +13,21 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.eugenebaturov.rickandmorty.R;
-import com.eugenebaturov.rickandmorty.di.episode.DaggerEpisodeComponent;
+import com.eugenebaturov.rickandmorty.app.App;
 import com.eugenebaturov.rickandmorty.di.episode.EpisodeComponent;
 import com.eugenebaturov.rickandmorty.presentation.viewmodel.episode.EpisodeViewModel;
+import com.eugenebaturov.rickandmorty.presentation.viewmodel.episode.EpisodeViewModelFactory;
 import com.eugenebaturov.rickandmorty.utils.Extras;
+
+import javax.inject.Inject;
 
 public final class EpisodeFragment extends Fragment {
     private int mEpisodeId;
     private int mSeasonImageResource;
     private EpisodeViewModel mViewModel;
+
+    @Inject
+    EpisodeViewModelFactory mViewModelFactory;
 
     private ImageView mEpisodeSeasonImageView;
     private TextView mEpisodeTitleTextView;
@@ -57,10 +63,11 @@ public final class EpisodeFragment extends Fragment {
     }
 
     private void initViewModel() {
-        EpisodeComponent mComponent = DaggerEpisodeComponent.create();
+        EpisodeComponent mComponent = App.getAppComponent(requireContext()).getEpisodeComponent();
+        mComponent.inject(this);
         mViewModel = new ViewModelProvider(
                 this,
-                mComponent.getViewModelFactory())
+                mViewModelFactory)
                 .get(EpisodeViewModel.class);
     }
 

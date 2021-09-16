@@ -1,30 +1,19 @@
 package com.eugenebaturov.rickandmorty.di.episode;
 
-import com.eugenebaturov.rickandmorty.di.AppModule;
-import com.eugenebaturov.rickandmorty.presentation.viewmodel.episode.EpisodeListViewModel;
-import com.eugenebaturov.rickandmorty.presentation.viewmodel.episode.EpisodeListViewModelFactory;
-import com.eugenebaturov.rickandmorty.presentation.viewmodel.episode.EpisodeViewModel;
-import com.eugenebaturov.rickandmorty.presentation.viewmodel.episode.EpisodeViewModelFactory;
+import com.eugenebaturov.rickandmorty.di.FragmentScope;
+import com.eugenebaturov.rickandmorty.presentation.ui.fragment.episode.EpisodeFragment;
+import com.eugenebaturov.rickandmorty.presentation.ui.fragment.episode.EpisodeListFragment;
 
-import dagger.Component;
+import dagger.Subcomponent;
 
 /**
  * Предоставляет зависимости для эпизодов.
  */
-@Component(modules = {EpisodeModule.class, AppModule.class})
+@FragmentScope
+@Subcomponent(modules = EpisodeModule.class)
 public interface EpisodeComponent {
 
-    /**
-     * Предоставляет фабрику для {@link EpisodeViewModel}.
-     *
-     * @return фабрика для вью-модельки
-     */
-    EpisodeViewModelFactory getViewModelFactory();
+    void inject(EpisodeListFragment episodeListFragment);
 
-    /**
-     * Предоставляет фабрику для {@link EpisodeListViewModel}.
-     *
-     * @return фабрика для вью-модельки
-     */
-    EpisodeListViewModelFactory getListViewModelFactory();
+    void inject(EpisodeFragment episodeFragment);
 }

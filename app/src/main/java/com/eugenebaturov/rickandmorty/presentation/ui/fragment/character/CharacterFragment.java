@@ -15,14 +15,17 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.eugenebaturov.rickandmorty.R;
+import com.eugenebaturov.rickandmorty.app.App;
 import com.eugenebaturov.rickandmorty.di.character.CharacterComponent;
-import com.eugenebaturov.rickandmorty.di.character.DaggerCharacterComponent;
 import com.eugenebaturov.rickandmorty.presentation.ui.activity.MainActivity;
 import com.eugenebaturov.rickandmorty.presentation.ui.fragment.location.LocationFragment;
 import com.eugenebaturov.rickandmorty.presentation.viewmodel.character.CharacterViewModel;
+import com.eugenebaturov.rickandmorty.presentation.viewmodel.character.CharacterViewModelFactory;
 import com.eugenebaturov.rickandmorty.utils.Extras;
 import com.eugenebaturov.rickandmorty.utils.IdTaker;
 import com.eugenebaturov.rickandmorty.utils.ImageLoader;
+
+import javax.inject.Inject;
 
 /**
  * Фрагмент, который отображает конкретного персонажа.
@@ -35,6 +38,10 @@ public final class CharacterFragment extends Fragment {
     private int mOriginId;
     private int mCurrentLocationId;
     private FromTo mFromTo;
+
+    @Inject
+    CharacterViewModelFactory mViewModelFactory;
+
     private CharacterViewModel mViewModel;
 
     private ImageView mCharacterAvatarImageView;
@@ -97,10 +104,12 @@ public final class CharacterFragment extends Fragment {
     }
 
     private void initViewModel() {
-        CharacterComponent mComponent = DaggerCharacterComponent.create();
+        CharacterComponent characterComponent
+                = App.getAppComponent(requireContext()).getCharacterComponent();
+        characterComponent.inject(this);
         mViewModel = new ViewModelProvider(
                 this,
-                mComponent.getViewModelFactory())
+                mViewModelFactory)
                 .get(CharacterViewModel.class);
     }
 
