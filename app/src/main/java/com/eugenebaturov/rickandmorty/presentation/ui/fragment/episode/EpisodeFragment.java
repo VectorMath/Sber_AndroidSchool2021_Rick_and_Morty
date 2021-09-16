@@ -13,14 +13,15 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.eugenebaturov.rickandmorty.R;
-import com.eugenebaturov.rickandmorty.app.App;
+import com.eugenebaturov.rickandmorty.App;
 import com.eugenebaturov.rickandmorty.di.episode.EpisodeComponent;
+import com.eugenebaturov.rickandmorty.presentation.ui.fragment.BaseFragment;
 import com.eugenebaturov.rickandmorty.presentation.viewmodel.episode.EpisodeViewModel;
 import com.eugenebaturov.rickandmorty.presentation.viewmodel.episode.EpisodeViewModelFactory;
 
 import javax.inject.Inject;
 
-public final class EpisodeFragment extends Fragment {
+public final class EpisodeFragment extends BaseFragment {
     private static final String EXTRA_EPISODE_ID = "EXTRA_EPISODE_ID";
     private static final String EXTRA_EPISODE_IMAGE = "EXTRA_EPISODE_IMAGE";
 

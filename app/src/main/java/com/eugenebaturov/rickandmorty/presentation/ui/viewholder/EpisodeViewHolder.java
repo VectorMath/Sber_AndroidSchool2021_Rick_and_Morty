@@ -11,7 +11,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.eugenebaturov.rickandmorty.R;
 import com.eugenebaturov.rickandmorty.models.domain.Episode;
-import com.eugenebaturov.rickandmorty.presentation.ui.fragment.episode.EpisodeListFragment;
+import com.eugenebaturov.rickandmorty.presentation.ui.Navigation;
 
 /**
  * Вью-холдер эпизода.
@@ -39,11 +39,11 @@ public final class EpisodeViewHolder extends RecyclerView.ViewHolder {
      * Заполняет вью-холдер данными из эпизода,
      * и вешает слушателя на возможность перехода к эпизоду.
      *
-     * @param episode      эпизод
-     * @param mEpisodePage интерфейс {@link EpisodeListFragment.BottomNavigation}.
+     * @param episode    эпизод
+     * @param navigation интерфейс {@link Navigation}.
      */
     public void bind(@NonNull final Episode episode,
-                     @NonNull final EpisodeListFragment.BottomNavigation mEpisodePage) {
+                     @NonNull final Navigation navigation) {
         final String title = episode.getTitle();
         final String seasonNumber = getSeason(episode.getEpisodeNumber());
         final int charactersCount = episode.getCharacters().size();
@@ -52,10 +52,10 @@ public final class EpisodeViewHolder extends RecyclerView.ViewHolder {
         episodeTitleTextView.setText(title);
         episodeCharactersCountTextView.setText(String.valueOf(charactersCount));
 
-        itemView.setOnClickListener(v -> {
-            assert mEpisodePage != null;
-            mEpisodePage.goToEpisode(episode.getId(), getImageSeason(seasonNumber));
-        });
+        itemView.setOnClickListener(v -> navigation.goToEpisode(
+                episode.getId(),
+                getImageSeason(seasonNumber)
+        ));
     }
 
     /**

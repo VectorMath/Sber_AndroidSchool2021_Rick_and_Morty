@@ -1,4 +1,4 @@
-package com.eugenebaturov.rickandmorty.app;
+package com.eugenebaturov.rickandmorty;
 
 import android.app.Application;
 import android.content.Context;

@@ -3,11 +3,10 @@ package com.eugenebaturov.rickandmorty.presentation.ui.adapter;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.eugenebaturov.rickandmorty.models.domain.Character;
-import com.eugenebaturov.rickandmorty.presentation.ui.fragment.character.CharacterListFragment;
+import com.eugenebaturov.rickandmorty.presentation.ui.Navigation;
 import com.eugenebaturov.rickandmorty.presentation.ui.viewholder.CharacterViewHolder;
 
 import java.util.ArrayList;
@@ -17,20 +16,19 @@ import java.util.List;
  * Адаптер для списка {@link Character}.
  */
 public final class CharactersAdapter extends RecyclerView.Adapter<CharacterViewHolder> {
-
     @NonNull
     private List<Character> mData = new ArrayList<>();
 
-    @Nullable
-    private final CharacterListFragment.BottomNavigation mCharacterPage;
+    @NonNull
+    private final Navigation mNavigation;
 
     /**
      * Конструктор адаптера.
      *
-     * @param characterPage реализация {@link CharacterListFragment.BottomNavigation}
+     * @param navigation реализация {@link Navigation}
      */
-    public CharactersAdapter(@Nullable CharacterListFragment.BottomNavigation characterPage) {
-        mCharacterPage = characterPage;
+    public CharactersAdapter(@NonNull Navigation navigation) {
+        mNavigation = navigation;
     }
 
     /**
@@ -52,7 +50,7 @@ public final class CharactersAdapter extends RecyclerView.Adapter<CharacterViewH
     @Override
     public void onBindViewHolder(@NonNull CharacterViewHolder holder, int position) {
         final Character character = mData.get(position);
-        holder.bind(character, mCharacterPage);
+        holder.bind(character, mNavigation);
     }
 
     @Override

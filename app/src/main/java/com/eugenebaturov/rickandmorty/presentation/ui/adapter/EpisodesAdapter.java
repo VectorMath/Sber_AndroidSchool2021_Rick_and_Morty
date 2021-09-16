@@ -3,11 +3,10 @@ package com.eugenebaturov.rickandmorty.presentation.ui.adapter;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.eugenebaturov.rickandmorty.models.domain.Episode;
-import com.eugenebaturov.rickandmorty.presentation.ui.fragment.episode.EpisodeListFragment;
+import com.eugenebaturov.rickandmorty.presentation.ui.Navigation;
 import com.eugenebaturov.rickandmorty.presentation.ui.viewholder.EpisodeViewHolder;
 
 import java.util.ArrayList;
@@ -17,19 +16,19 @@ import java.util.List;
  * Адаптер для списка {@link Episode}.
  */
 public final class EpisodesAdapter extends RecyclerView.Adapter<EpisodeViewHolder> {
-    @Nullable
-    private final EpisodeListFragment.BottomNavigation mEpisodePage;
-
     @NonNull
     private List<Episode> mData = new ArrayList<>();
+
+    @NonNull
+    private final Navigation mNavigation;
 
     /**
      * Конструктор адаптера.
      *
-     * @param episodePage реализация интерфейса {@link EpisodeListFragment.BottomNavigation}.
+     * @param navigation реализация интерфейса {@link Navigation}.
      */
-    public EpisodesAdapter(@Nullable EpisodeListFragment.BottomNavigation episodePage) {
-        mEpisodePage = episodePage;
+    public EpisodesAdapter(@NonNull Navigation navigation) {
+        mNavigation = navigation;
     }
 
     /**
@@ -51,7 +50,7 @@ public final class EpisodesAdapter extends RecyclerView.Adapter<EpisodeViewHolde
     @Override
     public void onBindViewHolder(@NonNull EpisodeViewHolder holder, int position) {
         final Episode episode = mData.get(position);
-        holder.bind(episode, mEpisodePage);
+        holder.bind(episode, mNavigation);
     }
 
     @Override

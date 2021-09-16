@@ -15,10 +15,12 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.eugenebaturov.rickandmorty.R;
-import com.eugenebaturov.rickandmorty.app.App;
+import com.eugenebaturov.rickandmorty.App;
 import com.eugenebaturov.rickandmorty.di.episode.EpisodeComponent;
-import com.eugenebaturov.rickandmorty.presentation.ui.activity.MainActivity;
+import com.eugenebaturov.rickandmorty.presentation.ui.MainActivity;
+import com.eugenebaturov.rickandmorty.presentation.ui.Navigation;
 import com.eugenebaturov.rickandmorty.presentation.ui.adapter.EpisodesAdapter;
+import com.eugenebaturov.rickandmorty.presentation.ui.fragment.BaseFragment;
 import com.eugenebaturov.rickandmorty.presentation.viewmodel.episode.EpisodeListViewModel;
 import com.eugenebaturov.rickandmorty.presentation.viewmodel.episode.EpisodeListViewModelFactory;
 
@@ -27,12 +29,10 @@ import javax.inject.Inject;
 /**
  * Фрагмент, который отображает список эпизодов.
  */
-public final class EpisodeListFragment extends Fragment {
+public final class EpisodeListFragment extends BaseFragment {
     private ProgressBar mProgress;
     private RecyclerView mRecyclerView;
     private EpisodesAdapter mAdapter;
-
-    private BottomNavigation mBottomNavigation;
 
     private EpisodeListViewModel mViewModel;
 
@@ -57,25 +57,6 @@ public final class EpisodeListFragment extends Fragment {
         observeEpisodes();
         observeProgress();
         mViewModel.loadEpisodes();
-    }
-
-    @Override
-    public void onAttach(@NonNull Context context) {
-        super.onAttach(context);
-        mBottomNavigation = (MainActivity) context;
-    }
-
-    @Override
-    public void onDetach() {
-        super.onDetach();
-        mBottomNavigation = null;
-    }
-
-    /**
-     * Callback-интерфейс для перехода на фрагмент с конкретной сущностью.
-     */
-    public interface BottomNavigation {
-        void goToEpisode(final int episodeId, final int imageRecourse);
     }
 
     private void injectDependency() {
@@ -112,7 +93,7 @@ public final class EpisodeListFragment extends Fragment {
     }
 
     private void setRecyclerView() {
-        mAdapter = new EpisodesAdapter(mBottomNavigation);
+        mAdapter = new EpisodesAdapter(mNavigation);
         mRecyclerView.hasFixedSize();
         mRecyclerView.setAdapter(mAdapter);
     }

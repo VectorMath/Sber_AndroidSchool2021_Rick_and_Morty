@@ -3,11 +3,10 @@ package com.eugenebaturov.rickandmorty.presentation.ui.adapter;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.eugenebaturov.rickandmorty.models.domain.Location;
-import com.eugenebaturov.rickandmorty.presentation.ui.fragment.location.LocationListFragment;
+import com.eugenebaturov.rickandmorty.presentation.ui.Navigation;
 import com.eugenebaturov.rickandmorty.presentation.ui.viewholder.LocationViewHolder;
 
 import java.util.ArrayList;
@@ -17,19 +16,19 @@ import java.util.List;
  * Адаптер для списка {@link Location}.
  */
 public final class LocationsAdapter extends RecyclerView.Adapter<LocationViewHolder> {
-    @Nullable
-    private final LocationListFragment.BottomNavigation mLocationPage;
-
     @NonNull
     private List<Location> mData = new ArrayList<>();
+
+    @NonNull
+    private final Navigation mNavigation;
 
     /**
      * Конструктор адаптера.
      *
-     * @param locationPage реализация интерфейса {@link LocationListFragment.BottomNavigation}.
+     * @param navigation реализация интерфейса {@link Navigation}.
      */
-    public LocationsAdapter(@Nullable LocationListFragment.BottomNavigation locationPage) {
-        mLocationPage = locationPage;
+    public LocationsAdapter(@NonNull Navigation navigation) {
+        mNavigation = navigation;
     }
 
     /**
@@ -51,7 +50,7 @@ public final class LocationsAdapter extends RecyclerView.Adapter<LocationViewHol
     @Override
     public void onBindViewHolder(@NonNull LocationViewHolder holder, int position) {
         final Location location = mData.get(position);
-        holder.bind(location, mLocationPage);
+        holder.bind(location, mNavigation);
     }
 
     @Override

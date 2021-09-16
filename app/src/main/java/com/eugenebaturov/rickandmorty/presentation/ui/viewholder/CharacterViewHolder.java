@@ -11,7 +11,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.eugenebaturov.rickandmorty.R;
 import com.eugenebaturov.rickandmorty.models.domain.Character;
-import com.eugenebaturov.rickandmorty.presentation.ui.fragment.character.CharacterListFragment;
+import com.eugenebaturov.rickandmorty.presentation.ui.Navigation;
 import com.eugenebaturov.rickandmorty.utils.ImageLoader;
 
 /**
@@ -41,11 +41,11 @@ public final class CharacterViewHolder extends RecyclerView.ViewHolder {
      * Заполняет вью-холдер данными из персонажа,
      * и вешает слушателя на возможность перехода к персонажу.
      *
-     * @param character      персонаж
-     * @param mCharacterPage интерфейс {@link CharacterListFragment.BottomNavigation}.
+     * @param character  персонаж
+     * @param navigation реализация {@link Navigation}.
      */
     public void bind(@NonNull final Character character,
-                     @NonNull final CharacterListFragment.BottomNavigation mCharacterPage) {
+                     @NonNull final Navigation navigation) {
         final String imageUrl = character.getImage();
         final String name = character.getName();
         final String status = character.getStatus();
@@ -56,10 +56,7 @@ public final class CharacterViewHolder extends RecyclerView.ViewHolder {
         characterStatusTextView.setText(status);
 
         itemView.setOnClickListener(
-                v -> {
-                    assert mCharacterPage != null;
-                    mCharacterPage.goToCharacter(character.getId());
-                });
+                v -> navigation.goToCharacter(character.getId()));
     }
 
     /**

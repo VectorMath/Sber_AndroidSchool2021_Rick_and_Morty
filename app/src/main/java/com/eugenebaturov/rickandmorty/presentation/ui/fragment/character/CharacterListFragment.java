@@ -10,15 +10,16 @@ import android.widget.SearchView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.eugenebaturov.rickandmorty.App;
 import com.eugenebaturov.rickandmorty.R;
-import com.eugenebaturov.rickandmorty.app.App;
 import com.eugenebaturov.rickandmorty.di.character.CharacterComponent;
-import com.eugenebaturov.rickandmorty.presentation.ui.activity.MainActivity;
+import com.eugenebaturov.rickandmorty.presentation.ui.MainActivity;
+import com.eugenebaturov.rickandmorty.presentation.ui.Navigation;
 import com.eugenebaturov.rickandmorty.presentation.ui.adapter.CharactersAdapter;
+import com.eugenebaturov.rickandmorty.presentation.ui.fragment.BaseFragment;
 import com.eugenebaturov.rickandmorty.presentation.viewmodel.character.CharacterListViewModel;
 import com.eugenebaturov.rickandmorty.presentation.viewmodel.character.CharacterListViewModelFactory;
 
@@ -27,12 +28,10 @@ import javax.inject.Inject;
 /**
  * Фрагмент, который отображает список персонажей.
  */
-public final class CharacterListFragment extends Fragment {
+public final class CharacterListFragment extends BaseFragment {
     private ProgressBar mProgress;
     private RecyclerView mRecyclerView;
     private CharactersAdapter mAdapter;
-
-    private BottomNavigation mBottomNavigation;
 
     private CharacterListViewModel mViewModel;
 
@@ -57,25 +56,6 @@ public final class CharacterListFragment extends Fragment {
         observeCharacters();
         observeProgress();
         mViewModel.loadCharacters();
-    }
-
-    @Override
-    public void onAttach(@NonNull Context context) {
-        super.onAttach(context);
-        mBottomNavigation = (MainActivity) context;
-    }
-
-    @Override
-    public void onDetach() {
-        super.onDetach();
-        mBottomNavigation = null;
-    }
-
-    /**
-     * Callback-интерфейс для перехода на фрагмент с конкретной сущностью.
-     */
-    public interface BottomNavigation {
-        void goToCharacter(final int characterId);
     }
 
     private void injectDependency() {
@@ -112,7 +92,7 @@ public final class CharacterListFragment extends Fragment {
     }
 
     private void setRecyclerView() {
-        mAdapter = new CharactersAdapter(mBottomNavigation);
+        mAdapter = new CharactersAdapter(mNavigation);
         mRecyclerView.setAdapter(mAdapter);
         mRecyclerView.hasFixedSize();
     }

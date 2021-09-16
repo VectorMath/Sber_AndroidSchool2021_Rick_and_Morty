@@ -14,11 +14,12 @@ import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
+import com.eugenebaturov.rickandmorty.App;
 import com.eugenebaturov.rickandmorty.R;
-import com.eugenebaturov.rickandmorty.app.App;
 import com.eugenebaturov.rickandmorty.di.character.CharacterComponent;
-import com.eugenebaturov.rickandmorty.presentation.ui.activity.MainActivity;
-import com.eugenebaturov.rickandmorty.presentation.ui.fragment.location.LocationFragment;
+import com.eugenebaturov.rickandmorty.presentation.ui.MainActivity;
+import com.eugenebaturov.rickandmorty.presentation.ui.Navigation;
+import com.eugenebaturov.rickandmorty.presentation.ui.fragment.BaseFragment;
 import com.eugenebaturov.rickandmorty.presentation.viewmodel.character.CharacterViewModel;
 import com.eugenebaturov.rickandmorty.presentation.viewmodel.character.CharacterViewModelFactory;
 import com.eugenebaturov.rickandmorty.utils.IdTaker;
@@ -29,7 +30,7 @@ import javax.inject.Inject;
 /**
  * Фрагмент, который отображает конкретного персонажа.
  */
-public final class CharacterFragment extends Fragment {
+public final class CharacterFragment extends BaseFragment {
     private static final String EXTRA_CHARACTER_ID = "EXTRA_CHARACTER_ID";
     private static final String UNKNOWN = "unknown";
     private static final String NOTHING = "-";
@@ -37,8 +38,6 @@ public final class CharacterFragment extends Fragment {
     private int mCharacterId;
     private int mOriginId;
     private int mCurrentLocationId;
-
-    private FromTo mFromTo;
 
     private ImageView mCharacterAvatarImageView;
     private TextView mCharacterNameTextView;
@@ -71,31 +70,6 @@ public final class CharacterFragment extends Fragment {
         initUI(view);
         observeCharacter();
         mViewModel.loadCharacterById(mCharacterId);
-    }
-
-    @Override
-    public void onAttach(@NonNull Context context) {
-        super.onAttach(context);
-        mFromTo = (MainActivity) context;
-    }
-
-    @Override
-    public void onDetach() {
-        super.onDetach();
-        mFromTo = null;
-    }
-
-    /**
-     * Callback-интерфейс для перехода между фрагментами.
-     */
-    public interface FromTo {
-
-        /**
-         * Переход из {@link CharacterFragment} в {@link LocationFragment}.
-         *
-         * @param locationId id локации.
-         */
-        void fromCharacterToLocation(int locationId);
     }
 
     private void getCharacterArgs() {
@@ -132,9 +106,9 @@ public final class CharacterFragment extends Fragment {
                 = view.findViewById(R.id.character_current_location_textView);
 
         mCharacterOriginLinkTextView
-                .setOnClickListener(v -> mFromTo.fromCharacterToLocation(mOriginId));
+                .setOnClickListener(v -> mNavigation.goToLocation(mOriginId));
         mCharacterCurrentLocationLinkTextView
-                .setOnClickListener(v -> mFromTo.fromCharacterToLocation(mCurrentLocationId));
+                .setOnClickListener(v -> mNavigation.goToLocation(mCurrentLocationId));
     }
 
     private void observeCharacter() {

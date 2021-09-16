@@ -1,6 +1,5 @@
 package com.eugenebaturov.rickandmorty.presentation.ui.fragment.location;
 
-import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,15 +9,14 @@ import android.widget.SearchView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.eugenebaturov.rickandmorty.App;
 import com.eugenebaturov.rickandmorty.R;
-import com.eugenebaturov.rickandmorty.app.App;
 import com.eugenebaturov.rickandmorty.di.location.LocationComponent;
-import com.eugenebaturov.rickandmorty.presentation.ui.activity.MainActivity;
 import com.eugenebaturov.rickandmorty.presentation.ui.adapter.LocationsAdapter;
+import com.eugenebaturov.rickandmorty.presentation.ui.fragment.BaseFragment;
 import com.eugenebaturov.rickandmorty.presentation.viewmodel.location.LocationListViewModel;
 import com.eugenebaturov.rickandmorty.presentation.viewmodel.location.LocationListViewModelFactory;
 
@@ -27,12 +25,10 @@ import javax.inject.Inject;
 /**
  * Фрагмент, который отображает список локаций.
  */
-public final class LocationListFragment extends Fragment {
+public final class LocationListFragment extends BaseFragment {
     private ProgressBar mProgress;
     private RecyclerView mRecyclerView;
     private LocationsAdapter mAdapter;
-
-    private BottomNavigation mBottomNavigation;
 
     private LocationListViewModel mViewModel;
 
@@ -57,25 +53,6 @@ public final class LocationListFragment extends Fragment {
         observeLocations();
         observeProgress();
         mViewModel.loadLocations();
-    }
-
-    @Override
-    public void onAttach(@NonNull Context context) {
-        super.onAttach(context);
-        mBottomNavigation = (MainActivity) context;
-    }
-
-    @Override
-    public void onDetach() {
-        super.onDetach();
-        mBottomNavigation = null;
-    }
-
-    /**
-     * Callback-интерфейс для перехода на фрагмент с конкретной сущностью.
-     */
-    public interface BottomNavigation {
-        void goToLocation(int locationId);
     }
 
     private void injectDependency() {
@@ -112,7 +89,7 @@ public final class LocationListFragment extends Fragment {
     }
 
     private void setRecyclerView() {
-        mAdapter = new LocationsAdapter(mBottomNavigation);
+        mAdapter = new LocationsAdapter(mNavigation);
         mRecyclerView.hasFixedSize();
         mRecyclerView.setAdapter(mAdapter);
     }

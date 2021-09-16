@@ -11,8 +11,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.eugenebaturov.rickandmorty.R;
 import com.eugenebaturov.rickandmorty.models.domain.Location;
-import com.eugenebaturov.rickandmorty.presentation.ui.fragment.character.CharacterListFragment;
-import com.eugenebaturov.rickandmorty.presentation.ui.fragment.location.LocationListFragment;
+import com.eugenebaturov.rickandmorty.presentation.ui.Navigation;
 
 /**
  * Вью-холдер локации.
@@ -43,11 +42,11 @@ public final class LocationViewHolder extends RecyclerView.ViewHolder {
      * Заполняет вью-холдер данными из локации,
      * и вешает слушателя на возможность перехода к локации.
      *
-     * @param location      локация.
-     * @param mLocationPage интерфейс {@link LocationListFragment.BottomNavigation}.
+     * @param location   локация.
+     * @param navigation интерфейс {@link Navigation}.
      */
     public void bind(@NonNull final Location location,
-                     @NonNull final LocationListFragment.BottomNavigation mLocationPage) {
+                     @NonNull final Navigation navigation) {
         final String name = location.getName();
         final String type = location.getType();
         final String dimension = location.getDimension();
@@ -58,10 +57,7 @@ public final class LocationViewHolder extends RecyclerView.ViewHolder {
         locationDimensionsTextView.setText(dimension);
         locationResidentsTextView.setText(residentsCount);
 
-        itemView.setOnClickListener(v -> {
-            assert mLocationPage != null;
-            mLocationPage.goToLocation(location.getId());
-        });
+        itemView.setOnClickListener(v -> navigation.goToLocation(location.getId()));
     }
 
     /**

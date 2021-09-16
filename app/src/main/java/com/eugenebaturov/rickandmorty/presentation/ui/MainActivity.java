@@ -1,4 +1,4 @@
-package com.eugenebaturov.rickandmorty.presentation.ui.activity;
+package com.eugenebaturov.rickandmorty.presentation.ui;
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;
@@ -20,9 +20,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 /**
  * Главная активити, где происходят все действия приложения.
  */
-public final class MainActivity extends AppCompatActivity implements CharacterListFragment.BottomNavigation,
-        EpisodeListFragment.BottomNavigation, LocationListFragment.BottomNavigation,
-        CharacterFragment.FromTo {
+public final class MainActivity extends AppCompatActivity implements Navigation {
     private Fragment mFragment;
 
     @Override
@@ -54,16 +52,6 @@ public final class MainActivity extends AppCompatActivity implements CharacterLi
 
     @Override
     public void goToLocation(final int locationId) {
-        mFragment = LocationFragment.newInstance(locationId);
-        getSupportFragmentManager()
-                .beginTransaction()
-                .replace(R.id.current_fragment, mFragment)
-                .addToBackStack(null)
-                .commit();
-    }
-
-    @Override
-    public void fromCharacterToLocation(final int locationId) {
         mFragment = LocationFragment.newInstance(locationId);
         getSupportFragmentManager()
                 .beginTransaction()
