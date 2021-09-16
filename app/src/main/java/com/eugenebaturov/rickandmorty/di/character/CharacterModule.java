@@ -1,6 +1,8 @@
 package com.eugenebaturov.rickandmorty.di.character;
 
 import com.eugenebaturov.rickandmorty.data.api.CharacterApi;
+import com.eugenebaturov.rickandmorty.data.db.AppDatabase;
+import com.eugenebaturov.rickandmorty.data.db.CharacterDao;
 import com.eugenebaturov.rickandmorty.data.repository.character.CharacterRepository;
 import com.eugenebaturov.rickandmorty.data.repository.character.CharacterRepositoryImpl;
 import com.eugenebaturov.rickandmorty.domain.interactor.character.CharacterInteractor;
@@ -96,6 +98,11 @@ public final class CharacterModule {
     @Provides
     CharacterRepository provideRepository(CharacterApi characterApi) {
         return new CharacterRepositoryImpl(characterApi);
+    }
+
+    @Provides
+    CharacterDao provideCharacterDao(AppDatabase appDatabase) {
+        return appDatabase.characterDao();
     }
 
     /**

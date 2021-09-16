@@ -4,8 +4,13 @@ import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
 import androidx.room.Embedded;
 import androidx.room.Entity;
+import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
+import androidx.room.TypeConverter;
+import androidx.room.TypeConverters;
 
+import com.eugenebaturov.rickandmorty.data.converter.ListConverter;
+import com.eugenebaturov.rickandmorty.data.converter.StringConverter;
 import com.eugenebaturov.rickandmorty.models.data.CurrentLocation;
 import com.eugenebaturov.rickandmorty.models.data.Origin;
 
@@ -48,7 +53,6 @@ public final class Character {
     @NonNull
     private final String mImageUrl;
 
-    @ColumnInfo(name = "origin")
     @Embedded
     @NonNull
     private final Origin mOrigin;
@@ -56,7 +60,6 @@ public final class Character {
     @ColumnInfo(name = "origin_id")
     private final int mOriginId;
 
-    @ColumnInfo(name = "current_location")
     @Embedded
     @NonNull
     private final CurrentLocation mCurrentLocation;
@@ -64,7 +67,7 @@ public final class Character {
     @ColumnInfo(name = "current_location_id")
     private final int mCurrentLocationId;
 
-    @ColumnInfo(name = "episodes_urls")
+    @TypeConverters(StringConverter.class)
     @NonNull
     private final List<String> mEpisodesUrl;
 
@@ -232,7 +235,7 @@ public final class Character {
      * @return url-изображение персонажа.
      */
     @NonNull
-    public String getImage() {
+    public String getImageUrl() {
         return mImageUrl;
     }
 

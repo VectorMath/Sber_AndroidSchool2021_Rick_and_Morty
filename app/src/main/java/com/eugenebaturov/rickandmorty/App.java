@@ -20,6 +20,8 @@ public final class App extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
-        mAppComponent = DaggerAppComponent.factory().create();
+        mAppComponent = DaggerAppComponent
+                .factory()
+                .create(getApplicationContext());
     }
 }

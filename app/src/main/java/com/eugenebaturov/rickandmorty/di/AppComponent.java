@@ -1,5 +1,7 @@
 package com.eugenebaturov.rickandmorty.di;
 
+import android.content.Context;
+
 import com.eugenebaturov.rickandmorty.di.character.CharacterSubcomponent;
 import com.eugenebaturov.rickandmorty.di.episode.EpisodeSubcomponent;
 import com.eugenebaturov.rickandmorty.di.location.LocationSubcomponent;
@@ -7,6 +9,7 @@ import com.eugenebaturov.rickandmorty.di.main.MainActivitySubcomponent;
 
 import javax.inject.Singleton;
 
+import dagger.BindsInstance;
 import dagger.Component;
 
 /**
@@ -44,8 +47,11 @@ public interface AppComponent {
      */
     LocationSubcomponent getLocationSubcomponent();
 
+    /**
+     * Фабрика.
+     */
     @Component.Factory
     interface Factory {
-        AppComponent create();
+        AppComponent create(@BindsInstance Context context);
     }
 }

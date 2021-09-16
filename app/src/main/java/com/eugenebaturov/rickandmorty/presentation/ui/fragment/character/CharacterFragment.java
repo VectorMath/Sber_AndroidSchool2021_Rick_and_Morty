@@ -104,7 +104,7 @@ public final class CharacterFragment extends BaseFragment {
     private void observeCharacter() {
         mViewModel.getCharacter().observe(getViewLifecycleOwner(), character -> {
 
-            ImageLoader.loadFromPicasso(character.getImage(), mCharacterAvatarImageView);
+            ImageLoader.loadFromPicasso(character.getImageUrl(), mCharacterAvatarImageView);
             mCharacterStatusImageView.setImageResource(character.getImageStatusResource());
             mCharacterNameTextView.setText(character.getName());
             mCharacterStatusTextView.setText(character.getStatus());

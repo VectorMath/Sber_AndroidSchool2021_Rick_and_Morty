@@ -1,6 +1,11 @@
 package com.eugenebaturov.rickandmorty.di;
 
+import android.content.Context;
+
+import androidx.room.Room;
+
 import com.eugenebaturov.rickandmorty.BuildConfig;
+import com.eugenebaturov.rickandmorty.data.db.AppDatabase;
 import com.eugenebaturov.rickandmorty.utils.SchedulerProvider;
 import com.eugenebaturov.rickandmorty.utils.SchedulerProviderImpl;
 
@@ -42,5 +47,11 @@ public final class AppModule {
                 .addCallAdapterFactory(RxJava3CallAdapterFactory.create())
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
+    }
+
+    @Singleton
+    @Provides
+    AppDatabase provideDatabase(Context context) {
+        return Room.databaseBuilder(context, AppDatabase.class, "my_db.db").build();
     }
 }

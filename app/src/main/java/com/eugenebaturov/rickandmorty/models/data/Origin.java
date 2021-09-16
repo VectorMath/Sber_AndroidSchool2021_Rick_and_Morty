@@ -2,6 +2,7 @@ package com.eugenebaturov.rickandmorty.models.data;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.VisibleForTesting;
+import androidx.room.ColumnInfo;
 
 import com.google.gson.annotations.SerializedName;
 
@@ -12,10 +13,12 @@ import java.util.Objects;
  */
 public final class Origin {
 
+    @ColumnInfo(name = "origin_name")
     @SerializedName("name")
     @NonNull
     private final String mName;
 
+    @ColumnInfo(name = "origin_url")
     @SerializedName("url")
     @NonNull
     private final String mUrl;

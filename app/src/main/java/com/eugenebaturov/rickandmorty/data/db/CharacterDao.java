@@ -11,16 +11,17 @@ import com.eugenebaturov.rickandmorty.models.domain.Character;
 
 import java.util.List;
 
+import io.reactivex.rxjava3.core.Completable;
 import io.reactivex.rxjava3.core.Single;
 
 @Dao
 public interface CharacterDao {
 
     @Insert
-    Single<List<Character>> insertAll(Single<List<Character>> characters);
+    Completable insertAll(List<Character> characters);
 
     @Update(onConflict = OnConflictStrategy.REPLACE)
-    Single<List<Character>> update(Single<List<Character>> characters);
+    Completable update(List<Character> characters);
 
     @Query("SELECT * FROM character_table")
     Single<List<Character>> getAll();

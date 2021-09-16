@@ -46,7 +46,7 @@ public final class CharacterViewHolder extends RecyclerView.ViewHolder {
      */
     public void bind(@NonNull final Character character,
                      @NonNull final Navigation navigation) {
-        ImageLoader.loadFromPicasso(character.getImage(), characterImageView);
+        ImageLoader.loadFromPicasso(character.getImageUrl(), characterImageView);
         characterStatusImageView.setImageResource(character.getImageStatusResource());
         characterNameTextView.setText(character.getName());
         characterStatusTextView.setText(character.getStatus());
