@@ -3,9 +3,11 @@ package com.eugenebaturov.rickandmorty.presentation.ui;
 import android.annotation.SuppressLint;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
+import androidx.lifecycle.ViewModelProvider;
 
 import com.eugenebaturov.rickandmorty.R;
 import com.eugenebaturov.rickandmorty.prefs.SettingsFragment;
@@ -15,13 +17,16 @@ import com.eugenebaturov.rickandmorty.presentation.ui.fragment.episode.EpisodeFr
 import com.eugenebaturov.rickandmorty.presentation.ui.fragment.episode.EpisodeListFragment;
 import com.eugenebaturov.rickandmorty.presentation.ui.fragment.location.LocationFragment;
 import com.eugenebaturov.rickandmorty.presentation.ui.fragment.location.LocationListFragment;
+import com.eugenebaturov.rickandmorty.presentation.viewmodel.main.MainViewModel;
+import com.eugenebaturov.rickandmorty.presentation.viewmodel.main.MainViewModelFactory;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 /**
  * Главная активити, где происходят все действия приложения.
  */
 public final class MainActivity extends AppCompatActivity implements Navigation {
-    private Fragment mFragment;
+    private MainViewModelFactory mViewModelFactory;
+    private MainViewModel mViewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,43 +37,34 @@ public final class MainActivity extends AppCompatActivity implements Navigation 
 
     @Override
     public void goToCharacter(final int characterId) {
-        mFragment = CharacterFragment.newInstance(characterId);
-        getSupportFragmentManager()
-                .beginTransaction()
-                .replace(R.id.current_fragment, mFragment)
-                .addToBackStack(null)
-                .commit();
+        mViewModel.setFragment(CharacterFragment.newInstance(characterId));
+        goToFragment(mViewModel.getFragment());
     }
 
     @Override
     public void goToEpisode(final int episodeId, final int imageRecourse) {
-        mFragment = EpisodeFragment.newInstance(episodeId, imageRecourse);
-        getSupportFragmentManager()
-                .beginTransaction()
-                .replace(R.id.current_fragment, mFragment)
-                .addToBackStack(null)
-                .commit();
+        mViewModel.setFragment(EpisodeFragment.newInstance(episodeId, imageRecourse));
+        goToFragment(mViewModel.getFragment());
     }
 
     @Override
     public void goToLocation(final int locationId) {
-        mFragment = LocationFragment.newInstance(locationId);
-        getSupportFragmentManager()
-                .beginTransaction()
-                .replace(R.id.current_fragment, mFragment)
-                .addToBackStack(null)
-                .commit();
+        mViewModel.setFragment(LocationFragment.newInstance(locationId));
+        goToFragment(mViewModel.getFragment());
     }
 
     @SuppressLint("NonConstantResourceId")
     private void initUI() {
+        mViewModelFactory = new MainViewModelFactory();
+        mViewModel = new ViewModelProvider(this, mViewModelFactory).get(MainViewModel.class);
+
         BottomNavigationView mBottomNavigationView = findViewById(R.id.bottom_navigation);
 
-        if (mFragment == null) {
-            mFragment = CharacterListFragment.newInstance();
+        if (mViewModel.getFragment() == null) {
+            mViewModel.setFragment(CharacterListFragment.newInstance());
             getSupportFragmentManager()
                     .beginTransaction()
-                    .add(R.id.current_fragment, mFragment)
+                    .add(R.id.current_fragment, mViewModel.getFragment())
                     .commit();
         }
 
@@ -77,29 +73,29 @@ public final class MainActivity extends AppCompatActivity implements Navigation 
             switch (item.getItemId()) {
                 case R.id.page_1: {
                     clearBackStack();
-                    mFragment = CharacterListFragment.newInstance();
-                    startFragment(mFragment);
+                    mViewModel.setFragment(CharacterListFragment.newInstance());
+                    startFragment(mViewModel.getFragment());
                     break;
                 }
 
                 case R.id.page_2: {
                     clearBackStack();
-                    mFragment = LocationListFragment.newInstance();
-                    startFragment(mFragment);
+                    mViewModel.setFragment(LocationListFragment.newInstance());
+                    startFragment(mViewModel.getFragment());
                     break;
                 }
 
                 case R.id.page_3: {
                     clearBackStack();
-                    mFragment = EpisodeListFragment.newInstance();
-                    startFragment(mFragment);
+                    mViewModel.setFragment(EpisodeListFragment.newInstance());
+                    startFragment(mViewModel.getFragment());
                     break;
                 }
 
                 case R.id.page_4: {
                     clearBackStack();
-                    mFragment = SettingsFragment.newInstance();
-                    startFragment(mFragment);
+                    mViewModel.setFragment(SettingsFragment.newInstance());
+                    startFragment(mViewModel.getFragment());
                     break;
                 }
             }
@@ -111,6 +107,14 @@ public final class MainActivity extends AppCompatActivity implements Navigation 
         getSupportFragmentManager()
                 .beginTransaction()
                 .replace(R.id.current_fragment, fragment)
+                .commit();
+    }
+
+    private void goToFragment(@NonNull final Fragment fragment) {
+        getSupportFragmentManager()
+                .beginTransaction()
+                .replace(R.id.current_fragment, fragment)
+                .addToBackStack(null)
                 .commit();
     }
 
