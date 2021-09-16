@@ -16,7 +16,6 @@ import com.eugenebaturov.rickandmorty.app.App;
 import com.eugenebaturov.rickandmorty.di.location.LocationComponent;
 import com.eugenebaturov.rickandmorty.presentation.viewmodel.location.LocationViewModel;
 import com.eugenebaturov.rickandmorty.presentation.viewmodel.location.LocationViewModelFactory;
-import com.eugenebaturov.rickandmorty.utils.Extras;
 
 import javax.inject.Inject;
 
@@ -24,6 +23,7 @@ import javax.inject.Inject;
  * Фрагмент локации.
  */
 public final class LocationFragment extends Fragment {
+    private static final String EXTRA_LOCATION_ID = "EXTRA_LOCATION_ID";
     private int mLocationId;
 
     private TextView mLocationTitleTextView;
@@ -68,7 +68,7 @@ public final class LocationFragment extends Fragment {
     }
 
     private void getLocationArgs() {
-        mLocationId = requireArguments().getInt(Extras.EXTRA_LOCATION_ID);
+        mLocationId = requireArguments().getInt(EXTRA_LOCATION_ID);
     }
 
     private void initUI(View view) {
@@ -93,7 +93,7 @@ public final class LocationFragment extends Fragment {
      */
     public static LocationFragment newInstance(final int locationId) {
         Bundle args = new Bundle();
-        args.putInt(Extras.EXTRA_LOCATION_ID, locationId);
+        args.putInt(EXTRA_LOCATION_ID, locationId);
         LocationFragment fragment = new LocationFragment();
         fragment.setArguments(args);
         return fragment;
