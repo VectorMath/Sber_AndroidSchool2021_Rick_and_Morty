@@ -32,11 +32,12 @@ public final class EpisodeListFragment extends Fragment {
     private RecyclerView mRecyclerView;
     private EpisodesAdapter mAdapter;
 
-    @Inject
-    EpisodeListViewModelFactory mViewModelFactory;
+    private BottomNavigation mBottomNavigation;
 
     private EpisodeListViewModel mViewModel;
-    private BottomNavigation mBottomNavigation;
+
+    @Inject
+    EpisodeListViewModelFactory mViewModelFactory;
 
     @Nullable
     @Override
@@ -44,6 +45,7 @@ public final class EpisodeListFragment extends Fragment {
             @NonNull LayoutInflater inflater,
             @Nullable ViewGroup container,
             @Nullable Bundle savedInstanceState) {
+        injectDependency();
         initViewModel();
         return inflater.inflate(R.layout.fragment_list_episodes, container, false);
     }
@@ -52,10 +54,9 @@ public final class EpisodeListFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         initUI(view);
-        setRecyclerView();
-        mViewModel.loadEpisodes();
         observeEpisodes();
         observeProgress();
+        mViewModel.loadEpisodes();
     }
 
     @Override
@@ -77,10 +78,13 @@ public final class EpisodeListFragment extends Fragment {
         void goToEpisode(final int episodeId, final int imageRecourse);
     }
 
-    private void initViewModel() {
+    private void injectDependency() {
         EpisodeComponent episodeComponent
                 = App.getAppComponent(requireContext()).getEpisodeComponent();
         episodeComponent.inject(this);
+    }
+
+    private void initViewModel() {
         mViewModel = new ViewModelProvider(
                 this,
                 mViewModelFactory)
@@ -88,10 +92,11 @@ public final class EpisodeListFragment extends Fragment {
     }
 
     private void initUI(View view) {
-        SearchView mSearchView = view.findViewById(R.id.episode_searchView);
         mProgress = view.findViewById(R.id.progress_bar);
         mRecyclerView = view.findViewById(R.id.recyclerView_episodes);
+        setRecyclerView();
 
+        SearchView mSearchView = view.findViewById(R.id.episode_searchView);
         mSearchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {

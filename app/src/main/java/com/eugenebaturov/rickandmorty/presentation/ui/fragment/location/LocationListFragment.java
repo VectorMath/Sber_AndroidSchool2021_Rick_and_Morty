@@ -32,11 +32,12 @@ public final class LocationListFragment extends Fragment {
     private RecyclerView mRecyclerView;
     private LocationsAdapter mAdapter;
 
-    @Inject
-    LocationListViewModelFactory mViewModelFactory;
+    private BottomNavigation mBottomNavigation;
 
     private LocationListViewModel mViewModel;
-    private BottomNavigation mBottomNavigation;
+
+    @Inject
+    LocationListViewModelFactory mViewModelFactory;
 
     @Nullable
     @Override
@@ -44,6 +45,7 @@ public final class LocationListFragment extends Fragment {
             @NonNull LayoutInflater inflater,
             @Nullable ViewGroup container,
             @Nullable Bundle savedInstanceState) {
+        injectDependency();
         initViewModel();
         return inflater.inflate(R.layout.fragment_list_locations, container, false);
     }
@@ -52,10 +54,9 @@ public final class LocationListFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         initUI(view);
-        setRecyclerView();
-        mViewModel.loadLocations();
         observeLocations();
         observeProgress();
+        mViewModel.loadLocations();
     }
 
     @Override
@@ -77,11 +78,25 @@ public final class LocationListFragment extends Fragment {
         void goToLocation(int locationId);
     }
 
+    private void injectDependency() {
+        LocationComponent locationComponent
+                = App.getAppComponent(requireContext()).getLocationComponent();
+        locationComponent.inject(this);
+    }
+
+    private void initViewModel() {
+        mViewModel = new ViewModelProvider(
+                this,
+                mViewModelFactory)
+                .get(LocationListViewModel.class);
+    }
+
     private void initUI(View view) {
-        SearchView mSearchView = view.findViewById(R.id.location_searchView);
         mProgress = view.findViewById(R.id.progress_bar);
         mRecyclerView = view.findViewById(R.id.recyclerView_locations);
+        setRecyclerView();
 
+        SearchView mSearchView = view.findViewById(R.id.location_searchView);
         mSearchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
@@ -94,16 +109,6 @@ public final class LocationListFragment extends Fragment {
                 return false;
             }
         });
-    }
-
-    private void initViewModel() {
-        LocationComponent locationComponent
-                = App.getAppComponent(requireContext()).getLocationComponent();
-        locationComponent.inject(this);
-        mViewModel = new ViewModelProvider(
-                this,
-                mViewModelFactory)
-                .get(LocationListViewModel.class);
     }
 
     private void setRecyclerView() {

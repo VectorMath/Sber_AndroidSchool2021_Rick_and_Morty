@@ -32,11 +32,12 @@ public final class CharacterListFragment extends Fragment {
     private RecyclerView mRecyclerView;
     private CharactersAdapter mAdapter;
 
-    @Inject
-    CharacterListViewModelFactory mViewModelFactory;
+    private BottomNavigation mBottomNavigation;
 
     private CharacterListViewModel mViewModel;
-    private BottomNavigation mBottomNavigation;
+
+    @Inject
+    CharacterListViewModelFactory mViewModelFactory;
 
     @Nullable
     @Override
@@ -44,6 +45,7 @@ public final class CharacterListFragment extends Fragment {
             @NonNull LayoutInflater inflater,
             @Nullable ViewGroup container,
             @Nullable Bundle savedInstanceState) {
+        injectDependency();
         initViewModel();
         return inflater.inflate(R.layout.fragment_list_characters, container, false);
     }
@@ -52,10 +54,9 @@ public final class CharacterListFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         initUI(view);
-        setRecyclerView();
-        mViewModel.loadCharacters();
         observeCharacters();
         observeProgress();
+        mViewModel.loadCharacters();
     }
 
     @Override
@@ -77,10 +78,13 @@ public final class CharacterListFragment extends Fragment {
         void goToCharacter(final int characterId);
     }
 
-    private void initViewModel() {
+    private void injectDependency() {
         CharacterComponent characterComponent
                 = App.getAppComponent(requireContext()).getCharacterComponent();
         characterComponent.inject(this);
+    }
+
+    private void initViewModel() {
         mViewModel = new ViewModelProvider(
                 this,
                 mViewModelFactory)
@@ -88,10 +92,11 @@ public final class CharacterListFragment extends Fragment {
     }
 
     private void initUI(View view) {
-        SearchView mSearchView = view.findViewById(R.id.character_searchView);
         mProgress = view.findViewById(R.id.progress_bar);
         mRecyclerView = view.findViewById(R.id.recyclerView_characters);
+        setRecyclerView();
 
+        SearchView mSearchView = view.findViewById(R.id.character_searchView);
         mSearchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {

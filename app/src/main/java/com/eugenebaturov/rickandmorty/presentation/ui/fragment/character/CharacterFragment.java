@@ -21,7 +21,6 @@ import com.eugenebaturov.rickandmorty.presentation.ui.activity.MainActivity;
 import com.eugenebaturov.rickandmorty.presentation.ui.fragment.location.LocationFragment;
 import com.eugenebaturov.rickandmorty.presentation.viewmodel.character.CharacterViewModel;
 import com.eugenebaturov.rickandmorty.presentation.viewmodel.character.CharacterViewModelFactory;
-import com.eugenebaturov.rickandmorty.utils.Extras;
 import com.eugenebaturov.rickandmorty.utils.IdTaker;
 import com.eugenebaturov.rickandmorty.utils.ImageLoader;
 
@@ -31,18 +30,15 @@ import javax.inject.Inject;
  * Фрагмент, который отображает конкретного персонажа.
  */
 public final class CharacterFragment extends Fragment {
+    private static final String EXTRA_CHARACTER_ID = "EXTRA_CHARACTER_ID";
     private static final String UNKNOWN = "unknown";
     private static final String NOTHING = "-";
 
     private int mCharacterId;
     private int mOriginId;
     private int mCurrentLocationId;
+
     private FromTo mFromTo;
-
-    @Inject
-    CharacterViewModelFactory mViewModelFactory;
-
-    private CharacterViewModel mViewModel;
 
     private ImageView mCharacterAvatarImageView;
     private TextView mCharacterNameTextView;
@@ -52,15 +48,20 @@ public final class CharacterFragment extends Fragment {
     private TextView mCharacterOriginLinkTextView;
     private TextView mCharacterCurrentLocationLinkTextView;
 
+    private CharacterViewModel mViewModel;
+
+    @Inject
+    CharacterViewModelFactory mViewModelFactory;
+
     @Nullable
     @Override
     public View onCreateView(
             @NonNull LayoutInflater inflater,
             @Nullable ViewGroup container,
             @Nullable Bundle savedInstanceState) {
-
-        getCharacterArgs();
+        injectDependency();
         initViewModel();
+        getCharacterArgs();
         return inflater.inflate(R.layout.fragment_character, container, false);
     }
 
@@ -68,8 +69,8 @@ public final class CharacterFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         initUI(view);
-        mViewModel.loadCharacterById(mCharacterId);
         observeCharacter();
+        mViewModel.loadCharacterById(mCharacterId);
     }
 
     @Override
@@ -98,15 +99,16 @@ public final class CharacterFragment extends Fragment {
     }
 
     private void getCharacterArgs() {
-        Bundle mBundle = this.getArguments();
-        if (mBundle != null)
-            mCharacterId = mBundle.getInt(Extras.EXTRA_CHARACTER_ID);
+        mCharacterId = requireArguments().getInt(EXTRA_CHARACTER_ID);
     }
 
-    private void initViewModel() {
+    private void injectDependency() {
         CharacterComponent characterComponent
                 = App.getAppComponent(requireContext()).getCharacterComponent();
         characterComponent.inject(this);
+    }
+
+    private void initViewModel() {
         mViewModel = new ViewModelProvider(
                 this,
                 mViewModelFactory)
@@ -187,7 +189,7 @@ public final class CharacterFragment extends Fragment {
      */
     public static Fragment newInstance(final int characterId) {
         Bundle args = new Bundle();
-        args.putInt(Extras.EXTRA_CHARACTER_ID, characterId);
+        args.putInt(EXTRA_CHARACTER_ID, characterId);
         CharacterFragment fragment = new CharacterFragment();
         fragment.setArguments(args);
         return fragment;

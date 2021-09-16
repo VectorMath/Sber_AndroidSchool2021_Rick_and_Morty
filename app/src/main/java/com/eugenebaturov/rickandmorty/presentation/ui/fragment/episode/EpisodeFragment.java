@@ -17,30 +17,34 @@ import com.eugenebaturov.rickandmorty.app.App;
 import com.eugenebaturov.rickandmorty.di.episode.EpisodeComponent;
 import com.eugenebaturov.rickandmorty.presentation.viewmodel.episode.EpisodeViewModel;
 import com.eugenebaturov.rickandmorty.presentation.viewmodel.episode.EpisodeViewModelFactory;
-import com.eugenebaturov.rickandmorty.utils.Extras;
 
 import javax.inject.Inject;
 
 public final class EpisodeFragment extends Fragment {
+    private static final String EXTRA_EPISODE_ID = "EXTRA_EPISODE_ID";
+    private static final String EXTRA_EPISODE_IMAGE = "EXTRA_EPISODE_IMAGE";
+
     private int mEpisodeId;
     private int mSeasonImageResource;
-    private EpisodeViewModel mViewModel;
-
-    @Inject
-    EpisodeViewModelFactory mViewModelFactory;
 
     private ImageView mEpisodeSeasonImageView;
     private TextView mEpisodeTitleTextView;
     private TextView mEpisodeNumberTextView;
     private TextView mEpisodeAirDateTextView;
 
+    private EpisodeViewModel mViewModel;
+
+    @Inject
+    EpisodeViewModelFactory mViewModelFactory;
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater,
                              @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-        getEpisodeArgs();
+        injectDependency();
         initViewModel();
+        getEpisodeArgs();
         return inflater.inflate(R.layout.fragment_episode, container, false);
     }
 
@@ -48,27 +52,27 @@ public final class EpisodeFragment extends Fragment {
     public void onViewCreated(@NonNull View view,
                               @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
         initUI(view);
-        mViewModel.loadEpisodeById(mEpisodeId);
         observeEpisode();
+        mViewModel.loadEpisodeById(mEpisodeId);
     }
 
-    private void getEpisodeArgs() {
-        Bundle mBundle = this.getArguments();
-        if (mBundle != null) {
-            mEpisodeId = mBundle.getInt(Extras.EXTRA_EPISODE_ID);
-            mSeasonImageResource = mBundle.getInt(Extras.EXTRA_EPISODE_IMAGE);
-        }
+    private void injectDependency() {
+        EpisodeComponent mEpisodeComponent
+                = App.getAppComponent(requireContext()).getEpisodeComponent();
+        mEpisodeComponent.inject(this);
     }
 
     private void initViewModel() {
-        EpisodeComponent mComponent = App.getAppComponent(requireContext()).getEpisodeComponent();
-        mComponent.inject(this);
         mViewModel = new ViewModelProvider(
                 this,
                 mViewModelFactory)
                 .get(EpisodeViewModel.class);
+    }
+
+    private void getEpisodeArgs() {
+        mEpisodeId = requireArguments().getInt(EXTRA_EPISODE_ID);
+        mSeasonImageResource = requireArguments().getInt(EXTRA_EPISODE_IMAGE);
     }
 
     private void initUI(View view) {
@@ -94,10 +98,10 @@ public final class EpisodeFragment extends Fragment {
      * @param imageResource ресурс изображения сезона.
      * @return фрагмент эпизода.
      */
-    public static EpisodeFragment newInstance(int episodeId, int imageResource) {
+    public static EpisodeFragment newInstance(final int episodeId, final int imageResource) {
         Bundle args = new Bundle();
-        args.putInt(Extras.EXTRA_EPISODE_ID, episodeId);
-        args.putInt(Extras.EXTRA_EPISODE_IMAGE, imageResource);
+        args.putInt(EXTRA_EPISODE_ID, episodeId);
+        args.putInt(EXTRA_EPISODE_IMAGE, imageResource);
         EpisodeFragment fragment = new EpisodeFragment();
         fragment.setArguments(args);
         return fragment;

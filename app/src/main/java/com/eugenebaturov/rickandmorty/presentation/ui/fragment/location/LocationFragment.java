@@ -25,22 +25,24 @@ import javax.inject.Inject;
  */
 public final class LocationFragment extends Fragment {
     private int mLocationId;
-    private LocationViewModel mViewModel;
-
-    @Inject
-    LocationViewModelFactory mViewModelFactory;
 
     private TextView mLocationTitleTextView;
     private TextView mLocationTypeTextView;
     private TextView mLocationDimensionTextView;
+
+    private LocationViewModel mViewModel;
+
+    @Inject
+    LocationViewModelFactory mViewModelFactory;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater,
                              @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-        getLocationArgs();
+        injectDependency();
         initViewModel();
+        getLocationArgs();
         return inflater.inflate(R.layout.fragment_location, container, false);
     }
 
@@ -52,20 +54,21 @@ public final class LocationFragment extends Fragment {
         observeLocation();
     }
 
-    private void getLocationArgs() {
-        Bundle args = this.getArguments();
-        if (args != null)
-            mLocationId = args.getInt(Extras.EXTRA_LOCATION_ID);
-    }
-
-    private void initViewModel() {
+    private void injectDependency() {
         LocationComponent mComponent
                 = App.getAppComponent(requireContext()).getLocationComponent();
         mComponent.inject(this);
+    }
+
+    private void initViewModel() {
         mViewModel = new ViewModelProvider(
                 this,
                 mViewModelFactory)
                 .get(LocationViewModel.class);
+    }
+
+    private void getLocationArgs() {
+        mLocationId = requireArguments().getInt(Extras.EXTRA_LOCATION_ID);
     }
 
     private void initUI(View view) {
