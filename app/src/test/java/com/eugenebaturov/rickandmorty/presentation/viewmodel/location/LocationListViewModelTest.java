@@ -46,6 +46,9 @@ public class LocationListViewModelTest {
     @Mock
     private Observer<Throwable> mError;
 
+    @Mock
+    private Observer<Throwable> mSearchError;
+
     private LocationListViewModel mLocationListViewModel;
 
 
@@ -66,6 +69,8 @@ public class LocationListViewModelTest {
                 .getError().observeForever(mError);
         mLocationListViewModel
                 .getProgress().observeForever(mProgress);
+        mLocationListViewModel
+                .getSearchError().observeForever(mSearchError);
     }
 
     /**
@@ -119,7 +124,7 @@ public class LocationListViewModelTest {
 
         // Act
         mLocationListViewModel.loadLocations(LOCATION_NAME_QUERY);
-        InOrder inOrder = Mockito.inOrder(mError, mLocations, mProgress);
+        InOrder inOrder = Mockito.inOrder(mSearchError, mLocations, mProgress);
 
         // Assert
         inOrder.verify(mProgress).onChanged(true);
@@ -143,6 +148,6 @@ public class LocationListViewModelTest {
         mLocationListViewModel.loadLocations(INCORRECT_QUERY);
 
         // Assert
-        Mockito.verify(mError).onChanged(ArgumentMatchers.isA(IllegalAccessException.class));
+        Mockito.verify(mSearchError).onChanged(ArgumentMatchers.isA(IllegalAccessException.class));
     }
 }

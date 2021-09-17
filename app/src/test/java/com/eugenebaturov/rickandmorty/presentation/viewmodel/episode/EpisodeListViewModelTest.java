@@ -46,6 +46,9 @@ public class EpisodeListViewModelTest {
     @Mock
     private Observer<Throwable> mError;
 
+    @Mock
+    private Observer<Throwable> mSearchError;
+
     @Rule
     public final InstantTaskExecutorRule mRule = new InstantTaskExecutorRule();
 
@@ -58,6 +61,7 @@ public class EpisodeListViewModelTest {
         mEpisodeListViewModel.getEpisodes().observeForever(mEpisodes);
         mEpisodeListViewModel.getProgress().observeForever(mProgress);
         mEpisodeListViewModel.getError().observeForever(mError);
+        mEpisodeListViewModel.getSearchError().observeForever(mSearchError);
 
         Mockito.when(mSchedulerProvider.io()).thenReturn(Schedulers.trampoline());
         Mockito.when(mSchedulerProvider.ui()).thenReturn(Schedulers.trampoline());
@@ -97,7 +101,7 @@ public class EpisodeListViewModelTest {
 
         // Act
         mEpisodeListViewModel.loadEpisodes(EPISODE_NAME_QUERY);
-        InOrder inOrder = Mockito.inOrder(mError, mEpisodes, mProgress);
+        InOrder inOrder = Mockito.inOrder(mSearchError, mEpisodes, mProgress);
 
         // Assert
         inOrder.verify(mProgress).onChanged(true);
@@ -139,6 +143,6 @@ public class EpisodeListViewModelTest {
         mEpisodeListViewModel.loadEpisodes(INCORRECT_QUERY);
 
         // Assert
-        Mockito.verify(mError).onChanged(ArgumentMatchers.isA(IllegalAccessException.class));
+        Mockito.verify(mSearchError).onChanged(ArgumentMatchers.isA(IllegalAccessException.class));
     }
 }
