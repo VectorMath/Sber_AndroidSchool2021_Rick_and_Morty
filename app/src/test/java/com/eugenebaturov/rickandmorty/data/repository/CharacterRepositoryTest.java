@@ -1,6 +1,7 @@
 package com.eugenebaturov.rickandmorty.data.repository;
 
 import com.eugenebaturov.rickandmorty.data.api.CharacterApi;
+import com.eugenebaturov.rickandmorty.data.db.CharacterDao;
 import com.eugenebaturov.rickandmorty.data.repository.character.CharacterRepository;
 import com.eugenebaturov.rickandmorty.data.repository.character.CharacterRepositoryImpl;
 import com.eugenebaturov.rickandmorty.models.data.CharacterResponse;
@@ -46,12 +47,14 @@ public class CharacterRepositoryTest {
     private static final String INCORRECT_QUERY = "_30RS_FJDFIK2F_JEFK";
 
     private CharacterApi mApi;
+    private CharacterDao mCharacterDao;
     private CharacterRepository mRepository;
 
     @Before
     public void setUp() {
         mApi = Mockito.mock(CharacterApi.class);
-        mRepository = new CharacterRepositoryImpl(mApi);
+        mCharacterDao = Mockito.mock(CharacterDao.class);
+        mRepository = new CharacterRepositoryImpl(mApi, mCharacterDao);
     }
 
     /**

@@ -40,7 +40,7 @@ public final class MainActivity extends AppCompatActivity implements Navigation 
         setContentView(R.layout.activity_main);
         injectDependency();
         initViewModel();
-        initUI();
+        initUI(savedInstanceState);
     }
 
     @Override
@@ -72,8 +72,8 @@ public final class MainActivity extends AppCompatActivity implements Navigation 
     }
 
     @SuppressLint("NonConstantResourceId")
-    private void initUI() {
-        if (mViewModel.getFragment() == null) {
+    private void initUI(Bundle savedInstanceState) {
+        if (savedInstanceState == null) {
             mViewModel.setFragment(CharacterListFragment.newInstance());
             getSupportFragmentManager()
                     .beginTransaction()

@@ -12,6 +12,7 @@ import com.eugenebaturov.rickandmorty.models.domain.Character;
 import java.util.List;
 
 import io.reactivex.rxjava3.core.Completable;
+import io.reactivex.rxjava3.core.Maybe;
 import io.reactivex.rxjava3.core.Single;
 
 @Dao
@@ -27,8 +28,8 @@ public interface CharacterDao {
     Single<List<Character>> getAll();
 
     @Query("SELECT * FROM character_table WHERE name = :query")
-    Single<List<Character>> getCharactersByQuery(@NonNull final String query);
+    Maybe<List<Character>> getCharactersByQuery(@NonNull final String query);
 
     @Query("SELECT * FROM character_table WHERE id = :characterId")
-    Single<Character> getCharacterById(final int characterId);
+    Maybe<Character> getCharacterById(final int characterId);
 }

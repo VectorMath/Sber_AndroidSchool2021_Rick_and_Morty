@@ -35,4 +35,6 @@
 
     <!--Preference string-->
     <string name="night_mode">Night mode</string>
+    <string name="restart">Restart</string>
+    <string name="network_error">Network error</string>
 </resources>

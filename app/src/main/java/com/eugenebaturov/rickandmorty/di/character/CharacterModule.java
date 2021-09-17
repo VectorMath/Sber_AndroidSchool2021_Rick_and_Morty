@@ -96,8 +96,8 @@ public final class CharacterModule {
      * @return репозиторий персонажей
      */
     @Provides
-    CharacterRepository provideRepository(CharacterApi characterApi) {
-        return new CharacterRepositoryImpl(characterApi);
+    CharacterRepository provideRepository(CharacterApi characterApi, CharacterDao characterDao) {
+        return new CharacterRepositoryImpl(characterApi, characterDao);
     }
 
     @Provides

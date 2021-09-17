@@ -4,8 +4,10 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.SearchView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -26,6 +28,8 @@ import javax.inject.Inject;
  * Фрагмент, который отображает список локаций.
  */
 public final class LocationListFragment extends BaseFragment {
+    private SearchView mSearchView;
+    private Button mRestartBtn;
     private ProgressBar mProgress;
     private RecyclerView mRecyclerView;
     private LocationsAdapter mAdapter;
@@ -52,7 +56,10 @@ public final class LocationListFragment extends BaseFragment {
         initUI(view);
         observeLocations();
         observeProgress();
-        mViewModel.loadLocations();
+        if (mSearchView.getQuery() == "")
+            mViewModel.loadLocations();
+        else
+            mViewModel.loadLocations(mSearchView.getQuery().toString());
     }
 
     private void injectDependency() {
@@ -73,10 +80,17 @@ public final class LocationListFragment extends BaseFragment {
         mRecyclerView = view.findViewById(R.id.recyclerView_locations);
         setRecyclerView();
 
-        SearchView mSearchView = view.findViewById(R.id.location_searchView);
+        mRestartBtn = view.findViewById(R.id.btn_restart);
+        mRestartBtn.setOnClickListener(v -> {
+            mRestartBtn.setVisibility(View.INVISIBLE);
+            mViewModel.loadLocations();
+        });
+
+        mSearchView = view.findViewById(R.id.location_searchView);
         mSearchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
+                mViewModel.loadLocations(query);
                 return false;
             }
 
@@ -106,6 +120,13 @@ public final class LocationListFragment extends BaseFragment {
                 mProgress.setVisibility(View.INVISIBLE);
             else
                 mProgress.setVisibility(View.VISIBLE);
+        });
+    }
+
+    private void observeError() {
+        mViewModel.getError().observe(getViewLifecycleOwner(), throwable -> {
+            Toast.makeText(requireContext(), R.string.network_error, Toast.LENGTH_SHORT).show();
+            mRestartBtn.setVisibility(View.VISIBLE);
         });
     }
 

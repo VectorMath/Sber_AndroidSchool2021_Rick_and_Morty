@@ -5,8 +5,11 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.SearchView;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -27,7 +30,9 @@ import javax.inject.Inject;
  * Фрагмент, который отображает список персонажей.
  */
 public final class CharacterListFragment extends BaseFragment {
+    private SearchView mSearchView;
     private ProgressBar mProgress;
+    private Button mRestartBtn;
     private RecyclerView mRecyclerView;
     private CharactersAdapter mAdapter;
 
@@ -51,9 +56,14 @@ public final class CharacterListFragment extends BaseFragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         initUI(view);
+        observeError();
         observeCharacters();
         observeProgress();
-        mViewModel.loadCharacters();
+
+        if (mSearchView.getQuery() == "")
+            mViewModel.loadCharacters();
+        else
+            mViewModel.loadCharacters(mSearchView.getQuery().toString());
     }
 
     private void injectDependency() {
@@ -74,10 +84,18 @@ public final class CharacterListFragment extends BaseFragment {
         mRecyclerView = view.findViewById(R.id.recyclerView_characters);
         setRecyclerView();
 
-        SearchView mSearchView = view.findViewById(R.id.character_searchView);
+        mRestartBtn = view.findViewById(R.id.btn_restart);
+        mRestartBtn.setOnClickListener(v -> {
+            mRestartBtn.setVisibility(View.INVISIBLE);
+            mViewModel.loadCharacters();
+        });
+
+        mSearchView = view.findViewById(R.id.character_searchView);
         mSearchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
+                mViewModel.loadCharacters(query);
+                mSearchView.clearFocus();
                 return false;
             }
 
@@ -98,17 +116,23 @@ public final class CharacterListFragment extends BaseFragment {
     private void observeCharacters() {
         mViewModel.getCharacters().observe(
                 getViewLifecycleOwner(),
-                characters -> {
-                    Log.d("ttest", characters.toString());
-                    mAdapter.updateData(characters);
-                });
+                characters -> mAdapter.updateData(characters));
     }
+
+
+    private void observeError() {
+        mViewModel.getError().observe(getViewLifecycleOwner(), throwable -> {
+            Toast.makeText(requireContext(), R.string.network_error, Toast.LENGTH_SHORT).show();
+            mRestartBtn.setVisibility(View.VISIBLE);
+        });
+    }
+
 
     private void observeProgress() {
         mViewModel.getProgress().observe(getViewLifecycleOwner(), progress -> {
-            if (!progress)
+            if (!progress) {
                 mProgress.setVisibility(View.INVISIBLE);
-            else
+            } else
                 mProgress.setVisibility(View.VISIBLE);
         });
     }
