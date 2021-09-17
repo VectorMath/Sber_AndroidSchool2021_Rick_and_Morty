@@ -1,7 +1,5 @@
 package com.eugenebaturov.rickandmorty.data.api;
 
-import com.eugenebaturov.rickandmorty.BuildConfig;
-
 /**
  * Класс, который хранит в себе урлы, для Rick&MortyAPI.
  */

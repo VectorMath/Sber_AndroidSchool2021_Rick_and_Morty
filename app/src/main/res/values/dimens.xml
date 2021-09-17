@@ -4,6 +4,10 @@
     <dimen name="item_character_image_width">280dp</dimen>
     <dimen name="item_character_image_height">220dp</dimen>
 
+    <!--Character-->
+    <dimen name="character_statusImage_width">30dp</dimen>
+    <dimen name="character_statusImage_height">30dp</dimen>
+
     <!--Item location -->
     <dimen name="item_location_type_image_width">60dp</dimen>
     <dimen name="item_location_type_image_height">60dp</dimen>
@@ -17,19 +21,20 @@
     <dimen name="item_episode_characters_numb_image_height">30dp</dimen>
 
     <!--Margin-->
-    <dimen name="large_margin">16dp</dimen>
-    <dimen name="medium_margin">8dp</dimen>
-    <dimen name="small_margin">4dp</dimen>
+    <dimen name="margin_64">64dp</dimen>
+    <dimen name="margin_16">16dp</dimen>
+    <dimen name="margin_8">8dp</dimen>
+    <dimen name="margin_4">4dp</dimen>
 
     <!--Padding-->
-    <dimen name="large_padding">16dp</dimen>
-    <dimen name="medium_padding">8dp</dimen>
-    <dimen name="small_padding">4dp</dimen>
+    <dimen name="padding_16">16dp</dimen>
+    <dimen name="padding_8">8dp</dimen>
+    <dimen name="padding_4">4dp</dimen>
 
     <!--TextSize-->
-    <dimen name="large_textSize">24sp</dimen>
-    <dimen name="medium_textSize">18sp</dimen>
-    <dimen name="small_textSize">16sp</dimen>
+    <dimen name="text_size_24">24sp</dimen>
+    <dimen name="text_size_18">18sp</dimen>
+    <dimen name="text_size_16">16sp</dimen>
 
     <!--CardView-->
     <dimen name="cardView_corner_radius">16dp</dimen>

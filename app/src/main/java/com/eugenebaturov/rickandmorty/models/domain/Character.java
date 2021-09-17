@@ -4,12 +4,9 @@ import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
 import androidx.room.Embedded;
 import androidx.room.Entity;
-import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
-import androidx.room.TypeConverter;
 import androidx.room.TypeConverters;
 
-import com.eugenebaturov.rickandmorty.data.converter.ListConverter;
 import com.eugenebaturov.rickandmorty.data.converter.StringConverter;
 import com.eugenebaturov.rickandmorty.models.data.CurrentLocation;
 import com.eugenebaturov.rickandmorty.models.data.Origin;

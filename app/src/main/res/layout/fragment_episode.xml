@@ -5,7 +5,9 @@
     android:layout_height="match_parent">
 
     <androidx.cardview.widget.CardView
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_marginStart="@dimen/margin_64"
+        android:layout_marginEnd="@dimen/margin_64"
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -13,26 +15,27 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <LinearLayout
+            android:layout_gravity="center"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:padding="@dimen/medium_padding">
+            android:padding="@dimen/padding_8">
 
             <TextView
                 android:id="@+id/episode_title_textView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:layout_margin="@dimen/medium_margin"
+                android:layout_margin="@dimen/margin_8"
                 android:text="@string/episode_title"
                 android:textAlignment="center"
-                android:textSize="@dimen/large_textSize" />
+                android:textSize="@dimen/text_size_24" />
 
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:layout_margin="@dimen/medium_margin"
+                android:layout_margin="@dimen/margin_8"
                 android:orientation="horizontal"
                 android:textAlignment="center">
 
@@ -41,13 +44,13 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
                     android:text="@string/season"
-                    android:textSize="@dimen/medium_textSize" />
+                    android:textSize="@dimen/text_size_18" />
 
                 <ImageView
                     android:id="@+id/episode_season_numb_imageView"
                     android:layout_width="@dimen/item_episode_season_numb_image_width"
                     android:layout_height="@dimen/item_episode_season_numb_image_height"
-                    android:layout_marginStart="@dimen/small_margin"
+                    android:layout_marginStart="@dimen/margin_4"
                     android:src="@drawable/ic_first_season_black" />
 
             </LinearLayout>
@@ -56,7 +59,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
-                android:layout_margin="@dimen/medium_margin"
+                android:layout_margin="@dimen/margin_8"
                 android:orientation="horizontal"
                 android:textAlignment="center">
 
@@ -65,16 +68,16 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
                     android:text="@string/episode"
-                    android:textSize="@dimen/medium_textSize" />
+                    android:textSize="@dimen/text_size_18" />
 
                 <TextView
                     android:id="@+id/episode_number_textView"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
-                    android:layout_marginStart="@dimen/small_margin"
+                    android:layout_marginStart="@dimen/margin_4"
                     android:text="@string/episode_number"
-                    android:textSize="@dimen/medium_textSize" />
+                    android:textSize="@dimen/text_size_18" />
 
             </LinearLayout>
 
@@ -83,10 +86,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
-                android:layout_margin="@dimen/medium_margin"
+                android:layout_margin="@dimen/margin_8"
                 android:text="@string/air_date"
                 android:textAlignment="center"
-                android:textSize="@dimen/medium_textSize" />
+                android:textSize="@dimen/text_size_18" />
         </LinearLayout>
     </androidx.cardview.widget.CardView>
 

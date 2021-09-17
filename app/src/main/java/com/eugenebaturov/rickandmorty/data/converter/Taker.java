@@ -1,13 +1,10 @@
 package com.eugenebaturov.rickandmorty.data.converter;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 
 import com.eugenebaturov.rickandmorty.BuildConfig;
 import com.eugenebaturov.rickandmorty.R;
 
-import static com.eugenebaturov.rickandmorty.data.api.RickAndMortyURL.CHARACTERS_URL;
-import static com.eugenebaturov.rickandmorty.data.api.RickAndMortyURL.EPISODES_URL;
 import static com.eugenebaturov.rickandmorty.data.api.RickAndMortyURL.LOCATIONS_URL;
 
 /**

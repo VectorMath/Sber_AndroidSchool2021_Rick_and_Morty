@@ -50,34 +50,6 @@ public final class LocationModule {
     }
 
     /**
-     * Предоставляет вью-модельку {@link LocationListViewModel}.
-     *
-     * @param schedulerProvider  шедулер.
-     * @param locationInteractor интерактор локаций.
-     * @return вью-моделька списка локаций.
-     */
-    @Provides
-    LocationListViewModel provideListViewModel(
-            SchedulerProvider schedulerProvider,
-            LocationInteractor locationInteractor) {
-        return new LocationListViewModel(schedulerProvider, locationInteractor);
-    }
-
-    /**
-     * Предоставляет вью-модельку {@link LocationViewModel}.
-     *
-     * @param schedulerProvider  шедулер.
-     * @param locationInteractor интерактор локаций.
-     * @return вью-моделька локации.
-     */
-    @Provides
-    LocationViewModel provideViewModel(
-            SchedulerProvider schedulerProvider,
-            LocationInteractor locationInteractor) {
-        return new LocationViewModel(schedulerProvider, locationInteractor);
-    }
-
-    /**
      * Предоставляет интерактор локаций {@link LocationInteractor}.
      *
      * @param locationRepository репозиторий локаций.

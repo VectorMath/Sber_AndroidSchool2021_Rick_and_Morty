@@ -50,40 +50,11 @@ public final class EpisodeModule {
     }
 
     /**
-     * Предоставляет вью-модельку {@link EpisodeListViewModel}
-     *
-     * @param schedulerProvider шедулер.
-     * @param episodeInteractor интерактор эпизодов.
-     * @return вью-модель списка эпизодов.
-     */
-    @Provides
-    EpisodeListViewModel provideListViewModel(
-            SchedulerProvider schedulerProvider,
-            EpisodeInteractor episodeInteractor) {
-        return new EpisodeListViewModel(schedulerProvider, episodeInteractor);
-    }
-
-    /**
-     * Предоставляет вью-модельку {@link EpisodeViewModel}
-     *
-     * @param schedulerProvider шедулер.
-     * @param episodeInteractor интерактор эпизодов.
-     * @return вью-модель эпизода.
-     */
-    @Provides
-    EpisodeViewModel provideViewModel(
-            SchedulerProvider schedulerProvider,
-            EpisodeInteractor episodeInteractor) {
-        return new EpisodeViewModel(schedulerProvider, episodeInteractor);
-    }
-
-    /**
      * Предоставляет интерактор эпизодов {@link EpisodeInteractor}.
      *
      * @param episodeRepository репозиторий эпизодов.
      * @return интерактор эпизодов.
      */
-    // Нейминг
     @Provides
     EpisodeInteractor provideInteractor(EpisodeRepository episodeRepository) {
         return new EpisodeInteractorImpl(episodeRepository);

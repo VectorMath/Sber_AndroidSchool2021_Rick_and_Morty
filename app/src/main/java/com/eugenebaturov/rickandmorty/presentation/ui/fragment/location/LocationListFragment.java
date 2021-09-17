@@ -17,10 +17,14 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.eugenebaturov.rickandmorty.App;
 import com.eugenebaturov.rickandmorty.R;
 import com.eugenebaturov.rickandmorty.di.location.LocationSubcomponent;
+import com.eugenebaturov.rickandmorty.models.domain.Location;
 import com.eugenebaturov.rickandmorty.presentation.ui.adapter.LocationsAdapter;
 import com.eugenebaturov.rickandmorty.presentation.ui.fragment.BaseFragment;
 import com.eugenebaturov.rickandmorty.presentation.viewmodel.location.LocationListViewModel;
 import com.eugenebaturov.rickandmorty.presentation.viewmodel.location.LocationListViewModelFactory;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.inject.Inject;
 
@@ -56,10 +60,14 @@ public final class LocationListFragment extends BaseFragment {
         initUI(view);
         observeLocations();
         observeProgress();
+        observeError();
+        observeSearchError();
+
         if (mSearchView.getQuery() == "")
             mViewModel.loadLocations();
         else
             mViewModel.loadLocations(mSearchView.getQuery().toString());
+
     }
 
     private void injectDependency() {
@@ -97,7 +105,7 @@ public final class LocationListFragment extends BaseFragment {
             @Override
             public boolean onQueryTextChange(String newText) {
                 mViewModel.loadLocations(newText);
-                return false;
+                return true;
             }
         });
     }
@@ -127,6 +135,14 @@ public final class LocationListFragment extends BaseFragment {
         mViewModel.getError().observe(getViewLifecycleOwner(), throwable -> {
             Toast.makeText(requireContext(), R.string.network_error, Toast.LENGTH_SHORT).show();
             mRestartBtn.setVisibility(View.VISIBLE);
+        });
+    }
+
+    private void observeSearchError() {
+        mViewModel.getSearchError().observe(getViewLifecycleOwner(),
+        throwable -> {
+            List<Location> empty = new ArrayList<>();
+            mAdapter.updateData(empty);
         });
     }
 

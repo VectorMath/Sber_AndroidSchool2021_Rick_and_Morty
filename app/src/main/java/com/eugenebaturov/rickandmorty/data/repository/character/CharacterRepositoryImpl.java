@@ -51,6 +51,7 @@ public final class CharacterRepositoryImpl implements CharacterRepository {
     Single<List<Character>> getCharacters(@NonNull final String query) {
         final Converter<ListCharacterResponse, List<Character>> mConverter
                 = new CharactersConverter();
+
         return mCharacterApi.getCharacters(query).map(mConverter::convert);
     }
 

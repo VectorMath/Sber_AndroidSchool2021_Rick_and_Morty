@@ -26,6 +26,9 @@ public final class LocationListViewModel extends RxViewModel {
     private final MutableLiveData<Throwable> mError = new MutableLiveData<>();
 
     @NonNull
+    private final MutableLiveData<Throwable> mSearchError = new MutableLiveData<>();
+
+    @NonNull
     private final SchedulerProvider mSchedulerProvider;
 
     @NonNull
@@ -72,6 +75,15 @@ public final class LocationListViewModel extends RxViewModel {
     }
 
     /**
+     * Getter для приватного поля mError.
+     *
+     * @return ошибку поиска в {@link LiveData} обёртке.
+     */
+    public LiveData<Throwable> getSearchError() {
+        return mSearchError;
+    }
+
+    /**
      * Метод, в котором поле mLocations подписывается на источник данных
      * в виде получения информации о всех локациях с сервера.
      */
@@ -96,6 +108,6 @@ public final class LocationListViewModel extends RxViewModel {
                 .observeOn(mSchedulerProvider.ui())
                 .doFinally(() -> mProgress.setValue(false))
                 .doOnSubscribe(d -> mProgress.setValue(true))
-                .subscribe(mLocations::setValue, mError::setValue));
+                .subscribe(mLocations::setValue, mSearchError::setValue));
     }
 }

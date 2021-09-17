@@ -1,7 +1,6 @@
 package com.eugenebaturov.rickandmorty.models.domain;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.VisibleForTesting;
 
 import com.eugenebaturov.rickandmorty.models.data.LocationResponse;
 

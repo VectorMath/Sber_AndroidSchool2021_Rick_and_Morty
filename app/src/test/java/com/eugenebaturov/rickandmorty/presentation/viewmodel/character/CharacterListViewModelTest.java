@@ -46,6 +46,9 @@ public class CharacterListViewModelTest {
     @Mock
     private Observer<Throwable> mError;
 
+    @Mock
+    private Observer<Throwable> mSearchError;
+
     private CharacterListViewModel mCharacterListViewModel;
 
 
@@ -63,8 +66,6 @@ public class CharacterListViewModelTest {
         mCharacterListViewModel
                 .getCharacters().observeForever(mCharacters);
         mCharacterListViewModel
-                .getError().observeForever(mError);
-        mCharacterListViewModel
                 .getProgress().observeForever(mProgress);
     }
 
@@ -73,6 +74,8 @@ public class CharacterListViewModelTest {
      */
     @Test
     public void testLoadCharacters() {
+        mCharacterListViewModel
+                .getError().observeForever(mError);
         // Arrange
         Mockito
                 .when(mCharacterInteractor.getCharacters())
@@ -95,6 +98,8 @@ public class CharacterListViewModelTest {
      */
     @Test
     public void testLoadCharactersWithQuery() {
+        mCharacterListViewModel
+                .getError().observeForever(mSearchError);
         // Arrange
         Mockito
                 .when(mCharacterInteractor.getCharacters(CHARACTER_NAME_QUERY))
@@ -102,7 +107,7 @@ public class CharacterListViewModelTest {
 
         // Act
         mCharacterListViewModel.loadCharacters(CHARACTER_NAME_QUERY);
-        InOrder inOrder = Mockito.inOrder(mError, mCharacters, mProgress);
+        InOrder inOrder = Mockito.inOrder(mSearchError, mCharacters, mProgress);
 
         // Assert
         inOrder.verify(mProgress).onChanged(true);
@@ -117,6 +122,8 @@ public class CharacterListViewModelTest {
      */
     @Test
     public void testLoadCharactersWithError() {
+        mCharacterListViewModel
+                .getError().observeForever(mError);
         // Arrange
         Mockito
                 .when(mCharacterInteractor.getCharacters())
@@ -135,6 +142,8 @@ public class CharacterListViewModelTest {
      */
     @Test
     public void testLoadQueryCharactersWithError() {
+        mCharacterListViewModel
+                .getSearchError().observeForever(mSearchError);
         // Arrange
         Mockito
                 .when(mCharacterInteractor.getCharacters(INCORRECT_QUERY))
@@ -144,6 +153,6 @@ public class CharacterListViewModelTest {
         mCharacterListViewModel.loadCharacters(INCORRECT_QUERY);
 
         // Assert
-        Mockito.verify(mError).onChanged(ArgumentMatchers.isA(IllegalAccessException.class));
+        Mockito.verify(mSearchError).onChanged(ArgumentMatchers.isA(IllegalAccessException.class));
     }
 }

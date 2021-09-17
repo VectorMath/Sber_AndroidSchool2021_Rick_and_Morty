@@ -26,6 +26,9 @@ public final class EpisodeListViewModel extends RxViewModel {
     private final MutableLiveData<Throwable> mError = new MutableLiveData<>();
 
     @NonNull
+    private final MutableLiveData<Throwable> mSearchError = new MutableLiveData<>();
+
+    @NonNull
     private final SchedulerProvider mSchedulerProvider;
 
     @NonNull
@@ -72,6 +75,15 @@ public final class EpisodeListViewModel extends RxViewModel {
     }
 
     /**
+     * Getter для приватного поля mSearchError.
+     *
+     * @return ошибку поиска в {@link LiveData} обёртке.
+     */
+    public LiveData<Throwable> getSearchError() {
+        return mSearchError;
+    }
+
+    /**
      * Метод в котором поле mEpisodes подписывается на источник данных
      * в виде получение информации об эпизодах с сервера.
      */
@@ -81,7 +93,7 @@ public final class EpisodeListViewModel extends RxViewModel {
                 .subscribeOn(mSchedulerProvider.io())
                 .observeOn(mSchedulerProvider.ui())
                 .doFinally(() -> mProgress.setValue(false))
-                .doOnSubscribe(d -> mProgress.setValue(true))
+                .doOnSubscribe(d -> mProgress.setValue(true) )
                 .subscribe(mEpisodes::setValue, mError::setValue));
     }
 
@@ -98,6 +110,6 @@ public final class EpisodeListViewModel extends RxViewModel {
                 .observeOn(mSchedulerProvider.ui())
                 .doFinally(() -> mProgress.setValue(false))
                 .doOnSubscribe(d -> mProgress.setValue(true))
-                .subscribe(mEpisodes::setValue, mError::setValue));
+                .subscribe(mEpisodes::setValue, mSearchError::setValue));
     }
 }

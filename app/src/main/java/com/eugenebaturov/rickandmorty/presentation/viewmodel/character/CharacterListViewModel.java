@@ -26,6 +26,9 @@ public final class CharacterListViewModel extends RxViewModel {
     private final MutableLiveData<Throwable> mError = new MutableLiveData<>();
 
     @NonNull
+    private final MutableLiveData<Throwable> mSearchError = new MutableLiveData<>();
+
+    @NonNull
     private final SchedulerProvider mSchedulerProvider;
 
     @NonNull
@@ -71,6 +74,10 @@ public final class CharacterListViewModel extends RxViewModel {
         return mError;
     }
 
+    public LiveData<Throwable> getSearchError() {
+        return mSearchError;
+    }
+
     /**
      * Метод, в котором поле mCharacters подписывается на источник данных
      * в виде получение информации о персонажах с сервера.
@@ -103,6 +110,7 @@ public final class CharacterListViewModel extends RxViewModel {
                 .observeOn(mSchedulerProvider.ui())
                 .doFinally(() -> mProgress.setValue(false))
                 .doOnSubscribe(d -> mProgress.setValue(true))
-                .subscribe(mCharacters::setValue, mError::setValue));
+                .subscribe(mCharacters::setValue, mSearchError::setValue));
+
     }
 }

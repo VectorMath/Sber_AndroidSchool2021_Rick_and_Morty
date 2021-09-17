@@ -3,10 +3,10 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginStart="64dp"
-    android:layout_marginEnd="64dp"
-    android:layout_marginTop="@dimen/large_margin"
-    android:layout_marginBottom="@dimen/large_margin">
+    android:layout_marginStart="@dimen/margin_64"
+    android:layout_marginEnd="@dimen/margin_64"
+    android:layout_marginTop="@dimen/margin_16"
+    android:layout_marginBottom="@dimen/margin_16">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -16,7 +16,7 @@
             android:id="@+id/location_type_imageView"
             android:layout_width="@dimen/item_location_type_image_width"
             android:layout_height="@dimen/item_location_type_image_height"
-            android:layout_margin="@dimen/medium_margin"
+            android:layout_margin="@dimen/margin_8"
             android:src="@drawable/ic_location_black"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -25,9 +25,9 @@
             android:id="@+id/location_type_textView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="@dimen/small_margin"
+            android:layout_margin="@dimen/margin_4"
             android:text="@string/type_of_location"
-            android:textSize="@dimen/medium_textSize"
+            android:textSize="@dimen/text_size_18"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="@id/location_type_imageView"
             app:layout_constraintStart_toEndOf="@id/location_type_imageView"
@@ -35,24 +35,29 @@
 
 
         <TextView
+            android:layout_marginStart="@dimen/margin_8"
             android:id="@+id/location_title_textView"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
+            android:layout_marginEnd="@dimen/margin_4"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/small_margin"
+            android:layout_marginTop="@dimen/margin_4"
             android:text="@string/location_title"
-            android:textSize="@dimen/large_textSize"
+            android:textSize="@dimen/text_size_24"
             app:layout_constraintStart_toStartOf="@id/location_type_imageView"
             app:layout_constraintTop_toBottomOf="@id/location_type_imageView" />
 
         <TextView
+            android:layout_marginStart="@dimen/margin_8"
+            android:layout_marginEnd="64dp"
             android:id="@+id/location_dimension_textView"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/small_margin"
-            android:layout_marginBottom="@dimen/medium_margin"
+            android:layout_marginTop="@dimen/margin_4"
+            android:layout_marginBottom="@dimen/margin_8"
             android:text="@string/dimension"
-            android:textSize="@dimen/medium_textSize"
+            android:textSize="@dimen/text_size_18"
             app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/location_population_imageView"
             app:layout_constraintStart_toStartOf="@id/location_title_textView"
             app:layout_constraintTop_toBottomOf="@id/location_title_textView" />
 
@@ -60,18 +65,19 @@
             android:id="@+id/location_population_imageView"
             android:layout_width="@dimen/item_location_population_image_width"
             android:layout_height="@dimen/item_location_population_image_height"
-            android:layout_marginEnd="@dimen/small_margin"
+            android:layout_marginEnd="@dimen/margin_4"
             android:src="@drawable/ic_population_black"
+            app:layout_constraintEnd_toStartOf="@id/location_population_count_textView"
             app:layout_constraintBottom_toBottomOf="@id/location_dimension_textView"
-            app:layout_constraintEnd_toStartOf="@id/location_population_count_textView" />
+             />
 
         <TextView
             android:id="@+id/location_population_count_textView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="@dimen/medium_margin"
+            android:layout_margin="@dimen/margin_8"
             android:text="@string/residents_count"
-            android:textSize="@dimen/small_textSize"
+            android:textSize="@dimen/text_size_16"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="@id/location_population_imageView"
             app:layout_constraintEnd_toEndOf="parent"

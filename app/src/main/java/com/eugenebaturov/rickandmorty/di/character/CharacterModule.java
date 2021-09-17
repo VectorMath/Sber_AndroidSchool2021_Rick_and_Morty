@@ -51,34 +51,6 @@ public final class CharacterModule {
     }
 
     /**
-     * Предоставляет вью-модельку {@link CharacterViewModel}
-     *
-     * @param schedulerProvider   шедулер.
-     * @param characterInteractor интерактор персонажей.
-     * @return вью-модель персонажа.
-     */
-    @Provides
-    CharacterViewModel provideViewModel(
-            SchedulerProvider schedulerProvider,
-            CharacterInteractor characterInteractor) {
-        return new CharacterViewModel(schedulerProvider, characterInteractor);
-    }
-
-    /**
-     * Предоставляет вью-модельку {@link CharacterListViewModel}
-     *
-     * @param schedulerProvider   шедулер.
-     * @param characterInteractor интерактор персонажей.
-     * @return вью-модель списка персонажей.
-     */
-    @Provides
-    CharacterListViewModel provideListViewModel(
-            SchedulerProvider schedulerProvider,
-            CharacterInteractor characterInteractor) {
-        return new CharacterListViewModel(schedulerProvider, characterInteractor);
-    }
-
-    /**
      * Предоставляет интерактор персонажей {@link CharacterInteractor}.
      *
      * @param characterRepository репозиторий персонажей.

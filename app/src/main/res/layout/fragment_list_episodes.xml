@@ -11,6 +11,7 @@
         android:layout_height="wrap_content">
 
         <androidx.appcompat.widget.Toolbar
+            style="@style/ToolbarStyle"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             app:layout_scrollFlags="scroll|enterAlways">
@@ -19,7 +20,7 @@
                 android:id="@+id/episode_searchView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="@dimen/medium_margin"
+                android:layout_margin="@dimen/margin_8"
                 android:background="@color/white" />
         </androidx.appcompat.widget.Toolbar>
     </com.google.android.material.appbar.AppBarLayout>

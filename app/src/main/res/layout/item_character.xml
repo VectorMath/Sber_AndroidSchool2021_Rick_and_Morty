@@ -3,10 +3,10 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginTop="@dimen/large_margin"
-    android:layout_marginBottom="@dimen/large_margin"
-    android:layout_marginStart="64dp"
-    android:layout_marginEnd="64dp">
+    android:layout_marginTop="@dimen/margin_16"
+    android:layout_marginBottom="@dimen/margin_16"
+    android:layout_marginStart="@dimen/margin_64"
+    android:layout_marginEnd="@dimen/margin_64">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="wrap_content"
@@ -17,7 +17,7 @@
             android:id="@+id/character_imageView"
             android:layout_width="@dimen/item_character_image_width"
             android:layout_height="@dimen/item_character_image_height"
-            android:layout_margin="@dimen/medium_margin"
+            android:layout_margin="@dimen/margin_8"
             android:src="@drawable/ic_launcher_background"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -25,12 +25,12 @@
 
         <TextView
             android:id="@+id/character_name_textView"
-            android:layout_width="200dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="@dimen/medium_margin"
+            android:layout_margin="@dimen/margin_8"
             android:text="@string/character_name"
             android:textAlignment="center"
-            android:textSize="@dimen/large_textSize"
+            android:textSize="@dimen/text_size_24"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/character_imageView" />
@@ -39,8 +39,8 @@
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/small_margin"
-            android:layout_marginBottom="@dimen/large_margin"
+            android:layout_marginTop="@dimen/margin_4"
+            android:layout_marginBottom="@dimen/margin_16"
             android:orientation="horizontal"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -58,10 +58,10 @@
                 android:id="@+id/character_status_textView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/small_margin"
+                android:layout_marginStart="@dimen/margin_4"
                 android:text="@string/character_status"
                 android:textAlignment="center"
-                android:textSize="@dimen/medium_textSize" />
+                android:textSize="@dimen/text_size_18" />
 
         </LinearLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>

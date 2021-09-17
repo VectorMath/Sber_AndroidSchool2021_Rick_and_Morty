@@ -5,7 +5,6 @@ import android.content.Context;
 import com.eugenebaturov.rickandmorty.di.character.CharacterSubcomponent;
 import com.eugenebaturov.rickandmorty.di.episode.EpisodeSubcomponent;
 import com.eugenebaturov.rickandmorty.di.location.LocationSubcomponent;
-import com.eugenebaturov.rickandmorty.di.main.MainActivitySubcomponent;
 
 import javax.inject.Singleton;
 
@@ -18,14 +17,6 @@ import dagger.Component;
 @Singleton
 @Component(modules = {AppModule.class})
 public interface AppComponent {
-
-    /**
-     * Предоставляет подкомпонент с зависимостями для главной активити.
-     *
-     * @return подкомпонент {@link MainActivitySubcomponent}.
-     */
-    MainActivitySubcomponent getMainActivitySubcomponent();
-
     /**
      * Предоставляет подкомпонент с зависимостями для персонажей.
      *

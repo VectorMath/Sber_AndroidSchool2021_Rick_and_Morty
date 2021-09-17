@@ -1,11 +1,9 @@
-package com.eugenebaturov.rickandmorty.prefs;
+package com.eugenebaturov.rickandmorty.presentation.ui.fragment;
 
 import android.content.SharedPreferences;
 import android.os.Bundle;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatDelegate;
-import androidx.preference.Preference;
 import androidx.preference.PreferenceFragmentCompat;
 import androidx.preference.PreferenceManager;
 import androidx.preference.SwitchPreference;

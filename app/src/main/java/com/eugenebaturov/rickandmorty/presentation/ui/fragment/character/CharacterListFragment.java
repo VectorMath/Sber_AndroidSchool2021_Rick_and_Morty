@@ -1,14 +1,12 @@
 package com.eugenebaturov.rickandmorty.presentation.ui.fragment.character;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.SearchView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -19,10 +17,14 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.eugenebaturov.rickandmorty.App;
 import com.eugenebaturov.rickandmorty.R;
 import com.eugenebaturov.rickandmorty.di.character.CharacterSubcomponent;
+import com.eugenebaturov.rickandmorty.models.domain.Character;
 import com.eugenebaturov.rickandmorty.presentation.ui.adapter.CharactersAdapter;
 import com.eugenebaturov.rickandmorty.presentation.ui.fragment.BaseFragment;
 import com.eugenebaturov.rickandmorty.presentation.viewmodel.character.CharacterListViewModel;
 import com.eugenebaturov.rickandmorty.presentation.viewmodel.character.CharacterListViewModelFactory;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.inject.Inject;
 
@@ -49,6 +51,7 @@ public final class CharacterListFragment extends BaseFragment {
             @Nullable Bundle savedInstanceState) {
         injectDependency();
         initViewModel();
+
         return inflater.inflate(R.layout.fragment_list_characters, container, false);
     }
 
@@ -56,14 +59,18 @@ public final class CharacterListFragment extends BaseFragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         initUI(view);
-        observeError();
-        observeCharacters();
         observeProgress();
+        observeCharacters();
+        observeError();
+        observeSearchError();
 
-        if (mSearchView.getQuery() == "")
-            mViewModel.loadCharacters();
-        else
-            mViewModel.loadCharacters(mSearchView.getQuery().toString());
+        if (savedInstanceState == null) {
+            if (mSearchView.getQuery().toString().isEmpty()) {
+                mViewModel.loadCharacters();
+            }
+            else
+                mViewModel.loadCharacters(mSearchView.getQuery().toString());
+        }
     }
 
     private void injectDependency() {
@@ -96,13 +103,13 @@ public final class CharacterListFragment extends BaseFragment {
             public boolean onQueryTextSubmit(String query) {
                 mViewModel.loadCharacters(query);
                 mSearchView.clearFocus();
-                return false;
+                return true;
             }
 
             @Override
             public boolean onQueryTextChange(String newText) {
                 mViewModel.loadCharacters(newText);
-                return false;
+                return true;
             }
         });
     }
@@ -121,10 +128,19 @@ public final class CharacterListFragment extends BaseFragment {
 
 
     private void observeError() {
-        mViewModel.getError().observe(getViewLifecycleOwner(), throwable -> {
+        mViewModel.getError().observe(getViewLifecycleOwnerLiveData().getValue(), throwable -> {
             Toast.makeText(requireContext(), R.string.network_error, Toast.LENGTH_SHORT).show();
             mRestartBtn.setVisibility(View.VISIBLE);
+
         });
+    }
+
+    private void observeSearchError() {
+        mViewModel.getSearchError().observe(getViewLifecycleOwner(),
+                throwable -> {
+                    List<Character> empty = new ArrayList<>();
+                    mAdapter.updateData(empty);
+                });
     }
 
 

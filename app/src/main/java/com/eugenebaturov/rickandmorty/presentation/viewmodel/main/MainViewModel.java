@@ -1,8 +1,6 @@
 package com.eugenebaturov.rickandmorty.presentation.viewmodel.main;
 
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.LiveData;
-import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
 import com.eugenebaturov.rickandmorty.presentation.ui.MainActivity;

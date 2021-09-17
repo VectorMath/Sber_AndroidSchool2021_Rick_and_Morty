@@ -17,10 +17,14 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.eugenebaturov.rickandmorty.App;
 import com.eugenebaturov.rickandmorty.R;
 import com.eugenebaturov.rickandmorty.di.episode.EpisodeSubcomponent;
+import com.eugenebaturov.rickandmorty.models.domain.Episode;
 import com.eugenebaturov.rickandmorty.presentation.ui.adapter.EpisodesAdapter;
 import com.eugenebaturov.rickandmorty.presentation.ui.fragment.BaseFragment;
 import com.eugenebaturov.rickandmorty.presentation.viewmodel.episode.EpisodeListViewModel;
 import com.eugenebaturov.rickandmorty.presentation.viewmodel.episode.EpisodeListViewModelFactory;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.inject.Inject;
 
@@ -55,8 +59,10 @@ public final class EpisodeListFragment extends BaseFragment {
         super.onViewCreated(view, savedInstanceState);
         initUI(view);
         observeError();
+        observeSearchError();
         observeEpisodes();
         observeProgress();
+
         if (mSearchView.getQuery() == "")
             mViewModel.loadEpisodes();
         else
@@ -115,6 +121,14 @@ public final class EpisodeListFragment extends BaseFragment {
             Toast.makeText(requireContext(), R.string.network_error, Toast.LENGTH_SHORT).show();
             mRestartBtn.setVisibility(View.VISIBLE);
         });
+    }
+
+    private void observeSearchError() {
+        mViewModel.getSearchError().observe(getViewLifecycleOwner(),
+                throwable -> {
+                    List<Episode> empty = new ArrayList<>();
+                    mAdapter.updateData(empty);
+                });
     }
 
     private void observeEpisodes() {

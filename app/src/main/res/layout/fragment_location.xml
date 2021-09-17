@@ -4,13 +4,14 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:layout_gravity="center"
-    android:layout_margin="@dimen/medium_margin"
+    android:layout_margin="@dimen/margin_64"
     android:orientation="vertical">
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="wrap_content"
+
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="@dimen/large_padding">
+        android:padding="@dimen/padding_16">
 
 
         <ImageView
@@ -30,7 +31,7 @@
             android:gravity="center_horizontal"
             android:text="@string/location_title"
             android:textAlignment="center"
-            android:textSize="@dimen/large_textSize"
+            android:textSize="@dimen/text_size_24"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/location_imageView" />
@@ -40,10 +41,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_marginTop="@dimen/medium_margin"
+            android:layout_marginTop="@dimen/margin_8"
             android:text="@string/type_of_location"
             android:textAlignment="center"
-            android:textSize="@dimen/medium_textSize"
+            android:textSize="@dimen/text_size_18"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/location_title_textView" />
@@ -53,11 +54,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
-            android:layout_marginTop="@dimen/small_margin"
+            android:layout_marginTop="@dimen/margin_4"
             android:gravity="center"
             android:text="@string/dimension"
             android:textAlignment="center"
-            android:textSize="@dimen/medium_textSize"
+            android:textSize="@dimen/text_size_18"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/location_type_textView" />

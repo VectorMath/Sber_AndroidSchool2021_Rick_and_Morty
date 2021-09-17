@@ -3,7 +3,6 @@ package com.eugenebaturov.rickandmorty.data.converter;
 import androidx.room.TypeConverter;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 /**
  * Конвертирует список в строку.
