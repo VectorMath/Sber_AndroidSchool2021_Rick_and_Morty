@@ -8,6 +8,11 @@ Single activity Приложение-терминал по мульт-вселе
 2. Retrofit.
 3. RxJava.
 4. DI Dagger
+5. JUnit, Mockito, Truth
+6. Picasso
+7. Fragments
+8. ViewModel
+9. SharedPreference
 
 
 ### Архитектура приложения.
